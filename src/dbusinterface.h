@@ -25,8 +25,8 @@
 
 #include "dbusadaptor.h"
 
-const QString INTERFACE_NAME = "de.ygriega.fernschreiber";
-const QString PATH_NAME = "/de/ygriega/fernschreiber";
+const QString INTERFACE_NAME = "io.github.roundedrectangle.fernschreiber2";
+const QString PATH_NAME = "/io/github/roundedrectangle/fernschreiber2";
 
 class DBusInterface : public QObject
 {

@@ -56,9 +56,9 @@ namespace {
     const QString APP_NAME("Fernschreiber");
 
     // Notification hints
-    const QString HINT_GROUP_ID("x-fernschreiber.group_id");        // int
-    const QString HINT_CHAT_ID("x-fernschreiber.chat_id");          // qlonglong
-    const QString HINT_TOTAL_COUNT("x-fernschreiber.total_count");  // int
+    const QString HINT_GROUP_ID("x-fernschreiber2.group_id");        // int
+    const QString HINT_CHAT_ID("x-fernschreiber2.chat_id");          // qlonglong
+    const QString HINT_TOTAL_COUNT("x-fernschreiber2.total_count");  // int
 
     const QString HINT_IMAGE_PATH("image-path");                    // QString
     const QString HINT_VIBRA("x-nemo-vibrate");                     // bool
@@ -126,7 +126,7 @@ NotificationManager::NotificationGroup::~NotificationGroup()
 }
 
 NotificationManager::NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, MceInterface *mceInterface, ChatModel *chatModel) :
-    appIconFile(SailfishApp::pathTo("images/fernschreiber-notification.png").toLocalFile())
+    appIconFile(SailfishApp::pathTo("images/fernschreiber2-notification.png").toLocalFile())
 {
     LOG("Initializing...");
     this->tdLibWrapper = tdLibWrapper;
@@ -335,7 +335,7 @@ void NotificationManager::publishNotification(const NotificationGroup *notificat
         remoteActionArguments.append(QString::number(notificationGroup->chatId));
         remoteActionArguments.append(messageMap.value(ID).toString());
         nemoNotification->setRemoteAction(Notification::remoteAction("default", "openMessage",
-            "de.ygriega.fernschreiber", "/de/ygriega/fernschreiber", "de.ygriega.fernschreiber",
+            "io.github.roundedrectangle.fernschreiber2", "/io/github/roundedrectangle/fernschreiber2", "io.github.roundedrectangle.fernschreiber2",
             "openMessage", remoteActionArguments));
     }
 

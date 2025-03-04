@@ -42,7 +42,7 @@ Page {
 
             Image {
                 id: wunderfitzImage
-                source: "../../images/fernschreiber.svg"
+                source: "../../images/fernschreiber2.svg"
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                 }

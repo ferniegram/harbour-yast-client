@@ -40,7 +40,7 @@ Licensed under GNU GPLv3
 
 ## Build
 ### Local build
-Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init`). Then use the project file `harbour-fernschreiber.pro` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-fernschreiber/src/tdlibsecrets.h` and enter the required constants in the following format:
+Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init`). Then use the project file `harbour-fernschreiber2.pro` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-fernschreiber2/src/tdlibsecrets.h` and enter the required constants in the following format:
 
 ```
 #ifndef TDLIBSECRETS_H
@@ -79,9 +79,9 @@ If you push a tag containing the letter "v" (for example "v0.99.3"), a github re
 ## Debug
 Fernschreiber does only output a few TDLib messages by default. To get its own debug log messages, you can either run a debug build to see all of them or use the environment variable `QT_LOGGING_RULES` to specify/filter which messages you'd like to see.
 
-Run `QT_LOGGING_RULES="fernschreiber.*=true" harbour-fernschreiber` to see all messages or replace the `*` with specific logging categories. You'll find the logging category inside the corresponding `.cpp` file for backend usage or you can use `JS` to only see frontend messages.
+Run `QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2` to see all messages or replace the `*` with specific logging categories. You'll find the logging category inside the corresponding `.cpp` file for backend usage or you can use `JS` to only see frontend messages.
 
-You can append ` &> fernschreiber.log` to the command to create a text file containing the debug messages. 
+You can append ` &> fernschreiber2.log` to the command to create a text file containing the debug messages. 
 
 **Please be aware that debug messages will most likely include personal information** including (but not limited to) chat content and user ids/names of yourself and all your chat partners. Do not share it publicly and, at your discretion, try to remove private info even from the parts you do share with a trusted person.
 

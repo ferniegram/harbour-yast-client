@@ -341,7 +341,7 @@ Page {
 
         PageHeader {
             id: pageHeader
-            title: qsTr("Fernschreiber")
+            title: qsTr("Ferniegram")
             leftMargin: Theme.itemSizeMedium
             visible: opacity > 0
             Behavior on opacity { FadeAnimation {} }

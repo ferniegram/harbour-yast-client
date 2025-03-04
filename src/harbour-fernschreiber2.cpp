@@ -58,11 +58,11 @@
 #include "contactsmodel.h"
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
-// QT_LOGGING_RULES="fernschreiber.*=true" harbour-fernschreiber
+// QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2
 #if defined (QT_DEBUG) || defined(DEBUG)
-#  define DEFAULT_LOG_FILTER "fernschreiber.*=true"
+#  define DEFAULT_LOG_FILTER "fernschreiber2.*=true"
 #else
-#  define DEFAULT_LOG_FILTER "fernschreiber.*=false"
+#  define DEFAULT_LOG_FILTER "fernschreiber2.*=false"
 #endif
 
 Q_IMPORT_PLUGIN(TgsIOPlugin)
@@ -73,11 +73,11 @@ void migrateSettings() {
     int sailfishOSMinorVersion = sailfishOSVersion.value(1).toInt();
     if ((sailfishOSMajorVersion == 4 && sailfishOSMinorVersion >= 4) || sailfishOSMajorVersion > 4) {
         LOG("Checking if we need to migrate settings...");
-        QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/de.ygriega/fernschreiber/settings.conf", QSettings::NativeFormat);
+        QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/io.github.roundedrectangle/fernschreiber2/settings.conf", QSettings::NativeFormat);
         if (settings.contains("migrated")) {
             return;
         }
-        QSettings oldSettings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/harbour-fernschreiber/settings.conf", QSettings::NativeFormat);
+        QSettings oldSettings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/harbour-fernschreiber2/settings.conf", QSettings::NativeFormat);
         const QStringList oldKeys = oldSettings.allKeys();
         if (oldKeys.isEmpty()) {
             return;
@@ -87,7 +87,7 @@ void migrateSettings() {
             settings.setValue(key, oldSettings.value(key));
         }
 
-        QDir oldDataLocation(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/harbour-fernschreiber/harbour-fernschreiber");
+        QDir oldDataLocation(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/harbour-fernschreiber2/harbour-fernschreiber2");
         LOG("Old data directory: " + oldDataLocation.path());
         if (oldDataLocation.exists()) {
             LOG("Old data files detected, migrating files to new location...");
@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
     contactsProxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
     context->setContextProperty("contactsProxyModel", &contactsProxyModel);
 
-    view->setSource(SailfishApp::pathTo("qml/harbour-fernschreiber.qml"));
+    view->setSource(SailfishApp::pathTo("qml/harbour-fernschreiber2.qml"));
     view->show();
     return app->exec();
 }

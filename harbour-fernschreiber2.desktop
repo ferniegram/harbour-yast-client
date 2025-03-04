@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=generic
-Icon=harbour-fernschreiber
-Exec=harbour-fernschreiber
-Name=Fernschreiber
+Icon=harbour-fernschreiber2
+Exec=harbour-fernschreiber2
+Name=Ferniegram
 
 [X-Sailjail]
 Permissions=Audio;Contacts;Documents;Downloads;Internet;Location;MediaIndexing;Microphone;Music;Pictures;Privileged;PublicDir;RemovableMedia;UserDirs;Videos
-OrganizationName=de.ygriega
-ApplicationName=fernschreiber
+OrganizationName=io.github.roundedrectangle
+ApplicationName=fernschreiber2

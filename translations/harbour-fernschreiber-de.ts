@@ -1,2372 +1,2881 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.1">
 <context>
     <name>AboutPage</name>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="40"/>
         <source>About Fernschreiber</source>
-        <translation>Über Fernschreiber</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="73"/>
         <source>A Telegram client for Sailfish OS</source>
-        <translation>Ein Telegram-Client für Sailfish OS</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Send E-Mail</source>
-        <translation>E-Mail verschicken</translation>
-    </message>
-    <message>
-        <source>Licensed under GNU GPLv3</source>
-        <translation>Lizenziert unter der GNU GPLv3</translation>
-    </message>
-    <message>
-        <source>Sources on GitHub</source>
-        <translation>Quelltexte auf GitHub</translation>
-    </message>
-    <message>
-        <source>Terms of Service</source>
-        <translation>Nutzungsbedingungen</translation>
-    </message>
-    <message>
-        <source>Privacy Policy</source>
-        <translation>Datenschutzerklärung</translation>
-    </message>
-    <message>
-        <source>Credits</source>
-        <translation>Danksagungen</translation>
-    </message>
-    <message>
-        <source>This project uses the Telegram Database Library (TDLib). Thanks for making it available under the conditions of the Boost Software License 1.0!</source>
-        <translation>Dieses Projekt nutzt die Telegram Database Library (TDLib). Vielen Dank dafür, dass sie unter den Bedingungen der Boost Software License 1.0 verfügbar gemacht wurde!</translation>
-    </message>
-    <message>
-        <source>Open Telegram Database Library on GitHub</source>
-        <translation>Telegram Database Library auf GitHub öffnen</translation>
-    </message>
-    <message>
-        <source>About Telegram</source>
-        <translation>Über Telegram</translation>
-    </message>
-    <message>
-        <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
-        <translation>Dieses Produkt nutzt die Telegram-API, ist aber von Telegram weder unterstützt noch zertifiziert.</translation>
-    </message>
-    <message>
-        <source>TDLib version %1</source>
-        <translation>TDLib-Version %1</translation>
-    </message>
-    <message>
-        <source>This project uses twemoji. Copyright 2018 Twitter, Inc. and other contributors. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation>Dieses Projekt nutzt twemoji. Copyright 2018 Twitter, Inc. und andere Beitragende. Vielen Dank dafür, dass es unter den Bedingungen der MIT License (Coding) und CC-BY 4.0 (Grafiken) verfügbar gemacht wurde!</translation>
-    </message>
-    <message>
-        <source>Open twemoji on GitHub</source>
-        <translation>Twemoji auf GitHub öffnen</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="81"/>
         <source>By Sebastian J. Wolf and &lt;a href=&quot;https://github.com/Wunderfitz/harbour-fernschreiber#contributions&quot;&gt;other contributors&lt;/a&gt;</source>
-        <translation>Von Sebastian J. Wolf und &lt;a href=&quot;https://github.com/Wunderfitz/harbour-fernschreiber#contributions&quot;&gt;anderen Beitragenden&lt;/a&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="94"/>
+        <source>Send E-Mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="111"/>
+        <source>Licensed under GNU GPLv3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="119"/>
+        <source>Sources on GitHub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="130"/>
+        <source>About Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="137"/>
+        <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="149"/>
+        <source>TDLib version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="158"/>
+        <source>Terms of Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="168"/>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="178"/>
+        <source>Credits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="184"/>
+        <source>This project uses the Telegram Database Library (TDLib). Thanks for making it available under the conditions of the Boost Software License 1.0!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="193"/>
+        <source>Open Telegram Database Library on GitHub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="206"/>
+        <source>This project uses twemoji. Copyright 2018 Twitter, Inc. and other contributors. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="215"/>
+        <source>Open twemoji on GitHub</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AboutPage.qml" line="228"/>
         <source>This project uses rlottie. Copyright 2020 Samsung Electronics Co., Ltd. and other contributors. Thanks for making it available under the conditions of the MIT License!</source>
-        <translation>Dieses Projekt nutzt rlottie. Copyright 2020 Samsung Electronics Co., Ltd. und andere Beitragende. Vielen Dank dafür, dass es unter den Bedingungen der MIT License verfügbar gemacht wurde!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="237"/>
         <source>Open rlottie on GitHub</source>
-        <translation>rlottie auf GitHub öffnen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="250"/>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
-        <translation>Dieses Projekt nutzt OpenStreetMap Nominatim für das reverse Geokodieren von Standort-Anhängen. Vielen Dank dafür, dass es als Web-Service zur Verfügung gestellt wird!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AboutPage.qml" line="259"/>
         <source>Open OSM Nominatim Wiki</source>
-        <translation>OSM Nominatim-Wiki öffnen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>BackgroundProgressIndicator</name>
     <message>
+        <location filename="../qml/components/BackgroundProgressIndicator.qml" line="52"/>
         <source>%1 %</source>
-        <translation>%1 %</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/BackgroundProgressIndicator.qml" line="52"/>
         <source>%1</source>
-        <translation>%1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ChatInformationPageContent</name>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 Abonnent</numerusform>
-            <numerusform>%1 Abonnenten</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 Mitglied</numerusform>
-            <numerusform>%1 Mitglieder</numerusform>
-        </translation>
-    </message>
     <message>
-        <source>Leave Chat</source>
-        <translation>Chat verlassen</translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation>Chat beitreten</translation>
-    </message>
-    <message>
-        <source>Leaving chat</source>
-        <translation>Verlasse Chat</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Unbekannt</translation>
-    </message>
-    <message>
-        <source>Chat Title</source>
-        <comment>group title header</comment>
-        <translation>Chattitel</translation>
-    </message>
-    <message>
-        <source>Enter 1-128 characters</source>
-        <translation>Geben Sie 1-128 Zeichen ein</translation>
-    </message>
-    <message>
-        <source>There is no information text available, yet.</source>
-        <translation>Es gibt noch keinen Informationstext.</translation>
-    </message>
-    <message>
-        <source>Info</source>
-        <comment>group or user infotext header</comment>
-        <translation>Info</translation>
-    </message>
-    <message>
-        <source>Phone Number</source>
-        <comment>user phone number header</comment>
-        <translation>Telefonnummer</translation>
-    </message>
-    <message>
-        <source>Invite Link</source>
-        <comment>header</comment>
-        <translation>Einladungslink</translation>
-    </message>
-    <message>
-        <source>The Invite Link has been copied to the clipboard.</source>
-        <translation>Der Einladungslink wurde in die Zwischenablage kopiert.</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="112"/>
         <source>%1, %2</source>
         <comment>combination of &apos;[x members], [y online]&apos;, which are separate translations</comment>
-        <translation>%1, %2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="113"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="121"/>
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="115"/>
         <source>%1 online</source>
-        <translation>
-            <numerusform>%1 online</numerusform>
-            <numerusform>%1 online</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="119"/>
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <source>New Secret Chat</source>
-        <translation>Neuer geheimer Chat</translation>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="211"/>
+        <source>Leave Chat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="211"/>
+        <source>Join Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="216"/>
+        <source>Leaving chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="238"/>
         <source>Unmute Chat</source>
-        <translation>Stummschaltung des Chats aufheben</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="238"/>
         <source>Mute Chat</source>
-        <translation>Chat stummschalten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="245"/>
+        <source>New Secret Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="302"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="383"/>
         <source>ID has been copied to the clipboard.</source>
-        <translation>ID wurde in die Zwischenablage kopiert</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="391"/>
+        <source>Chat Title</source>
+        <comment>group title header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="408"/>
+        <source>Enter 1-128 characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="416"/>
+        <source>There is no information text available, yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="417"/>
+        <source>Info</source>
+        <comment>group or user infotext header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="430"/>
+        <source>Phone Number</source>
+        <comment>user phone number header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="439"/>
+        <source>Invite Link</source>
+        <comment>header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="457"/>
+        <source>The Invite Link has been copied to the clipboard.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ChatInformationTabItemMembersGroups</name>
     <message>
-        <source>You</source>
-        <translation>Sie</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml" line="30"/>
         <source>Loading common chats…</source>
         <comment>chats you have in common with a user</comment>
-        <translation>Lade gemeinsame Chats…</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml" line="30"/>
         <source>Loading group members…</source>
-        <translation>Lade Gruppenmitglieder…</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml" line="71"/>
         <source>You don&apos;t have any groups in common with this user.</source>
-        <translation>Sie haben mit diesem Benutzer keine gemeinsamen Gruppen.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This group is empty.</source>
-        <translation>Diese Gruppe ist leer.</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml" line="71"/>
         <source>Channel members are anonymous.</source>
-        <translation>Mitglieder von Kanälen sind anonym.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml" line="71"/>
+        <source>This group is empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml" line="82"/>
+        <source>You</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ChatInformationTabView</name>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="130"/>
         <source>Groups</source>
         <comment>Button: groups in common (short)</comment>
-        <translation>Gruppen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="130"/>
         <source>Members</source>
         <comment>Button: Group Members</comment>
-        <translation>Mitglieder</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="137"/>
         <source>Settings</source>
         <comment>Button: Chat Settings</comment>
-        <translation>Einstellungen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ChatListViewItem</name>
     <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="19"/>
         <source>Unknown</source>
-        <translation>Unbekannt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You</source>
-        <translation>Sie</translation>
-    </message>
-    <message>
-        <source>User Info</source>
-        <translation>Benutzerinfos</translation>
-    </message>
-    <message>
-        <source>Group Info</source>
-        <translation>Gruppeninfos</translation>
-    </message>
-    <message>
-        <source>Mark all messages as read</source>
-        <translation>Nachrichten als gelesen markieren</translation>
-    </message>
-    <message>
-        <source>No message in this chat.</source>
-        <translation>Keine Nachricht in diesem Chat.</translation>
-    </message>
-    <message>
-        <source>Mark chat as unread</source>
-        <translation>Chat als ungelesen markieren</translation>
-    </message>
-    <message>
-        <source>Mark chat as read</source>
-        <translation>Chat als gelesen markieren</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="21"/>
         <source>Draft</source>
-        <translation>Entwurf</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="21"/>
+        <source>You</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="23"/>
+        <source>No message in this chat.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="60"/>
+        <source>Mark all messages as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="68"/>
+        <source>Mark chat as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="68"/>
+        <source>Mark chat as unread</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="75"/>
         <source>Unpin chat</source>
-        <translation>Chat losheften</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="75"/>
         <source>Pin chat</source>
-        <translation>Chat anheften</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="90"/>
         <source>Unmute chat</source>
-        <translation>Stummschaltung des Chats aufheben</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="90"/>
         <source>Mute chat</source>
-        <translation>Chat stummschalten</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="101"/>
+        <source>User Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="101"/>
+        <source>Group Info</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
-        <source>Unknown</source>
-        <translation>Unbekannt</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Ihre Nachricht</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 Mitglied</numerusform>
-            <numerusform>%1 Mitglieder</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 Abonnent</numerusform>
-            <numerusform>%1 Abonnenten</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Loading messages...</source>
-        <translation>Lade Nachrichten...</translation>
-    </message>
-    <message>
-        <source>Unmute Chat</source>
-        <translation>Stummschaltung des Chats aufheben</translation>
-    </message>
-    <message>
-        <source>Mute Chat</source>
-        <translation>Chat stummschalten</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Nachricht bearbeiten</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation>bearbeitet</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation>Lade hoch...</translation>
-    </message>
-    <message>
-        <source>This chat is empty.</source>
-        <translation>Dieser Chat ist leer.</translation>
-    </message>
-    <message>
-        <source>Leave Chat</source>
-        <translation>Chat verlassen</translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation>Chat beitreten</translation>
-    </message>
-    <message>
-        <source>Leaving chat</source>
-        <translation>Verlasse Chat</translation>
-    </message>
-    <message>
-        <source>You joined the chat %1</source>
-        <translation>Sie sind dem Chat %1 beigetreten.</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="81"/>
         <source>Select Messages</source>
-        <translation>Nachrichtenauswahl</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <source>%Ln Messages deleted</source>
-        <translation>
-            <numerusform>%Ln Nachrichten gelöscht</numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages have been copied</source>
-        <translation>
-            <numerusform>%Ln Nachrichten wurden kopiert</numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>Forward %Ln messages</source>
-        <comment>dialog header</comment>
-        <translation>
-            <numerusform>%Ln Nachricht weiterleiten</numerusform>
-            <numerusform>%Ln Nachrichten weiterleiten</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="85"/>
         <source>%Ln messages selected</source>
         <comment>number of messages selected</comment>
-        <translation>
-            <numerusform>%Ln Nachricht ausgewählt</numerusform>
-            <numerusform>%Ln Nachrichten ausgewählt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../qml/pages/ChatPage.qml" line="132"/>
+        <source>Deleted User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="142"/>
         <source>%1, %2</source>
         <comment>combination of &apos;[x members], [y online]&apos;, which are separate translations</comment>
-        <translation>%1, %2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="143"/>
+        <location filename="../qml/pages/ChatPage.qml" line="151"/>
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="145"/>
         <source>%1 online</source>
-        <translation>
-            <numerusform>%1 online</numerusform>
-            <numerusform>%1 online</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="149"/>
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
-        <translation>Dieser geheime Chat ist noch nicht bereit. Ihr Chatpartner muss erst noch online gehen.</translation>
+        <location filename="../qml/pages/ChatPage.qml" line="154"/>
+        <location filename="../qml/pages/ChatPage.qml" line="955"/>
+        <source>Leave Chat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Closing chat</source>
-        <translation>Schließe Chat</translation>
+        <location filename="../qml/pages/ChatPage.qml" line="154"/>
+        <location filename="../qml/pages/ChatPage.qml" line="955"/>
+        <source>Join Chat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close Chat</source>
-        <translation>Chat schließen</translation>
-    </message>
-    <message>
-        <source>Search in Chat</source>
-        <translation>Im Chat suchen</translation>
-    </message>
-    <message>
-        <source>Search in chat...</source>
-        <translation>Im Chat suchen...</translation>
-    </message>
-    <message>
-        <source>Location: Obtaining position...</source>
-        <translation>Standort: Erlange Position...</translation>
-    </message>
-    <message>
-        <source>Location (%1/%2)</source>
-        <translation>Standort (%1/%2)</translation>
-    </message>
-    <message>
-        <source>Copy Message to Clipboard</source>
-        <translation>Nachricht in die Zwischenablage kopieren</translation>
-    </message>
-    <message>
-        <source>Message unpinned</source>
-        <translation>Nachricht losgeheftet</translation>
-    </message>
-    <message>
-        <source>Unpin Message</source>
-        <translation>Nachricht losheften</translation>
-    </message>
-    <message>
-        <source>Pin Message</source>
-        <translation>Nachricht anheften</translation>
-    </message>
-    <message>
-        <source>Additional Options</source>
-        <translation>Zusätzliche Optionen</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Nachricht löschen</translation>
-    </message>
-    <message>
-        <source>Forward Message</source>
-        <translation>Nachricht weiterleiten</translation>
-    </message>
-    <message>
-        <source>Unknown address</source>
-        <translation>Unbekannte Adresse</translation>
-    </message>
-    <message>
-        <source>Accuracy: %1m</source>
-        <translation>Genauigkeit: %1m</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="203"/>
         <source>Sponsored Message</source>
-        <translation>Gesponsorte Nachricht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/ChatPage.qml" line="207"/>
+        <source>edited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="359"/>
+        <source>Forward %Ln messages</source>
+        <comment>dialog header</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="692"/>
+        <location filename="../qml/pages/ChatPage.qml" line="971"/>
+        <source>Unmute Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="692"/>
+        <location filename="../qml/pages/ChatPage.qml" line="971"/>
+        <source>Mute Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="708"/>
+        <source>You joined the chat %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="799"/>
+        <source>Copy Message to Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="804"/>
+        <source>Forward Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="811"/>
+        <source>Unpin Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="811"/>
+        <source>Pin Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="814"/>
+        <source>Message unpinned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="823"/>
+        <source>Delete Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="863"/>
+        <source>Additional Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="922"/>
         <source>Deleting chat</source>
-        <translation>Lösche Chat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/ChatPage.qml" line="927"/>
         <source>Delete Chat</source>
-        <translation>Chat löschen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleted User</source>
-        <translation>Gelöschtes Konto</translation>
+        <location filename="../qml/pages/ChatPage.qml" line="935"/>
+        <source>Closing chat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/ChatPage.qml" line="937"/>
+        <source>Close Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="946"/>
+        <source>Leaving chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="982"/>
+        <source>Search in Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1067"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1106"/>
+        <source>Search in chat...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1470"/>
+        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1470"/>
+        <source>This chat is empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1486"/>
+        <source>Loading messages...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1782"/>
+        <source>Location: Obtaining position...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1805"/>
+        <source>Unknown address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1810"/>
+        <source>Location (%1/%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1811"/>
+        <source>Accuracy: %1m</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="1878"/>
+        <source>Uploading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="2039"/>
+        <source>Edit Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="2064"/>
+        <source>Your message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="2212"/>
+        <source>%Ln messages have been copied</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/ChatPage.qml" line="2238"/>
+        <source>%Ln Messages deleted</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ChatPage.qml" line="2272"/>
         <source>Double-tap on a message to choose a reaction</source>
-        <translation>Drücke zweimal auf eine Nachricht, um eine Reaktion auszuwählen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
     <message>
+        <location filename="../qml/pages/ChatSelectionPage.qml" line="64"/>
         <source>Select Chat</source>
-        <translation>Chat auswählen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/ChatSelectionPage.qml" line="104"/>
         <source>You don&apos;t have any chats yet.</source>
-        <translation>Sie haben noch keine Chats.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ContactSync</name>
     <message>
+        <location filename="../qml/components/ContactSync.qml" line="28"/>
         <source>Could not synchronize your contacts with Telegram.</source>
-        <translation>Konnte Ihre Kontakte nicht mit Telegram synchronisieren.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CoverPage</name>
-    <message>
-        <source>in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source>Waiting for network...</source>
-        <translation>Warte auf Netzwerk...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Verbinde zum Netzwerk...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Verbinde zum Proxy...</translation>
-    </message>
-    <message>
-        <source>Connected</source>
-        <translation>Verbunden</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Aktualisiere Inhalte...</translation>
-    </message>
     <message numerus="yes">
-        <source>chats</source>
-        <translation>
-            <numerusform>Chat</numerusform>
-            <numerusform>Chats</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
+        <location filename="../qml/pages/CoverPage.qml" line="36"/>
         <source>unread messages</source>
-        <translation>
-            <numerusform>ungelesene Nachricht</numerusform>
-            <numerusform>ungelesene Nachrichten</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/CoverPage.qml" line="37"/>
+        <source>chats</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CoverPage.qml" line="41"/>
+        <source>Waiting for network...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CoverPage.qml" line="44"/>
+        <source>Connecting to network...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CoverPage.qml" line="47"/>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CoverPage.qml" line="50"/>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CoverPage.qml" line="53"/>
+        <source>Updating content...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CoverPage.qml" line="141"/>
+        <source>in</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EditGroupChatPermissionsColumn</name>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="52"/>
         <source>Group Member Permissions</source>
         <comment>what can normal group members do</comment>
-        <translation>Berechtigungen der Gruppenmitglieder</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="57"/>
         <source>Send Messages</source>
         <comment>member permission</comment>
-        <translation>Nachrichten senden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="67"/>
         <source>Send Media Messages</source>
         <comment>member permission</comment>
-        <translation>Medien senden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="78"/>
         <source>Send Other Messages</source>
         <comment>member permission</comment>
-        <translation>Andere Nachrichten senden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="89"/>
         <source>Add Web Page Previews</source>
         <comment>member permission</comment>
-        <translation>Webseiten-Vorschau hinzufügen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="100"/>
         <source>Change Chat Info</source>
         <comment>member permission</comment>
-        <translation>Chatinformation ändern</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="111"/>
         <source>Invite Users</source>
         <comment>member permission</comment>
-        <translation>Benutzer einladen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="122"/>
         <source>Pin Messages</source>
         <comment>member permission</comment>
-        <translation>Nachrichten anpinnen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="133"/>
         <source>New Members</source>
         <comment>what can new group members do</comment>
-        <translation>Neue Mitglieder</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml" line="141"/>
         <source>New members can see older messages</source>
         <comment>member permission</comment>
-        <translation>Neue Mitglieder können ältere Nachrichten sehen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EditSuperGroupSlowModeColumn</name>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditSuperGroupSlowModeColumn.qml" line="25"/>
         <source>Slow Mode</source>
-        <translation>Langsamer Modus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditSuperGroupSlowModeColumn.qml" line="38"/>
         <source>Off</source>
-        <translation>Aus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/chatInformationPage/EditSuperGroupSlowModeColumn.qml" line="46"/>
         <source>Set how long every chat member has to wait between Messages</source>
-        <translation>Legen Sie fest, wie lange jedes Mitglied zwischen zwei Nachrichten warten muss</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FernschreiberUtils</name>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="125"/>
         <source>sent a picture</source>
         <comment>myself</comment>
-        <translation>haben ein Bild geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="125"/>
         <source>sent a picture</source>
-        <translation>hat ein Bild geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="128"/>
         <source>sent a video</source>
         <comment>myself</comment>
-        <translation>haben ein Video geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="128"/>
         <source>sent a video</source>
-        <translation>hat ein Video geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="131"/>
+        <source>sent a video note</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="131"/>
+        <source>sent a video note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="134"/>
         <source>sent an animation</source>
         <comment>myself</comment>
-        <translation>haben eine Animation geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="134"/>
         <source>sent an animation</source>
-        <translation>hat eine Animation geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="137"/>
+        <source>sent an audio</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="137"/>
+        <source>sent an audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="140"/>
         <source>sent a voice note</source>
-        <translation>hat eine Sprachnachricht geschickt</translation>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="140"/>
+        <source>sent a voice note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="143"/>
         <source>sent a document</source>
         <comment>myself</comment>
-        <translation>haben ein Dokument geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="143"/>
         <source>sent a document</source>
-        <translation>hat ein Dokument geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="146"/>
         <source>sent a location</source>
         <comment>myself</comment>
-        <translation>haben einen Standort geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="146"/>
         <source>sent a location</source>
-        <translation>hat einen Standort geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="149"/>
+        <source>sent a venue</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="149"/>
+        <source>sent a venue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="152"/>
         <source>have registered with Telegram</source>
         <comment>myself</comment>
-        <translation>haben sich bei Telegram angemeldet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="152"/>
         <source>has registered with Telegram</source>
-        <translation>hat sich bei Telegram angemeldet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="155"/>
         <source>joined this chat</source>
         <comment>myself</comment>
-        <translation>sind diesem Chat beigetreten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="155"/>
         <source>joined this chat</source>
-        <translation>ist diesem Chat beigetreten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="159"/>
         <source>were added to this chat</source>
         <comment>myself</comment>
-        <translation>wurden diesem Chat hinzugefügt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="159"/>
         <source>was added to this chat</source>
-        <translation>wurde diesem Chat hinzugefügt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>left this chat</source>
-        <comment>myself</comment>
-        <translation>haben diesen Chat verlassen</translation>
-    </message>
-    <message>
-        <source>left this chat</source>
-        <translation>hat diesen Chat verlassen</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <comment>myself</comment>
-        <translation>haben eine Sprachnachricht geschickt</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <comment>myself</comment>
-        <translation>haben einen Ort geschickt</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <translation>hat einen Ort geschickt</translation>
-    </message>
-    <message>
-        <source>changed the chat title</source>
-        <comment>myself</comment>
-        <translation>haben den Chattitel geändert</translation>
-    </message>
-    <message>
-        <source>changed the chat title</source>
-        <translation>hat den Chattitel geändert</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <comment>myself</comment>
-        <translation>haben eine Umfrage geschickt</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <translation>hat eine Umfrage geschickt</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <comment>myself</comment>
-        <translation>haben ein Quiz geschickt</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <translation>hat ein Quiz geschickt</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <comment>myself</comment>
-        <translation>haben diese Gruppe erstellt</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <translation>hat diese Gruppe erstellt</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <comment>myself</comment>
-        <translation>haben das Chatbild geändert</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <translation>hat das Chatbild geändert</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <comment>myself</comment>
-        <translation>haben das Chatbild gelöscht</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <translation>hat das Chatbild gelöscht</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>myself</comment>
-        <translation>haben die TTL-Einstellung des geheimen Chats geändert</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <translation>hat die TTL-Einstellung des geheimen Chats geändert</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <comment>myself</comment>
-        <translation>haben die Gruppe zu einer Supergruppe erweitert</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <comment>myself</comment>
-        <translation>haben die angeheftete Nachricht geändert</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <translation>hat die angeheftete Nachricht geändert</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <comment>myself</comment>
-        <translation>haben ein Bildschirmfoto dieses Chats erstellt</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <translation>hat ein Bildschirmfoto dieses Chats erstellt</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <comment>myself</comment>
-        <translation>haben eine nicht unterstützte Nachricht gesendet</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <translation>hat eine nicht unterstützte Nachricht gesendet</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <translation>hat eine nicht unterstützte Nachricht geschickt: %1</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <translation>hat die Gruppe zu einer Supergruppe erweitert</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <comment>myself</comment>
-        <translation>haben ein selbstzerstörendes Bild gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <comment>myself</comment>
-        <translation>haben ein selbstzerstörendes Video gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <translation>haben ein selbstzerstörendes Video gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>myself</comment>
-        <translation>haben eine nicht unterstützte Nachricht geschickt: %1</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <translation>hat ein selbstzerstörendes Bild gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <comment>myself</comment>
-        <translation>haben eine Audiodatei gesendet</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <translation>hat eine Audiodatei gesendet</translation>
-    </message>
-    <message>
-        <source>has added %1 to the chat</source>
-        <translation>hat %1 zum Chat hinzugefügt</translation>
-    </message>
-    <message>
-        <source>has removed %1 from the chat</source>
-        <translation>hat %1 vom Chat entfernt</translation>
-    </message>
-    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="169"/>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
-        <translation>haben %1 zum Chat hinzugefügt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="169"/>
+        <source>has added %1 to the chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="174"/>
+        <source>left this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="174"/>
+        <source>left this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="176"/>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
-        <translation>haben %1 vom Chat entfernt</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="176"/>
+        <source>has removed %1 from the chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="180"/>
+        <source>changed the chat title</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="180"/>
+        <source>changed the chat title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="184"/>
+        <source>sent a quiz</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="184"/>
+        <source>sent a quiz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="186"/>
+        <source>sent a poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="186"/>
+        <source>sent a poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="189"/>
+        <source>created this group</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="189"/>
+        <source>created this group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="192"/>
+        <source>changed the chat photo</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="192"/>
+        <source>changed the chat photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="195"/>
+        <source>deleted the chat photo</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="195"/>
+        <source>deleted the chat photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="198"/>
+        <source>changed the secret chat TTL setting</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="198"/>
+        <source>changed the secret chat TTL setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="201"/>
+        <source>upgraded this group to a supergroup</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="201"/>
+        <source>upgraded this group to a supergroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="207"/>
+        <source>changed the pinned message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="207"/>
+        <source>changed the pinned message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="210"/>
+        <source>sent a self-destructing photo that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="210"/>
+        <source>sent a self-destructing photo that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="213"/>
+        <source>sent a self-destructing video that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="213"/>
+        <source>sent a self-destructing video that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="216"/>
+        <source>created a screenshot in this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="216"/>
+        <source>created a screenshot in this chat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../src/fernschreiberutils.cpp" line="220"/>
         <source>scored %Ln points</source>
         <comment>myself</comment>
-        <translation>
-            <numerusform>haben %Ln Punkt erziehlt</numerusform>
-            <numerusform>haben %Ln Punkte erziehlt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
+        <location filename="../src/fernschreiberutils.cpp" line="220"/>
         <source>scored %Ln points</source>
-        <translation>
-            <numerusform>hat %Ln Punkt erziehlt</numerusform>
-            <numerusform>hat %Ln Punkte erziehlt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="223"/>
         <source>sent a game</source>
         <comment>myself</comment>
-        <translation>haben ein Spiel gesendet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/fernschreiberutils.cpp" line="223"/>
         <source>sent a game</source>
-        <translation>hat ein Spiel gesendet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>sent a video note</source>
+        <location filename="../src/fernschreiberutils.cpp" line="226"/>
+        <source>sent an unsupported message</source>
         <comment>myself</comment>
-        <translation>haben eine Videonachricht geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>sent a video note</source>
-        <translation>hat eine Videonachricht geschickt</translation>
+        <location filename="../src/fernschreiberutils.cpp" line="226"/>
+        <source>sent an unsupported message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="229"/>
+        <source>sent an unsupported message: %1</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/fernschreiberutils.cpp" line="229"/>
+        <source>sent an unsupported message: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FullscreenOverlay</name>
     <message numerus="yes">
+        <location filename="../qml/components/messageContent/mediaAlbumPage/FullscreenOverlay.qml" line="55"/>
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
-        <translation>
-            <numerusform>%Ln Nachricht weiterleiten</numerusform>
-            <numerusform>%Ln Nachrichten weiterleiten</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
 <context>
     <name>ImagePage</name>
     <message>
-        <source>Download Picture</source>
-        <translation>Bild herunterladen</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/ImagePage.qml" line="67"/>
         <source>Download of %1 successful.</source>
-        <translation>Download von %1 erfolgreich.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/ImagePage.qml" line="71"/>
         <source>Download failed.</source>
-        <translation>Download fehlgeschlagen.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ImagePage.qml" line="83"/>
+        <source>Download Picture</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>InReplyToRow</name>
     <message>
+        <location filename="../qml/components/InReplyToRow.qml" line="40"/>
         <source>You</source>
-        <translation>Sie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/InReplyToRow.qml" line="47"/>
         <source>Unknown</source>
-        <translation>Unbekannt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/InReplyToRow.qml" line="48"/>
         <source>This message was deleted</source>
-        <translation>Diese Nachricht wurde gelöscht</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>InitializationPage</name>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Willkommen bei Fernschreiber!</translation>
-    </message>
-    <message>
-        <source>Please enter your phone number to continue.</source>
-        <translation>Bitte geben Sie zum Fortfahren Ihre Telefonnummer ein.</translation>
-    </message>
-    <message>
-        <source>Continue</source>
-        <translation>Weiter</translation>
-    </message>
-    <message>
-        <source>Please enter the code that you received:</source>
-        <translation>Bitte geben Sie den Code ein, den Sie erhalten haben:</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation>Laden...</translation>
-    </message>
-    <message>
-        <source>Unable to authenticate you with the entered code.</source>
-        <translation>Es war nicht möglich, Sie mit dem eingegebenen Code zu authentifizieren.</translation>
-    </message>
-    <message>
-        <source>Enter code again</source>
-        <translation>Code erneut eingeben</translation>
-    </message>
-    <message>
-        <source>Restart authentication</source>
-        <translation>Authentifizierung neu starten</translation>
-    </message>
-    <message>
-        <source>Please enter your password:</source>
-        <translation>Bitte geben Sie Ihr Passwort ein:</translation>
-    </message>
-    <message>
-        <source>Register User</source>
-        <translation>Registriere Benutzer</translation>
-    </message>
-    <message>
-        <source>Enter your First Name</source>
-        <translation>Bitte geben Sie ihren Vornamen ein</translation>
-    </message>
-    <message>
-        <source>Enter your Last Name</source>
-        <translation>Bitte geben Sie ihren Nachnamen ein</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="57"/>
         <source>User Registration</source>
-        <translation>Benutzerregistrierung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use the international format, e.g. %1</source>
-        <translation>Nutzen Sie das internationale Format, z.B. %1</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="108"/>
         <source>About Fernschreiber</source>
-        <translation>Über Fernschreiber</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="120"/>
+        <source>Welcome to Fernschreiber!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="139"/>
+        <source>Loading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="154"/>
+        <source>Please enter your phone number to continue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="159"/>
+        <source>Use the international format, e.g. %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="177"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="207"/>
+        <location filename="../qml/pages/InitializationPage.qml" line="243"/>
+        <location filename="../qml/pages/InitializationPage.qml" line="285"/>
+        <location filename="../qml/pages/InitializationPage.qml" line="375"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="229"/>
+        <source>Please enter your password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="266"/>
+        <source>Please enter the code that you received:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="309"/>
+        <source>Unable to authenticate you with the entered code.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="313"/>
+        <source>Enter code again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="324"/>
+        <source>Restart authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="393"/>
+        <source>Enter your First Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="407"/>
+        <source>Enter your Last Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/InitializationPage.qml" line="421"/>
+        <source>Register User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MessageListViewItem</name>
     <message>
-        <source>Reply to Message</source>
-        <translation>Auf Nachricht antworten</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Nachricht bearbeiten</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>Sie</translation>
-    </message>
-    <message>
-        <source>Forwarded Message</source>
-        <translation>Weitergeleitete Nachricht</translation>
-    </message>
-    <message>
-        <source>Select Message</source>
-        <translation>Nachricht auswählen</translation>
-    </message>
-    <message>
-        <source>More Options...</source>
-        <translation>Mehr Optionen...</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="82"/>
         <source>Message deleted</source>
-        <translation>Nachricht gelöscht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="223"/>
+        <source>Reply to Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="228"/>
+        <source>Edit Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="232"/>
+        <source>Select Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="237"/>
         <source>Copy Message to Clipboard</source>
-        <translation>Nachricht in die Zwischenablage kopieren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="242"/>
         <source>Forward Message</source>
-        <translation>Nachricht weiterleiten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="247"/>
         <source>Delete Message</source>
-        <translation>Nachricht löschen</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="263"/>
+        <source>More Options...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="477"/>
+        <source>You</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/MessageListViewItem.qml" line="594"/>
+        <source>Forwarded Message</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
     <message>
+        <location filename="../qml/components/MessageListViewItemSimple.qml" line="51"/>
         <source>You</source>
-        <translation>Sie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/components/MessageListViewItemSimple.qml" line="77"/>
         <source>scored %Ln points in %2</source>
         <comment>myself</comment>
-        <translation>
-            <numerusform>haben %Ln Punkt bei %2 erziehlt</numerusform>
-            <numerusform>haben %Ln Punkte bei %2 erziehlt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/components/MessageListViewItemSimple.qml" line="79"/>
         <source>scored %Ln points in %2</source>
-        <translation>
-            <numerusform>hat %Ln Punkt bei %2 erziehlt</numerusform>
-            <numerusform>hat %Ln Punkte bei %2 erziehlt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
 <context>
     <name>MessageOverlayFlickable</name>
     <message>
+        <location filename="../qml/components/MessageOverlayFlickable.qml" line="117"/>
         <source>You</source>
-        <translation>Sie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/MessageOverlayFlickable.qml" line="139"/>
         <source>This message was forwarded. Original author: %1</source>
-        <translation>Diese Nachricht wurde weitergeleitet. Ursprünglicher Autor: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MessagePoll</name>
     <message>
+        <location filename="../qml/components/messageContent/MessagePoll.qml" line="48"/>
         <source>Close Poll</source>
-        <translation>Umfrage beenden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/messageContent/MessagePoll.qml" line="53"/>
         <source>Reset Answer</source>
-        <translation>Antwort zurückziehen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/messageContent/MessagePoll.qml" line="100"/>
         <source>Final Result:</source>
-        <translation>Endergebnis:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/messageContent/MessagePoll.qml" line="100"/>
         <source>Multiple Answers are allowed.</source>
-        <translation>Mehrfachauswahl ist erlaubt.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/components/messageContent/MessagePoll.qml" line="195"/>
         <source>%Ln%</source>
         <comment>% of votes for option</comment>
-        <translation>
-            <numerusform>%Ln%</numerusform>
-            <numerusform>%Ln%</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/components/messageContent/MessagePoll.qml" line="302"/>
         <source>%Ln vote(s) total</source>
         <comment>number of total votes</comment>
-        <translation>
-            <numerusform>%Ln Stimme insgesamt</numerusform>
-            <numerusform>%Ln Stimmen insgesamt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
 <context>
     <name>MessageViaLabel</name>
     <message>
+        <location filename="../qml/components/MessageViaLabel.qml" line="34"/>
         <source>via %1</source>
         <comment>message posted via bot user</comment>
-        <translation>via %1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MessageVoiceNote</name>
     <message>
+        <location filename="../qml/components/messageContent/MessageVoiceNote.qml" line="23"/>
         <source>Voice Note</source>
-        <translation>Sprachnotiz</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NewChatPage</name>
     <message>
-        <source>Your Contacts</source>
-        <translation>Ihre Kontakte</translation>
-    </message>
-    <message>
-        <source>You don&apos;t have any contacts.</source>
-        <translation>Sie haben keine Kontakte</translation>
-    </message>
-    <message>
-        <source>Private Chat</source>
-        <translation>Privater Chat</translation>
-    </message>
-    <message>
-        <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
-        <translation>Transportverschlüsselt, nutzt Telegram-Cloud, teilbar zwischen Geräten</translation>
-    </message>
-    <message>
-        <source>Secret Chat</source>
-        <translation>Geheimer Chat</translation>
-    </message>
-    <message>
-        <source>End-to-end-encrypted, accessible on this device only</source>
-        <translation>Ende-zu-Ende-verschlüsselt, nur auf diesem Gerät zugreifbar</translation>
-    </message>
-    <message>
-        <source>Search a contact...</source>
-        <translation>Einen Kontakt suchen...</translation>
-    </message>
-    <message>
-        <source>Loading contacts...</source>
-        <translation>Lade Kontakte...</translation>
-    </message>
-    <message>
-        <source>Synchronize Contacts with Telegram</source>
-        <translation>Kontakte mit Telegram synchronisieren</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="54"/>
         <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Die Kontakte wurden erfolgreich mit Telegram synchronisiert.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="87"/>
+        <source>Synchronize Contacts with Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="98"/>
+        <source>Your Contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="114"/>
+        <source>Search a contact...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="143"/>
         <source>No contacts found.</source>
-        <translation>Keine Kontakte gefunden</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="144"/>
+        <source>You don&apos;t have any contacts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="257"/>
+        <source>Private Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="267"/>
+        <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="331"/>
+        <source>Secret Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="341"/>
+        <source>End-to-end-encrypted, accessible on this device only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/NewChatPage.qml" line="393"/>
+        <source>Loading contacts...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NotificationManager</name>
     <message numerus="yes">
+        <location filename="../src/notificationmanager.cpp" line="349"/>
+        <location filename="../src/notificationmanager.cpp" line="387"/>
         <source>%Ln unread messages</source>
-        <translation>
-            <numerusform>%Ln ungelesene Nachricht</numerusform>
-            <numerusform>%Ln ungelesene Nachrichten</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>Über Fernschreiber</translation>
-    </message>
-    <message>
-        <source>Fernschreiber</source>
-        <translation>Fernschreiber</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="161"/>
         <source>Waiting for network...</source>
-        <translation>Warte auf Netzwerk...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="165"/>
         <source>Connecting to network...</source>
-        <translation>Verbinde zum Netzwerk...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="169"/>
         <source>Connecting to proxy...</source>
-        <translation>Verbinde zum Proxy...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="173"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="344"/>
+        <source>Fernschreiber</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="177"/>
         <source>Updating content...</source>
-        <translation>Aktualisiere Inhalte...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="208"/>
         <source>Loading chat list...</source>
-        <translation>Lade Chatliste...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Settings</source>
-        <translation>Einstellungen</translation>
-    </message>
-    <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Sie haben noch keine Chats.</translation>
-    </message>
-    <message>
-        <source>New Chat</source>
-        <translation>Neuer Chat</translation>
-    </message>
-    <message>
-        <source>Filter your chats...</source>
-        <translation>Ihre Chats filtern...</translation>
-    </message>
-    <message>
-        <source>Search Chats</source>
-        <translation>Chats suchen</translation>
-    </message>
-    <message>
-        <source>Download of %1 successful.</source>
-        <translation>Download von %1 erfolgreich.</translation>
-    </message>
-    <message>
-        <source>Download failed.</source>
-        <translation>Download fehlgeschlagen.</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation>Tippen Sie auf die Titelleiste, um Ihre Chats zu filtern</translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation>Keine passenden Chats gefunden.</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation>Sie können über das Pull-Down-Menü öffentliche Chats finden oder einen Neuen erstellen.</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="223"/>
         <source>Logging out</source>
-        <translation>Abmelden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="290"/>
+        <source>Download of %1 successful.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="294"/>
+        <source>Download failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="299"/>
         <source>Unable to open link.</source>
-        <translation>Kann Link nicht öffnen.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="325"/>
+        <source>About Fernschreiber</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="329"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="333"/>
+        <source>Search Chats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="337"/>
+        <source>New Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="377"/>
+        <source>Filter your chats...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="415"/>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="415"/>
+        <source>No matching chats found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="416"/>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/OverviewPage.qml" line="449"/>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PinnedMessageItem</name>
     <message>
+        <location filename="../qml/components/PinnedMessageItem.qml" line="36"/>
         <source>You</source>
-        <translation>Sie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/PinnedMessageItem.qml" line="37"/>
         <source>Pinned Message</source>
-        <translation>Angeheftete Nachricht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/PinnedMessageItem.qml" line="126"/>
         <source>Message unpinned</source>
-        <translation>Nachricht losgeheftet</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PollCreationPage</name>
     <message>
-        <source>All answers have to contain 1-100 characters.</source>
-        <translation>Alle Antworten müssen 1-100 Zeichen beinhalten.</translation>
-    </message>
-    <message>
-        <source>To send a quiz, you have to specify the right answer.</source>
-        <translation>Um ein Quiz zu senden, müssen Sie die richtige Antwort auswählen.</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="66"/>
         <source>You have to enter a question.</source>
-        <translation>Sie müssen eine Frage eingeben.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="68"/>
         <source>The question has to be shorter than 256 characters.</source>
-        <translation>Die Frage muss kürzer als 256 Zeichen sein.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="72"/>
         <source>A poll requires 2-10 answers.</source>
-        <translation>Eine Umfrage benötigt 2-10 Antworten.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="77"/>
+        <source>All answers have to contain 1-100 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="83"/>
+        <source>To send a quiz, you have to specify the right answer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="86"/>
+        <source>An explanation can be up to 200 characters long.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="105"/>
         <source>Create a Poll</source>
         <comment>Dialog Header</comment>
-        <translation>Erstellen Sie eine Umfrage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="119"/>
         <source>in %1</source>
         <comment>After dialog header… Create a Poll in [group name]</comment>
-        <translation>in %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="197"/>
         <source>Enter your question here</source>
-        <translation>Geben Sie Ihre Frage ein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/pages/PollCreationPage.qml" line="200"/>
         <source>Question (%Ln characters left)</source>
-        <translation>
-            <numerusform>Frage (%Ln Zeichen übrig)</numerusform>
-            <numerusform>Frage (%Ln Zeichen übrig)</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="208"/>
         <source>Answers</source>
         <comment>Section header</comment>
-        <translation>Antworten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="257"/>
         <source>Enter an answer here</source>
-        <translation>Geben Sie eine Antwort ein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/pages/PollCreationPage.qml" line="260"/>
         <source>Answer (%Ln characters left)</source>
-        <translation>
-            <numerusform>Antwort (%Ln Zeichen übrig)</numerusform>
-            <numerusform>Antwort (%Ln Zeichen übrig)</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="298"/>
         <source>Add an answer</source>
-        <translation>Antwort hinzufügen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="314"/>
         <source>Poll Options</source>
         <comment>Section header</comment>
-        <translation>Umfrageoptionen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="318"/>
         <source>Anonymous answers</source>
-        <translation>Anonyme Antworten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="322"/>
         <source>Multiple answers allowed</source>
-        <translation>Mehrere Antworten erlaubt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="331"/>
         <source>Quiz Mode</source>
-        <translation>Quizmodus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="338"/>
         <source>Quizzes have one correct answer. Participants can&apos;t revoke their responses.</source>
-        <translation>Quizze haben eine korrekte Antwort. Teilnehmer können ihre Antwort nicht zurückziehen.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="349"/>
         <source>Enter an optional explanation</source>
-        <translation>Geben Sie eine optionale Erklärung ein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollCreationPage.qml" line="353"/>
         <source>Shown when the user selects a wrong answer.</source>
-        <translation>Wird bei Auswahl einer falschen Antwort gezeigt.</translation>
-    </message>
-    <message>
-        <source>An explanation can be up to 200 characters long.</source>
-        <translation>Eine Erklärung kann bis zu 200 Zeichen lang sein.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PollResultsPage</name>
     <message>
+        <location filename="../qml/pages/PollResultsPage.qml" line="59"/>
         <source>Quiz Results</source>
-        <translation>Quizergebnis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollResultsPage.qml" line="59"/>
         <source>Poll Results</source>
-        <translation>Umfrageergebnis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/pages/PollResultsPage.qml" line="60"/>
         <source>%Ln vote(s) total</source>
         <comment>number of total votes</comment>
-        <translation>
-            <numerusform>%Ln Stimme insgesamt</numerusform>
-            <numerusform>%Ln Stimmen insgesamt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollResultsPage.qml" line="86"/>
         <source>Question</source>
         <comment>section header</comment>
-        <translation>Frage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollResultsPage.qml" line="117"/>
         <source>Results</source>
         <comment>section header</comment>
-        <translation>Ergebnis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <source>%Ln vote(s)</source>
+        <location filename="../qml/pages/PollResultsPage.qml" line="209"/>
+        <source>%Ln vote(s) including yours</source>
         <comment>number of votes for option</comment>
-        <translation>
-            <numerusform>%Ln Antwort</numerusform>
-            <numerusform>%Ln Antworten</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/pages/PollResultsPage.qml" line="209"/>
+        <source>%Ln vote(s)</source>
+        <comment>number of votes for option</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/PollResultsPage.qml" line="220"/>
         <source>%Ln%</source>
         <comment>% of votes for option</comment>
-        <translation>
-            <numerusform>%Ln%</numerusform>
-            <numerusform>%Ln%</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../qml/pages/PollResultsPage.qml" line="267"/>
         <source>Chosen by:</source>
         <comment>This answer has been chosen by the following users</comment>
-        <translation>Gewählt von:</translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln vote(s) including yours</source>
-        <comment>number of votes for option</comment>
-        <translation>
-            <numerusform>%Ln Antwort inklusive Ihrer</numerusform>
-            <numerusform>%Ln Antworten inklusive Ihrer</numerusform>
-        </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SearchChatsPage</name>
     <message>
-        <source>No chats found.</source>
-        <translation>Keine Chats gefunden.</translation>
-    </message>
-    <message>
-        <source>Searching chats...</source>
-        <translation>Suche Chats...</translation>
-    </message>
-    <message>
-        <source>Private Chat</source>
-        <translation>Privater Chat</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>Gruppe</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>Kanal</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 Mitglied</numerusform>
-            <numerusform>%1 Mitglieder</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 Abonnent</numerusform>
-            <numerusform>%1 Abonnenten</numerusform>
-        </translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="77"/>
         <source>Search Chats</source>
-        <translation>Chats suchen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="94"/>
         <source>Search a chat...</source>
-        <translation>Einen Chat suchen...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="121"/>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation>Geben Sie Ihre Anfrage ein, um die Suche zu starten (mindestens 5 Zeichen benötigt)</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="121"/>
+        <source>No chats found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="139"/>
+        <source>Private Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="146"/>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="155"/>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="153"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/SearchChatsPage.qml" line="178"/>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="184"/>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="194"/>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="204"/>
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qml/pages/SearchChatsPage.qml" line="192"/>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="202"/>
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SearchChatsPage.qml" line="247"/>
+        <source>Searching chats...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsAppearance</name>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsAppearance.qml" line="24"/>
         <source>Appearance</source>
-        <translation>Erscheinungsbild</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsAppearance.qml" line="45"/>
         <source>Show stickers as emojis</source>
-        <translation>Sticker als Emojis anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsAppearance.qml" line="46"/>
         <source>Only display emojis instead of the actual stickers</source>
-        <translation>Nur Emojis anstelle der eigentlichen Sticker anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsAppearance.qml" line="57"/>
         <source>Show stickers as images</source>
-        <translation>Sticker als Bilder anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsAppearance.qml" line="58"/>
         <source>Show background for stickers and align them centrally like images</source>
-        <translation>Hintergrund für Sticker anzeigen und sie wie Bilder mittig platzieren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsAppearance.qml" line="78"/>
         <source>Animate stickers</source>
-        <translation>Sticker animieren</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsBehavior</name>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="25"/>
         <source>Behavior</source>
-        <translation>Verhalten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="32"/>
         <source>Send message by enter</source>
-        <translation>Nachricht mit Enter senden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="33"/>
         <source>Send your message by pressing the enter key</source>
-        <translation>Senden Sie Ihre Nachricht, indem Sie die Enter-Taste drücken</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="43"/>
         <source>Focus text input on chat open</source>
-        <translation>Texteingabe fokussieren beim Öffnen eines Chats</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="44"/>
         <source>Focus the text input area when entering a chat</source>
-        <translation>Texteingabe fokussieren, wenn ein Chat betreten wird</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="54"/>
         <source>Focus text input area after send</source>
-        <translation>Texteingabe nach Senden fokussieren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="55"/>
         <source>Focus the text input area after sending a message</source>
-        <translation>Fokussiert die Texteingabe nach Senden einer Nachricht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="65"/>
         <source>Delay before marking messages as read</source>
-        <translation>Verzögerung bevor Nachrichten als gelesen markiert werden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="66"/>
         <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber wird ein bisschen warten, bevor Nachrichten als gelesen markiert werden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open-with menu integration</source>
-        <translation>Integration im Öffnen-Mit-Menü</translation>
-    </message>
-    <message>
-        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
-        <translation>Fernschreiber ins Öffnen-Mit-Menü von Sailfish OS integrieren</translation>
-    </message>
-    <message>
-        <source>Notification feedback</source>
-        <translation>Rückmeldung bei Hinweisen</translation>
-    </message>
-    <message>
-        <source>Use non-graphical feedback (sound, vibration) for notifications</source>
-        <translation>Nicht-grafische Rückmeldungen (Klänge, Vibration) bei Hinweisen nutzen</translation>
-    </message>
-    <message>
-        <source>All events</source>
-        <translation>Alle Ereignisse</translation>
-    </message>
-    <message>
-        <source>Only new events</source>
-        <translation>Nur neue Ereignisse</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Keine</translation>
-    </message>
-    <message>
-        <source>Notification turns on the display</source>
-        <translation>Hinweis schaltet den Bildschirm an</translation>
-    </message>
-    <message>
-        <source>Enable notification sounds</source>
-        <translation>Hinweistöne einschalten</translation>
-    </message>
-    <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>Wenn Töne eingeschaltet sind, wird Fernschreiber den aktuellen Sailfish OS-Hinweiston für Chats verwenden, der in den Systemeinstellungen konfiguriert werden kann.</translation>
-    </message>
-    <message>
-        <source>Always append message preview to notifications</source>
-        <translation>Immer bei Hinweisen die Nachricht ausgeben</translation>
-    </message>
-    <message>
-        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation>Zusätzlich zur Anzahl der ungelesenen Nachrichten wird immer die neuste Nachricht an Hinweise angefügt.</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="76"/>
         <source>Highlight unread messages</source>
-        <translation>Ungelesene Nachrichten hervorheben</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="77"/>
         <source>Highlight Conversations with unread messages</source>
-        <translation>Unterhaltungen mit ungelesenen Nachrichten hervorheben</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide content in notifications</source>
-        <translation>Inhalte in Hinweisen verbergen</translation>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="87"/>
+        <source>Open-with menu integration</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="88"/>
+        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="98"/>
+        <source>Always append message preview to notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="99"/>
+        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="109"/>
         <source>Go to quoted message</source>
-        <translation>Zu zitierter Nachricht springen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="110"/>
         <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation>Beim Tippen auf eine zitierte Nachricht zu dieser springen anstatt es in einem Overlay anzuzeigen.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="120"/>
+        <source>Notification feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="121"/>
+        <source>Use non-graphical feedback (sound, vibration) for notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="129"/>
+        <source>All events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="136"/>
+        <source>Only new events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="143"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="190"/>
+        <source>Hide content in notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="200"/>
+        <source>Notification turns on the display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="210"/>
+        <source>Enable notification sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="211"/>
+        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="43"/>
         <source>Settings</source>
-        <translation>Einstellungen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsPrivacy</name>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="25"/>
         <source>Privacy</source>
-        <translation>Privatsphäre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="59"/>
         <source>Allow chat invites</source>
-        <translation>Chateinladungen erlauben</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="60"/>
         <source>Privacy setting for managing whether you can be invited to chats.</source>
-        <translation>Privatsphären-Einstellung zur Regelung, ob Sie zu Chats eingeladen werden können.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="66"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="100"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="128"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="162"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="196"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="230"/>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="72"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="106"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="134"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="168"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="202"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="236"/>
         <source>Your contacts only</source>
-        <translation>Nur Ihre Kontakte</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="78"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="140"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="174"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="208"/>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="242"/>
         <source>No</source>
-        <translation>Nein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="93"/>
         <source>Allow finding by phone number</source>
-        <translation>Auffinden per Telefonnummer erlauben</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="94"/>
         <source>Privacy setting for managing whether you can be found by your phone number.</source>
-        <translation>Privatsphären-Einstellung zur Regelung, ob Sie per Telefonnummer gefunden werden können.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="121"/>
         <source>Show link in forwarded messages</source>
-        <translation>Link in weitergeleiteten Nachrichten anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="122"/>
         <source>Privacy setting for managing whether a link to your account is included in forwarded messages.</source>
-        <translation>Privatsphären-Einstellung zur Regelung, ob ein Link zu Ihrem Profil in weitergeleiteten Nachrichten eingebettet wird.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="155"/>
         <source>Show phone number</source>
-        <translation>Telefonnummer anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="156"/>
         <source>Privacy setting for managing whether your phone number is visible.</source>
-        <translation>Privatsphären-Einstellung zur Regelung, ob Ihre Telefonnummer sichtbar ist.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="189"/>
         <source>Show profile photo</source>
-        <translation>Profilfoto anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="190"/>
         <source>Privacy setting for managing whether your profile photo is visible.</source>
-        <translation>Privatsphären-Einstellung zur Regelung, ob Ihr Profilfoto sichtbar ist.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="223"/>
         <source>Show status</source>
-        <translation>Status anzeigen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="224"/>
         <source>Privacy setting for managing whether your online status is visible.</source>
-        <translation>Privatsphären-Einstellung zur Regelung, ob Ihr Onlinestatus sichtbar ist.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="257"/>
         <source>Allow sending Location to inline bots</source>
-        <translation>Erlaubt Standortsendung an Inline-Bots</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="258"/>
         <source>Some inline bots request location data when using them</source>
-        <translation>Einige Inline-Bots fragen bei Nutzung Standortdaten an</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsSession</name>
     <message>
-        <source>Session was terminated</source>
-        <translation>Sitzung wurde beendet</translation>
-    </message>
-    <message>
-        <source>Terminate Session</source>
-        <translation>Sitzung beenden</translation>
-    </message>
-    <message>
-        <source>This app</source>
-        <translation>Diese App</translation>
-    </message>
-    <message>
-        <source>Active since: %1, last online: %2</source>
-        <translation>Aktiv seit: %1, zuletzt online: %2</translation>
-    </message>
-    <message>
-        <source>Terminating session</source>
-        <translation>Beende Sitzung</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="27"/>
         <source>Sessions</source>
-        <translation>Sitzungen</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="50"/>
+        <source>Session was terminated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="100"/>
+        <source>Terminating session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="102"/>
+        <source>Terminate Session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="115"/>
+        <source>This app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="141"/>
+        <source>Active since: %1, last online: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="162"/>
+        <source>Session Timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="163"/>
+        <source>Inactive sessions will be terminated after this timeframe</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="164"/>
         <source>%1 day(s)</source>
-        <translation>
-            <numerusform>%1 Tag</numerusform>
-            <numerusform>%1 Tage</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="170"/>
         <source>1 week</source>
-        <translation>1 Woche</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="175"/>
         <source>1 month</source>
-        <translation>1 Monat</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="180"/>
         <source>3 months</source>
-        <translation>3 Monate</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="185"/>
         <source>6 months</source>
-        <translation>6 Monate</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsSession.qml" line="190"/>
         <source>1 year</source>
-        <translation>1 Jahr</translation>
-    </message>
-    <message>
-        <source>Session Timeout</source>
-        <translation>Timeout von Sitzungen</translation>
-    </message>
-    <message>
-        <source>Inactive sessions will be terminated after this timeframe</source>
-        <translation>Inaktive Sitzungen werden nach dieser Zeitdauer abgeschaltet</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsStorage</name>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsStorage.qml" line="25"/>
         <source>Storage</source>
-        <translation>Speicher</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsStorage.qml" line="32"/>
         <source>Enable online-only mode</source>
-        <translation>Nur-Online-Modus einschalten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsStorage.qml" line="33"/>
         <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Schaltet das Offline-Caching aus. Bestimmte Features können in diesem Modus eingeschränkt sein oder fehlen. Änderungen erfordern einen Neustart von Fernschreiber, um in Kraft zu treten.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsStorage.qml" line="43"/>
         <source>Enable storage optimizer</source>
-        <translation>Speicheroptimierer einschalten</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="30"/>
         <source>User Profile</source>
-        <translation>Nutzungsprofil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="85"/>
         <source>First Name</source>
         <comment>first name of the logged-in profile - header</comment>
-        <translation>Vorname</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="104"/>
         <source>Enter 1-64 characters</source>
-        <translation>Geben Sie 1-64 Zeichen ein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="115"/>
         <source>Last Name</source>
         <comment>last name of the logged-in profile - header</comment>
-        <translation>Nachname</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="134"/>
         <source>Enter 0-64 characters</source>
-        <translation>Geben Sie 0-64 Zeichen ein</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="145"/>
         <source>Username</source>
         <comment>user name of the logged-in profile - header</comment>
-        <translation>Benutzername</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Profile Pictures</source>
-        <translation>Profilbilder</translation>
-    </message>
-    <message>
-        <source>Add Picture</source>
-        <translation>Bild hinzufügen</translation>
-    </message>
-    <message>
-        <source>Delete Picture</source>
-        <translation>Bild löschen</translation>
-    </message>
-    <message>
-        <source>Deleting profile picture</source>
-        <translation>Lösche Profilbild</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation>Lade hoch...</translation>
-    </message>
-    <message>
-        <source>Log Out</source>
-        <translation>Abmelden</translation>
-    </message>
-    <message>
-        <source>Logged out</source>
-        <translation>Abgemeldet</translation>
-    </message>
-    <message>
-        <source>Phone number: +%1</source>
-        <translation>Telefonnummer: +%1</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="173"/>
         <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Die Kontakte wurden erfolgreich mit Telegram synchronisiert.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="179"/>
         <source>Synchronize Contacts with Telegram</source>
-        <translation>Kontakte mit Telegram synchronisieren</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="202"/>
+        <source>Profile Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="247"/>
+        <source>Add Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="258"/>
+        <source>Delete Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="264"/>
+        <source>Deleting profile picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="278"/>
+        <source>Uploading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="325"/>
+        <source>Phone number: +%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="335"/>
+        <source>Log Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="337"/>
+        <source>Logged out</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SponsoredMessage</name>
     <message>
+        <location filename="../qml/components/messageContent/SponsoredMessage.qml" line="44"/>
         <source>Go to Channel</source>
-        <translation>Zum Kanal gehen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/messageContent/SponsoredMessage.qml" line="47"/>
         <source>Go to Message</source>
-        <translation>Zur Nachricht gehen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/messageContent/SponsoredMessage.qml" line="50"/>
         <source>Start Bot</source>
-        <translation>Bot starten</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>StickerPicker</name>
     <message>
-        <source>Recently used</source>
-        <translation>Kürzlich verwendet</translation>
-    </message>
-    <message>
-        <source>Removing sticker set</source>
-        <translation>Entferne Sticker-Set</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/StickerPicker.qml" line="35"/>
         <source>Sticker set successfully removed!</source>
-        <translation>Sticker-Set erfolgreich entfernt!</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/StickerPicker.qml" line="102"/>
+        <source>Recently used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/StickerPicker.qml" line="196"/>
+        <source>Removing sticker set</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>StickerSetOverlay</name>
     <message>
+        <location filename="../qml/components/StickerSetOverlay.qml" line="54"/>
         <source>Sticker set successfully installed!</source>
-        <translation>Sticker-Set erfolgreich installiert!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/StickerSetOverlay.qml" line="59"/>
         <source>Sticker set successfully removed!</source>
-        <translation>Sticker-Set erfolgreich entfernt!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VideoPage</name>
     <message>
-        <source>Download of %1 successful.</source>
-        <translation>Download von %1 erfolgreich.</translation>
-    </message>
-    <message>
-        <source>Download failed.</source>
-        <translation>Download fehlgeschlagen.</translation>
-    </message>
-    <message>
+        <location filename="../qml/pages/VideoPage.qml" line="63"/>
         <source>Copy video to gallery</source>
-        <translation>Video in die Galerie kopieren</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/VideoPage.qml" line="81"/>
+        <source>Download of %1 successful.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/VideoPage.qml" line="85"/>
+        <source>Download failed.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VoiceNoteOverlay</name>
     <message>
-        <source>Record a Voice Note</source>
-        <translation>Eine Sprachnachricht aufzeichnen</translation>
-    </message>
-    <message>
-        <source>Press the button to start recording</source>
-        <translation>Drücken Sie den Knopf, um die Aufzeichnung zu starten</translation>
-    </message>
-    <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="37"/>
         <source>Unavailable</source>
-        <translation>Nicht verfügbar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="40"/>
         <source>Ready</source>
-        <translation>Bereit</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="43"/>
         <source>Starting</source>
-        <translation>Startet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="46"/>
         <source>Recording</source>
-        <translation>Zeichnet auf</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="49"/>
         <source>Stopping</source>
-        <translation>Stoppt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="114"/>
+        <source>Record a Voice Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="121"/>
+        <source>Press the button to start recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="207"/>
         <source>Use recording</source>
-        <translation>Aufzeichnung verwenden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/components/VoiceNoteOverlay.qml" line="211"/>
         <source>Voice Note (%1)</source>
-        <translation>Sprachnachricht (%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>WebPagePreview</name>
     <message>
+        <location filename="../qml/components/messageContent/WebPagePreview.qml" line="151"/>
         <source>Preview not supported for this link...</source>
-        <translation>Vorschau wird für diesen Link nicht unterstützt...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>functions</name>
     <message>
-        <source>Video: %1</source>
-        <translation>Video: %1</translation>
-    </message>
-    <message>
-        <source>has registered with Telegram</source>
-        <translation>hat sich bei Telegram angemeldet</translation>
-    </message>
-    <message>
+        <location filename="../qml/js/functions.js" line="63"/>
         <source>Picture: %1</source>
-        <translation>Bild: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Audio: %1</source>
-        <translation>Audio: %1</translation>
+        <location filename="../qml/js/functions.js" line="65"/>
+        <source>sent a picture</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Voice Note: %1</source>
-        <translation>Sprachnachricht: %1</translation>
+        <location filename="../qml/js/functions.js" line="65"/>
+        <source>sent a picture</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="69"/>
+        <source>Video: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="71"/>
+        <source>sent a video</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="71"/>
+        <source>sent a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="74"/>
+        <source>sent a video note</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="74"/>
+        <source>sent a video note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="77"/>
         <source>Animation: %1</source>
-        <translation>Animation: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="79"/>
+        <source>sent an animation</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="79"/>
+        <source>sent an animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="83"/>
+        <source>Audio: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="85"/>
+        <source>sent an audio</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="85"/>
+        <source>sent an audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="89"/>
+        <source>Voice Note: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="91"/>
+        <source>sent a voice note</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="91"/>
+        <source>sent a voice note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="95"/>
         <source>Document: %1</source>
-        <translation>Dokument: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>sent a picture</source>
-        <translation>hat ein Bild geschickt</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <translation>hat ein Video geschickt</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <translation>hat eine Animation geschickt</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <translation>hat eine Audiodatei geschickt</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <translation>hat eine Sprachnachricht geschickt</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <translation>hat ein Dokument geschickt</translation>
-    </message>
-    <message>
-        <source>sent a location</source>
-        <translation>hat einen Standort geschickt</translation>
-    </message>
-    <message>
-        <source>joined this chat</source>
-        <translation>ist diesem Chat beigetreten</translation>
-    </message>
-    <message>
-        <source>was added to this chat</source>
-        <translation>wurde diesem Chat hinzugefügt</translation>
-    </message>
-    <message>
-        <source>left this chat</source>
-        <translation>hat diesen Chat verlassen</translation>
-    </message>
-    <message>
-        <source>%1M</source>
-        <translation>%1M</translation>
-    </message>
-    <message>
-        <source>%1K</source>
-        <translation>%1T</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <translation>hat einen Ort geschickt</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <comment>myself</comment>
-        <translation>haben ein Bild geschickt</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <comment>myself</comment>
-        <translation>haben ein Video geschickt</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <comment>myself</comment>
-        <translation>haben eine Animation geschickt</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <comment>myself</comment>
-        <translation>haben eine Audiodatei geschickt</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <comment>myself</comment>
-        <translation>haben eine Sprachnachricht geschickt</translation>
-    </message>
-    <message>
+        <location filename="../qml/js/functions.js" line="97"/>
         <source>sent a document</source>
         <comment>myself</comment>
-        <translation>haben ein Dokument geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="97"/>
+        <source>sent a document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="100"/>
         <source>sent a location</source>
         <comment>myself</comment>
-        <translation>haben einen Standort geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="100"/>
+        <source>sent a location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="102"/>
         <source>sent a venue</source>
         <comment>myself</comment>
-        <translation>haben einen Ort geschickt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="102"/>
+        <source>sent a venue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="104"/>
         <source>have registered with Telegram</source>
-        <translation>haben sich bei Telegram angemeldet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="104"/>
+        <source>has registered with Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="106"/>
         <source>joined this chat</source>
         <comment>myself</comment>
-        <translation>sind diesem Chat beigetreten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="106"/>
+        <source>joined this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="109"/>
         <source>were added to this chat</source>
         <comment>myself</comment>
-        <translation>wurde diesem Chat hinzugefügt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>left this chat</source>
-        <comment>myself</comment>
-        <translation>haben diesen Chat verlassen</translation>
+        <location filename="../qml/js/functions.js" line="109"/>
+        <source>was added to this chat</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>was never online</source>
-        <translation>war niemals online</translation>
-    </message>
-    <message>
-        <source>last online: last month</source>
-        <translation>zuletzt online im letzten Monat</translation>
-    </message>
-    <message>
-        <source>last online: last week</source>
-        <translation>zuletzt online in der letzten Woche</translation>
-    </message>
-    <message>
-        <source>last online: %1</source>
-        <translation>zuletzt online: %1</translation>
-    </message>
-    <message>
-        <source>online</source>
-        <translation>online</translation>
-    </message>
-    <message>
-        <source>was recently online</source>
-        <translation>war neulich online</translation>
-    </message>
-    <message>
-        <source>Admin</source>
-        <comment>channel user role</comment>
-        <translation>Administrator</translation>
-    </message>
-    <message>
-        <source>Banned</source>
-        <comment>channel user role</comment>
-        <translation>Verbannt</translation>
-    </message>
-    <message>
-        <source>Creator</source>
-        <comment>channel user role</comment>
-        <translation>Urheber</translation>
-    </message>
-    <message>
-        <source>Restricted</source>
-        <comment>channel user role</comment>
-        <translation>Eingeschränkt</translation>
-    </message>
-    <message>
-        <source>changed the chat title to %1</source>
-        <comment>myself</comment>
-        <translation>haben den Chattitel zu %1 geändert</translation>
-    </message>
-    <message>
-        <source>changed the chat title to %1</source>
-        <translation>hat den Chattitel zu %1 geändert</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <comment>myself</comment>
-        <translation>haben eine Umfrage gesendet</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <translation>hat eine Umfrage gesendet</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <comment>myself</comment>
-        <translation>haben ein anonymes Quiz gesendet</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <translation>hat ein anonymes Quiz gesendet</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <comment>myself</comment>
-        <translation>haben ein Quiz gesendet</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <translation>hat ein Quiz gesendet</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <comment>myself</comment>
-        <translation>haben eine anonyme Umfrage gesendet</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <translation>hat eine anonyme Umfrage gesendet</translation>
-    </message>
-    <message>
-        <source>Anonymous Quiz</source>
-        <translation>Anonymes Quiz</translation>
-    </message>
-    <message>
-        <source>Quiz</source>
-        <translation>Quiz</translation>
-    </message>
-    <message>
-        <source>Anonymous Poll</source>
-        <translation>Anonyme Umfrage</translation>
-    </message>
-    <message>
-        <source>Poll</source>
-        <translation>Umfrage</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <comment>myself</comment>
-        <translation>haben diese Gruppe erstellt</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <translation>hat diese Gruppe erstellt</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <comment>myself</comment>
-        <translation>haben das Chatbild geändert</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <translation>hat das Chatbild geändert</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <comment>myself</comment>
-        <translation>haben das Chatbild gelöscht</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <translation>hat das Chatbild gelöscht</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>myself; TTL = Time To Live</comment>
-        <translation>haben die TTL-Einstellung des geheimen Chats geändert</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>TTL = Time To Live</comment>
-        <translation>hat die TTL-Einstellung des geheimen Chats geändert</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <comment>myself</comment>
-        <translation>haben die Gruppe zu einer Supergruppe erweitert</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <comment>myself</comment>
-        <translation>haben die angeheftete Nachricht geändert</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <translation>hat die angeheftete Nachricht geändert</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <comment>myself</comment>
-        <translation>haben ein Bildschirmfoto dieses Chats erstellt</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <translation>hat ein Bildschirmfoto dieses Chats erstellt</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <comment>myself</comment>
-        <translation>haben eine nicht unterstützte Nachricht geschickt</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <translation>hat eine nicht unterstützte Nachricht geschickt</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>myself; %1 is message type</comment>
-        <translation>haben eine nicht unterstützte Nachricht geschickt: %1</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>%1 is message type</comment>
-        <translation>hat eine nicht unterstützte Nachricht geschickt: %1</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <translation>hat die Gruppe zu einer Supergruppe erweitert</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <comment>myself</comment>
-        <translation>haben ein selbstzerstörendes Bild gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <translation>hat ein selbstzerstörendes Bild gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <comment>myself</comment>
-        <translation>haben ein selbstzerstörendes Video gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <translation>hat ein selbstzerstörendes Bild gesendet, das abgelaufen ist</translation>
-    </message>
-    <message>
-        <source>Unable to find user %1</source>
-        <translation>Konnte Benutzer %1 nicht finden</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <comment>myself</comment>
-        <translation>haben eine Videonachricht geschickt</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <translation>hat eine Videonachricht geschickt</translation>
-    </message>
-    <message>
-        <source>You are already a member of this chat.</source>
-        <translation>Sie sind bereits Mitglied dieses Chats.</translation>
-    </message>
-    <message>
-        <source>Closed!</source>
-        <translation>Geschlossen!</translation>
-    </message>
-    <message>
-        <source>Pending acknowledgement</source>
-        <translation>Ausstehende Bestätigung</translation>
-    </message>
-    <message>
-        <source>has added %1 to the chat</source>
-        <translation>hat %1 zum Chat hinzugefügt</translation>
-    </message>
-    <message>
-        <source>has removed %1 from the chat</source>
-        <translation>hat %1 vom Chat entfernt</translation>
-    </message>
-    <message>
+        <location filename="../qml/js/functions.js" line="118"/>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
-        <translation>haben %1 zum Chat hinzugefügt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/js/functions.js" line="118"/>
+        <source>has added %1 to the chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="122"/>
+        <source>left this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="122"/>
+        <source>left this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="124"/>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
-        <translation>haben %1 vom Chat entfernt</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="124"/>
+        <source>has removed %1 from the chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="127"/>
+        <source>changed the chat title to %1</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="127"/>
+        <source>changed the chat title to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="131"/>
+        <source>sent an anonymous quiz</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="131"/>
+        <source>sent an anonymous quiz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="131"/>
+        <source>Anonymous Quiz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="133"/>
+        <source>sent a quiz</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="133"/>
+        <source>sent a quiz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="133"/>
+        <source>Quiz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="136"/>
+        <source>sent an anonymous poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="136"/>
+        <source>sent an anonymous poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="136"/>
+        <source>Anonymous Poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="138"/>
+        <source>sent a poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="138"/>
+        <source>sent a poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="138"/>
+        <source>Poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="141"/>
+        <source>created this group</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="141"/>
+        <source>created this group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="143"/>
+        <source>changed the chat photo</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="143"/>
+        <source>changed the chat photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="145"/>
+        <source>deleted the chat photo</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="145"/>
+        <source>deleted the chat photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="147"/>
+        <source>changed the secret chat TTL setting</source>
+        <comment>myself; TTL = Time To Live</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="147"/>
+        <source>changed the secret chat TTL setting</source>
+        <comment>TTL = Time To Live</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="150"/>
+        <source>upgraded this group to a supergroup</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="150"/>
+        <source>upgraded this group to a supergroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="154"/>
+        <source>changed the pinned message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="154"/>
+        <source>changed the pinned message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="156"/>
+        <source>sent a self-destructing photo that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="156"/>
+        <source>sent a self-destructing photo that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="158"/>
+        <source>sent a self-destructing video that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="158"/>
+        <source>sent a self-destructing video that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="160"/>
+        <source>created a screenshot in this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="160"/>
+        <source>created a screenshot in this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="162"/>
+        <source>sent a game</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="162"/>
+        <source>sent a game</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
+        <location filename="../qml/js/functions.js" line="164"/>
         <source>scored %Ln points</source>
         <comment>myself</comment>
-        <translation>
-            <numerusform>haben %Ln Punkt erziehlt</numerusform>
-            <numerusform>haben %Ln Punkte erziehlt</numerusform>
+        <translation type="unfinished">
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <source>sent a game</source>
+        <location filename="../qml/js/functions.js" line="166"/>
+        <source>sent an unsupported message</source>
         <comment>myself</comment>
-        <translation>haben ein Spiel gesendet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>sent a game</source>
-        <translation>hat ein Spiel gesendet</translation>
+        <location filename="../qml/js/functions.js" line="166"/>
+        <source>sent an unsupported message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="168"/>
+        <source>sent an unsupported message: %1</source>
+        <comment>myself; %1 is message type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="168"/>
+        <source>sent an unsupported message: %1</source>
+        <comment>%1 is message type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="175"/>
+        <source>was never online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="177"/>
+        <source>last online: last month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="179"/>
+        <source>last online: last week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="181"/>
+        <source>last online: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="183"/>
+        <source>online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="185"/>
+        <source>was recently online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="192"/>
+        <source>Closed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="194"/>
+        <source>Pending acknowledgement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="203"/>
+        <source>Admin</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="205"/>
+        <source>Banned</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="207"/>
+        <source>Creator</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="209"/>
+        <source>Restricted</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="219"/>
+        <source>%1M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="221"/>
+        <source>%1K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="430"/>
+        <source>Unable to find user %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/js/functions.js" line="513"/>
+        <source>You are already a member of this chat.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

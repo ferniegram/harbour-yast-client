@@ -32,7 +32,7 @@ EmojiSearchWorker::EmojiSearchWorker(QObject *parent) : QThread(parent)
     LOG("Initializing Emoji database");
     QSqlDatabase::removeDatabase("emojis");
     database = QSqlDatabase::addDatabase("QSQLITE", "emojis");
-    database.setDatabaseName("/usr/share/harbour-fernschreiber/db/emojis.db");
+    database.setDatabaseName("/usr/share/harbour-fernschreiber2/db/emojis.db");
 }
 
 void EmojiSearchWorker::setParameters(const QString &queryString)

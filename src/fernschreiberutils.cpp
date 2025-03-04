@@ -389,5 +389,5 @@ void FernschreiberUtils::cleanUp()
 
 QString FernschreiberUtils::getTemporaryDirectoryPath()
 {
-    return QStandardPaths::writableLocation(QStandardPaths::TempLocation) +  + "/harbour-fernschreiber";
+    return QStandardPaths::writableLocation(QStandardPaths::TempLocation) +  + "/harbour-fernschreiber2";
 }
