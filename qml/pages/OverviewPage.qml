@@ -157,30 +157,30 @@ Page {
     function setPageStatus() {
         switch (overviewPage.connectionState) {
         case TelegramAPI.WaitingForNetwork:
-            pageStatus.color = "red";
-            pageHeader.title = qsTr("Waiting for network...");
+            pageStatus.color = "red"
+            pageHeader.title = qsTr("Waiting for network...")
             break;
         case TelegramAPI.Connecting:
-            pageStatus.color = "gold";
-            pageHeader.title = qsTr("Connecting to network...");
+            pageStatus.color = "gold"
+            pageHeader.title = qsTr("Connecting to network...")
             break;
         case TelegramAPI.ConnectingToProxy:
-            pageStatus.color = "gold";
-            pageHeader.title = qsTr("Connecting to proxy...");
+            pageStatus.color = "gold"
+            pageHeader.title = qsTr("Connecting to proxy...")
             break;
         case TelegramAPI.ConnectionReady:
-            pageStatus.color = "green";
-            pageHeader.title = qsTr("Fernschreiber");
+            pageStatus.color = "green"
+            pageHeader.title = qsTr("Fernschreiber")
             break;
         case TelegramAPI.Updating:
-            pageStatus.color = "lightblue";
-            pageHeader.title = qsTr("Updating content...");
+            pageStatus.color = "lightblue"
+            pageHeader.title = qsTr("Updating content...")
             break;
         }
     }
 
     function updateContent() {
-        tdLibWrapper.getChats();
+        tdLibWrapper.getChats('chatListMain')
     }
 
     function initializePage() {
@@ -404,6 +404,7 @@ Page {
                 ownUserId: overviewPage.ownUserId
                 isVerified: is_verified
                 onClicked: {
+                    console.log(is_archived)
                     pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {
                         chatInformation : display,
                         chatPicture: photo_small

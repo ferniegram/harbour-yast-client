@@ -340,7 +340,7 @@ void TDLibReceiver::processUpdateChatPosition(const QVariantMap &receivedInforma
     bool is_pinned = positionMap.value(IS_PINNED).toBool();
 
     // We are only processing main chat list updates at the moment...
-    if (updateForChatList == "chatListMain") {
+    if (updateForChatList == "chatListMain") { // TYPE_CHAT_LIST_MAIN
         LOG("Chat position updated for ID" << chat_id << "new order" << order << "is pinned" << is_pinned);
         emit chatOrderUpdated(chat_id, order);
         emit chatPinnedUpdated(chat_id.toLongLong(), is_pinned);

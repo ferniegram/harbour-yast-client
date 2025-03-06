@@ -295,7 +295,7 @@ void FernschreiberUtils::initiateReverseGeocode(double latitude, double longitud
     urlQuery.addQueryItem("format", "json");
     url.setQuery(urlQuery);
     QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::UserAgentHeader, "Fernschreiber (Sailfish OS)");
+    request.setHeader(QNetworkRequest::UserAgentHeader, "Ferniegram (Sailfish OS)");
     request.setRawHeader(QByteArray("Accept"), QByteArray("application/json"));
     request.setRawHeader(QByteArray("Accept-Charset"), QByteArray("utf-8"));
     request.setRawHeader(QByteArray("Connection"), QByteArray("close"));

@@ -56,6 +56,9 @@ namespace {
     const QString PINNED_MESSAGE_ID("pinned_message_id");
     const QString _TYPE("@type");
     const QString SECRET_CHAT_ID("secret_chat_id");
+    const QString CHAT_LISTS("chat_lists");
+    const QString ARCHIVED_CHAT_LIST("chatListArchive");
+    const QString _EXTRA("@extra");
 }
 
 class ChatListModel::ChatData
@@ -64,6 +67,9 @@ public:
 
     ChatData(TDLibWrapper *tdLibWrapper, const QVariantMap &data);
 
+    QVariantList chatLists() const;
+    bool isArchived() const;
+    QString extraData() const;
     int compareTo(const ChatData *chat) const;
     bool setOrder(const QString &order);
     const QVariant lastMessage(const QString &key) const;
@@ -384,7 +390,18 @@ QVector<int> ChatListModel::ChatData::updateSecretChat(const QVariantMap &secret
     return changedRoles;
 }
 
-ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings) : showHiddenChats(false)
+bool ChatListModel::ChatData::isArchived() const {
+    // not sure if it will be needed
+    return extraData() == ARCHIVED_CHAT_LIST;
+}
+
+QString ChatListModel::ChatData::extraData() const {
+    return chatData.value(_EXTRA).toString();
+}
+
+ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, QString chatListName) :
+    showHiddenChats(false),
+    chatListName(chatListName)
 {
     this->tdLibWrapper = tdLibWrapper;
     this->appSettings = appSettings;
@@ -459,6 +476,7 @@ QHash<int,QByteArray> ChatListModel::roleNames() const
     roles.insert(ChatListModel::RoleFilter, "filter");
     roles.insert(ChatListModel::RoleDraftMessageDate, "draft_message_date");
     roles.insert(ChatListModel::RoleDraftMessageText, "draft_message_text");
+    roles.insert(ChatListModel::RoleIsArchived, "is_archived");
     return roles;
 }
 
@@ -497,6 +515,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         case ChatListModel::RoleFilter: return data->title() + " " + data->senderMessageText();
         case ChatListModel::RoleDraftMessageText: return data->draftMessageText();
         case ChatListModel::RoleDraftMessageDate: return data->draftMessageDate();
+        case ChatListModel::RoleIsArchived: return data->isArchived();
         }
     }
     return QVariant();
@@ -709,6 +728,9 @@ void ChatListModel::handleChatDiscovered(const QString &, const QVariantMap &cha
 {
     LOG("New chat discovered");
     ChatData *chat = new ChatData(tdLibWrapper, chatToBeAdded);
+
+    LOG("oo" << (*chat).chatData);
+    if (chat->extraData() != chatListName) return;
 
     const TDLibWrapper::Group *group = tdLibWrapper->getGroup(chat->groupId);
     if (group) {
@@ -1073,4 +1095,17 @@ void ChatListModel::handleRelativeTimeRefreshTimer()
     roles.append(ChatListModel::RoleLastMessageDate);
     roles.append(ChatListModel::RoleLastMessageStatus);
     emit dataChanged(index(0), index(chatList.size() - 1), roles);
+}
+
+
+QString ChatListModel::getChatListName() {
+    return chatListName;
+}
+
+void ChatListModel::setChatListName(QString chatListName) {
+    if (this->chatListName != chatListName) {
+        this->chatListName = chatListName;
+        //updateChatVisibility(Q_NULLPTR);
+        emit chatListNameChanged();
+    }
 }

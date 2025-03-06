@@ -165,7 +165,7 @@ public:
     Q_INVOKABLE void setAuthenticationPassword(const QString &authenticationPassword);
     Q_INVOKABLE void registerUser(const QString &firstName, const QString &lastName);
     Q_INVOKABLE void logout();
-    Q_INVOKABLE void getChats();
+    Q_INVOKABLE void getChats(const QString &chatListName);
     Q_INVOKABLE void downloadFile(int fileId);
     Q_INVOKABLE void openChat(const QString &chatId);
     Q_INVOKABLE void closeChat(const QString &chatId);
@@ -230,7 +230,7 @@ public:
     Q_INVOKABLE void readAllChatMentions(qlonglong chatId);
     Q_INVOKABLE void readAllChatReactions(qlonglong chatId);
     Q_INVOKABLE void toggleChatIsMarkedAsUnread(qlonglong chatId, bool isMarkedAsUnread);
-    Q_INVOKABLE void toggleChatIsPinned(qlonglong chatId, bool isPinned);
+    Q_INVOKABLE void toggleChatIsPinned(qlonglong chatId, bool isPinned, const QString chatListName = "chatListMain");
     Q_INVOKABLE void setChatDraftMessage(qlonglong chatId, qlonglong threadId, qlonglong replyToMessageId, const QString &draft);
     Q_INVOKABLE void getInlineQueryResults(qlonglong botUserId, qlonglong chatId, const QVariantMap &userLocation, const QString &query, const QString &offset, const QString &extra);
     Q_INVOKABLE void sendInlineQueryResultMessage(qlonglong chatId, qlonglong threadId, qlonglong replyToMessageId, const QString &queryId, const QString &resultId);

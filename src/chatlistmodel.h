@@ -29,6 +29,7 @@ class ChatListModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(bool showAllChats READ showAllChats WRITE setShowAllChats NOTIFY showAllChatsChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
+    Q_PROPERTY(QString chatListName READ getChatListName WRITE setChatListName NOTIFY chatListNameChanged)
 
 public:
 
@@ -56,10 +57,11 @@ public:
         RoleIsPinned,
         RoleFilter,
         RoleDraftMessageText,
-        RoleDraftMessageDate
+        RoleDraftMessageDate,
+        RoleIsArchived,
     };
 
-    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings);
+    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, QString chatListName);
     ~ChatListModel() override;
 
     QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
@@ -75,6 +77,9 @@ public:
 
     bool showAllChats() const;
     void setShowAllChats(bool showAll);
+
+    QString getChatListName();
+    void setChatListName(QString chatListName);
 
 private slots:
     void handleChatDiscovered(const QString &chatId, const QVariantMap &chatInformation);
@@ -103,6 +108,7 @@ signals:
     void chatChanged(const qlonglong &changedChatId);
     void chatJoined(const qlonglong &chatId, const QString &chatTitle);
     void unreadStateChanged(int unreadMessagesCount, int unreadChatsCount);
+    void chatListNameChanged();
 
 private:
     class ChatData;
@@ -120,6 +126,7 @@ private:
     QHash<qlonglong,int> chatIndexMap;
     QHash<qlonglong,ChatData*> hiddenChats;
     bool showHiddenChats;
+    QString chatListName;
 };
 
 #endif // CHATLISTMODEL_H

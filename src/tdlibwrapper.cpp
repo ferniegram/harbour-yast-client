@@ -281,12 +281,17 @@ void TDLibWrapper::logout()
 
 }
 
-void TDLibWrapper::getChats()
+void TDLibWrapper::getChats(const QString &chatListName)
 {
     LOG("Getting chats");
     QVariantMap requestObject;
     requestObject.insert(_TYPE, "loadChats");
     requestObject.insert("limit", 5);
+    QVariantMap chatListMap;
+    chatListMap.insert(_TYPE, chatListName);
+    requestObject.insert(_EXTRA, chatListName);
+    requestObject.insert("chat_list", chatListMap);
+    LOG("xx" << requestObject);
     this->sendRequest(requestObject);
 }
 
@@ -1142,13 +1147,13 @@ void TDLibWrapper::toggleChatIsMarkedAsUnread(qlonglong chatId, bool isMarkedAsU
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::toggleChatIsPinned(qlonglong chatId, bool isPinned)
+void TDLibWrapper::toggleChatIsPinned(qlonglong chatId, bool isPinned, const QString chatListName)
 {
     LOG("Toggle chat is pinned" << chatId << isPinned);
     QVariantMap requestObject;
     requestObject.insert(_TYPE, "toggleChatIsPinned");
     QVariantMap chatListMap;
-    chatListMap.insert(_TYPE, CHAT_LIST_MAIN);
+    chatListMap.insert(_TYPE, chatListName);
     requestObject.insert("chat_list", chatListMap);
     requestObject.insert(CHAT_ID, chatId);
     requestObject.insert("is_pinned", isPinned);
@@ -1930,7 +1935,7 @@ void TDLibWrapper::handleChatReceived(const QVariantMap &chatInformation)
     }
 }
 
-void TDLibWrapper::handleUnreadMessageCountUpdated(const QVariantMap &messageCountInformation)
+void TDLibWrapper::handleUnreadMessageCountUpdated(const QVariantMap &messageCountInformation)//, const QString &chatListType)
 {
     if (messageCountInformation.value(CHAT_LIST_TYPE).toString() == CHAT_LIST_MAIN) {
         this->unreadMessageInformation = messageCountInformation;
@@ -1938,7 +1943,7 @@ void TDLibWrapper::handleUnreadMessageCountUpdated(const QVariantMap &messageCou
     }
 }
 
-void TDLibWrapper::handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation)
+void TDLibWrapper::handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation)//, const QString &chatListType)
 {
     if (chatCountInformation.value(CHAT_LIST_TYPE).toString() == CHAT_LIST_MAIN) {
         this->unreadChatInformation = chatCountInformation;
