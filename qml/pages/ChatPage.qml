@@ -242,16 +242,13 @@ Page {
     }
 
     function controlSendButton() {
-        if (newMessageTextField.text.length !== 0
-                || attachmentPreviewRow.isPicture
-                || attachmentPreviewRow.isDocument
-                || attachmentPreviewRow.isVideo
-                || attachmentPreviewRow.isVoiceNote
-                || attachmentPreviewRow.isLocation) {
-            newMessageSendButton.enabled = true;
-        } else {
-            newMessageSendButton.enabled = false;
-        }
+        newMessageSendButton.enabled =
+            newMessageTextField.text.length !== 0
+            || attachmentPreviewRow.isPicture
+            || attachmentPreviewRow.isDocument
+            || attachmentPreviewRow.isVideo
+            || attachmentPreviewRow.isVoiceNote
+            || attachmentPreviewRow.isLocation
     }
 
     function sendMessage() {
@@ -2024,8 +2021,8 @@ Page {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, knownUserItem.atMentionText);
-                                                knownUsersRepeater.model = undefined;
+                                                replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, knownUserItem.atMentionText)
+                                                knownUsersRepeater.model = undefined
                                             }
                                         }
                                     }
@@ -2079,30 +2076,25 @@ Page {
                             textTopMargin: 0
                             enabled: !attachmentPreviewRow.isLocation
                             focus: appSettings.focusTextAreaOnChatOpen
-                            EnterKey.onClicked: {
-                                if (appSettings.sendByEnter) {
-                                    var messageText = newMessageTextField.text;
-                                    newMessageTextField.text = messageText.substring(0, newMessageTextField.cursorPosition -1) + messageText.substring(newMessageTextField.cursorPosition);
-                                    sendMessage();
-                                    newMessageTextField.text = "";
-                                    if(!appSettings.focusTextAreaAfterSend) {
-                                        newMessageTextField.focus = false;
-                                    }
-                                }
+                            EnterKey.onClicked: if (appSettings.sendByEnter) {
+                                var messageText = newMessageTextField.text
+                                newMessageTextField.text = messageText.substring(0, newMessageTextField.cursorPosition -1) + messageText.substring(newMessageTextField.cursorPosition)
+                                sendMessage()
+                                newMessageTextField.text = ""
+                                if(!appSettings.focusTextAreaAfterSend)
+                                    newMessageTextField.focus = false
                             }
 
                             EnterKey.enabled: !inlineQuery.userNameIsValid && (!appSettings.sendByEnter || text.length)
-                            EnterKey.iconSource: appSettings.sendByEnter ? "image://theme/icon-m-chat" : "image://theme/icon-m-enter"
+                            EnterKey.iconSource: "image://theme/icon-m-" + (appSettings.sendByEnter ? "chat" : "enter")
 
                             onTextChanged: {
-                                controlSendButton();
-                                textReplacementTimer.restart();
+                                controlSendButton()
+                                textReplacementTimer.restart()
                             }
-                            onActiveFocusChanged: {
-                                if (activeFocus) {
+                            onActiveFocusChanged:
+                                if (activeFocus)
                                     messageOptionsDrawer.open = false
-                                }
-                            }
                         }
 
                         IconButton {
