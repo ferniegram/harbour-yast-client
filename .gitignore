@@ -60,3 +60,7 @@ tdlibsecrets.h
 # Opal docs and translations
 libs/opal-translations
 libs/opal-docs
+
+# Other
+tdlib/og
+tdlib2
