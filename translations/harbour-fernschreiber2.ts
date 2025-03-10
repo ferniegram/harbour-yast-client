@@ -1364,10 +1364,6 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>Fernschreiber</source>
-        <translation>Fernschreiber</translation>
-    </message>
-    <message>
         <source>Waiting for network...</source>
         <translation>Waiting for network...</translation>
     </message>

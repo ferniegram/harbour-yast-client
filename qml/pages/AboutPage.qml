@@ -55,6 +55,9 @@ AboutPageBase {
         ContributionSection {
             title: qsTr("Translations")
             groups: [
+                ContributionGroup {
+                    title: qsTr("Italian")
+                }
 
             ]
         },

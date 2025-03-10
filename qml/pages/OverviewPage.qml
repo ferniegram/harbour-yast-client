@@ -169,7 +169,7 @@ Page {
             break;
         case TelegramAPI.ConnectionReady:
             pageStatus.color = "green";
-            pageHeader.title = qsTr("Fernschreiber");
+            pageHeader.title = "Ferniegram"
             break;
         case TelegramAPI.Updating:
             pageStatus.color = "lightblue";

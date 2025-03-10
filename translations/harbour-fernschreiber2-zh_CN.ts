@@ -1343,10 +1343,6 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>Fernschreiber</source>
-        <translation>Fernschreiber</translation>
-    </message>
-    <message>
         <source>Waiting for network...</source>
         <translation>等候网络连接…</translation>
     </message>

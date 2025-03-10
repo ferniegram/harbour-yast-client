@@ -29,91 +29,91 @@
     </message>
     <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo progetto usa OpenStreetMap Nominatim per la geocodifica della condivisione della posizione. Grazie per averlo reso disponibile come servizio in rete!</translation>
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Info su Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
-        <translation type="unfinished"></translation>
+        <translation>Sviluppo</translation>
     </message>
     <message>
         <source>Early testing</source>
-        <translation type="unfinished"></translation>
+        <translation>Test accesso anticipato</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduzioni</translation>
     </message>
     <message>
         <source>Fernschreiber translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduzioni Ferniegram</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Cinese</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation>Finlandese</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Francese</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungherese</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Italiano</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polacco</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Russo</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovacco</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Spagnolo</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Svedese</translation>
     </message>
     <message>
         <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa applicazione è un fork di Fernschreiber, e non sarebbe stata possibile senza di esso. Grazie a tutti quelli che lo hanno sviluppato ed hanno contribuito ad esso!</translation>
     </message>
     <message>
         <source>Telegram Database Library (TDLib)</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram Database Library (TDLib)</translation>
     </message>
     <message>
         <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo progetto usa Twemoji. Grazie per averlo reso possibile sotto Licenza  MIT (codice) e CC-BY 4.0 (grafiche)!</translation>
     </message>
     <message>
         <source>Coding</source>
-        <translation type="unfinished"></translation>
+        <translation>Codice</translation>
     </message>
     <message>
         <source>Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Grafiche</translation>
     </message>
     <message>
         <source>other contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>altri contributori</translation>
     </message>
 </context>
 <context>
@@ -189,7 +189,7 @@
     </message>
     <message>
         <source>The Invite Link has been copied to the clipboard.</source>
-        <translation>Il link d&apos;invito è stato copiato</translation>
+        <translation>Il link d&apos;invito è stato copiato negli appunti</translation>
     </message>
     <message>
         <source>%1, %2</source>
@@ -217,7 +217,7 @@
     </message>
     <message>
         <source>ID has been copied to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;ID è stato copiato negli appunti</translation>
     </message>
 </context>
 <context>
@@ -290,7 +290,7 @@
     </message>
     <message>
         <source>No message in this chat.</source>
-        <translation>Nessun messaggio</translation>
+        <translation>Nessun messaggio in questa chat</translation>
     </message>
     <message>
         <source>Mark chat as unread</source>
@@ -481,7 +481,7 @@
     </message>
     <message>
         <source>Additional Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Impostazioni addizionali</translation>
     </message>
     <message>
         <source>Delete Message</source>
@@ -489,35 +489,35 @@
     </message>
     <message>
         <source>Forward Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Inoltra Messaggio</translation>
     </message>
     <message>
         <source>Unknown address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo sconosciuto</translation>
     </message>
     <message>
         <source>Accuracy: %1m</source>
-        <translation type="unfinished"></translation>
+        <translation>Accuratezza: %1m</translation>
     </message>
     <message>
         <source>Sponsored Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Messaggio sponsorizzato</translation>
     </message>
     <message>
         <source>Deleting chat</source>
-        <translation type="unfinished"></translation>
+        <translation>Sto eliminando la chat</translation>
     </message>
     <message>
         <source>Delete Chat</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina Chat</translation>
     </message>
     <message>
         <source>Deleted User</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina Utente</translation>
     </message>
     <message>
         <source>Double-tap on a message to choose a reaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppio tap su di un messaggio per scegliere una reazione</translation>
     </message>
 </context>
 <context>
@@ -535,7 +535,7 @@
     <name>ContactSync</name>
     <message>
         <source>Could not synchronize your contacts with Telegram.</source>
-        <translation type="unfinished">Sincronizzazione contatti con Telegram non riuscita</translation>
+        <translation>Sincronizzazione contatti con Telegram non riuscita</translation>
     </message>
 </context>
 <context>
@@ -1047,7 +1047,7 @@
     <name>LicenseListPart</name>
     <message>
         <source>License text</source>
-        <translation type="unfinished"></translation>
+        <translation>Testo di licenza</translation>
     </message>
 </context>
 <context>
@@ -1074,7 +1074,7 @@
     </message>
     <message>
         <source>More Options...</source>
-        <translation type="unfinished"></translation>
+        <translation>Più opzioni...</translation>
     </message>
     <message>
         <source>Message deleted</source>
@@ -1086,7 +1086,7 @@
     </message>
     <message>
         <source>Forward Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Inoltra messaggio</translation>
     </message>
     <message>
         <source>Delete Message</source>
@@ -1220,7 +1220,7 @@
     </message>
     <message>
         <source>No contacts found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessun contatto trovato</translation>
     </message>
 </context>
 <context>
@@ -1237,136 +1237,305 @@
     <name>Opal.About</name>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione %1</translation>
     </message>
     <message>
         <source>Development</source>
-        <translation type="unfinished"></translation>
+        <translation>Sviluppo</translation>
     </message>
     <message>
         <source>show contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>mostra contributori</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina iniziale</translation>
     </message>
     <message>
         <source>Changelog</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiamenti</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduzioni</translation>
     </message>
     <message>
         <source>Source Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Codice sorgente</translation>
     </message>
     <message>
         <source>Donations</source>
-        <translation type="unfinished"></translation>
+        <translation>Donazioni</translation>
     </message>
     <message>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licenza</translation>
     </message>
     <message numerus="yes">
         <source>show license(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>mostra licenza</numerusform>
+            <numerusform>mostra licenze</numerusform>
         </translation>
     </message>
     <message>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation>Novità</translation>
     </message>
     <message>
         <source>Changes since version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiamenti dalla versione %1</translation>
     </message>
     <message>
         <source>show details</source>
-        <translation type="unfinished"></translation>
+        <translation>mostra dettagli</translation>
     </message>
     <message>
         <source>Thank you!</source>
-        <translation type="unfinished"></translation>
+        <translation>Grazie mille!</translation>
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Dettagli</translation>
     </message>
     <message>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Contributori</translation>
     </message>
     <message>
         <source>Acknowledgements</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni</translation>
     </message>
     <message>
         <source>External Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Collegamento esterno</translation>
     </message>
     <message>
         <source>Open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri nel browser</translation>
     </message>
     <message>
         <source>Copied to clipboard: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiato negli appunti %1</translation>
     </message>
     <message>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia negli appunti</translation>
     </message>
     <message>
         <source>Please refer to &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Per favore fai riferimento a &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;</translation>
     </message>
     <message>
         <source>Download license texts</source>
-        <translation type="unfinished"></translation>
+        <translation>Scarica testi di licenza</translation>
     </message>
     <message numerus="yes">
         <source>License(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Licenza</numerusform>
+            <numerusform>Licenze</numerusform>
         </translation>
     </message>
     <message>
         <source>Note: please check the source code for most accurate information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota: controlla il codice sorgente per avere le informazioni più accurate.</translation>
     </message>
 </context>
 <context>
     <name>Opal.About.Common</name>
     <message>
         <source>If you want to support my work, you can buy me a cup of coffee.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se vuoi supportare il mio lavoro puoi offrirmi una tazza di caffè.</translation>
     </message>
     <message>
         <source>You can support this project by contributing, or by donating using any of these services.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puoi supportare questo progetto contribuendo o donando con uno di questi servizi.</translation>
     </message>
     <message>
         <source>Your contributions to translations or code would be most welcome.</source>
+        <translation>Le tue contribuzioni per le traduzioni o per il codice sono le benvenute.</translation>
+    </message>
+    <message>
+        <source>Author</source>
+        <translation>Autore</translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation>
+            <numerusform>Autore</numerusform>
+            <numerusform>Autori</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation>Mantenitore</translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation>
+            <numerusform>Mantenitore</numerusform>
+            <numerusform>Mantenitori</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation>Programmazione</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation>Stile Icone</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation>Librerie di terze parti</translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation>Data Licenza</translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation>
+            <numerusform>Data Licenza</numerusform>
+            <numerusform>Data Licenze</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation>Termini di utilizzo</translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>Cinese</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Ceco</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Olandese</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Inglese</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Estone</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Finlandese</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Francese</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Tedesco</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Greco</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Ungherese</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>Indonesiano</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Italiano</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation>Norvegese Bokmål</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Polacco</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation>Rumeno</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Russo</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation>Serbo</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Slovacco</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Spagnolo</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Svedese</translation>
+    </message>
+    <message>
+        <source>Tamil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>Turco</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ucraino</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation>Norvegese Nynorsk</translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation>Lettone</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation>Olandese (Belgio)</translation>
     </message>
 </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Fernschreiber</source>
-        <translation>Fernschreiber</translation>
-    </message>
     <message>
         <source>Settings</source>
         <translation>Impostazioni</translation>
@@ -1433,11 +1602,11 @@
     </message>
     <message>
         <source>Unable to open link.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aprire il collegamento</translation>
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Info su Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1667,11 +1836,11 @@
     </message>
     <message>
         <source>Show stickers as emojis</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra sticker come emoji</translation>
     </message>
     <message>
         <source>Only display emojis instead of the actual stickers</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizza emoji invece degli sticker</translation>
     </message>
     <message>
         <source>Show stickers as images</source>
@@ -1687,11 +1856,11 @@
     </message>
     <message>
         <source>Compact message context menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Menu messaggi compatto</translation>
     </message>
     <message>
         <source>Organize some of the context menu items in a row</source>
-        <translation type="unfinished"></translation>
+        <translation>Organizza in fila alcuni degli elementi del menu messaggi</translation>
     </message>
 </context>
 <context>
@@ -1710,11 +1879,11 @@
     </message>
     <message>
         <source>Focus text input on chat open</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastiera in primo piano con chat aperta</translation>
     </message>
     <message>
         <source>Focus the text input area when entering a chat</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastiera in primo piano su apertura chat</translation>
     </message>
     <message>
         <source>Focus text input area after send</source>
@@ -1774,35 +1943,35 @@
     </message>
     <message>
         <source>Always append message preview to notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra anteprima messaggi nelle notifiche</translation>
     </message>
     <message>
         <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation type="unfinished"></translation>
+        <translation>Oltre a mostrare il numero dei messaggi non letti, l&apos;ultimo messaggio sarà anche mostrato nelle notifiche</translation>
     </message>
     <message>
         <source>Highlight unread messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia messaggi non letti</translation>
     </message>
     <message>
         <source>Highlight Conversations with unread messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia conversazioni con messaggi non letti</translation>
     </message>
     <message>
         <source>Hide content in notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi contenuto nelle notifiche</translation>
     </message>
     <message>
         <source>Go to quoted message</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai al messaggio citato</translation>
     </message>
     <message>
         <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quando premi su un messaggio citato, aprilo nella chat invece di mostrarlo in sovraimpressione</translation>
     </message>
     <message>
         <source>Send attachments by enter</source>
-        <translation type="unfinished"></translation>
+        <translation>Invia allegati con il tasto invio</translation>
     </message>
 </context>
 <context>
@@ -1891,62 +2060,62 @@
     <name>SettingsSession</name>
     <message>
         <source>Sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Sessioni</translation>
     </message>
     <message>
         <source>Session was terminated</source>
-        <translation type="unfinished"></translation>
+        <translation>La sessione è stata terminata</translation>
     </message>
     <message>
         <source>Terminating session</source>
-        <translation type="unfinished"></translation>
+        <translation>Sto terminando la sessione</translation>
     </message>
     <message>
         <source>Terminate Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Termina Sessione</translation>
     </message>
     <message>
         <source>This app</source>
-        <translation type="unfinished"></translation>
+        <translation>Questa applicazione</translation>
     </message>
     <message>
         <source>Active since: %1, last online: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Attivo da: %1, ultimo accesso: %2</translation>
     </message>
     <message numerus="yes">
         <source>%1 day(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%1 giorno</numerusform>
+            <numerusform>%1 giorni</numerusform>
         </translation>
     </message>
     <message>
         <source>1 week</source>
-        <translation type="unfinished"></translation>
+        <translation>1 settimana</translation>
     </message>
     <message>
         <source>1 month</source>
-        <translation type="unfinished"></translation>
+        <translation>1 mese</translation>
     </message>
     <message>
         <source>3 months</source>
-        <translation type="unfinished"></translation>
+        <translation>3 mesi</translation>
     </message>
     <message>
         <source>6 months</source>
-        <translation type="unfinished"></translation>
+        <translation>6 mesi</translation>
     </message>
     <message>
         <source>1 year</source>
-        <translation type="unfinished"></translation>
+        <translation>1 anno</translation>
     </message>
     <message>
         <source>Session Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Timeout sessione</translation>
     </message>
     <message>
         <source>Inactive sessions will be terminated after this timeframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Le sessioni inattive saranno terminate dopo questo intervallo di tempo</translation>
     </message>
 </context>
 <context>
@@ -2031,26 +2200,26 @@
     </message>
     <message>
         <source>Contacts successfully synchronized with Telegram.</source>
-        <translation type="unfinished">Sincronizzazione contatti con Telegram completata</translation>
+        <translation>Sincronizzazione contatti con Telegram completata</translation>
     </message>
     <message>
         <source>Synchronize Contacts with Telegram</source>
-        <translation type="unfinished">Sincronizza contatti con Telegram</translation>
+        <translation>Sincronizza contatti con Telegram</translation>
     </message>
 </context>
 <context>
     <name>SponsoredMessage</name>
     <message>
         <source>Go to Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai al Canale</translation>
     </message>
     <message>
         <source>Go to Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai al Messaggio</translation>
     </message>
     <message>
         <source>Start Bot</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia Bot</translation>
     </message>
 </context>
 <context>
