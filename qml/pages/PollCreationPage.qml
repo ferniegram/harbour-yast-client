@@ -43,58 +43,50 @@ Dialog {
     // poll request data end
 
     canAccept: validationErrors.length === 0
-    onDone: {
-    }
     onAcceptPendingChanged: {
         if(acceptPending) {
-
-            validate();
+            validate()
 
             if(validationErrors.length > 0) {
-                validationErrorsVisible = true;
-                contentFlickable.scrollToTop();
+                validationErrorsVisible = true
+                contentFlickable.scrollToTop()
             }
         }
     }
 
-    property var validationErrorsVisible: false
-    property var validationErrors:[""]
+    property bool validationErrorsVisible: false
+    property var validationErrors: [""]
 
     function validate() {
         var errors = [];
-        if(pollQuestion.length === 0) {
-            errors.push(qsTr("You have to enter a question."));
-        } else if(pollQuestion.length > 255) {
-            errors.push(qsTr("The question has to be shorter than 256 characters."));
-        }
+        if(pollQuestion.length === 0)
+            errors.push(qsTr("You have to enter a question."))
+        else if(pollQuestion.length > 255)
+            errors.push(qsTr("The question has to be shorter than 256 characters."))
 
-        if(options.count < 2 || options.count > 10) {
-            errors.push(qsTr("A poll requires 2-10 answers."));
-        } else {
+        if(options.count < 2 || options.count > 10)
+            errors.push(qsTr("A poll requires 2-10 answers."))
+        else {
             for(var i = 0; i < options.count; i += 1) {
                 var len = options.get(i).text.length
                 if(len < 1 || len > 100) {
-                    errors.push(qsTr("All answers have to contain 1-100 characters."));
-                    break;
+                    errors.push(qsTr("All answers have to contain 1-100 characters."))
+                    break
                 }
             }
         }
-        if(quiz && (correctOption < 0 || correctOption > options.count - 1)) {
-            errors.push(qsTr("To send a quiz, you have to specify the right answer."));
-        }
-        if(quiz && quizExplanationTextArea.hasError) {
-            errors.push(qsTr("An explanation can be up to 200 characters long."));
-        }
-        if(errors.length === 0) {
-            validationErrorsVisible = false;
-        }
+        if(quiz && (correctOption < 0 || correctOption > options.count - 1))
+            errors.push(qsTr("To send a quiz, you have to specify the right answer."))
+        if(quiz && quizExplanationTextArea.hasError)
+            errors.push(qsTr("An explanation can be up to 200 characters long."))
 
-        validationErrors = errors;
+        if(errors.length === 0) validationErrorsVisible = false
+        validationErrors = errors
     }
     function createNewOption() {
         if(options.count < 10) {
-            pollCreationPage.options.append({text:""});
-            focusLastOptionTimer.start();
+            pollCreationPage.options.append({text:""})
+            focusLastOptionTimer.start()
         }
     }
 
@@ -360,14 +352,10 @@ Dialog {
     }
 
     onAccepted: {
-        var optionsArr = [];
-        for(var i = 0; i < options.count; i += 1) {
-            optionsArr.push(options.get(i).text);
-        }
+        var optionsArr = []
+        for(var i = 0; i < options.count; i += 1)
+            optionsArr.push(options.get(i).text)
 
-        tdLibWrapper.sendPollMessage(chatId, pollQuestion, optionsArr, anonymous, quiz ? correctOption : -1, multiple, quizExplanation, "0");
-
+        tdLibWrapper.sendPollMessage(chatId, pollQuestion, optionsArr, anonymous, quiz ? correctOption : -1, multiple, quizExplanation, "0")
     }
-
-
 }

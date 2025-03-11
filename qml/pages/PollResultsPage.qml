@@ -26,29 +26,22 @@ import "../js/debug.js" as Debug
 Page {
     id: pollResultsPage
     allowedOrientations: Orientation.All
-    property string chatId;
-    property var message: ({});
+    property string chatId
+    property var message: ({})
 
     property string messageId: message.id;
 
     property var pollData: message.content.poll
 
-    property var userInformation:  tdLibWrapper.getUserInformation(message.sender_id.user_id)
+    property var userInformation: tdLibWrapper.getUserInformation(message.sender_id.user_id)
 
     property bool isQuiz: pollData.type['@type'] === "pollTypeQuiz"
 
-    property bool hasAnswered: {
-        return pollData.options.filter(function(option){
-            return option.is_chosen
-        }).length > 0;
-    }
+    property bool hasAnswered: pollData.options.filter(function(option) { return option.is_chosen }).length > 0
 
     property bool canAnswer: !hasAnswered && !pollData.is_closed
-    onCanAnswerChanged: {
-        if(canAnswer) { // vote removed from another client?
-            pageStack.pop()
-        }
-    }
+    onCanAnswerChanged:
+        if(canAnswer) pageStack.pop() // vote removed from another client?
 
     SilicaFlickable {
         anchors.fill: parent
@@ -103,7 +96,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.Wrap
                 color: Theme.secondaryHighlightColor
-                text: Emoji.emojify(pollData.question, font.pixelSize)
+                text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), font.pixelSize)
             }
 
             Column {
@@ -185,7 +178,7 @@ Page {
 
                         Label {
                             id: displayOptionLabel
-                            text: Emoji.emojify(modelData.text, Theme.fontSizeMedium)
+                            text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             anchors {
                                 left: iconsColumn.right

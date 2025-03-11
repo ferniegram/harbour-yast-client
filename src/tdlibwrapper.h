@@ -183,7 +183,7 @@ public:
     Q_INVOKABLE void sendVoiceNoteMessage(qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void sendLocationMessage(qlonglong chatId, double latitude, double longitude, double horizontalAccuracy, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void sendStickerMessage(qlonglong chatId, const QString &fileId, qlonglong replyToMessageId = 0);
-    Q_INVOKABLE void sendPollMessage(qlonglong chatId, const QString &question, const QVariantList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId = 0);
+    Q_INVOKABLE void sendPollMessage(qlonglong chatId, const QString &question, const QStringList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void forwardMessages(const QString &chatId, const QString &fromChatId, const QVariantList &messageIds, bool sendCopy, bool removeCaption);
     Q_INVOKABLE void getMessage(qlonglong chatId, qlonglong messageId);
     Q_INVOKABLE void getMessageLinkInfo(const QString &url, const QString &extra = "");
@@ -384,6 +384,7 @@ private:
     QVariantMap &fillTdlibParameters(QVariantMap &parameters);
     const Group *updateGroup(qlonglong groupId, const QVariantMap &groupInfo, QHash<qlonglong,Group*> *groups);
     QVariantMap newSendMessageRequest(qlonglong chatId, qlonglong replyToMessageId);
+    QVariantMap newFormattedText(const QString &text, const QVariantList entities = QVariantList());
     void initializeTDLibReceiver();
     void updateUserInformation(const QString &userId, const QVariantMap &userInformation);
 

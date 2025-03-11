@@ -424,6 +424,15 @@ QVariantMap TDLibWrapper::newSendMessageRequest(qlonglong chatId, qlonglong repl
     return request;
 }
 
+QVariantMap TDLibWrapper::newFormattedText(const QString &text, const QVariantList entities) {
+    QVariantMap formattedText;
+    formattedText.insert(_TYPE, "formattedText");
+    formattedText.insert("text", text);
+    if (entities.length() > 0)
+        formattedText.insert("entities", entities);
+    return formattedText;
+}
+
 void TDLibWrapper::sendTextMessage(qlonglong chatId, const QString &message, qlonglong replyToMessageId)
 {
     LOG("Sending text message" << chatId << message << replyToMessageId);
@@ -470,11 +479,9 @@ void TDLibWrapper::sendTextMessage(qlonglong chatId, const QString &message, qlo
             entities.append(entity);
             offsetCorrection += replacementLength - replacementPlainText.length();
         }
-        formattedText.insert("entities", entities);
-    }
+        formattedText = newFormattedText(processedMessage, entities);
+    } else formattedText = newFormattedText(processedMessage);
 
-    formattedText.insert("text", processedMessage);
-    formattedText.insert(_TYPE, "formattedText");
     inputMessageContent.insert("text", formattedText);
     requestObject.insert("input_message_content", inputMessageContent);
     this->sendRequest(requestObject);
@@ -487,10 +494,7 @@ void TDLibWrapper::sendPhotoMessage(qlonglong chatId, const QString &filePath, c
     QVariantMap inputMessageContent;
     inputMessageContent.insert(_TYPE, "inputMessagePhoto");
 
-    QVariantMap formattedText;
-    formattedText.insert("text", message);
-    formattedText.insert(_TYPE, "formattedText");
-    inputMessageContent.insert("caption", formattedText);
+    inputMessageContent.insert("caption", newFormattedText(message));
     QVariantMap photoInputFile;
     photoInputFile.insert(_TYPE, "inputFileLocal");
     photoInputFile.insert("path", filePath);
@@ -507,10 +511,7 @@ void TDLibWrapper::sendVideoMessage(qlonglong chatId, const QString &filePath, c
     QVariantMap inputMessageContent;
     inputMessageContent.insert(_TYPE, "inputMessageVideo");
 
-    QVariantMap formattedText;
-    formattedText.insert("text", message);
-    formattedText.insert(_TYPE, "formattedText");
-    inputMessageContent.insert("caption", formattedText);
+    inputMessageContent.insert("caption", newFormattedText(message));
     QVariantMap videoInputFile;
     videoInputFile.insert(_TYPE, "inputFileLocal");
     videoInputFile.insert("path", filePath);
@@ -527,10 +528,7 @@ void TDLibWrapper::sendDocumentMessage(qlonglong chatId, const QString &filePath
     QVariantMap inputMessageContent;
     inputMessageContent.insert(_TYPE, "inputMessageDocument");
 
-    QVariantMap formattedText;
-    formattedText.insert("text", message);
-    formattedText.insert(_TYPE, "formattedText");
-    inputMessageContent.insert("caption", formattedText);
+    inputMessageContent.insert("caption", newFormattedText(message));
     QVariantMap documentInputFile;
     documentInputFile.insert(_TYPE, "inputFileLocal");
     documentInputFile.insert("path", filePath);
@@ -547,10 +545,7 @@ void TDLibWrapper::sendVoiceNoteMessage(qlonglong chatId, const QString &filePat
     QVariantMap inputMessageContent;
     inputMessageContent.insert(_TYPE, "inputMessageVoiceNote");
 
-    QVariantMap formattedText;
-    formattedText.insert("text", message);
-    formattedText.insert(_TYPE, "formattedText");
-    inputMessageContent.insert("caption", formattedText);
+    inputMessageContent.insert("caption", newFormattedText(message));
     QVariantMap documentInputFile;
     documentInputFile.insert(_TYPE, "inputFileLocal");
     documentInputFile.insert("path", filePath);
@@ -598,7 +593,7 @@ void TDLibWrapper::sendStickerMessage(qlonglong chatId, const QString &fileId, q
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, const QVariantList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId)
+void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, const QStringList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId)
 {
     LOG("Sending poll message" << chatId << question << replyToMessageId);
     QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
@@ -609,19 +604,21 @@ void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, co
     if(correctOption > -1) {
         pollType.insert(_TYPE, "pollTypeQuiz");
         pollType.insert("correct_option_id", correctOption);
-        if(!explanation.isEmpty()) {
-            QVariantMap formattedExplanation;
-            formattedExplanation.insert("text", explanation);
-            pollType.insert("explanation", formattedExplanation);
-        }
+        if(!explanation.isEmpty())
+            pollType.insert("explanation", newFormattedText(explanation));
     } else {
         pollType.insert(_TYPE, "pollTypeRegular");
         pollType.insert("allow_multiple_answers", multiple);
     }
 
+    QVariantList formattedOptions;
+
+    for (QString option : options)
+        formattedOptions.append(newFormattedText(option));
+
     inputMessageContent.insert(TYPE, pollType);
-    inputMessageContent.insert("question", question);
-    inputMessageContent.insert("options", options);
+    inputMessageContent.insert("question", newFormattedText(question));
+    inputMessageContent.insert("options", formattedOptions);
     inputMessageContent.insert("is_anonymous", anonymous);
 
     requestObject.insert("input_message_content", inputMessageContent);
@@ -1166,11 +1163,9 @@ void TDLibWrapper::setChatDraftMessage(qlonglong chatId, qlonglong threadId, qlo
     requestObject.insert(THREAD_ID, threadId);
     QVariantMap draftMessage;
     QVariantMap inputMessageContent;
-    QVariantMap formattedText;
+    QVariantMap formattedText = newFormattedText(draft);
 
-    formattedText.insert("text", draft);
     formattedText.insert("clear_draft", draft.isEmpty());
-    formattedText.insert(_TYPE, "formattedText");
     inputMessageContent.insert(_TYPE, "inputMessageText");
     inputMessageContent.insert("text", formattedText);
     draftMessage.insert(_TYPE, "draftMessage");

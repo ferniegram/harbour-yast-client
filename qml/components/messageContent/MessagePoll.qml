@@ -35,11 +35,7 @@ MessageContentBase {
     readonly property var pollData: rawMessage.content.poll
     property var chosenPollData:({})
     property var chosenIndexes: []
-    readonly property bool hasAnswered: {
-        return pollData.options.filter(function(option){
-            return option.is_chosen
-        }).length > 0;
-    }
+    readonly property bool hasAnswered: pollData.options.filter(function(option){ return option.is_chosen }).length > 0
     readonly property bool canAnswer: !hasAnswered && !pollData.is_closed
     readonly property bool isQuiz: pollData.type['@type'] === "pollTypeQuiz"
     property list<NamedAction> extraContextMenuItems: [
@@ -87,7 +83,7 @@ MessageContentBase {
             font.pixelSize: Theme.fontSizeSmall
             width: parent.width
             visible: text !== ""
-            text: Emoji.emojify(pollData.question, Theme.fontSizeSmall)
+            text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), Theme.fontSizeSmall)
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             textFormat: Text.StyledText
             color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
@@ -114,7 +110,7 @@ MessageContentBase {
                 id: optionDelegate
                 width: pollMessageComponent.width
                 automaticCheck: false
-                text: Emoji.emojify(modelData.text, Theme.fontSizeMedium)
+                text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                 checked: pollMessageComponent.chosenIndexes.indexOf(index) > -1
                 highlighted: pollMessageComponent.highlighted || down
                 onClicked: {
@@ -176,7 +172,7 @@ MessageContentBase {
                             id: voteTextLabel
                             property int lastLineWidth
                             width: parent.width
-                            text: Emoji.emojify(modelData.text, Theme.fontSizeMedium)
+                            text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                             textFormat: Text.StyledText
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
