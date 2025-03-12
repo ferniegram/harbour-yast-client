@@ -1092,6 +1092,16 @@
         <source>Delete Message</source>
         <translation>Supprimer ce message</translation>
     </message>
+    <message>
+        <source>Edit</source>
+        <comment>message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <comment>message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
@@ -1680,14 +1690,6 @@
     <message>
         <source>Animate stickers</source>
         <translation>Autocollants animés</translation>
-    </message>
-    <message>
-        <source>Compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize some of the context menu items in a row</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
