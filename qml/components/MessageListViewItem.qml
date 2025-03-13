@@ -35,6 +35,7 @@ ListItem {
     property var myMessage
     property var messageAlbumMessageIds
     property var reactions
+    property var messageProperties: ({})
     property bool canReplyToMessage
     property bool canEdit: typeof messageProperties.can_be_edited !== "undefined" && messageProperties.can_be_edited
     readonly property bool isAnonymous: myMessage.sender_id["@type"] === "messageSenderChat"
@@ -47,17 +48,18 @@ ListItem {
         return existingMessage.id === messageId
     })
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
-    readonly property bool canDeleteMessage: messageProperties.can_be_deleted_for_all_users || (messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
+    readonly property bool canDeleteMessage: !!messageProperties.can_be_deleted_for_all_users || (!!messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
     property bool hasContentComponent
     property bool additionalOptionsOpened
     property bool wasNavigatedTo: false
 
     property var chatReactions
     property var messageReactions
-    property var messageProperties: ({can_be_deleted_for_all_users: false, can_be_deleted_only_for_self: false, can_be_edited: false})
 
     highlighted: (down || (isSelected && messageAlbumMessageIds.length === 0) || additionalOptionsOpened || wasNavigatedTo) && !menuOpen
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
+
+    onMessagePropertiesChanged: myMessage.properties = messageProperties
 
     signal replyToMessage()
     signal editMessage()

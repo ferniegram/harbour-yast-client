@@ -2133,7 +2133,7 @@ Page {
 
                     IconButton {
                         visible: !chatPage.isSecretChat && selectedMessages.every(function(message){
-                            return message.can_be_forwarded
+                            return message.properties.can_be_forwarded
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         icon.source: "image://theme/icon-m-forward"
@@ -2144,7 +2144,7 @@ Page {
                     IconButton {
                         icon.source: "image://theme/icon-m-delete"
                         visible: chatInformation.id === chatPage.myUserId || selectedMessages.every(function(message){
-                            return message.can_be_deleted_for_all_users
+                            return message.properties.can_be_deleted_for_all_users
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         onClicked: {
