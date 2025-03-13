@@ -36,6 +36,7 @@ ListItem {
     property var messageAlbumMessageIds
     property var reactions
     property bool canReplyToMessage
+    property bool canEdit: typeof messageProperties.can_be_edited !== "undefined" && messageProperties.can_be_edited
     readonly property bool isAnonymous: myMessage.sender_id["@type"] === "messageSenderChat"
     readonly property var userInformation: tdLibWrapper.getUserInformation(myMessage.sender_id.user_id)
     property QtObject precalculatedValues: ListView.view.precalculatedValues
@@ -198,6 +199,11 @@ ListItem {
                 listItem: messageListItem
                 FancyMenuRow {
                     FancyMenuIcon {
+                        visible: appSettings.superCompactMessageMenu && canDeleteMessage
+                        icon.source: "image://theme/icon-m-delete"
+                        onClicked: deleteMessage()
+                    }
+                    FancyMenuIcon {
                         icon.source: "image://theme/icon-m-select-all"
                         onClicked: page.toggleMessageSelection(myMessage)
                     }
@@ -209,25 +215,36 @@ ListItem {
                         icon.source: "image://theme/icon-m-clipboard"
                         onClicked: copyMessageToClipboard()
                     }
+                    FancyMenuIcon {
+                        visible: appSettings.superCompactMessageMenu && canEdit
+                        icon.source: "image://theme/icon-m-edit"
+                        onClicked: editMessage()
+                    }
+                    FancyMenuIcon {
+                        visible: appSettings.superCompactMessageMenu && canReplyToMessage
+                        icon.source: "image://theme/icon-m-message-reply"
+                        onClicked: replyToMessage()
+                    }
                 }
                 FancyAloneMenuItem {
-                    visible: canReplyToMessage
+                    visible: !appSettings.superCompactMessageMenu && canReplyToMessage
                     icon.source: "image://theme/icon-m-message-reply"
                     text: qsTr("Reply to Message")
                     onClicked: replyToMessage()
                 }
                 FancyMenuRow {
-                    FancyIconMenuItem {
-                        visible: typeof messageProperties.can_be_edited !== "undefined" && messageProperties.can_be_edited
-                        icon.source: "image://theme/icon-m-edit"
-                        text: parent.visibleChildren.length > 1 ? qsTr("Edit", "message") : qsTr("Edit Message")
-                        onClicked: editMessage()
-                    }
+                    visible: !appSettings.superCompactMessageMenu
                     FancyIconMenuItem {
                         visible: canDeleteMessage
                         icon.source: "image://theme/icon-m-delete"
                         text: parent.visibleChildren.length > 1 ? qsTr("Delete", "message") : qsTr("Delete Message")
                         onClicked: deleteMessage()
+                    }
+                    FancyIconMenuItem {
+                        visible: canEdit
+                        icon.source: "image://theme/icon-m-edit"
+                        text: parent.visibleChildren.length > 1 ? qsTr("Edit", "message") : qsTr("Edit Message")
+                        onClicked: editMessage()
                     }
                 }
             }
@@ -274,6 +291,8 @@ ListItem {
             if (messageListItem.messageId === messageId)
                 messageListItem.messageProperties = messageProperties
     }
+
+    onMessagePropertiesChanged: messageListItem.myMessage.properties = messageListItem.messageProperties
 
     Timer {
         id: showItemCompletelyTimer

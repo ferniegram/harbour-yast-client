@@ -1693,6 +1693,14 @@ messages</numerusform>
         <source>Animate stickers</source>
         <translation>Animate stickers</translation>
     </message>
+    <message>
+        <source>Super compact message context menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organize all items in one row</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsBehavior</name>
