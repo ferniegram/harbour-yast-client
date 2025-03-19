@@ -596,7 +596,7 @@ SilicaFlickable {
                         primaryText.text: Emoji.emojify(foundChatInformation.title, primaryText.font.pixelSize, "../js/emoji/")
                         tertiaryText.maximumLineCount: 1
 
-                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatInformation: foundChatInformation})
+                        onClicked: pageStack.replace(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatInformation: foundChatInformation})
                     }
                 }
 
