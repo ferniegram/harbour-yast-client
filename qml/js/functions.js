@@ -42,15 +42,15 @@ function getUserName(userInformation) {
     return ((userInformation.first_name || "") + " " + (userInformation.last_name || "")).trim();
 }
 
-function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSize) {
+function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSize, reloader) {
     var myself = false;
-    if ( message['@type'] !== "sponsoredMessage" ) {
-        myself = ( message.sender_id['@type'] === "messageSenderUser" && message.sender_id.user_id.toString() === currentUserId.toString() );
+    if (message['@type'] !== "sponsoredMessage") {
+        myself = message.sender_id['@type'] === "messageSenderUser" && message.sender_id.user_id.toString() === currentUserId.toString();
     }
 
     var getCaption = function(text){
         return simple ? text.arg(message.content.caption.text)
-                      : enhanceMessageText(message.content.caption, ignoreEntities, emojiSize)
+                      : enhanceMessageText(message.content.caption, ignoreEntities, emojiSize, reloader)
     }
 
     switch(message.content['@type']) {
@@ -58,7 +58,7 @@ function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSiz
         if (simple) {
             return message.content.text.text;
         } else {
-            return enhanceMessageText(message.content.text, ignoreEntities, emojiSize);
+            return enhanceMessageText(message.content.text, ignoreEntities, emojiSize, reloader);
         }
     case 'messageSticker':
         return simple ? message.content.sticker.emoji : ""
@@ -291,7 +291,7 @@ function textFixReserved(text) {
     return text.replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;").replace(rawNewLineRegExp, "<br>");
 }
 
-function enhanceMessageText(formattedText, ignoreEntities, emojiSize) {
+function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {
     if (typeof formattedText === 'undefined') return ''
 
     var messageInsertions = [];
@@ -398,12 +398,16 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize) {
                 var emoji = entity.type.custom_emoji_id
                 if (stickerManager.hasCustomEmoji(emoji)) {
                     var sticker = stickerManager.getCustomEmojiSticker(emoji)
-                    console.log(sticker.format['@type'])
                     if (sticker.format['@type'] === 'stickerFormatWebm') break
                     var file = createTdlibFile(sticker.sticker)
-                    console.log(Emoji.getEmojiTag(file.path, emojiSize))
                     messageInsertions.push({offset: entity.offset, insertionString: Emoji.getEmojiTag(file.path, emojiSize), removeLength: entity.length})
-                } else tdLibWrapper.getCustomEmojiStickers(emoji)
+                } else {
+                    tdLibWrapper.getCustomEmojiStickers(emoji)
+                    if (typeof reloader !== 'undefined')
+                        stickerManager.customEmojiReceived.connect(function(emojiId) {
+                            if (emojiId == emoji) reloader(true)
+                        })
+                }
             break
         }
     }

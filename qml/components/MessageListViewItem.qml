@@ -341,10 +341,14 @@ ListItem {
                 myMessage.reply_to_message_id)
     }
 
+    function updateMessageText(removeUpdate) {
+        messageText.text = Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall, !removeUpdate ? updateMessageText : undefined), Theme.fontSizeSmall)
+    }
+
     onMyMessageChanged: {
         Debug.log("[ChatModel] This message was updated, index", messageIndex, ", updating content...")
         messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed)
-        messageText.text = Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false), Theme.fontSizeSmall)
+        updateMessageText()
         if (webPagePreviewLoader.item)
             webPagePreviewLoader.item.webPageData = myMessage.content.web_page
     }
@@ -574,7 +578,7 @@ ListItem {
                 Text {
                     id: messageText
                     width: parent.width
-                    text: Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false), Theme.fontSizeMedium)
+                    text: Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall, updateMessageText), Theme.fontSizeSmall)
                     font.pixelSize: Theme.fontSizeSmall
                     color: messageListItem.textColor
                     wrapMode: Text.Wrap

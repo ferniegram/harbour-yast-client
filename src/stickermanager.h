@@ -45,6 +45,7 @@ public:
 
 signals:
     void stickerSetsReceived();
+    void customEmojiReceived(const QString &stickerId);
 
 private slots:
 

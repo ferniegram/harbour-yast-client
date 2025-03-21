@@ -101,7 +101,9 @@ void StickerManager::handleStickersReceived(const QVariantList &stickers)
 
         QVariantMap fullType = newSticker.value("full_type").toMap();
         if (fullType.value("@type").toString() == "stickerFullTypeCustomEmoji") {
-            this->customEmojis.insert(fullType.value("custom_emoji_id").toString(), newSticker);
+            QString emojiId = fullType.value("custom_emoji_id").toString();
+            this->customEmojis.insert(emojiId, newSticker);
+            emit customEmojiReceived(emojiId);
         }
     }
 
