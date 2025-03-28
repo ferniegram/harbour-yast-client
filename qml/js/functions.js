@@ -303,6 +303,7 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
         return textFixReserved(messageText)
 
     emojiSize = Math.round((typeof emojiSize === 'undefined' ? Silica.Theme.fontSizeSmall : emojiSize) * 1.15)
+    reloader = typeof reloader === 'undefined' ? function(){} : reloader
     for (var i = 0; i < formattedText.entities.length; i++) {
         entity = formattedText.entities[i];
         if (entity['@type'] !== "textEntity") {
@@ -395,12 +396,22 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
                 );
             break;
             case 'textEntityTypeCustomEmoji':
+                // FIXME as it works terribly; maybe do a global TDLibFile object?; maybe in StickerManager even though it was not created for exactly this?
+                // + this doesn't work at all with online only mode
                 var emoji = entity.type.custom_emoji_id
                 if (stickerManager.hasCustomEmoji(emoji)) {
                     var sticker = stickerManager.getCustomEmojiSticker(emoji)
                     if (sticker.format['@type'] === 'stickerFormatWebm') break
                     var file = createTdlibFile(sticker.sticker)
+                    if (!file.isDownloadingCompleted || !file.path) {
+                        file.downloadingCompletedChanged.connect(function(){ if(file.isDownloadingCompleted) {
+                            file.destroy() // Should we do it or is it happening automatically?
+                            reloader(true)
+                        }})
+                        break
+                    }
                     messageInsertions.push({offset: entity.offset, insertionString: Emoji.getEmojiTag(file.path, emojiSize), removeLength: entity.length})
+                    file.destroy() // Should we do it or is it happening automatically?
                 } else {
                     tdLibWrapper.getCustomEmojiStickers(emoji)
                     if (typeof reloader !== 'undefined')
