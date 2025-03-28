@@ -1587,6 +1587,73 @@ Page {
                         visible: false
                     }
 
+                    Column {
+                        id: botCommandsColumn
+                        width: parent.width
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: opacity > 0
+                        opacity: hidden ? 0 : 1
+                        Behavior on opacity { NumberAnimation {} }
+                        height: hidden ? 0 : childrenRect.height
+                        Behavior on height { SmoothedAnimation { duration: 200 } }
+                        spacing: Theme.paddingMedium
+
+                        property bool hidden: true
+
+                        Flickable {
+                            width: parent.width
+                            height: Math.min(botCommandsContentColumn.height, Theme.itemSizeHuge) + Theme.paddingSmall
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            contentHeight: botCommandsContentColumn.height
+                            clip: true
+                            Column {
+                                id: botCommandsContentColumn
+                                spacing: Theme.paddingMedium
+                                width: parent.width
+                                Repeater {
+                                    id: botCommandsRepeater
+                                    model: !botCommandsColumn.hidden && botInformation && botInformation.bot_info
+                                           ? botInformation.bot_info.commands : undefined
+
+                                    BackgroundItem {
+                                        width: parent.width
+                                        height: botCommandItem.height
+                                        contentItem.color: 'transparent'
+
+                                        Row {
+                                            id: botCommandItem
+                                            width: parent.width
+                                            spacing: Theme.paddingSmall
+                                            anchors.verticalCenter: parent.verticalCenter
+
+                                            Label {
+                                                text: modelData.command
+                                                textFormat: Text.StyledText
+                                                font.pixelSize: Theme.fontSizeMedium
+                                                font.bold: true
+                                            }
+                                            Label {
+                                                width: parent.width - parent.children[0].width - parent.spacing*1
+                                                text: Emoji.emojify(modelData.description, Theme.fontSizeSmall)
+                                                textFormat: Text.StyledText
+                                                font.pixelSize: Theme.fontSizeMedium
+                                                truncationMode: TruncationMode.Fade
+                                            }
+                                        }
+
+                                        onClicked: {
+                                            botCommandsColumn.hidden = true
+                                            tdLibWrapper.sendTextMessage(chatInformation.id,
+                                                                         '/'+modelData.command // FIXME
+                                                                         )
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
                     Flickable {
                         id: attachmentOptionsFlickable
 
@@ -1664,6 +1731,7 @@ Page {
                                 onClicked: {
                                     voiceNoteOverlayLoader.active = !voiceNoteOverlayLoader.active
                                     stickerPickerLoader.active = false
+                                    botCommandsColumn.hidden = true
                                 }
                             }
                             IconButton {
@@ -1693,6 +1761,7 @@ Page {
                                 onClicked: {
                                     stickerPickerLoader.active = !stickerPickerLoader.active
                                     voiceNoteOverlayLoader.active = false
+                                    botCommandsColumn.hidden = true
                                 }
                             }
                             IconButton {
@@ -1719,6 +1788,17 @@ Page {
                                     attachmentPreviewRow.isLocation = true
                                     attachmentPreviewRow.attachmentDescription = qsTr("Location: Obtaining position...")
                                     controlSendButton()
+                                }
+                            }
+                            IconButton {
+                                visible: !!botInformation && !!botInformation.bot_info && botInformation.bot_info.commands.length > 0
+                                highlighted: down || !botCommandsColumn.hidden
+                                icon.source: "image://theme/icon-m-menu"
+                                onClicked: {
+                                    //attachmentOptionsFlickable.isNeeded = false
+                                    botCommandsColumn.hidden = !botCommandsColumn.hidden
+                                    stickerPickerLoader.active = false
+                                    voiceNoteOverlayLoader.active = false
                                 }
                             }
                         }
@@ -2037,8 +2117,8 @@ Page {
                                     attachmentOptionsFlickable.isNeeded = false
                                     stickerPickerLoader.active = false
                                     voiceNoteOverlayLoader.active = false
-                                } else
-                                    attachmentOptionsFlickable.isNeeded = true
+                                    botCommandsColumn.hidden = true
+                                } else attachmentOptionsFlickable.isNeeded = true
                             }
                         }
 
