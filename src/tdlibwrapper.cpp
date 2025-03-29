@@ -1589,7 +1589,7 @@ bool TDLibWrapper::hasUserInformation(const QString &userId)
 
 QVariantMap TDLibWrapper::getUserInformationByName(const QString &userName)
 {
-    return this->usersByName.value(userName).toMap();
+    return this->usersByName.value(userName.toLower()).toMap();
 }
 
 TDLibWrapper::UserPrivacySettingRule TDLibWrapper::getUserPrivacySettingRule(TDLibWrapper::UserPrivacySetting userPrivacySetting)
@@ -1902,7 +1902,7 @@ void TDLibWrapper::handleUserStatusUpdated(const QString &userId, const QVariant
 void TDLibWrapper::updateUserInformation(const QString &userId, const QVariantMap &userInformation)
 {
     this->usersById.insert(userId, userInformation);
-    this->usersByName.insert(userInformation.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString(), userInformation);
+    this->usersByName.insert(userInformation.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString().toLower(), userInformation);
 }
 
 void TDLibWrapper::handleFileUpdated(const QVariantMap &fileInformation)
