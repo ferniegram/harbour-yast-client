@@ -19,6 +19,7 @@
 
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import '..'
 
 AccordionItem {
     text: qsTr("Appearance")
@@ -92,6 +93,22 @@ AccordionItem {
                 description: qsTr("Organize all items in one row")
                 automaticCheck: false
                 onClicked: appSettings.superCompactMessageMenu = !checked
+            }
+
+            Column {
+                width: parent.columnWidth
+                SectionHeader { text: qsTr("Chat background") }
+                ButtonLayout {
+                    Button {
+                        text: qsTr("Choose from gallery")
+                        onClicked: pageStack.push(Qt.resolvedUrl('../../dialogs/BackgroundSelectionDialog.qml'))
+                        // todo: accept
+                    }
+                    Button {
+                        text: qsTr("Choose a file")
+                        // todo
+                    }
+                }
             }
         }
     }
