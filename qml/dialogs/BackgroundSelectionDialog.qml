@@ -39,23 +39,11 @@ Dialog {
                     width: flow.cellWidth
                     height: flow.cellHeight
 
-                    TDLibMinithumbnail {
-                        id: minithumbnailLoader
-                        minithumbnail: modelData.document && modelData.document.minithumbnail ? modelData.document.minithumbnail : null
-                        active: !!minithumbnail && photo.opacity <= 0
-                        highlighted: gridItem.highlighted
-                        fillMode: Image.PreserveAspectCrop
-                    }
-
-                    BackgroundImage {
-                        visible: !photo.visible && !(minithumbnailLoader.item && minithumbnailLoader.item.visible)
-                    }
-
-                    TDLibImage {
-                        id: photo
+                    TDLibPhoto {
                         anchors.fill: parent
-                        fileInformation: modelData.document && modelData.document.document ? modelData.document.document : {}
                         highlighted: gridItem.highlighted
+                        minithumbnail: modelData.document && modelData.document.minithumbnail ? modelData.document.minithumbnail : null
+                        image.fileInformation: modelData.document && modelData.document.document ? modelData.document.document : {}
                     }
                 }
             }
