@@ -6,28 +6,41 @@ import "../js/functions.js" as Functions
 Item {
     id: wallpaper
     property var background
-    property bool highlighted
+    property bool highlighted: parent ? !!parent.highlighted : false
     //property alias highlighted: photo.highlighted
     //property alias photo: photo
 
     //property alias typePattern: typePattern
 
     readonly property string backgroundType: background ? background.type['@type'] : ''
-    Component.onCompleted: if (backgroundType) console.log(JSON.stringify(background.type))
+    //Component.onCompleted: if (backgroundType) console.log(JSON.stringify(background.type))
 
     BackgroundImage {
         visible: baseLoader.status != Loader.Ready
     }
 
     Loader {
+        id: invertedPlaceholderLoader
+        active: backgroundType == 'backgroundTypePattern' && background.type.is_inverted && !!baseLoader.item && !!patternLoader.item && patternLoader.item.image.status === Image.Ready
+        sourceComponent: Component {
+            Rectangle {
+                anchors.fill: parent
+                color: 'transparent'//'black'
+            }
+        }
+    }
+
+    Loader {
         id: baseLoader
         anchors.fill: parent
+        visible: !invertedPlaceholderLoader.active && !blurLoader.active
         sourceComponent:
             switch(backgroundType) {
             case 'backgroundTypeWallpaper':
                 return typeWallpaper
             case 'backgroundTypeFill':
             case 'backgroundTypePattern':
+                //if (background.type.is_inverted) return typeFillBlack
                 switch(background.type.fill['@type']) {
                 case 'backgroundFillSolid':
                     return typeFillSolid
@@ -124,6 +137,7 @@ Item {
     }
 
     Loader {
+        id: blurLoader
         anchors.fill: parent
         active: backgroundType === 'backgroundTypeWallpaper' && baseLoader.item && baseLoader.item.image.visible && background.type.is_blurred
         sourceComponent: Component {
@@ -137,8 +151,22 @@ Item {
     }
 
     Loader {
+        id: patternLoader
         anchors.fill: parent
         active: backgroundType == 'backgroundTypePattern'
         sourceComponent: typeWallpaper
+        visible: !invertedPlaceholderLoader.active
+    }
+
+    Loader {
+        anchors.fill: parent
+        active: invertedPlaceholderLoader.active
+        sourceComponent: Component {
+            OpacityMask {
+                anchors.fill: parent
+                source: baseLoader
+                maskSource: patternLoader
+            }
+        }
     }
 }
