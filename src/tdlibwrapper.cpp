@@ -2480,7 +2480,7 @@ void TDLibWrapper::getCustomEmojiStickers(QStringList ids) {
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::getCustomEmojiStickers(QString id) {
+void TDLibWrapper::getCustomEmojiStickers(const QString &id) {
     LOG("Receiving sticker for custom emoji" << id);
     QStringList ids;
     ids.append(id);
@@ -2493,6 +2493,7 @@ QVariantMap TDLibWrapper::getBackground() {
 
 void TDLibWrapper::handleBackgroundUpdated(const QVariantMap &newBackground, bool forDarkMode) {
     LOG("Default background updated; for dark mode:" << forDarkMode);
+    if (forDarkMode) return;
     this->background = newBackground;
     emit backgroundChanged();
 }
@@ -2503,4 +2504,22 @@ void TDLibWrapper::getInstalledBackgrounds() {
     requestObject.insert(_TYPE, "getInstalledBackgrounds");
     //requestObject.insert("for_dark_theme", forDarkMode);
     this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::setDefaultBackground(const QVariantMap &inputBackground, const QVariantMap &backgroundType) {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "setDefaultBackground");
+    requestObject.insert("for_dark_theme", false);
+    requestObject.insert("background", inputBackground);
+    if (!backgroundType.isEmpty())
+        requestObject.insert(TYPE, backgroundType);
+    this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::setDefaultBackground(const QString &id) {
+    LOG("Setting new default background from remote ID" << id);
+    QVariantMap newBackground;
+    newBackground.insert(_TYPE, "inputBackgroundRemote");
+    newBackground.insert("background_id", id);
+    this->setDefaultBackground(newBackground);
 }

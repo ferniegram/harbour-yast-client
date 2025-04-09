@@ -261,8 +261,9 @@ public:
     Q_INVOKABLE void setInactiveSessionTtl(int days);
     Q_INVOKABLE void getMessageProperties(qlonglong chatId, qlonglong messageId);
     Q_INVOKABLE void getCustomEmojiStickers(QStringList ids);
-    Q_INVOKABLE void getCustomEmojiStickers(QString id);
+    Q_INVOKABLE void getCustomEmojiStickers(const QString &id);
     Q_INVOKABLE void getInstalledBackgrounds();
+    Q_INVOKABLE void setDefaultBackground(const QString &remoteId);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void searchEmoji(const QString &queryString);
@@ -399,6 +400,7 @@ private:
     QVariantMap newFormattedText(const QString &text, const QVariantList entities = QVariantList());
     void initializeTDLibReceiver();
     void updateUserInformation(const QString &userId, const QVariantMap &userInformation);
+    void setDefaultBackground(const QVariantMap &inputBackground, const QVariantMap &backgroundType = QVariantMap());
 
 private:
     void *tdLibClient;

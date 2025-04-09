@@ -6,7 +6,6 @@ import '../components'
 Dialog {
     id: dialog
     property var backgrounds: []
-    property var selected
     allowedOrientations: Orientation.All
 
     Connections {
@@ -15,6 +14,7 @@ Dialog {
     }
 
     Component.onCompleted: tdLibWrapper.getInstalledBackgrounds()
+    canAccept: false
 
     DialogHeader { id: header }
 
@@ -46,6 +46,11 @@ Dialog {
                         anchors.fill: parent
                         highlighted: flowItem.highlighted
                         background: modelData
+                    }
+                    onClicked: {
+                        tdLibWrapper.setDefaultBackground(modelData.id)
+                        canAccept = true
+                        accept()
                     }
                 }
             }
