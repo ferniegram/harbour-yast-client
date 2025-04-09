@@ -67,6 +67,7 @@ namespace {
     const QString EMOJI("emoji");
     const QString TYPE_MESSAGE_REPLY_TO_MESSAGE("messageReplyToMessage");
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
+    const QString FOR_DARK_THEME("for_dark_theme");
 }
 
 TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *parent)
@@ -2502,15 +2503,16 @@ void TDLibWrapper::getInstalledBackgrounds() {
     LOG("Retrieving installed backgrounds");
     QVariantMap requestObject;
     requestObject.insert(_TYPE, "getInstalledBackgrounds");
-    //requestObject.insert("for_dark_theme", forDarkMode);
+    //requestObject.insert(FOR_DARK_THEME, forDarkMode);
     this->sendRequest(requestObject);
 }
 
 void TDLibWrapper::setDefaultBackground(const QVariantMap &inputBackground, const QVariantMap &backgroundType) {
     QVariantMap requestObject;
     requestObject.insert(_TYPE, "setDefaultBackground");
-    requestObject.insert("for_dark_theme", false);
-    requestObject.insert("background", inputBackground);
+    requestObject.insert(FOR_DARK_THEME, false);
+    if (!inputBackground.isEmpty())
+        requestObject.insert("background", inputBackground);
     if (!backgroundType.isEmpty())
         requestObject.insert(TYPE, backgroundType);
     this->sendRequest(requestObject);
@@ -2522,4 +2524,11 @@ void TDLibWrapper::setDefaultBackground(const QString &id) {
     newBackground.insert(_TYPE, "inputBackgroundRemote");
     newBackground.insert("background_id", id);
     this->setDefaultBackground(newBackground);
+}
+
+void TDLibWrapper::resetDefaultBackground() {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "deleteDefaultBackground");
+    requestObject.insert(FOR_DARK_THEME, false);
+    this->sendRequest(requestObject);
 }

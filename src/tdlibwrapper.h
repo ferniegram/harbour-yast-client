@@ -264,6 +264,7 @@ public:
     Q_INVOKABLE void getCustomEmojiStickers(const QString &id);
     Q_INVOKABLE void getInstalledBackgrounds();
     Q_INVOKABLE void setDefaultBackground(const QString &remoteId);
+    Q_INVOKABLE void resetDefaultBackground();
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void searchEmoji(const QString &queryString);
@@ -400,7 +401,7 @@ private:
     QVariantMap newFormattedText(const QString &text, const QVariantList entities = QVariantList());
     void initializeTDLibReceiver();
     void updateUserInformation(const QString &userId, const QVariantMap &userInformation);
-    void setDefaultBackground(const QVariantMap &inputBackground, const QVariantMap &backgroundType = QVariantMap());
+    void setDefaultBackground(const QVariantMap &inputBackground = QVariantMap(), const QVariantMap &backgroundType = QVariantMap());
 
 private:
     void *tdLibClient;

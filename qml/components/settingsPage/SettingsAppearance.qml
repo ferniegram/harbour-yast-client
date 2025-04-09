@@ -102,11 +102,15 @@ AccordionItem {
                     Button {
                         text: qsTr("Choose from gallery")
                         onClicked: pageStack.push(Qt.resolvedUrl('../../dialogs/BackgroundSelectionDialog.qml'))
-                        // todo: accept
                     }
                     Button {
                         text: qsTr("Choose a file")
                         // todo
+                        visible: false
+                    }
+                    Button {
+                        text: qsTr("Reset")
+                        onClicked: tdLibWrapper.resetDefaultBackground()
                     }
                 }
             }
