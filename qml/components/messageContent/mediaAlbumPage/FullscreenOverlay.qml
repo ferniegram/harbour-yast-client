@@ -227,6 +227,12 @@ Item {
         autoLoad: false
         tdlib: tdLibWrapper
         property bool isPhoto: message.content['@type'] === 'messagePhoto'
+        property var videoData: isPhoto ? null : message.content['@type'] === "messageVideo"
+                                          ? message.content.video
+                                          : (
+                                                message.content['@type'] === "messageAnimation"
+                                                ? message.content.animation
+                                                : message.content.video_note)
 
         fileInformation: {
             if(isPhoto) {
@@ -242,16 +248,9 @@ Item {
                 }
                 return {}
             }
-
-            return message.content.video.video
+            return videoData[message.content['@type'] === 'messageVideoNote' ? "video" : videoData['@type']]
         }
-        property real progress: isDownloadingCompleted ? 1.0 : (downloadedSize / size)
-        onDownloadingCompletedChanged: {
-            if(isDownloadingCompleted) {
-//                video.source = file.path
-
-            }
-        }
+        // Progress is already displayed on play button
     }
     Row {
         id: buttons
@@ -265,26 +264,22 @@ Item {
         }
 
         IconButton {
-             icon.source: (file.isDownloadingActive
-                           ? "image://theme/icon-m-cancel"
-                           : "image://theme/icon-m-downloads")
-                          + "?"
-                          + (
-                              pressed
-                              ? Theme.highlightColor
-                              : Theme.lightPrimaryColor
-                              )
-             onClicked: {
-                 if(file.isDownloadingCompleted) {
-                     tdLibWrapper.copyFileToDownloads(file.path, true);
-                 } else if(!file.isDownloadingActive) {
-                     file.load();
-                 } else {
-                     file.cancel()
-                 }
-             }
-
-         }
+            icon.source: (file.isDownloadingActive
+                       ? "image://theme/icon-m-cancel"
+                       : "image://theme/icon-m-downloads")
+                      + "?"
+                      + (
+                          pressed
+                          ? Theme.highlightColor
+                          : Theme.lightPrimaryColor
+                          )
+            onClicked: {
+                if(file.isDownloadingCompleted)
+                    tdLibWrapper.copyFileToDownloads(file.path, true)
+                else if(!file.isDownloadingActive) file.load()
+                else file.cancel()
+            }
+        }
         Item {
             width: Theme.itemSizeSmall
             height: Theme.itemSizeSmall
