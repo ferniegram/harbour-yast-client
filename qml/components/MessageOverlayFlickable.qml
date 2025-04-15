@@ -30,7 +30,8 @@ Flickable {
     contentHeight: messageContentColumn.height
     clip: true
 
-    property var overlayMessage;
+    property var overlayMessage
+    // are message properties (and/or albums, and other stuff) required here?
     property bool showHeader: true
     readonly property var userInformation: tdLibWrapper.getUserInformation(overlayMessage.sender_id.user_id);
     readonly property bool isOwnMessage: tdLibWrapper.getUserInformation().id === overlayMessage.sender_id.user_id;

@@ -26,6 +26,7 @@ Item {
     property ListItem messageListItem
     property MessageOverlayFlickable overlayFlickable
     property var rawMessage: messageListItem ? messageListItem.myMessage : overlayFlickable.overlayMessage
+    property var messageProperties: messageListItem ? messageListItem.messageProperties : {}
     property bool highlighted
     signal clicked()
 }

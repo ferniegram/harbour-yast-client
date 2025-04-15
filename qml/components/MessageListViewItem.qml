@@ -35,7 +35,7 @@ ListItem {
     property var myMessage
     property var messageAlbumMessageIds
     property var reactions
-    property var messageProperties: ({})
+    property var messageProperties
     property bool canReplyToMessage
     readonly property bool isAnonymous: myMessage.sender_id["@type"] === "messageSenderChat"
     readonly property var userInformation: tdLibWrapper.getUserInformation(myMessage.sender_id.user_id)

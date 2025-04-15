@@ -754,7 +754,7 @@ Page {
                 }
             },
             NamedAction {
-                visible: messageOptionsDrawer.showForwardMessageMenuItem && messageOptionsDrawer.myMessage.can_be_forwarded
+                visible: messageOptionsDrawer.showForwardMessageMenuItem && messageOptionsDrawer.myMessage.properties.can_be_forwarded
                 name: qsTr("Forward Message")
                 action: function () {
                     startForwardingMessages([messageOptionsDrawer.myMessage])
