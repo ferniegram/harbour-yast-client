@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos de Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1078,8 +1078,8 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Bienvenu sur Fernschreiber!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Bienvenu sur Ferniegram!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1134,8 +1134,8 @@
         <translation>Utilisez le format international, ex. %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>À propos de Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>À propos de Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1538,7 +1538,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos de Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1830,8 +1830,8 @@
         <translation>Délai pour marquer un message comme lu</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber attendra un instant avant de marquer les messages comme lus</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram attendra un instant avant de marquer les messages comme lus</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1866,8 +1866,8 @@
         <translation>Activer les notifications sonores</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>Lorsque le son est activé, Fernschreiber utilisera le réglage de Sailfish OS. Celui-ci est paramétrable depuis les paramètres du système.</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>Lorsque le son est activé, Ferniegram utilisera le réglage de Sailfish OS. Celui-ci est paramétrable depuis les paramètres du système.</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -1927,7 +1927,7 @@
     </message>
     <message>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Intégrer Fernschreiber avec le menu ouvrir avec de Sailfish OS</translation>
+        <translation>Intégrer Ferniegram avec le menu ouvrir avec de Sailfish OS</translation>
     </message>
 </context>
 <context>
@@ -2085,8 +2085,8 @@
         <translation>Activer le mode en-ligne seulement</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Désactiver le cache hors-ligne. Certaines fonctionalités peuvent être limitées ou manquantes avec ce mode. Nécessite de redémarrer Fernschreiber.</translation>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
+        <translation>Désactiver le cache hors-ligne. Certaines fonctionalités peuvent être limitées ou manquantes avec ce mode. Nécessite de redémarrer Ferniegram.</translation>
     </message>
     <message>
         <source>Enable storage optimizer</source>

@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa Ferniegramista</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1079,8 +1079,8 @@
         <translation>Ok</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Tervetuloa Fernschreiberiin!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Tervetuloa Ferniegramiin!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1135,8 +1135,8 @@
         <translation>Käytä kansainvälistä muotoa, esimerkiksi %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>Tietoa Fernschreiberista</translation>
+        <source>About Ferniegram</source>
+        <translation>Tietoa Ferniegramista</translation>
     </message>
 </context>
 <context>
@@ -1539,7 +1539,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa Ferniegramista</translation>
     </message>
 </context>
 <context>
@@ -1831,8 +1831,8 @@
         <translation>Viive viestien merkitsemisessä luetuksi</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber odottaa hetken ennen kuin viestit merkitään luetuiksi</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram odottaa hetken ennen kuin viestit merkitään luetuiksi</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1867,8 +1867,8 @@
         <translation>Käytä äänimerkkejä</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>Kun äänet ovat käytössä, Fernschreiber käyttää Sailfish OS:n ilmoitusääniä keskusteluille, jotia voit muuttaa järjestelmäasetuksista.</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>Kun äänet ovat käytössä, Ferniegram käyttää Sailfish OS:n ilmoitusääniä keskusteluille, jotia voit muuttaa järjestelmäasetuksista.</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -2086,8 +2086,8 @@
         <translation>Älä käytä välimuistia</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Estää tietojen tallennuksen välimuistiin. Jotkin sovelluksen ominaisuudet voivat olla rajoitettuja tai poistettu käytöstä tässä tilassa. Muutos vaatii Fernschreiberin uudelleenkäynnistyksen.</translation>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
+        <translation>Estää tietojen tallennuksen välimuistiin. Jotkin sovelluksen ominaisuudet voivat olla rajoitettuja tai poistettu käytöstä tässä tilassa. Muutos vaatii Ferniegramin uudelleenkäynnistyksen.</translation>
     </message>
     <message>
         <source>Enable storage optimizer</source>

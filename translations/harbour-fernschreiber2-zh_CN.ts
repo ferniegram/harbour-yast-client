@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>关于 Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1064,8 +1064,8 @@
         <translation>确认</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>欢迎使用 Fernschreiber ！</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>欢迎使用 Ferniegram ！</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1120,8 +1120,8 @@
         <translation>请使用国际区号格式，例如 %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>关于 Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>关于 Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1517,7 +1517,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>关于 Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1801,8 +1801,8 @@
         <translation>标记消息已读前延迟</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber 将会在标记消息已读之前延迟一下</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram 将会在标记消息已读之前延迟一下</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1837,8 +1837,8 @@
         <translation>开启通知声音</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>如果开启声音，Fernschreiber 会采用当前旗鱼系统通知声音作为对话通知声音，你可以在系统设置进行配置。</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>如果开启声音，Ferniegram 会采用当前旗鱼系统通知声音作为对话通知声音，你可以在系统设置进行配置。</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -2055,7 +2055,7 @@
         <translation>开启仅在线模式</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
         <translation>禁用离线缓存。某些特定功能会在此模式中受限或消失。切换模式需要重启 fernschreiber 才能生效。</translation>
     </message>
     <message>

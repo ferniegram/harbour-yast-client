@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>About Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1078,8 +1078,8 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Welcome to Fernschreiber!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Welcome to Ferniegram!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1134,8 +1134,8 @@
         <translation>Use the international format, e.g. %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>About Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>About Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1538,7 +1538,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>About Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1830,7 +1830,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1866,7 +1866,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2085,7 +2085,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

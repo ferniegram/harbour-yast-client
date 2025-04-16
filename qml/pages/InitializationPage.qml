@@ -105,7 +105,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About Fernschreiber")
+                text: qsTr("About Ferniegram")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         }
@@ -117,7 +117,7 @@ Page {
 
             PageHeader {
                 id: pageHeader
-                title: qsTr("Welcome to Fernschreiber!")
+                title: qsTr("Welcome to Ferniegram!")
             }
 
             Image {

@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>O aplikácii Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1093,8 +1093,8 @@
         <translation>V poriadku</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Vitajte vo Fernschreiber!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Vitajte vo Ferniegram!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1149,8 +1149,8 @@
         <translation>Použite medzinárodný formát, napr. %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>O aplikácii Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>O aplikácii Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1560,7 +1560,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>O aplikácii Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1860,8 +1860,8 @@
         <translation>Oneskorenie pred označením správ ako prečítaných</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber chvíľu počká, kým budú správy označené ako prečítané</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram chvíľu počká, kým budú správy označené ako prečítané</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1896,8 +1896,8 @@
         <translation>Povoliť zvukové oznamy</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>Keď sú povolené zvukové oznamy, Fernschreiber použije aktuálne zvukové oznamy Sailfish OS pre čety, ktoré môžu byť upravené v nastaveniach systému.</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>Keď sú povolené zvukové oznamy, Ferniegram použije aktuálne zvukové oznamy Sailfish OS pre čety, ktoré môžu byť upravené v nastaveniach systému.</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -2116,8 +2116,8 @@
         <translation>Povoliť režim &quot;iba pripojený&quot;</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Zakázať ukladanie do off-line vyrovnávacej pamäte. Niektoré funkcie môžu byť v tomto režime obmedzené alebo môžu chýbať. Zmeny sa prejavia až po reštartovaní Fernschreiber.</translation>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
+        <translation>Zakázať ukladanie do off-line vyrovnávacej pamäte. Niektoré funkcie môžu byť v tomto režime obmedzené alebo môžu chýbať. Zmeny sa prejavia až po reštartovaní Ferniegram.</translation>
     </message>
     <message>
         <source>Enable storage optimizer</source>

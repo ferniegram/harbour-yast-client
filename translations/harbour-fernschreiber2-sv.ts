@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Om Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1078,8 +1078,8 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Välkommen till Fernschreiber!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Välkommen till Ferniegram!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1134,8 +1134,8 @@
         <translation>Använd internationellt format, t.ex. %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>Om Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>Om Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1538,7 +1538,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Om Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1830,8 +1830,8 @@
         <translation>Fördröjning innan meddelanden markeras som lästa</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber väntar en stund innan meddelanden markeras som lästa</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram väntar en stund innan meddelanden markeras som lästa</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1866,8 +1866,8 @@
         <translation>Aktivera aviseringsljud</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>När ljud är aktiverat, använder Fernschreiber aktuell Sailfish-signal för chatt-avisering, vilken kan ställas in i systemets ljudinställningar.</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>När ljud är aktiverat, använder Ferniegram aktuell Sailfish-signal för chatt-avisering, vilken kan ställas in i systemets ljudinställningar.</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -1927,7 +1927,7 @@
     </message>
     <message>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Integrera Fernschreiber med menyn &quot;Öppna med&quot;, i Sailfish OS</translation>
+        <translation>Integrera Ferniegram med menyn &quot;Öppna med&quot;, i Sailfish OS</translation>
     </message>
 </context>
 <context>
@@ -2085,8 +2085,8 @@
         <translation>Aktivera endast-online-läge</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Inaktiverar cachelagring offline. Vissa funktioner kan vara begränsade eller saknas helt i det här läget. Ändringar kräver omstart av Fernschreiber för att träda i kraft.</translation>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
+        <translation>Inaktiverar cachelagring offline. Vissa funktioner kan vara begränsade eller saknas helt i det här läget. Ändringar kräver omstart av Ferniegram för att träda i kraft.</translation>
     </message>
     <message>
         <source>Enable storage optimizer</source>

@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>About Ferniegram</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1080,8 +1080,8 @@ messages</numerusform>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Welcome to Fernschreiber!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Welcome to Ferniegram!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1136,8 +1136,8 @@ messages</numerusform>
         <translation>Use the international format, e.g. %1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>About Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>About Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1540,7 +1540,7 @@ messages</numerusform>
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>About Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1832,8 +1832,8 @@ messages</numerusform>
         <translation>Delay before marking messages as read</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber will wait a bit before messages are marked as read</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram will wait a bit before messages are marked as read</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1868,8 +1868,8 @@ messages</numerusform>
         <translation>Enable notification sounds</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -2087,8 +2087,8 @@ messages</numerusform>
         <translation>Enable online-only mode</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</translation>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
+        <translation>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</translation>
     </message>
     <message>
         <source>Enable storage optimizer</source>

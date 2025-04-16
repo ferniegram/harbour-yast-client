@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de</translation>
     </message>
     <message>
         <source>Development</source>
@@ -1078,7 +1078,7 @@
         <translation>Aceptar</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
+        <source>Welcome to Ferniegram!</source>
         <translation>Bienvenidos a Ferni!</translation>
     </message>
     <message>
@@ -1134,7 +1134,7 @@
         <translation>%1</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
+        <source>About Ferniegram</source>
         <translation>Acerca de</translation>
     </message>
 </context>
@@ -1538,7 +1538,7 @@
     </message>
     <message>
         <source>About Ferniegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de</translation>
     </message>
 </context>
 <context>
@@ -1830,7 +1830,7 @@
         <translation>Marcar mensajes como Leídos</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
         <translation>Si esta habilitado, Apl espera un segundo hasta que mensaje que está en monitor se marque como leído. Si deshabilita esta función,  mensajes se marcarán inmediatamente como leído una vez que esté en monitor sin desplazarse a mensaje</translation>
     </message>
     <message>
@@ -1866,7 +1866,7 @@
         <translation>Habilitar sonidos de Notificación</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
         <translation>Cuando los sonidos están habilitados, Ferni utilizará sonido de notificación actual de Sailfish OS para los grupos, que se puede ajustar a configuración del sistema.</translation>
     </message>
     <message>
@@ -2085,7 +2085,7 @@
         <translation>Modo solo Enlínea</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
         <translation>Deshabilita el almacenamiento en caché sin conexión. Algunas funciones pueden estar limitadas o ausentes en este modo. Se requiere reiniciar Ferni para efecto.</translation>
     </message>
     <message>

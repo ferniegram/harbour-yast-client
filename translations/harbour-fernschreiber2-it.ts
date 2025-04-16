@@ -542,7 +542,7 @@
     </message>
     <message>
         <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Messaggio raccomandato</translation>
     </message>
 </context>
 <context>
@@ -1078,8 +1078,8 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Fernschreiber!</source>
-        <translation>Benvenuto in Fernschreiber!</translation>
+        <source>Welcome to Ferniegram!</source>
+        <translation>Benvenuto in Ferniegram!</translation>
     </message>
     <message>
         <source>Please enter your phone number to continue.</source>
@@ -1134,8 +1134,8 @@
         <translation>Carica...</translation>
     </message>
     <message>
-        <source>About Fernschreiber</source>
-        <translation>Informazioni su Fernschreiber</translation>
+        <source>About Ferniegram</source>
+        <translation>Informazioni su Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1830,8 +1830,8 @@
         <translation>Attendi prima di segnare i messaggi come già letti</translation>
     </message>
     <message>
-        <source>Fernschreiber will wait a bit before messages are marked as read</source>
-        <translation>Fernschreiber attende un attimo prima di segnare i messaggi come già letti</translation>
+        <source>Ferniegram will wait a bit before messages are marked as read</source>
+        <translation>Ferniegram attende un attimo prima di segnare i messaggi come già letti</translation>
     </message>
     <message>
         <source>Open-with menu integration</source>
@@ -1866,8 +1866,8 @@
         <translation>Abilita suoni notifiche</translation>
     </message>
     <message>
-        <source>When sounds are enabled, Fernschreiber will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>Quando i suoni di notifica sono attivi, Fernschreiber utilizza l&apos;attuale suono di notifica per i messaggi scelto per Sailfish OS, il quale può essere modificato dalle impostazioni di sistema.</translation>
+        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
+        <translation>Quando i suoni di notifica sono attivi, Ferniegram utilizza l&apos;attuale suono di notifica per i messaggi scelto per Sailfish OS, il quale può essere modificato dalle impostazioni di sistema.</translation>
     </message>
     <message>
         <source>Always append message preview to notifications</source>
@@ -1923,11 +1923,11 @@
     </message>
     <message>
         <source>Voice note volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume note vocali</translation>
     </message>
     <message>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Aggiungi Fernschreiber al menù Apri con di Sailfish OS</translation>
+        <translation>Aggiungi Ferniegram al menù Apri con di Sailfish OS</translation>
     </message>
 </context>
 <context>
@@ -2085,8 +2085,8 @@
         <translation>Abilita modalità solo online</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Fernschreiber to take effect.</source>
-        <translation>Disabilita offline caching. Alcune funzionalità potrebbero non essere presenti in questa modalità. Riavvia Fernschreiber per rendere attive le modifiche.</translation>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
+        <translation>Disabilita cache locale. Alcune funzionalità potrebbero non essere presenti in questa modalità. Riavvia Ferniegram per rendere attive le modifiche.</translation>
     </message>
     <message>
         <source>Enable storage optimizer</source>
@@ -2094,31 +2094,31 @@
     </message>
     <message>
         <source>%1 &lt;b&gt;files&lt;/b&gt;, &lt;b&gt;totalling&lt;/b&gt; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 &lt;b&gt;file&lt;/b&gt;, &lt;b&gt; per un totale di&lt;/b&gt; %2</translation>
     </message>
     <message>
         <source>&lt;b&gt;Local database size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dimensione database locale&lt;/b&gt;: %1</translation>
     </message>
     <message>
         <source>&lt;b&gt;TDLib log size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dimensione log TDLib&lt;/b&gt;: %1</translation>
     </message>
     <message>
         <source>&lt;b&gt;TDLib language pack database size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dimensione database lingue TDLib&lt;/b&gt;: %1</translation>
     </message>
     <message>
         <source>Optimize storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Ottimizza spazio archiviazione</translation>
     </message>
     <message>
         <source>Clear all cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulisci la cache</translation>
     </message>
     <message>
         <source>Clearing all cache is not recommended, unless issues occur.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulire la cache non è raccomandato, a meno di problemi.</translation>
     </message>
 </context>
 <context>
