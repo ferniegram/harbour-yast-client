@@ -115,6 +115,18 @@
         <source>other contributors</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Debug mode enabled!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>You are now %n steps away from enabling debug mode</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>BackgroundProgressIndicator</name>
