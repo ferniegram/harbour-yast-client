@@ -30,7 +30,6 @@ AboutPageBase {
     _pageHeaderItem.title: qsTr("About Ferniegram")
     appName: "Ferniegram 0.1"
     appIcon: Qt.resolvedUrl("../../images/fernschreiber2.svg")
-    Component.onCompleted: console.log(appIcon)
     _iconItem.width: Math.min(2 * Theme.itemSizeHuge, Math.min(aboutPage.width, aboutPage.height) / 2)
     _iconItem.height: _iconItem.width
     _iconItem.asynchronous: true
@@ -170,4 +169,28 @@ AboutPageBase {
         }
 
     ]
+
+    property int iconClicks
+    MouseArea {
+        parent: _iconItem
+        anchors.fill: parent
+        enabled: !DebugLog.enabled
+        onClicked: {
+            iconClicks++
+            resetIconClicksTimer.restart()
+            if (iconClicks >= 3)
+                appNotification.show(qsTr("You are now %n steps away from enabling debug mode", '', 7 - iconClicks))
+
+            if (iconClicks == 7) {
+                DebugLog.enabled = true
+                appNotification.show(qsTr("Debug mode enabled!"))
+            }
+        }
+    }
+
+    Timer {
+        id: resetIconClicksTimer
+        interval: 1000
+        onTriggered: iconClicks = 0
+    }
 }

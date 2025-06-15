@@ -306,9 +306,7 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        initializePage();
-    }
+    Component.onCompleted: initializePage()
 
     SilicaFlickable {
         id: overviewContainer
@@ -320,7 +318,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: "Debug"
-                visible: Debug.enabled
+                visible: DebugLog.enabled
                 onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"))
             }
             MenuItem {
