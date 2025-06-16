@@ -425,7 +425,17 @@ function getMessagesArrayText(messages) {
     return lines.join("\n");
 }
 
+// From https://github.com/KurimuzonAkuma/pyrogram/tree/4c367aaec5b4aa9d055d1334da117487ef9fabfa/compiler/errors/source
+// Another possible source could be https://github.com/xelaj/mtproto/blob/main/errors.go
+var ALL_ERRORS = {
+// TODO...
+// also we need to keep in mind that TDLib can parse some errors too, that's probably why code 406 should never be used
+// for example like updateMessageSendFailed
+// 
+}
+
 function handleErrorMessage(code, message, extra) {
+    //if (code === 406) return // https://core.telegram.org/tdlib/docs/classtd_1_1td__api_1_1error.html
     if (code === 404 ||
             (code === 400 &&
              (message === "USERNAME_INVALID" || message === "USERNAME_NOT_OCCUPIED"))) {
