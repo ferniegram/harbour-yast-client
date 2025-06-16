@@ -42,7 +42,7 @@ function getUserName(userInformation) {
     return ((userInformation.first_name || "") + " " + (userInformation.last_name || "")).trim();
 }
 
-function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSize, reloader) {
+function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSize) {
     var myself = false;
     if (message['@type'] !== "sponsoredMessage") {
         myself = message.sender_id['@type'] === "messageSenderUser" && message.sender_id.user_id.toString() === currentUserId.toString();
@@ -50,7 +50,7 @@ function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSiz
 
     var getCaption = function(text){
         return simple ? text.arg(message.content.caption.text)
-                      : enhanceMessageText(message.content.caption, ignoreEntities, emojiSize, reloader)
+                      : enhanceMessageText(message.content.caption, ignoreEntities, emojiSize)
     }
 
     switch(message.content['@type']) {
@@ -58,7 +58,7 @@ function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSiz
         if (simple) {
             return message.content.text.text;
         } else {
-            return enhanceMessageText(message.content.text, ignoreEntities, emojiSize, reloader);
+            return enhanceMessageText(message.content.text, ignoreEntities, emojiSize);
         }
     case 'messageSticker':
         return simple ? message.content.sticker.emoji : ""
@@ -302,8 +302,7 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
     if(formattedText.entities.length === 0)
         return textFixReserved(messageText)
 
-    emojiSize = Math.round((typeof emojiSize === 'undefined' ? Silica.Theme.fontSizeSmall : emojiSize) * 1.15)
-    reloader = typeof reloader === 'undefined' ? function(){} : reloader
+    //emojiSize = Math.round((typeof emojiSize === 'undefined' ? Silica.Theme.fontSizeSmall : emojiSize) * 1.15)
     for (var i = 0; i < formattedText.entities.length; i++) {
         entity = formattedText.entities[i];
         if (entity['@type'] !== "textEntity") {
