@@ -25,6 +25,7 @@
 #include "tdlibwrapper.h"
 #include "appsettings.h"
 #include "mceinterface.h"
+#include "fernschreiberutils.h"
 
 class ChatModel;
 
@@ -36,7 +37,7 @@ class NotificationManager : public QObject
 
 public:
 
-    NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, MceInterface *mceInterface, ChatModel *chatModel);
+    NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, MceInterface *mceInterface, ChatModel *chatModel, FernschreiberUtils *fernschreiberUtils);
     ~NotificationManager() override;
 
 public slots:
@@ -62,6 +63,7 @@ private:
     AppSettings *appSettings;
     MceInterface *mceInterface;
     ChatModel *chatModel;
+    FernschreiberUtils *fernschreiberUtils;
     QMap<qlonglong,ChatInfo*> chatMap;
     QMap<int,NotificationGroup*> notificationGroups;
     QString appIconFile;

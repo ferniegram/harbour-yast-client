@@ -23,6 +23,7 @@
 #include <QAbstractListModel>
 #include "tdlibwrapper.h"
 #include "appsettings.h"
+#include "fernschreiberutils.h"
 
 class ChatListModel : public QAbstractListModel
 {
@@ -59,7 +60,7 @@ public:
         RoleDraftMessageDate
     };
 
-    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings);
+    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, FernschreiberUtils *fernschreiberUtils);
     ~ChatListModel() override;
 
     QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
@@ -115,6 +116,7 @@ private:
 private:
     TDLibWrapper *tdLibWrapper;
     AppSettings *appSettings;
+    FernschreiberUtils *fernschreiberUtils;
     QTimer *relativeTimeRefreshTimer;
     QList<ChatData*> chatList;
     QHash<qlonglong,int> chatIndexMap;

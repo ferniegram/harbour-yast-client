@@ -39,6 +39,8 @@
 
 namespace {
     const QString _TYPE("@type");
+    const QString ID("id");
+    const QString TYPE("type");
     const QString TEXT("text");
     const QString EMOJI("emoji");
     const QString ANIMATED_EMOJI("animated_emoji");
@@ -59,12 +61,26 @@ namespace {
     const QString MESSAGE_CONTENT_TYPE_DOCUMENT("messageDocument");
     const QString MESSAGE_CONTENT_TYPE_LOCATION("messageLocation");
     const QString MESSAGE_CONTENT_TYPE_VENUE("messageVenue");
+
+    const QString ENTITIES("entities");
+    const QString TEXT_ENTITY("textEntity");
+    const QString OFFSET("offset");
+    const QString LENGTH("length");
+    const QString URL("url");
+    const QString REMOVE_LENGTH("removeLength");
+    const QString INSERTION_STRING("insertionString");
+
+    const QRegularExpression RAW_NEW_LINE_RE("\r?\n");
+    const QRegularExpression AMP_RE("&");
+    const QRegularExpression LT_RE("<");
+    const QRegularExpression GT_RE(">");
 }
 
-FernschreiberUtils::FernschreiberUtils(AppSettings *settings, QObject *parent)
+FernschreiberUtils::FernschreiberUtils(AppSettings *settings, TDLibWrapper *tdLibWrapper, QObject *parent)
     : QObject(parent)
     , manager(new QNetworkAccessManager(this))
     , appSettings(settings)
+    , tdLibWrapper(tdLibWrapper)
 {
     LOG("Initializing audio recorder...");
 
@@ -102,7 +118,159 @@ FernschreiberUtils::~FernschreiberUtils()
     this->cleanUp();
 }
 
-QString FernschreiberUtils::getMessageShortText(TDLibWrapper *tdLibWrapper, const QVariantMap &messageContent, const bool isChannel, const qlonglong currentUserId, const QVariantMap &messageSender)
+QString FernschreiberUtils::fixReservedHtmlCharacters(const QString &text) {
+    return QString(text).replace(LT_RE, "&lt;").replace(GT_RE, "&gt;").replace(RAW_NEW_LINE_RE, "<br>");
+}
+
+// TODO: Use a custom class instead of QVariantMap for messageInstertions
+void FernschreiberUtils::handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString) {
+    int nextIndex = -1;
+    while ((nextIndex = messageText.indexOf(originalString, nextIndex + 1)) > -1) {
+        const QVariantMap toAppend{
+            {OFFSET, nextIndex},
+            {INSERTION_STRING, replacementString},
+            {REMOVE_LENGTH, originalString.length()},
+        };
+        messageInsertions.append(toAppend);
+    }
+}
+
+bool messageInsertionSorter(const QVariantMap &a, const QVariantMap &b) {
+    /*const uint
+            aOffset = a.value(OFFSET).toUInt(),
+            aRemove = a.value(REMOVE_LENGTH).toInt(),
+            bOffset = b.value(OFFSET).toUInt(),
+            bRemove = b.value(REMOVE_LENGTH).toInt();
+    if (bOffset + bRemove == aOffset + aRemove)
+        return bOffset < aOffset;
+    return bOffset + bRemove > aOffset + aRemove; // ok so yeah it is < i realized it now*/
+    return b.value(OFFSET).toUInt() + b.value(REMOVE_LENGTH).toInt() < a.value(OFFSET).toUInt() + a.value(REMOVE_LENGTH).toInt();
+}
+
+QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities) {
+    if (formattedText.isEmpty()) return "";
+
+    QString messageText = formattedText.value(TEXT).toString();
+    if (ignoreEntities) return messageText;
+
+    const QVariantList entities = formattedText.value(ENTITIES).toList();
+    if(entities.isEmpty())
+        return fixReservedHtmlCharacters(messageText);
+
+    QList<QVariantMap> messageInsertions;
+
+    //emojiSize = Math.round((typeof emojiSize === 'undefined' ? Silica.Theme.fontSizeSmall : emojiSize) * 1.15)
+    for (const QVariant &entityVariant : entities) {
+        const QVariantMap entity = entityVariant.toMap();
+        if (entity.value(_TYPE) != TEXT_ENTITY)
+            continue;
+        const QString entityType = entity.value(TYPE).toMap().value(_TYPE).toString();
+
+        QString start, end;
+        // int startRemove, endRemove; // possibly unit? probably not because it can also remove length in the opposite direction in theory (at least it (probably) could in JS); unused for now
+
+        if (entityType == "textEntityTypeBold") {
+            start = "<b>";
+            end = "</b>";
+        } else if (entityType == "textEntityTypeUrl") {
+            start = "<a href=\"" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            end = "</a>";
+        } else if (entityType == "textEntityTypeCode") {
+            start = "<pre>";
+            end = "</pre>";
+        } else if (entityType == "textEntityTypeEmailAddress") {
+            start = "<a href=\"mailto:" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            end = "</a>";
+        } else if (entityType == "textEntityTypeItalic") {
+            start = "<i>";
+            end = "</i>";
+        } else if (entityType == "textEntityTypeStrikethrough") {
+            start = "<s>";
+            end = "</s>";
+        } else if (entityType == "textEntityTypeMention") {
+            start = "<a href=\"user://" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            end = "</a>";
+        } else if (entityType == "textEntityTypeMentionName") {
+            start = "<a href=\"userId://" + entity.value(TYPE).toMap().value(USER_ID).toString() + "\">";
+            end = "</a>";
+        } else if (entityType == "textEntityTypePhoneNumber") {
+            start = "<a href=\"tel:" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            end = "</a>";
+        } else if (entityType == "textEntityTypePre" || entityType == "textEntityTypePreCode") {
+            start = "<pre>";
+            end = "</pre>";
+        } else if (entityType == "textEntityTypeTextUrl") {
+            start = "<a href=\"" + entity.value(TYPE).toMap().value(URL).toString() + "\">";
+            end = "</a>";
+        } else if (entityType == "textEntityTypeUnderline") {
+            start = "<u>";
+            end = "</u>";
+        } else if (entityType == "textEntityTypeBotCommand") {
+            start = "<a href=\"botCommand://" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            end = "</a>";
+        }
+
+        /*case 'textEntityTypeCustomEmoji': // disabled for now
+            // FIXME as it works terribly; maybe do a global TDLibFile object?; maybe in StickerManager even though it was not created for exactly this?
+            // + this doesn't work at all with online only mode
+            var emoji = entity.type.custom_emoji_id
+            if (stickerManager.hasCustomEmoji(emoji)) {
+                var sticker = stickerManager.getCustomEmojiSticker(emoji)
+                if (sticker.format['@type'] === 'stickerFormatWebm') break
+                var file = createTdlibFile(sticker.sticker)
+                if (!file.isDownloadingCompleted || !file.path) {
+                    file.downloadingCompletedChanged.connect(function(){ if(file.isDownloadingCompleted) {
+                        file.destroy() // Should we do it or is it happening automatically?
+                        reloader(true)
+                    }})
+                    break
+                }
+                messageInsertions.push({offset: entity.offset, insertionString: Emoji.getEmojiTag(file.path, emojiSize), removeLength: entity.length})
+                file.destroy() // Should we do it or is it happening automatically?
+            } else {
+                tdLibWrapper.getCustomEmojiStickers(emoji)
+                if (typeof reloader !== 'undefined')
+                    stickerManager.customEmojiReceived.connect(function(emojiId) {
+                        if (emojiId == emoji) reloader(true)
+                    })
+            }
+        break*/
+
+        const QVariantMap entityResultStart{
+            {OFFSET, entity.value(OFFSET).toUInt()},
+            {INSERTION_STRING, start},
+            {REMOVE_LENGTH, 0}, // startRemove
+        };
+        const QVariantMap entityResultEnd{
+            {OFFSET, entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()},
+            {INSERTION_STRING, end},
+            {REMOVE_LENGTH, 0}, // endRemove
+        };
+        messageInsertions.append(entityResultStart);
+        messageInsertions.append(entityResultEnd);
+    }
+
+    if(messageInsertions.isEmpty())
+        return fixReservedHtmlCharacters(messageText);
+
+    handleHtmlEntity(messageText, messageInsertions, "&", "&amp;");
+    handleHtmlEntity(messageText, messageInsertions, "<", "&lt;");
+    handleHtmlEntity(messageText, messageInsertions, ">", "&gt;");
+    std::sort(messageInsertions.begin(), messageInsertions.end(), messageInsertionSorter);
+
+    for (QVariantMap insertion : messageInsertions)
+        messageText.replace(insertion.value(OFFSET).toUInt(), insertion.value(REMOVE_LENGTH).toInt(), insertion.value(INSERTION_STRING).toString());
+
+    messageText.replace(RAW_NEW_LINE_RE, "<br>");
+
+    return messageText;
+}
+
+/*QString FernschreiberUtils::getMessageText(const QVariantMap &message, const bool myself) {
+
+}*/
+
+QString FernschreiberUtils::getMessageShortText(const QVariantMap &messageContent, const bool isChannel, const QVariantMap &messageSender)
 {
     if (messageContent.isEmpty()) {
         return QString();
@@ -111,7 +279,8 @@ QString FernschreiberUtils::getMessageShortText(TDLibWrapper *tdLibWrapper, cons
     const QString contentType(messageContent.value(_TYPE).toString());
     const QString messageSenderType(messageSender.value(_TYPE).toString());
     const qlonglong messageSenderUserId = messageSender.value(USER_ID).toLongLong();
-    const bool myself = !isChannel && (messageSenderType == MESSAGE_SENDER_TYPE_USER && messageSenderUserId == currentUserId);
+    const bool myself = !isChannel && (messageSenderType == MESSAGE_SENDER_TYPE_USER
+                                       && messageSenderUserId == this->tdLibWrapper->getUserInformation().value(ID).toLongLong());
 
     if (contentType == MESSAGE_CONTENT_TYPE_TEXT) {
         return messageContent.value(TEXT).toMap().value(TEXT).toString();
@@ -165,7 +334,7 @@ QString FernschreiberUtils::getMessageShortText(TDLibWrapper *tdLibWrapper, cons
                 if (i > 0) {
                     addedUserNames += ", ";
                 }
-                addedUserNames += getUserName(tdLibWrapper->getUserInformation(memberUserIds.at(i).toString()));
+                addedUserNames += getUserName(this->tdLibWrapper->getUserInformation(memberUserIds.at(i).toString()));
             }
             return myself ? tr("have added %1 to the chat", "myself").arg(addedUserNames) : tr("has added %1 to the chat").arg(addedUserNames);
         }
@@ -174,7 +343,7 @@ QString FernschreiberUtils::getMessageShortText(TDLibWrapper *tdLibWrapper, cons
         if (messageSenderType == MESSAGE_SENDER_TYPE_USER && messageSenderUserId == messageContent.value("user_id").toLongLong()) {
             return myself ? tr("left this chat", "myself") : tr("left this chat");
         } else {
-            return myself ? tr("have removed %1 from the chat", "myself").arg(getUserName(tdLibWrapper->getUserInformation(messageContent.value("user_id").toString()))) : tr("has removed %1 from the chat").arg(getUserName(tdLibWrapper->getUserInformation(messageContent.value("user_id").toString())));
+            return myself ? tr("have removed %1 from the chat", "myself").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString()))) : tr("has removed %1 from the chat").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString())));
         }
     }
     if (contentType == "messageChatChangeTitle") {

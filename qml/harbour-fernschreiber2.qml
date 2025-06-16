@@ -72,6 +72,7 @@ ApplicationWindow
             createTdlibFile: function(info){
                 return tdlibFileComponent.createObject(appWindow, {fileInformation: info})
             },
+            fernschreiberUtils: fernschreiberUtils,
         })
     }
 }

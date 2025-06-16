@@ -31,7 +31,7 @@ class FernschreiberUtils : public QObject
 {
     Q_OBJECT
 public:
-    explicit FernschreiberUtils(AppSettings *settings = nullptr, QObject *parent = nullptr);
+    explicit FernschreiberUtils(AppSettings *settings = nullptr, TDLibWrapper *tdLibWrapper = nullptr, QObject *parent = nullptr);
     ~FernschreiberUtils();
 
     enum VoiceNoteRecordingState {
@@ -43,7 +43,7 @@ public:
     };
     Q_ENUM(VoiceNoteRecordingState)
 
-    static QString getMessageShortText(TDLibWrapper *tdLibWrapper, const QVariantMap &messageContent, const bool isChannel, const qlonglong currentUserId, const QVariantMap &messageSender);
+    Q_INVOKABLE QString getMessageShortText(const QVariantMap &messageContent, const bool isChannel, const QVariantMap &messageSender);
     static QString getUserName(const QVariantMap &userInformation);
 
     Q_INVOKABLE void startRecordingVoiceNote();
@@ -55,6 +55,10 @@ public:
     Q_INVOKABLE bool supportsGeoLocation();
     Q_INVOKABLE QString getSailfishOSVersion();
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
+
+    Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
+    Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
+    Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities);
 
 signals:
     void voiceNoteDurationChanged(qlonglong duration);
@@ -77,7 +81,7 @@ private:
     void cleanUp();
     QString getTemporaryDirectoryPath();
     AppSettings *appSettings;
-
+    TDLibWrapper *tdLibWrapper;
 };
 
 #endif // FERNSCHREIBERUTILS_H

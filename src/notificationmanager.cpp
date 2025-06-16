@@ -125,7 +125,7 @@ NotificationManager::NotificationGroup::~NotificationGroup()
     delete nemoNotification;
 }
 
-NotificationManager::NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, MceInterface *mceInterface, ChatModel *chatModel) :
+NotificationManager::NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, MceInterface *mceInterface, ChatModel *chatModel, FernschreiberUtils *fernschreiberUtils) :
     appIconFile(SailfishApp::pathTo("images/fernschreiber2-notification.png").toLocalFile())
 {
     LOG("Initializing...");
@@ -133,6 +133,7 @@ NotificationManager::NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings
     this->appSettings = appSettings;
     this->mceInterface = mceInterface;
     this->chatModel = chatModel;
+    this->fernschreiberUtils = fernschreiberUtils;
 
     connect(this->tdLibWrapper, SIGNAL(activeNotificationsUpdated(QVariantList)), this, SLOT(handleUpdateActiveNotifications(QVariantList)));
     connect(this->tdLibWrapper, SIGNAL(notificationGroupUpdated(QVariantMap)), this, SLOT(handleUpdateNotificationGroup(QVariantMap)));
@@ -364,7 +365,7 @@ void NotificationManager::publishNotification(const NotificationGroup *notificat
             }
             notificationBody += fullName.trimmed() + ": ";
         }
-        notificationBody += FernschreiberUtils::getMessageShortText(tdLibWrapper, messageMap.value(CONTENT).toMap(), (chatInformation ? chatInformation->isChannel : false), tdLibWrapper->getUserInformation().value(ID).toLongLong(), senderInformation );
+        notificationBody += fernschreiberUtils->getMessageShortText(messageMap.value(CONTENT).toMap(), (chatInformation ? chatInformation->isChannel : false), senderInformation);
     }
 
     const QString summary(chatInformation ? chatInformation->title : QString());

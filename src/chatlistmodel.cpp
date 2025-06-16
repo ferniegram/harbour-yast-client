@@ -62,10 +62,11 @@ class ChatListModel::ChatData
 {
 public:
 
-    ChatData(TDLibWrapper *tdLibWrapper, const QVariantMap &data);
+    ChatData(TDLibWrapper *tdLibWrapper, FernschreiberUtils *fernschreiberUtils, const QVariantMap &data);
 
     int compareTo(const ChatData *chat) const;
     bool setOrder(const QString &order);
+    const QVariantMap lastMessage() const;
     const QVariant lastMessage(const QString &key) const;
     QString title() const;
     int unreadCount() const;
@@ -92,6 +93,7 @@ public:
     QVector<int> updateGroup(const TDLibWrapper::Group *group);
     QVector<int> updateSecretChat(const QVariantMap &secretChatDetails);
     TDLibWrapper *tdLibWrapper;
+    FernschreiberUtils *fernschreiberUtils;
 
 public:
     QVariantMap chatData;
@@ -105,8 +107,9 @@ public:
 
 };
 
-ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, const QVariantMap &data) :
+ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, FernschreiberUtils *fernschreiberUtils, const QVariantMap &data) :
     tdLibWrapper(tdLibWrapper),
+    fernschreiberUtils(fernschreiberUtils),
     chatData(data),
     chatId(data.value(ID).toLongLong()),
     order(data.value(ORDER).toLongLong()),
@@ -150,9 +153,11 @@ bool ChatListModel::ChatData::setOrder(const QString &newOrder)
     return false;
 }
 
-inline const QVariant ChatListModel::ChatData::lastMessage(const QString &key) const
-{
-    return chatData.value(LAST_MESSAGE).toMap().value(key);
+inline const QVariantMap ChatListModel::ChatData::lastMessage() const {
+    return chatData.value(LAST_MESSAGE).toMap();
+}
+inline const QVariant ChatListModel::ChatData::lastMessage(const QString &key) const {
+    return lastMessage().value(key);
 }
 
 QString ChatListModel::ChatData::title() const
@@ -212,8 +217,7 @@ qlonglong ChatListModel::ChatData::senderMessageDate() const
 
 QString ChatListModel::ChatData::senderMessageText() const
 {
-    qlonglong myUserId = tdLibWrapper->getUserInformation().value(ID).toLongLong();
-    return FernschreiberUtils::getMessageShortText(tdLibWrapper, lastMessage(CONTENT).toMap(), isChannel(), myUserId, lastMessage(SENDER_ID).toMap());
+    return fernschreiberUtils->getMessageShortText(lastMessage(CONTENT).toMap(), isChannel(), lastMessage(SENDER_ID).toMap());
 }
 
 
@@ -384,10 +388,11 @@ QVector<int> ChatListModel::ChatData::updateSecretChat(const QVariantMap &secret
     return changedRoles;
 }
 
-ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings) : showHiddenChats(false)
+ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, FernschreiberUtils *fernschreiberUtils) : showHiddenChats(false)
 {
     this->tdLibWrapper = tdLibWrapper;
     this->appSettings = appSettings;
+    this->fernschreiberUtils = fernschreiberUtils;
     connect(tdLibWrapper, SIGNAL(newChatDiscovered(QString, QVariantMap)), this, SLOT(handleChatDiscovered(QString, QVariantMap)));
     connect(tdLibWrapper, SIGNAL(chatLastMessageUpdated(QString, QString, QVariantMap)), this, SLOT(handleChatLastMessageUpdated(QString, QString, QVariantMap)));
     connect(tdLibWrapper, SIGNAL(chatOrderUpdated(QString, QString)), this, SLOT(handleChatOrderUpdated(QString, QString)));
@@ -708,7 +713,7 @@ void ChatListModel::setShowAllChats(bool showAll)
 void ChatListModel::handleChatDiscovered(const QString &, const QVariantMap &chatToBeAdded)
 {
     LOG("New chat discovered");
-    ChatData *chat = new ChatData(tdLibWrapper, chatToBeAdded);
+    ChatData *chat = new ChatData(tdLibWrapper, fernschreiberUtils, chatToBeAdded);
 
     const TDLibWrapper::Group *group = tdLibWrapper->getGroup(chat->groupId);
     if (group) {

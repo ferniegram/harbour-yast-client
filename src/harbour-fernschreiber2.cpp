@@ -144,20 +144,20 @@ int main(int argc, char *argv[])
     context->setContextProperty("tdLibWrapper", tdLibWrapper);
     qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TelegramAPI", QString());
 
-    FernschreiberUtils *fernschreiberUtils = new FernschreiberUtils(appSettings, view.data());
+    FernschreiberUtils *fernschreiberUtils = new FernschreiberUtils(appSettings, tdLibWrapper, view.data());
     context->setContextProperty("fernschreiberUtils", fernschreiberUtils);
     qmlRegisterUncreatableType<FernschreiberUtils>(uri, 1, 0, "FernschreiberUtilities", QString());
 
     DBusAdaptor *dBusAdaptor = tdLibWrapper->getDBusAdaptor();
     context->setContextProperty("dBusAdaptor", dBusAdaptor);
 
-    ChatListModel chatListModel(tdLibWrapper, appSettings);
+    ChatListModel chatListModel(tdLibWrapper, appSettings, fernschreiberUtils);
     context->setContextProperty("chatListModel", &chatListModel);
 
     ChatModel chatModel(tdLibWrapper);
     context->setContextProperty("chatModel", &chatModel);
 
-    NotificationManager notificationManager(tdLibWrapper, appSettings, mceInterface, &chatModel);
+    NotificationManager notificationManager(tdLibWrapper, appSettings, mceInterface, &chatModel, fernschreiberUtils);
     context->setContextProperty("notificationManager", &notificationManager);
 
     ProcessLauncher processLauncher;

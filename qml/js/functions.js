@@ -22,12 +22,13 @@
 .import "twemoji.js" as Emoji
 .import Sailfish.Silica 1.0 as Silica
 
-var tdLibWrapper, appNotification, stickerManager, createTdlibFile
+var tdLibWrapper, appNotification, stickerManager, createTdlibFile, fernschreiberUtils
 function setGlobals(globals) {
     tdLibWrapper = globals.tdLibWrapper
     appNotification = globals.appNotification
     stickerManager = globals.stickerManager
     createTdlibFile = globals.createTdlibFile
+    fernschreiberUtils = globals.fernschreiberUtils
 }
 function formatUnreadCount(value) {
     if(value < 1000) {
@@ -42,7 +43,7 @@ function getUserName(userInformation) {
     return ((userInformation.first_name || "") + " " + (userInformation.last_name || "")).trim();
 }
 
-function getMessageText(message, simple, currentUserId, ignoreEntities, emojiSize) {
+function getMessageText(message, simple, currentUserId, ignoreEntities, asFormattedText, emojiSize) {
     var myself = false;
     if (message['@type'] !== "sponsoredMessage") {
         myself = message.sender_id['@type'] === "messageSenderUser" && message.sender_id.user_id.toString() === currentUserId.toString();
@@ -297,152 +298,7 @@ function textFixReserved(text) {
 
 function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {
     if (typeof formattedText === 'undefined') return ''
-
-    var messageInsertions = [];
-    var messageText = formattedText.text;
-    var entity;
-    if (ignoreEntities) return messageText
-
-    if(formattedText.entities.length === 0)
-        return textFixReserved(messageText)
-
-    //emojiSize = Math.round((typeof emojiSize === 'undefined' ? Silica.Theme.fontSizeSmall : emojiSize) * 1.15)
-    for (var i = 0; i < formattedText.entities.length; i++) {
-        entity = formattedText.entities[i];
-        if (entity['@type'] !== "textEntity") {
-            continue;
-        }
-        switch(entity.type['@type']) {
-            case "textEntityTypeBold":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<b>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</b>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeUrl":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"" + messageText.substring(entity.offset, ( entity.offset + entity.length )) + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeCode":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<pre>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</pre>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeEmailAddress":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"mailto:" + messageText.substring(entity.offset, ( entity.offset + entity.length )) + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeItalic":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<i>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</i>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeStrikethrough":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<s>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</s>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeMention":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"user://" + messageText.substring(entity.offset, entity.offset + entity.length) + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeMentionName":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"userId://" + entity.type.user_id + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypePhoneNumber":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"tel:" + messageText.substring(entity.offset, ( entity.offset + entity.length )) + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypePre":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<pre>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</pre>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypePreCode":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<pre>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</pre>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeTextUrl":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"" + entity.type.url + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeUnderline":
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<u>", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</u>", removeLength: 0 }
-                );
-            break;
-            case "textEntityTypeBotCommand":
-                var command = messageText.substring(entity.offset, entity.offset + entity.length);
-                messageInsertions.push(
-                    { offset: entity.offset, insertionString: "<a href=\"botCommand://" + command + "\">", removeLength: 0 },
-                    { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
-                );
-            break;
-            /*case 'textEntityTypeCustomEmoji': // disabled for now
-                // FIXME as it works terribly; maybe do a global TDLibFile object?; maybe in StickerManager even though it was not created for exactly this?
-                // + this doesn't work at all with online only mode
-                var emoji = entity.type.custom_emoji_id
-                if (stickerManager.hasCustomEmoji(emoji)) {
-                    var sticker = stickerManager.getCustomEmojiSticker(emoji)
-                    if (sticker.format['@type'] === 'stickerFormatWebm') break
-                    var file = createTdlibFile(sticker.sticker)
-                    if (!file.isDownloadingCompleted || !file.path) {
-                        file.downloadingCompletedChanged.connect(function(){ if(file.isDownloadingCompleted) {
-                            file.destroy() // Should we do it or is it happening automatically?
-                            reloader(true)
-                        }})
-                        break
-                    }
-                    messageInsertions.push({offset: entity.offset, insertionString: Emoji.getEmojiTag(file.path, emojiSize), removeLength: entity.length})
-                    file.destroy() // Should we do it or is it happening automatically?
-                } else {
-                    tdLibWrapper.getCustomEmojiStickers(emoji)
-                    if (typeof reloader !== 'undefined')
-                        stickerManager.customEmojiReceived.connect(function(emojiId) {
-                            if (emojiId == emoji) reloader(true)
-                        })
-                }
-            break*/
-        }
-    }
-
-    if(messageInsertions.length === 0)
-        return textFixReserved(messageText)
-
-    handleHtmlEntity(messageText, messageInsertions, "&", "&amp;");
-    handleHtmlEntity(messageText, messageInsertions, "<", "&lt;");
-    handleHtmlEntity(messageText, messageInsertions, ">", "&gt;");
-    messageInsertions.sort(messageInsertionSorter);
-
-    for (var z = 0; z < messageInsertions.length; z++) {
-        messageText = messageText.substring(0, messageInsertions[z].offset)
-         + messageInsertions[z].insertionString
-         + messageText.substring(messageInsertions[z].offset + messageInsertions[z].removeLength);
-    }
-
-    messageText = messageText.replace(rawNewLineRegExp, "<br>");
-    
-    return messageText;
+    return fernschreiberUtils.enhanceMessageText(formattedText, ignoreEntities)
 }
 
 function handleTMeLink(link, usedPrefix) {
