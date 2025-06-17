@@ -365,7 +365,7 @@ void NotificationManager::publishNotification(const NotificationGroup *notificat
             }
             notificationBody += fullName.trimmed() + ": ";
         }
-        notificationBody += fernschreiberUtils->getMessageShortText(messageMap.value(CONTENT).toMap(), (chatInformation ? chatInformation->isChannel : false), senderInformation);
+        notificationBody += fernschreiberUtils->getMessageText(messageMap, true);
     }
 
     const QString summary(chatInformation ? chatInformation->title : QString());
