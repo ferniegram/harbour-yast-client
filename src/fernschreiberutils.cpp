@@ -274,7 +274,7 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
     return messageText;
 }
 
-QString FernschreiberUtils::getMessageText(const QVariantMap &message, const MessageTextType type, const bool ignoreEntities) {
+QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &message, const MessageTextType type) {
     const qlonglong messageSenderUserId = message.value(SENDER_ID).toMap().value(USER_ID).toLongLong();
     const QVariantMap messageContent = message.value(CONTENT).toMap();
     const QString contentType = messageContent.value(_TYPE).toString();
@@ -285,47 +285,48 @@ QString FernschreiberUtils::getMessageText(const QVariantMap &message, const Mes
             && messageSenderType == MESSAGE_SENDER_USER
             && messageSenderUserId == this->tdLibWrapper->getUserInformation().value(ID).toLongLong();
 
-    auto getCaption = [&](QString text) -> const QString {
+    auto getCaption = [&](QString text) -> const QVariant {
+        // should we convert it to string/map and then back to qvariant?
         return simple ? text.arg(messageContent.value(CAPTION).toMap().value(TEXT).toString())
-                      : enhanceMessageText(messageContent.value(CAPTION).toMap(), ignoreEntities);
+                      : messageContent.value(CAPTION);
     };
 
     if (contentType == MESSAGE_CONTENT_TYPE_TEXT)
-        return simple ? messageContent.value(TEXT).toMap().value(TEXT).toString()
-                      : enhanceMessageText(messageContent.value(TEXT).toMap(), ignoreEntities);
+        return simple ? messageContent.value(TEXT).toMap().value(TEXT)
+                      : messageContent.value(TEXT);
     if (contentType == MESSAGE_CONTENT_TYPE_STICKER)
         return simple ? messageContent.value(STICKER).toMap().value(EMOJI).toString() : "";
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI)
         return simple ? messageContent.value(ANIMATED_EMOJI).toMap().value(STICKER).toMap().value(EMOJI).toString() : "";
     if (contentType == MESSAGE_CONTENT_TYPE_PHOTO) {
-        if (const QString caption = getCaption(tr("Picture: %1")); !caption.isEmpty())
+        if (const QVariant caption = getCaption(tr("Picture: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
             return caption;
         else return simple ? (myself ? tr("sent a picture", "myself") : tr("sent a picture")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VIDEO) {
-        if (const QString caption = getCaption(tr("Video: %1")); !caption.isEmpty())
+        if (const QVariant caption = getCaption(tr("Video: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
             return caption;
         else return simple ? (myself ? tr("sent a video", "myself") : tr("sent a video")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VIDEO_NOTE)
         return simple ? (myself ? tr("sent a video message", "myself") : tr("sent a video message")) : "";
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATION) {
-        if (const QString caption = getCaption(tr("Animation: %1")); !caption.isEmpty())
+        if (const QVariant caption = getCaption(tr("Animation: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
             return caption;
         else return simple ? (myself ? tr("sent an animation", "myself") : tr("sent an animation")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_AUDIO) {
-        if (const QString caption = getCaption(tr("Audio: %1")); !caption.isEmpty())
+        if (const QVariant caption = getCaption(tr("Audio: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
             return caption;
         else return simple ? (myself ? tr("sent an audio", "myself") : tr("sent an audio")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VOICE_NOTE) {
-        if (const QString caption = getCaption(tr("Voice message: %1")); !caption.isEmpty())
+        if (const QVariant caption = getCaption(tr("Voice message: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
             return caption;
         else return simple ? (myself ? tr("sent a voice message", "myself") : tr("sent a voice message")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VOICE_NOTE) {
-        if (const QString caption = getCaption(tr("Document: %1")); !caption.isEmpty())
+        if (const QVariant caption = getCaption(tr("Document: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
             return caption;
         else return simple ? (myself ? tr("sent a document", "myself") : tr("sent a document")) : "";
     }
@@ -433,6 +434,20 @@ QString FernschreiberUtils::getMessageText(const QVariantMap &message, const Mes
     return myself
             ? tr("sent an unsupported message: %1", "myself; %1 is message type").arg(contentType.mid(7))
             : tr("sent an unsupported message: %1", "%1 is message type").arg(contentType.mid(7));
+}
+
+QString FernschreiberUtils::getMessageText(const QVariantMap &message, const MessageTextType type, const bool ignoreEntities) {
+    const QVariant text = getMaybeFormattedMessageText(message, type);
+    if (text.userType() == QMetaType::QVariantMap)
+        return enhanceMessageText(text.toMap(), ignoreEntities);
+    return text.toString();
+}
+
+QVariantMap FernschreiberUtils::getFormattedMessageText(const QVariantMap &message, const MessageTextType type) {
+    const QVariant text = getMessageText(message, type);
+    if (text.userType() == QMetaType::QString)
+        return makeDummyFormattedText(text.toString());
+    return text.toMap();
 }
 
 QString FernschreiberUtils::getUserName(const QVariantMap &userInformation)

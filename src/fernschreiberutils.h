@@ -56,6 +56,7 @@ public:
     Q_INVOKABLE QVariantMap makeDummyFormattedText(const QString &text);
     Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities);
     Q_INVOKABLE QString getMessageText(const QVariantMap &message, const MessageTextType type = MessageTextType::Default, const bool ignoreEntities = false);
+    Q_INVOKABLE QVariantMap getFormattedMessageText(const QVariantMap &message, const MessageTextType type = MessageTextType::Default);
 
     Q_INVOKABLE void startRecordingVoiceNote();
     Q_INVOKABLE void stopRecordingVoiceNote();
@@ -90,6 +91,8 @@ private:
 
     void cleanUp();
     QString getTemporaryDirectoryPath();
+
+    QVariant getMaybeFormattedMessageText(const QVariantMap &message, const MessageTextType type = MessageTextType::Default);
 };
 
 #endif // FERNSCHREIBERUTILS_H
