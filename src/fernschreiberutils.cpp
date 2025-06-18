@@ -88,9 +88,9 @@ namespace {
 
 FernschreiberUtils::FernschreiberUtils(AppSettings *settings, TDLibWrapper *tdLibWrapper, QObject *parent)
     : QObject(parent)
-    , manager(new QNetworkAccessManager(this))
     , appSettings(settings)
     , tdLibWrapper(tdLibWrapper)
+    , manager(new QNetworkAccessManager(this))
 {
     LOG("Initializing audio recorder...");
 
@@ -148,6 +148,11 @@ void FernschreiberUtils::handleHtmlEntity(const QString &messageText, QList<QVar
 bool messageInsertionSorter(const QVariantMap &a, const QVariantMap &b) {
     // Sort in reverse order (so offset indexes are valid)
     return b.value(OFFSET).toUInt() + b.value(REMOVE_LENGTH).toInt() < a.value(OFFSET).toUInt() + a.value(REMOVE_LENGTH).toInt();
+}
+
+QVariantMap FernschreiberUtils::makeDummyFormattedText(const QString &text) {
+    const QVariantMap formattedText{{_TYPE, "formattedText"}, {TEXT, text}};
+    return formattedText;
 }
 
 QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities) {

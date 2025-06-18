@@ -53,9 +53,10 @@ public:
     
     Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
     Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
+    Q_INVOKABLE QVariantMap makeDummyFormattedText(const QString &text);
     Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities);
     Q_INVOKABLE QString getMessageText(const QVariantMap &message, const MessageTextType type = MessageTextType::Default, const bool ignoreEntities = false);
-    
+
     Q_INVOKABLE void startRecordingVoiceNote();
     Q_INVOKABLE void stopRecordingVoiceNote();
     Q_INVOKABLE QString voiceNotePath();
@@ -78,6 +79,9 @@ private slots:
     void handleReverseGeocodeFinished();
 
 private:
+    AppSettings *appSettings;
+    TDLibWrapper *tdLibWrapper;
+
     QAudioRecorder audioRecorder;
     VoiceNoteRecordingState voiceNoteRecordingState;
 
@@ -86,8 +90,6 @@ private:
 
     void cleanUp();
     QString getTemporaryDirectoryPath();
-    AppSettings *appSettings;
-    TDLibWrapper *tdLibWrapper;
 };
 
 #endif // FERNSCHREIBERUTILS_H
