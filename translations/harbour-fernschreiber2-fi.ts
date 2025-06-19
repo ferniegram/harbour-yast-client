@@ -115,16 +115,20 @@
         <source>other contributors</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Debug mode enabled!</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
         <source>You are now %n steps away from enabling debug mode</source>
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Not needed, debug mode is already enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debug mode is now enabled!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -617,6 +621,13 @@
     </message>
 </context>
 <context>
+    <name>DebugPage</name>
+    <message>
+        <source>Translate</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditGroupChatPermissionsColumn</name>
     <message>
         <source>Group Member Permissions</source>
@@ -714,15 +725,6 @@
         <translation>lähetti animaation</translation>
     </message>
     <message>
-        <source>sent a voice note</source>
-        <comment>myself</comment>
-        <translation>lähetit ääniviestin</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <translation>lähetti ääniviestin</translation>
-    </message>
-    <message>
         <source>sent a document</source>
         <comment>myself</comment>
         <translation>lähetit dokumentin</translation>
@@ -786,15 +788,6 @@
         <translation>poistui keskustelusta</translation>
     </message>
     <message>
-        <source>changed the chat title</source>
-        <comment>myself</comment>
-        <translation>muutit keskustelun otsikkoa</translation>
-    </message>
-    <message>
-        <source>changed the chat title</source>
-        <translation>muutti keskustelun otsikkoa</translation>
-    </message>
-    <message>
         <source>sent a poll</source>
         <comment>myself</comment>
         <translation>lähetit kyselyn</translation>
@@ -840,27 +833,9 @@
         <translation>poisti keskustelun kuvakkeen</translation>
     </message>
     <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>myself</comment>
-        <translation>vaihdoit salaisen keskustelun viestien elinajan</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <translation>vaihtoi salaisen keskustelun viestien elinajan</translation>
-    </message>
-    <message>
         <source>upgraded this group to a supergroup</source>
         <comment>myself</comment>
         <translation>muutit tämän ryhmän superryhmäksi</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <comment>myself</comment>
-        <translation>vaihdoit kiinnitetyn viestin</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <translation>vaihtoi kiinnitetyn viestin</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
@@ -881,10 +856,6 @@
         <translation>lähetti ei-tuetun viestin</translation>
     </message>
     <message>
-        <source>sent an unsupported message: %1</source>
-        <translation>lähetti ei-tuetun viestin: %1</translation>
-    </message>
-    <message>
         <source>upgraded this group to a supergroup</source>
         <translation>muutti tämän ryhmän superryhmäksi</translation>
     </message>
@@ -901,11 +872,6 @@
     <message>
         <source>sent a self-destructing video that is expired</source>
         <translation>lähetti itsetuhoutuvan videon joka vanheni</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>myself</comment>
-        <translation>lähetit ei-tuetun viestin: %1</translation>
     </message>
     <message>
         <source>sent a self-destructing photo that is expired</source>
@@ -963,33 +929,6 @@
         <translation>lähetti pelin</translation>
     </message>
     <message>
-        <source>sent a video note</source>
-        <comment>myself</comment>
-        <translation>lähetit videoviestin</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <translation>lähetti videoviestin</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing voice note that is expired</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a self-destructing voice note that is expired</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video note that is expired</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video note that is expired</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1039,6 +978,138 @@
     </message>
     <message>
         <source>a giveaway was completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture: %1</source>
+        <translation type="unfinished">Kuva: %1</translation>
+    </message>
+    <message>
+        <source>Video: %1</source>
+        <translation type="unfinished">Video: %1</translation>
+    </message>
+    <message>
+        <source>sent a video message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animation: %1</source>
+        <translation type="unfinished">Animaatio: %1</translation>
+    </message>
+    <message>
+        <source>Audio: %1</source>
+        <translation type="unfinished">Äänite: %1</translation>
+    </message>
+    <message>
+        <source>Voice message: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a voice message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document: %1</source>
+        <translation type="unfinished">Dokumentti: %1</translation>
+    </message>
+    <message>
+        <source>changed the chat title to %1</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the chat title to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an anonymous quiz</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an anonymous quiz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Quiz</source>
+        <translation type="unfinished">Anonyymi visa</translation>
+    </message>
+    <message>
+        <source>Quiz</source>
+        <translation type="unfinished">Visa</translation>
+    </message>
+    <message>
+        <source>sent an anonymous poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an anonymous poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Poll</source>
+        <translation type="unfinished">Anonyymi kysely</translation>
+    </message>
+    <message>
+        <source>Poll</source>
+        <translation type="unfinished">Kysely</translation>
+    </message>
+    <message>
+        <source>changed the secret chat TTL setting</source>
+        <comment>myself; TTL = Time To Live</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the secret chat TTL setting</source>
+        <comment>TTL = Time To Live</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pinned a message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pinned a message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing voice message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing voice message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message: %1</source>
+        <comment>myself; %1 is message type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message: %1</source>
+        <comment>%1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1207,6 +1278,10 @@
     <message>
         <source>Delete</source>
         <comment>message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1941,6 +2016,10 @@
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
         <translation>Sisällytä Ferniegram Sailfish OS:n avaa sovelluksella ‑valikkoon</translation>
     </message>
+    <message>
+        <source>Show translate option for messages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2230,6 +2309,17 @@
     </message>
 </context>
 <context>
+    <name>TranslatePage</name>
+    <message>
+        <source>Change language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VoiceNoteOverlay</name>
     <message>
         <source>Record a Voice Note</source>
@@ -2278,143 +2368,12 @@
 <context>
     <name>functions</name>
     <message>
-        <source>Video: %1</source>
-        <translation>Video: %1</translation>
-    </message>
-    <message>
-        <source>has registered with Telegram</source>
-        <translation>rekisteröityi Telegramiin</translation>
-    </message>
-    <message>
-        <source>Picture: %1</source>
-        <translation>Kuva: %1</translation>
-    </message>
-    <message>
-        <source>Audio: %1</source>
-        <translation>Äänite: %1</translation>
-    </message>
-    <message>
-        <source>Voice Note: %1</source>
-        <translation>Ääniviesti: %1</translation>
-    </message>
-    <message>
-        <source>Animation: %1</source>
-        <translation>Animaatio: %1</translation>
-    </message>
-    <message>
-        <source>Document: %1</source>
-        <translation>Dokumentti: %1</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <translation>lähetti kuvan</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <translation>lähetti videon</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <translation>lähetti animaation</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <translation>lähetti äänitteen</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <translation>lähetti ääniviestin</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <translation>lähetti dokumentin</translation>
-    </message>
-    <message>
-        <source>sent a location</source>
-        <translation>lähetti sijainnin</translation>
-    </message>
-    <message>
-        <source>joined this chat</source>
-        <translation>liittyi keskusteluun</translation>
-    </message>
-    <message>
-        <source>was added to this chat</source>
-        <translation>lisättiin keskusteluun</translation>
-    </message>
-    <message>
-        <source>left this chat</source>
-        <translation>poistui keskustelusta</translation>
-    </message>
-    <message>
         <source>%1M</source>
         <translation>%1M</translation>
     </message>
     <message>
         <source>%1K</source>
         <translation>%1K</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <comment>myself</comment>
-        <translation>lähetit kuvan</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <comment>myself</comment>
-        <translation>lähetit videon</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <comment>myself</comment>
-        <translation>lähetit animaation</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <comment>myself</comment>
-        <translation>lähetit äänitteen</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <comment>myself</comment>
-        <translation>lähetit ääniviestin</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <comment>myself</comment>
-        <translation>lähetit dokumentin</translation>
-    </message>
-    <message>
-        <source>sent a location</source>
-        <comment>myself</comment>
-        <translation>lähetit sijainnin</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <comment>myself</comment>
-        <translation>lähetit paikan</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <translation>lähetti paikan</translation>
-    </message>
-    <message>
-        <source>have registered with Telegram</source>
-        <translation>on rekisteröitynyt Telegramiin</translation>
-    </message>
-    <message>
-        <source>joined this chat</source>
-        <comment>myself</comment>
-        <translation>liityit keskusteluun</translation>
-    </message>
-    <message>
-        <source>were added to this chat</source>
-        <comment>myself</comment>
-        <translation>tulit lisätyksi keskusteluun</translation>
-    </message>
-    <message>
-        <source>left this chat</source>
-        <comment>myself</comment>
-        <translation>poistuit keskustelusta</translation>
     </message>
     <message>
         <source>was never online</source>
@@ -2461,179 +2420,8 @@
         <translation>Rajoitettu</translation>
     </message>
     <message>
-        <source>changed the chat title to %1</source>
-        <comment>myself</comment>
-        <translation>vaihdoit keskustelun otsikoksi %1</translation>
-    </message>
-    <message>
-        <source>changed the chat title to %1</source>
-        <translation>vaihtoi keskustelun otsikoksi %1</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <comment>myself</comment>
-        <translation>lähetit kyselyn</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <translation>lähetti kyselyn</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <comment>myself</comment>
-        <translation>lähetit anonyymin visan</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <translation>lähetti anonyymin visan</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <comment>myself</comment>
-        <translation>lähetit visan</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <translation>lähetti visan</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <comment>myself</comment>
-        <translation>lähetit anonyymin kyselyn</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <translation>lähetti anonyymin kyselyn</translation>
-    </message>
-    <message>
-        <source>Anonymous Quiz</source>
-        <translation>Anonyymi visa</translation>
-    </message>
-    <message>
-        <source>Quiz</source>
-        <translation>Visa</translation>
-    </message>
-    <message>
-        <source>Anonymous Poll</source>
-        <translation>Anonyymi kysely</translation>
-    </message>
-    <message>
-        <source>Poll</source>
-        <translation>Kysely</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <comment>myself</comment>
-        <translation>loit tämän ryhmän</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <translation>loi tämän ryhmän</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <comment>myself</comment>
-        <translation>vaihdoit keskustelun kuvakkeen</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <translation>vaihtoi keskustelun kuvakkeen</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <comment>myself</comment>
-        <translation>poistit keskustelun kuvakkeen</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <translation>poisti keskustelun kuvakkeen</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>myself; TTL = Time To Live</comment>
-        <translation>vaihdoit salaisen keskustelun viestien elinajan</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>TTL = Time To Live</comment>
-        <translation>vaihtoi salaisen keskustelun viestien elinajan</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <comment>myself</comment>
-        <translation>muutit tämän ryhmän superryhmäksi</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <comment>myself</comment>
-        <translation>vaihdoit kiinnitetyn viestin</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <translation>vaihtoi kiinnitetyn viestin</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <comment>myself</comment>
-        <translation>otit kuvakaappauksen tästä keskustelusta</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <translation>otti kuvakaappauksen tästä keskustelusta</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <comment>myself</comment>
-        <translation>lähetit ei-tuetun viestin</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <translation>lähetti ei-tuetun viestin</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>myself; %1 is message type</comment>
-        <translation>lähetit ei-tuetun viestin: %1</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>%1 is message type</comment>
-        <translation>lähetti ei-tuetun viestin: %1</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <translation>muutti tämän ryhmän superryhmäksi</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <comment>myself</comment>
-        <translation>lähetit itsetuhoutuvan kuvan joka vanheni</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <translation>lähetti itsetuhoutuvan kuvan joka vanheni</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <comment>myself</comment>
-        <translation>lähetit itsetuhoutuvan videon joka vanheni</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <translation>lähetti itsetuhoutuvan videon joka vanheni</translation>
-    </message>
-    <message>
         <source>Unable to find user %1</source>
         <translation>Käyttäjää ei löydy: %1</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <comment>myself</comment>
-        <translation>lähetit videoviestin</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <translation>lähetti videoviestin</translation>
     </message>
     <message>
         <source>You are already a member of this chat.</source>
@@ -2646,93 +2434,6 @@
     <message>
         <source>Pending acknowledgement</source>
         <translation>Odottaa hyväksyntää</translation>
-    </message>
-    <message>
-        <source>has added %1 to the chat</source>
-        <translation>lisäsi käyttäjä %1 keskusteluun</translation>
-    </message>
-    <message>
-        <source>has removed %1 from the chat</source>
-        <translation>posit käyttäjän %1 keskustelusta</translation>
-    </message>
-    <message>
-        <source>have added %1 to the chat</source>
-        <comment>myself</comment>
-        <translation>lisäsit käyttäjän %1 keskusteluun</translation>
-    </message>
-    <message>
-        <source>have removed %1 from the chat</source>
-        <comment>myself</comment>
-        <translation>poistit käyttäjän %1 keskustelusta</translation>
-    </message>
-    <message numerus="yes">
-        <source>scored %Ln points</source>
-        <comment>myself</comment>
-        <translation>
-            <numerusform>sait %Ln pisteen</numerusform>
-            <numerusform>sait %Ln pistettä</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>sent a game</source>
-        <comment>myself</comment>
-        <translation>lähetit pelin</translation>
-    </message>
-    <message>
-        <source>sent a game</source>
-        <translation>lähetti pelin</translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you in its web-app</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>boosted this chat %Ln times</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>boosted this chat %Ln times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a gift</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a gift</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>started a giveaway</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>started a giveaway</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a giveaway was completed</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a giveaway was completed</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

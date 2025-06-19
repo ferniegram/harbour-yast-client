@@ -115,16 +115,20 @@
         <source>other contributors</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Debug mode enabled!</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
         <source>You are now %n steps away from enabling debug mode</source>
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Not needed, debug mode is already enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Debug mode is now enabled!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -618,6 +622,13 @@ messages</numerusform>
     </message>
 </context>
 <context>
+    <name>DebugPage</name>
+    <message>
+        <source>Translate</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditGroupChatPermissionsColumn</name>
     <message>
         <source>Group Member Permissions</source>
@@ -715,10 +726,6 @@ messages</numerusform>
         <translation>sent an animation</translation>
     </message>
     <message>
-        <source>sent a voice note</source>
-        <translation>sent a voice note</translation>
-    </message>
-    <message>
         <source>sent a document</source>
         <comment>myself</comment>
         <translation>sent a document</translation>
@@ -773,11 +780,6 @@ messages</numerusform>
         <translation>left this chat</translation>
     </message>
     <message>
-        <source>sent a voice note</source>
-        <comment>myself</comment>
-        <translation>sent a voice note</translation>
-    </message>
-    <message>
         <source>sent a venue</source>
         <comment>myself</comment>
         <translation>sent a venue</translation>
@@ -785,15 +787,6 @@ messages</numerusform>
     <message>
         <source>sent a venue</source>
         <translation>sent a venue</translation>
-    </message>
-    <message>
-        <source>changed the chat title</source>
-        <comment>myself</comment>
-        <translation>changed the chat title</translation>
-    </message>
-    <message>
-        <source>changed the chat title</source>
-        <translation>changed the chat title</translation>
     </message>
     <message>
         <source>sent a poll</source>
@@ -839,15 +832,6 @@ messages</numerusform>
     <message>
         <source>deleted the chat photo</source>
         <translation>deleted the chat photo</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>myself</comment>
-        <translation>changed the secret chat TTL setting</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <translation>changed the secret chat TTL setting</translation>
     </message>
     <message>
         <source>upgraded this group to a supergroup</source>
@@ -855,15 +839,6 @@ messages</numerusform>
         <translation>upgraded this group to a supergroup</translation>
     </message>
     <message>
-        <source>changed the pinned message</source>
-        <comment>myself</comment>
-        <translation>changed the pinned message</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <translation>changed the pinned message</translation>
-    </message>
-    <message>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
         <translation>created a screenshot in this chat</translation>
@@ -880,10 +855,6 @@ messages</numerusform>
     <message>
         <source>sent an unsupported message</source>
         <translation>sent an unsupported message</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <translation>sent an unsupported message: %1</translation>
     </message>
     <message>
         <source>upgraded this group to a supergroup</source>
@@ -902,11 +873,6 @@ messages</numerusform>
     <message>
         <source>sent a self-destructing video that is expired</source>
         <translation>sent a self-destructing video that is expired</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>myself</comment>
-        <translation>sent an unsupported message: %1</translation>
     </message>
     <message>
         <source>sent a self-destructing photo that is expired</source>
@@ -964,33 +930,6 @@ messages</numerusform>
         <translation>sent a game</translation>
     </message>
     <message>
-        <source>sent a video note</source>
-        <comment>myself</comment>
-        <translation>sent a video note</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <translation>sent a video note</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing voice note that is expired</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a self-destructing voice note that is expired</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video note that is expired</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video note that is expired</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1041,6 +980,138 @@ messages</numerusform>
     <message>
         <source>a giveaway was completed</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture: %1</source>
+        <translation type="unfinished">Picture: %1</translation>
+    </message>
+    <message>
+        <source>Video: %1</source>
+        <translation type="unfinished">Video: %1</translation>
+    </message>
+    <message>
+        <source>sent a video message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animation: %1</source>
+        <translation type="unfinished">Animation: %1</translation>
+    </message>
+    <message>
+        <source>Audio: %1</source>
+        <translation type="unfinished">Audio: %1</translation>
+    </message>
+    <message>
+        <source>Voice message: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a voice message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document: %1</source>
+        <translation type="unfinished">Document: %1</translation>
+    </message>
+    <message>
+        <source>changed the chat title to %1</source>
+        <comment>myself</comment>
+        <translation type="unfinished">changed the chat title to %1</translation>
+    </message>
+    <message>
+        <source>changed the chat title to %1</source>
+        <translation type="unfinished">changed the chat title to %1</translation>
+    </message>
+    <message>
+        <source>sent an anonymous quiz</source>
+        <comment>myself</comment>
+        <translation type="unfinished">sent an anonymous quiz</translation>
+    </message>
+    <message>
+        <source>sent an anonymous quiz</source>
+        <translation type="unfinished">sent an anonymous quiz</translation>
+    </message>
+    <message>
+        <source>Anonymous Quiz</source>
+        <translation type="unfinished">Anonymous Quiz</translation>
+    </message>
+    <message>
+        <source>Quiz</source>
+        <translation type="unfinished">Quiz</translation>
+    </message>
+    <message>
+        <source>sent an anonymous poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished">sent an anonymous poll</translation>
+    </message>
+    <message>
+        <source>sent an anonymous poll</source>
+        <translation type="unfinished">sent an anonymous poll</translation>
+    </message>
+    <message>
+        <source>Anonymous Poll</source>
+        <translation type="unfinished">Anonymous Poll</translation>
+    </message>
+    <message>
+        <source>Poll</source>
+        <translation type="unfinished">Poll</translation>
+    </message>
+    <message>
+        <source>changed the secret chat TTL setting</source>
+        <comment>myself; TTL = Time To Live</comment>
+        <translation type="unfinished">changed the secret chat TTL setting</translation>
+    </message>
+    <message>
+        <source>changed the secret chat TTL setting</source>
+        <comment>TTL = Time To Live</comment>
+        <translation type="unfinished">changed the secret chat TTL setting</translation>
+    </message>
+    <message>
+        <source>pinned a message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pinned a message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing voice message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing voice message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message: %1</source>
+        <comment>myself; %1 is message type</comment>
+        <translation type="unfinished">sent an unsupported message: %1</translation>
+    </message>
+    <message>
+        <source>sent an unsupported message: %1</source>
+        <comment>%1 is message type</comment>
+        <translation type="unfinished">sent an unsupported message: %1</translation>
     </message>
 </context>
 <context>
@@ -1208,6 +1279,10 @@ messages</numerusform>
     <message>
         <source>Delete</source>
         <comment>message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1942,6 +2017,10 @@ messages</numerusform>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
         <translation>Integrate Ferniegram into open-with menu of Sailfish OS</translation>
     </message>
+    <message>
+        <source>Show translate option for messages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2231,6 +2310,17 @@ messages</numerusform>
     </message>
 </context>
 <context>
+    <name>TranslatePage</name>
+    <message>
+        <source>Change language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VoiceNoteOverlay</name>
     <message>
         <source>Record a Voice Note</source>
@@ -2279,143 +2369,12 @@ messages</numerusform>
 <context>
     <name>functions</name>
     <message>
-        <source>Video: %1</source>
-        <translation>Video: %1</translation>
-    </message>
-    <message>
-        <source>has registered with Telegram</source>
-        <translation>has registered with Telegram</translation>
-    </message>
-    <message>
-        <source>Picture: %1</source>
-        <translation>Picture: %1</translation>
-    </message>
-    <message>
-        <source>Audio: %1</source>
-        <translation>Audio: %1</translation>
-    </message>
-    <message>
-        <source>Voice Note: %1</source>
-        <translation>Voice Note: %1</translation>
-    </message>
-    <message>
-        <source>Animation: %1</source>
-        <translation>Animation: %1</translation>
-    </message>
-    <message>
-        <source>Document: %1</source>
-        <translation>Document: %1</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <translation>sent a picture</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <translation>sent a video</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <translation>sent an animation</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <translation>sent an audio</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <translation>sent a voice note</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <translation>sent a document</translation>
-    </message>
-    <message>
-        <source>sent a location</source>
-        <translation>sent a location</translation>
-    </message>
-    <message>
-        <source>joined this chat</source>
-        <translation>joined this chat</translation>
-    </message>
-    <message>
-        <source>was added to this chat</source>
-        <translation>was added to this chat</translation>
-    </message>
-    <message>
-        <source>left this chat</source>
-        <translation>left this chat</translation>
-    </message>
-    <message>
         <source>%1M</source>
         <translation>%1M</translation>
     </message>
     <message>
         <source>%1K</source>
         <translation>%1K</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <translation>sent a venue</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <comment>myself</comment>
-        <translation>sent a picture</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <comment>myself</comment>
-        <translation>sent a video</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <comment>myself</comment>
-        <translation>sent an animation</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <comment>myself</comment>
-        <translation>sent an audio</translation>
-    </message>
-    <message>
-        <source>sent a voice note</source>
-        <comment>myself</comment>
-        <translation>sent a voice note</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <comment>myself</comment>
-        <translation>sent a document</translation>
-    </message>
-    <message>
-        <source>sent a location</source>
-        <comment>myself</comment>
-        <translation>sent a location</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <comment>myself</comment>
-        <translation>sent a venue</translation>
-    </message>
-    <message>
-        <source>have registered with Telegram</source>
-        <translation>have registered with Telegram</translation>
-    </message>
-    <message>
-        <source>joined this chat</source>
-        <comment>myself</comment>
-        <translation>joined this chat</translation>
-    </message>
-    <message>
-        <source>were added to this chat</source>
-        <comment>myself</comment>
-        <translation>were added to this chat</translation>
-    </message>
-    <message>
-        <source>left this chat</source>
-        <comment>myself</comment>
-        <translation>left this chat</translation>
     </message>
     <message>
         <source>was never online</source>
@@ -2462,179 +2421,8 @@ messages</numerusform>
         <translation>Restricted</translation>
     </message>
     <message>
-        <source>changed the chat title to %1</source>
-        <comment>myself</comment>
-        <translation>changed the chat title to %1</translation>
-    </message>
-    <message>
-        <source>changed the chat title to %1</source>
-        <translation>changed the chat title to %1</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <comment>myself</comment>
-        <translation>sent a poll</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <translation>sent a poll</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <comment>myself</comment>
-        <translation>sent an anonymous quiz</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <translation>sent an anonymous quiz</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <comment>myself</comment>
-        <translation>sent a quiz</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <translation>sent a quiz</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <comment>myself</comment>
-        <translation>sent an anonymous poll</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <translation>sent an anonymous poll</translation>
-    </message>
-    <message>
-        <source>Anonymous Quiz</source>
-        <translation>Anonymous Quiz</translation>
-    </message>
-    <message>
-        <source>Quiz</source>
-        <translation>Quiz</translation>
-    </message>
-    <message>
-        <source>Anonymous Poll</source>
-        <translation>Anonymous Poll</translation>
-    </message>
-    <message>
-        <source>Poll</source>
-        <translation>Poll</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <comment>myself</comment>
-        <translation>created this group</translation>
-    </message>
-    <message>
-        <source>created this group</source>
-        <translation>created this group</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <comment>myself</comment>
-        <translation>changed the chat photo</translation>
-    </message>
-    <message>
-        <source>changed the chat photo</source>
-        <translation>changed the chat photo</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <comment>myself</comment>
-        <translation>deleted the chat photo</translation>
-    </message>
-    <message>
-        <source>deleted the chat photo</source>
-        <translation>deleted the chat photo</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>myself; TTL = Time To Live</comment>
-        <translation>changed the secret chat TTL setting</translation>
-    </message>
-    <message>
-        <source>changed the secret chat TTL setting</source>
-        <comment>TTL = Time To Live</comment>
-        <translation>changed the secret chat TTL setting</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <comment>myself</comment>
-        <translation>upgraded this group to a supergroup</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <comment>myself</comment>
-        <translation>changed the pinned message</translation>
-    </message>
-    <message>
-        <source>changed the pinned message</source>
-        <translation>changed the pinned message</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <comment>myself</comment>
-        <translation>created a screenshot in this chat</translation>
-    </message>
-    <message>
-        <source>created a screenshot in this chat</source>
-        <translation>created a screenshot in this chat</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <comment>myself</comment>
-        <translation>sent an unsupported message</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message</source>
-        <translation>sent an unsupported message</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>myself; %1 is message type</comment>
-        <translation>sent an unsupported message: %1</translation>
-    </message>
-    <message>
-        <source>sent an unsupported message: %1</source>
-        <comment>%1 is message type</comment>
-        <translation>sent an unsupported message: %1</translation>
-    </message>
-    <message>
-        <source>upgraded this group to a supergroup</source>
-        <translation>upgraded this group to a supergroup</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <comment>myself</comment>
-        <translation>sent a self-destructing photo that is expired</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing photo that is expired</source>
-        <translation>sent a self-destructing photo that is expired</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <comment>myself</comment>
-        <translation>sent a self-destructing video that is expired</translation>
-    </message>
-    <message>
-        <source>sent a self-destructing video that is expired</source>
-        <translation>sent a self-destructing video that is expired</translation>
-    </message>
-    <message>
         <source>Unable to find user %1</source>
         <translation>Unable to find user %1</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <comment>myself</comment>
-        <translation>sent a video note</translation>
-    </message>
-    <message>
-        <source>sent a video note</source>
-        <translation>sent a video note</translation>
     </message>
     <message>
         <source>You are already a member of this chat.</source>
@@ -2647,93 +2435,6 @@ messages</numerusform>
     <message>
         <source>Pending acknowledgement</source>
         <translation>Pending acknowledgement</translation>
-    </message>
-    <message>
-        <source>has added %1 to the chat</source>
-        <translation>has added %1 to the chat</translation>
-    </message>
-    <message>
-        <source>has removed %1 from the chat</source>
-        <translation>has removed %1 from the chat</translation>
-    </message>
-    <message>
-        <source>have added %1 to the chat</source>
-        <comment>myself</comment>
-        <translation>have added %1 to the chat</translation>
-    </message>
-    <message>
-        <source>have removed %1 from the chat</source>
-        <comment>myself</comment>
-        <translation>have removed %1 from the chat</translation>
-    </message>
-    <message numerus="yes">
-        <source>scored %Ln points</source>
-        <comment>myself</comment>
-        <translation>
-            <numerusform>scored %Ln point</numerusform>
-            <numerusform>scored %Ln points</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>sent a game</source>
-        <comment>myself</comment>
-        <translation>sent a game</translation>
-    </message>
-    <message>
-        <source>sent a game</source>
-        <translation>sent a game</translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you in its web-app</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>you allowed this bot to message you</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>boosted this chat %Ln times</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>boosted this chat %Ln times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a gift</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a gift</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>started a giveaway</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>started a giveaway</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a giveaway was completed</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>a giveaway was completed</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
