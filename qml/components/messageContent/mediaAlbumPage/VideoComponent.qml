@@ -5,21 +5,12 @@ import QtMultimedia 5.6
 import QtGraphicalEffects 1.0
 import "../../"
 
-Video {
+TDLibVideo {
     id: video
-    property var videoData: model.modelData.content['@type'] === "messageVideo"
-                            ? model.modelData.content.video
-                            : (
-                                  model.modelData.content['@type'] === "messageAnimation"
-                                  ? model.modelData.content.animation
-                                  : model.modelData.content.video_note)
-    property string videoType: model.modelData.content['@type'] === "messageVideoNote" ? "video" : videoData['@type']
-    readonly property bool isPlaying: playbackState === MediaPlayer.PlayingState
+    messageContent: model.modelData.content
     readonly property bool isCurrent: index === page.index
-    property bool shouldPlay
-    autoLoad: true
-    source: file.isDownloadingCompleted ? file.path : ''
     onIsCurrentChanged: if(!isCurrent) pause()
+
     onStatusChanged: {
         if(status === MediaPlayer.EndOfMedia) {
             page.overlayActive = true
@@ -43,37 +34,6 @@ Video {
         onSpeedButtonClicked: controlsRow.visible = !controlsRow.visible
     }
 
-    TDLibThumbnail {
-        id: tdLibImage
-
-        property bool active: !file.isDownloadingCompleted || (!video.isPlaying && (video.position === 0 || video.status === MediaPlayer.EndOfMedia))
-        opacity: active ? 1 : 0
-        visible: active || opacity > 0
-
-        width: parent.width //don't use anchors here for easier custom scaling
-        height: parent.height
-        thumbnail: videoData.thumbnail
-        minithumbnail: videoData.minithumbnail
-        fillMode: Image.PreserveAspectFit
-    }
-
-    TDLibFile {
-        id: file
-        autoLoad: false
-        tdlib: tdLibWrapper
-        fileInformation: videoData[videoType]
-        property real progress: isDownloadingCompleted ? 1.0 : (downloadedSize / size)
-        onDownloadingCompletedChanged: {
-            if(isDownloadingCompleted) {
-                video.source = file.path
-                if(video.shouldPlay) {
-                    video.play()
-                    delayedOverlayHide.start()
-                    video.shouldPlay = false
-                }
-            }
-        }
-    }
     MouseArea {
         anchors.fill: parent
         onClicked: page.overlayActive = !page.overlayActive
@@ -85,7 +45,7 @@ Video {
         width: Theme.itemSizeLarge; height: Theme.itemSizeLarge
         property color baseColor: Theme.rgba(palette.overlayBackgroundColor, 0.2)
 
-        enabled: videoUI.active || !file.isDownloadingCompleted
+        enabled: videoUI.active || !downloadingCompleted
         opacity: enabled ? 1 : 0
         Behavior on opacity { FadeAnimator {} }
         gradient: Gradient {
@@ -101,22 +61,8 @@ Video {
                          ? Theme.highlightColor
                          : Theme.lightPrimaryColor)
             onClicked: {
-                if (!file.isDownloadingCompleted) {
-                    video.shouldPlay = !video.shouldPlay;
-                    if(video.shouldPlay) {
-                        file.load()
-                    } else {
-                        file.cancel()
-                    }
-                    return;
-                }
-
-                if (video.isPlaying) {
-                    video.pause()
-                } else {
-                    video.play()
-                    delayedOverlayHide.start()
-                }
+                toggle()
+                if (video.isPlaying) delayedOverlayHide.start()
             }
         }
     }
