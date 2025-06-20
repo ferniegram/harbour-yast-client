@@ -23,6 +23,7 @@ Video {
     property bool shouldPlay
 
     property alias file: file
+    property alias thumbnail: thumbnail
     property alias downloadingCompleted: file.isDownloadingCompleted
 
     readonly property string videoType: videoData['@type'] === "videoNote" ? "video" : videoData['@type']
@@ -33,6 +34,7 @@ Video {
                          else file.cancel()
     function toggle() {
         if (!downloadingCompleted) {
+            // see onShouldPlayChanged
             shouldPlay = !shouldPlay
             return
         }
@@ -42,12 +44,14 @@ Video {
     }
 
     TDLibThumbnail {
+        id: thumbnail
+        width: parent.width //don't use anchors here for easier custom scaling
+        height: parent.height
+
         property bool active: !downloadingCompleted || (!video.isPlaying && (video.position === 0 || video.status === MediaPlayer.EndOfMedia))
         opacity: active ? 1 : 0
         visible: active || opacity > 0
 
-        width: parent.width //don't use anchors here for easier custom scaling
-        height: parent.height
         thumbnail: videoData.thumbnail
         minithumbnail: videoData.minithumbnail
         fillMode: Image.PreserveAspectFit
@@ -58,7 +62,6 @@ Video {
         autoLoad: false
         tdlib: tdLibWrapper
         fileInformation: videoData[videoType]
-        property real progress: isDownloadingCompleted ? 1.0 : (downloadedSize / size)
         onDownloadingCompletedChanged: {
             if(isDownloadingCompleted) {
                 video.source = file.path
