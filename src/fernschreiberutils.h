@@ -48,8 +48,8 @@ public:
     Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
     Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
     Q_INVOKABLE QVariantMap makeDummyFormattedText(const QString &text);
-    Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities);
-    Q_INVOKABLE QString getMessageText(const QVariantMap &message, bool simple = false, bool ignoreEntities = false);
+    Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities = false, bool escapeReserved = true);
+    Q_INVOKABLE QString getMessageText(const QVariantMap &message, bool simple = false, bool ignoreEntities = false, bool escapeReserved = true);
     Q_INVOKABLE QVariantMap getFormattedMessageText(const QVariantMap &message, bool simple = false);
 
     Q_INVOKABLE void startRecordingVoiceNote();

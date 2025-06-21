@@ -80,10 +80,14 @@ namespace {
     const QString TITLE("title");
     const QString ADDRESS("address");
 
+    const QString AMP("&");
+    const QString HTML_AMP("&amp;");
+    const QString LT("<");
+    const QString HTML_LT("&lt;");
+    const QString GT(">");
+    const QString HTML_GT("&gt;");
     const QRegularExpression RAW_NEW_LINE_RE("\r?\n");
-    const QRegularExpression AMP_RE("&");
-    const QRegularExpression LT_RE("<");
-    const QRegularExpression GT_RE(">");
+    const QString HTML_BR_TAG("<br>");
 }
 
 FernschreiberUtils::FernschreiberUtils(AppSettings *settings, TDLibWrapper *tdLibWrapper, QObject *parent)
@@ -129,19 +133,19 @@ FernschreiberUtils::~FernschreiberUtils()
 }
 
 QString FernschreiberUtils::fixReservedHtmlCharacters(const QString &text) {
-    return QString(text).replace(LT_RE, "&lt;").replace(GT_RE, "&gt;").replace(RAW_NEW_LINE_RE, "<br>");
+    return QString(text).replace(LT, HTML_LT).replace(GT, HTML_GT).replace(RAW_NEW_LINE_RE, HTML_BR_TAG);
 }
 
 // TODO: Use a custom class instead of QVariantMap for messageInstertions
 void FernschreiberUtils::handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString) {
     int nextIndex = -1;
     while ((nextIndex = messageText.indexOf(originalString, nextIndex + 1)) > -1) {
-        const QVariantMap toAppend{
+        const QVariantMap insertion{
             {OFFSET, nextIndex},
             {INSERTION_STRING, replacementString},
             {REMOVE_LENGTH, originalString.length()},
         };
-        messageInsertions.append(toAppend);
+        messageInsertions.append(insertion);
     }
 }
 
@@ -155,7 +159,7 @@ QVariantMap FernschreiberUtils::makeDummyFormattedText(const QString &text) {
     return formattedText;
 }
 
-QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities) {
+QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities, bool escapeReserved) {
     if (formattedText.isEmpty()) return "";
 
     QString messageText = formattedText.value(TEXT).toString();
@@ -163,7 +167,7 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
 
     const QVariantList entities = formattedText.value(ENTITIES).toList();
     if(entities.isEmpty())
-        return fixReservedHtmlCharacters(messageText);
+        return escapeReserved ? fixReservedHtmlCharacters(messageText) : messageText;
 
     QList<QVariantMap> messageInsertions;
 
@@ -259,17 +263,20 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
     }
 
     if(messageInsertions.isEmpty())
-        return fixReservedHtmlCharacters(messageText);
+        return escapeReserved ? fixReservedHtmlCharacters(messageText) : messageText;
 
-    handleHtmlEntity(messageText, messageInsertions, "&", "&amp;");
-    handleHtmlEntity(messageText, messageInsertions, "<", "&lt;");
-    handleHtmlEntity(messageText, messageInsertions, ">", "&gt;");
+    if (escapeReserved) {
+        handleHtmlEntity(messageText, messageInsertions, AMP, HTML_AMP);
+        handleHtmlEntity(messageText, messageInsertions, LT, HTML_LT);
+        handleHtmlEntity(messageText, messageInsertions, GT, HTML_GT);
+    }
+
     std::sort(messageInsertions.begin(), messageInsertions.end(), messageInsertionSorter);
-
     for (QVariantMap insertion : messageInsertions)
         messageText.replace(insertion.value(OFFSET).toInt(), insertion.value(REMOVE_LENGTH).toInt(), insertion.value(INSERTION_STRING).toString());
 
-    messageText.replace(RAW_NEW_LINE_RE, "<br>");
+    if (escapeReserved)
+        messageText.replace(RAW_NEW_LINE_RE, HTML_BR_TAG);
 
     return messageText;
 }
@@ -446,10 +453,10 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
             : tr("sent an unsupported message: %1", "%1 is message type").arg(contentType.mid(7));
 }
 
-QString FernschreiberUtils::getMessageText(const QVariantMap &message, bool simple, bool ignoreEntities) {
+QString FernschreiberUtils::getMessageText(const QVariantMap &message, bool simple, bool ignoreEntities, bool escapeReserved) {
     const QVariant text = getMaybeFormattedMessageText(message, simple);
     if (text.userType() == QMetaType::QVariantMap)
-        return enhanceMessageText(text.toMap(), ignoreEntities);
+        return enhanceMessageText(text.toMap(), ignoreEntities, escapeReserved);
     return text.toString();
 }
 
