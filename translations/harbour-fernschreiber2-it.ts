@@ -1906,7 +1906,7 @@
         <translation>Organizza tutti i pulsanti in una singola fila</translation>
     </message>
     <message>
-        <source>Enable video stickers</source>
+        <source>Video stickers</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2037,10 +2037,6 @@
         <translation>Ignora</translation>
     </message>
     <message>
-        <source>Voice note volume</source>
-        <translation>Volume note vocali</translation>
-    </message>
-    <message>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
         <translation>Aggiungi Ferniegram al menù Apri con di Sailfish OS</translation>
     </message>
@@ -2054,6 +2050,10 @@
     </message>
     <message>
         <source>Without Telegram Premium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice messages volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2220,22 +2220,6 @@
         <translation>Abilita ottimizzazione memoria</translation>
     </message>
     <message>
-        <source>%1 &lt;b&gt;files&lt;/b&gt;, &lt;b&gt;totalling&lt;/b&gt; %2</source>
-        <translation>%1 &lt;b&gt;file&lt;/b&gt;, &lt;b&gt; per un totale di&lt;/b&gt; %2</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Local database size&lt;/b&gt;: %1</source>
-        <translation>&lt;b&gt;Dimensione database locale&lt;/b&gt;: %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;TDLib log size&lt;/b&gt;: %1</source>
-        <translation>&lt;b&gt;Dimensione log TDLib&lt;/b&gt;: %1</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;TDLib language pack database size&lt;/b&gt;: %1</source>
-        <translation>&lt;b&gt;Dimensione database lingue TDLib&lt;/b&gt;: %1</translation>
-    </message>
-    <message>
         <source>Optimize storage</source>
         <translation>Ottimizza spazio archiviazione</translation>
     </message>
@@ -2246,6 +2230,25 @@
     <message>
         <source>Clearing all cache is not recommended, unless issues occur.</source>
         <translation>Pulire la cache non è raccomandato, a meno di problemi.</translation>
+    </message>
+    <message numerus="yes">
+        <source>&lt;b&gt;%Ln&lt;/b&gt; files, totalling &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Local database size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib log size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib language pack database size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

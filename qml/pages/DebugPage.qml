@@ -83,7 +83,7 @@ Page {
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Translate")
+                text: "Translate"
                 onClicked: pageStack.push(Qt.resolvedUrl("TranslatePage.qml"), {
                                               messageId: -1,
                                               sourceText: fernschreiberUtils.makeDummyFormattedText(translateArea.text)

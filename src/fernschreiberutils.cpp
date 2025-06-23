@@ -435,8 +435,8 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
         return tr("you allowed this bot to message you"); // botWriteAccessAllowReasonAcceptedRequest
     }
     if (contentType == "messageChatBoost")
-        return (myself ? tr("boosted this chat %Ln times", "myself") : tr("boosted this chat %Ln times"))
-                .arg(messageContent.value("boost_count").toInt());
+        return myself ? tr("boosted this chat %Ln times", "myself", messageContent.value("boost_count").toInt())
+                      : tr("boosted this chat %Ln times", "", messageContent.value("boost_count").toInt());
     if (contentType == "messageGift")
         // TODO: make this only for simple and add an actual message for gift
         return myself ? tr("sent a gift", "myself") : tr("sent a gift");

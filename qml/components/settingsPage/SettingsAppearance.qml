@@ -89,7 +89,7 @@ AccordionItem {
                 width: parent.columnWidth
                 checked: appSettings.videoStickers
                 visible: !appSettings.showStickersAsEmojis
-                text: qsTr("Enable video stickers")
+                text: qsTr("Video stickers")
                 //description: qsTr("Animated stickers option doesn't affect this")
                 automaticCheck: false
                 onClicked: appSettings.videoStickers = !checked

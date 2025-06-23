@@ -37,99 +37,99 @@
     </message>
     <message>
         <source>Development</source>
-        <translation type="unfinished">Разработка</translation>
+        <translation>Разработка</translation>
     </message>
     <message>
         <source>Early testing</source>
-        <translation type="unfinished"></translation>
+        <translation>Раннее тестирование</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished">Перевод</translation>
+        <translation>Перевод</translation>
     </message>
     <message>
         <source>Fernschreiber translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевод Fernschreiber</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished">Китайский</translation>
+        <translation>Китайский</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Финский</translation>
+        <translation>Финский</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Французский</translation>
+        <translation>Французский</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Венгерский</translation>
+        <translation>Венгерский</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Итальянский</translation>
+        <translation>Итальянский</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Польский</translation>
+        <translation>Польский</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Русский</translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Словацкий</translation>
+        <translation>Словацкий</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Испанский</translation>
+        <translation>Испанский</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Шведский</translation>
+        <translation>Шведский</translation>
     </message>
     <message>
         <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
-        <translation type="unfinished"></translation>
+        <translation>Это приложение - форк Fernschreiber, и не было бы возможно без него. Спасибо всем, кто разрабатывал его!</translation>
     </message>
     <message>
         <source>Telegram Database Library (TDLib)</source>
-        <translation type="unfinished"></translation>
+        <translation>Библиотека базы данных Telegram (TDLib)</translation>
     </message>
     <message>
         <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот проект использует twemoji. Спасибо, что сделали её доступной на условиях лицензии MIT License (программирование) und CC-BY 4.0 (графика)!</translation>
     </message>
     <message>
         <source>Coding</source>
-        <translation type="unfinished"></translation>
+        <translation>Программирование</translation>
     </message>
     <message>
         <source>Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Графика</translation>
     </message>
     <message>
         <source>other contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>другие участники</translation>
     </message>
     <message numerus="yes">
         <source>You are now %n steps away from enabling debug mode</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Вы теперь в %n шаге от включения режима отладки</numerusform>
+            <numerusform>Вы теперь в %n шагах от включения режима отладки</numerusform>
+            <numerusform>Вы теперь в %n шагах от включения режима отладки</numerusform>
         </translation>
     </message>
     <message>
         <source>Not needed, debug mode is already enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не требуется, режим отладки уже включён</translation>
     </message>
     <message>
         <source>Debug mode is now enabled!</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим отладки теперь включён!</translation>
     </message>
 </context>
 <context>
@@ -240,24 +240,24 @@
     </message>
     <message>
         <source>Username has been copied to the clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя скопировано в буфер обмена</translation>
     </message>
     <message>
         <source>Username</source>
         <comment>header</comment>
-        <translation type="unfinished">Ник</translation>
+        <translation>Ник</translation>
     </message>
     <message>
         <source>Private Chat</source>
-        <translation type="unfinished"></translation>
+        <translation>Личный чат</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Группа</translation>
+        <translation>Группа</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">Канал</translation>
+        <translation>Канал</translation>
     </message>
 </context>
 <context>
@@ -564,11 +564,11 @@
     </message>
     <message>
         <source>Double-tap on a message to choose a reaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Двойное нажатие на сообщение, чтобы выбрать реакцию</translation>
     </message>
     <message>
         <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Рекомендованное сообщение</translation>
     </message>
 </context>
 <context>
@@ -639,7 +639,7 @@
     <name>DebugPage</name>
     <message>
         <source>Translate</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевести</translation>
     </message>
 </context>
 <context>
@@ -715,7 +715,7 @@
     <message>
         <source>sent a picture</source>
         <comment>myself</comment>
-        <translation>отправил(а) картинку</translation>
+        <translation>отправили картинку</translation>
     </message>
     <message>
         <source>sent a picture</source>
@@ -724,7 +724,7 @@
     <message>
         <source>sent a video</source>
         <comment>myself</comment>
-        <translation>отправил(а) видео</translation>
+        <translation>отправили видео</translation>
     </message>
     <message>
         <source>sent a video</source>
@@ -733,7 +733,7 @@
     <message>
         <source>sent an animation</source>
         <comment>myself</comment>
-        <translation>отправил(а) анимацию</translation>
+        <translation>отправили анимацию</translation>
     </message>
     <message>
         <source>sent an animation</source>
@@ -742,7 +742,7 @@
     <message>
         <source>sent a document</source>
         <comment>myself</comment>
-        <translation>отправил(а) документ</translation>
+        <translation>отправили документ</translation>
     </message>
     <message>
         <source>sent a document</source>
@@ -751,7 +751,7 @@
     <message>
         <source>sent a location</source>
         <comment>myself</comment>
-        <translation>отправил(а) местоположение</translation>
+        <translation>отправили местоположение</translation>
     </message>
     <message>
         <source>sent a location</source>
@@ -947,37 +947,37 @@
     </message>
     <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation type="unfinished"></translation>
+        <translation>вы разрешили этому боту писать Вам, добавив его в меню вложений</translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>вы разрешили этому боту писать Вам, когда авторизовались на %1</translation>
     </message>
     <message>
         <source>you allowed this bot to message you in its web-app</source>
-        <translation type="unfinished"></translation>
+        <translation>вы разрешили этому боту писать Вам в его веб-приложении</translation>
     </message>
     <message>
         <source>you allowed this bot to message you</source>
-        <translation type="unfinished"></translation>
+        <translation>вы разрешили этому боту писать Вам</translation>
     </message>
     <message>
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>проголосовал за этот чат %Ln раз</translation>
     </message>
     <message>
         <source>boosted this chat %Ln times</source>
-        <translation type="unfinished"></translation>
+        <translation>проголосовал за этот чат %Ln раз</translation>
     </message>
     <message>
         <source>sent a gift</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>отправили подарок</translation>
     </message>
     <message>
         <source>sent a gift</source>
-        <translation type="unfinished"></translation>
+        <translation>отправил(а) подарок</translation>
     </message>
     <message>
         <source>started a giveaway</source>
@@ -1290,35 +1290,35 @@
     </message>
     <message>
         <source>Message unpinned</source>
-        <translation type="unfinished">Сообщение откреплено</translation>
+        <translation>Сообщение откреплено</translation>
     </message>
     <message>
         <source>Unpin Message</source>
-        <translation type="unfinished">Открепить сообщение</translation>
+        <translation>Открепить сообщение</translation>
     </message>
     <message>
         <source>Pin Message</source>
-        <translation type="unfinished">Закрепить сообщение</translation>
+        <translation>Закрепить сообщение</translation>
     </message>
     <message>
         <source>Forward</source>
         <comment>Short version for &quot;Forward Message&quot;</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переслать</translation>
     </message>
     <message>
         <source>Reply</source>
         <comment>Short version for &quot;Reply to Message&quot;</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ответить</translation>
     </message>
     <message>
         <source>Delete</source>
         <comment>Short version for &quot;Delete Message&quot;</comment>
-        <translation type="unfinished"></translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
-        <translation type="unfinished"></translation>
+        <translation>Редактировать</translation>
     </message>
 </context>
 <context>
@@ -1405,7 +1405,7 @@
     <name>MessageVideo</name>
     <message>
         <source>Error loading video! %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось загрузить видео! %1</translation>
     </message>
 </context>
 <context>
@@ -1933,15 +1933,15 @@
     </message>
     <message>
         <source>Super compact message context menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Очень компактное контекстное меню</translation>
     </message>
     <message>
         <source>Organize all items in one row</source>
-        <translation type="unfinished"></translation>
+        <translation>Организует все действия в один ряд</translation>
     </message>
     <message>
-        <source>Enable video stickers</source>
-        <translation type="unfinished"></translation>
+        <source>Video stickers</source>
+        <translation>Видеостикеры</translation>
     </message>
 </context>
 <context>
@@ -2048,31 +2048,27 @@
     </message>
     <message>
         <source>Send attachments by enter</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправлять вложения клавишей ввода</translation>
     </message>
     <message>
         <source>Sponsored messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Рекламные сообшения</translation>
     </message>
     <message>
         <source>Enable or disable sponsored messages. Note that they will always be disabled for Premium subscribers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить или выключить рекламные сообщения. Для подписчиков Premium они будут выключены всегда.</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить</translation>
     </message>
     <message>
         <source>Auto view</source>
-        <translation type="unfinished"></translation>
+        <translation>Автопросмотр</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Voice note volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Игнорировать</translation>
     </message>
     <message>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
@@ -2080,15 +2076,19 @@
     </message>
     <message>
         <source>Show translate option for messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать опцию перевода для сообщений</translation>
     </message>
     <message>
         <source>Trnslate formatted text</source>
-        <translation type="unfinished"></translation>
+        <translation>Переводить форматированный текст</translation>
     </message>
     <message>
         <source>Without Telegram Premium</source>
-        <translation type="unfinished"></translation>
+        <translation>Без Telegram Premium</translation>
+    </message>
+    <message>
+        <source>Voice messages volume</source>
+        <translation>Громкость голосовых сообщений</translation>
     </message>
 </context>
 <context>
@@ -2255,32 +2255,36 @@
         <translation>Включить оптимизацию хранилища</translation>
     </message>
     <message>
-        <source>%1 &lt;b&gt;files&lt;/b&gt;, &lt;b&gt;totalling&lt;/b&gt; %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Local database size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;TDLib log size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;TDLib language pack database size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Optimize storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Оптимизировать хранилище</translation>
     </message>
     <message>
         <source>Clear all cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить кэш</translation>
     </message>
     <message>
         <source>Clearing all cache is not recommended, unless issues occur.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очищать весь кэш не рекомендуется, пока не появляются проблемы.</translation>
+    </message>
+    <message numerus="yes">
+        <source>&lt;b&gt;%Ln&lt;/b&gt; files, totalling &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>
+            <numerusform>&lt;b&gt;%Ln&lt;/b&gt; файл, всего &lt;b&gt;%1&lt;/b&gt;</numerusform>
+            <numerusform>&lt;b&gt;%Ln&lt;/b&gt; файла, всего &lt;b&gt;%1&lt;/b&gt;</numerusform>
+            <numerusform>&lt;b&gt;%Ln&lt;/b&gt; файлов, всего &lt;b&gt;%1&lt;/b&gt;</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Local database size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Размер локальной базы данных: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>TDLib log size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Размер логов TDLib: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>TDLib language pack database size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Размер базы данных языковых пакетов TDLib: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
@@ -2383,11 +2387,11 @@
     <name>TranslatePage</name>
     <message>
         <source>Change language</source>
-        <translation type="unfinished"></translation>
+        <translation>Сменить язык</translation>
     </message>
     <message>
         <source>Translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевод</translation>
     </message>
 </context>
 <context>

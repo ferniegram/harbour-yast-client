@@ -1937,7 +1937,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable video stickers</source>
+        <source>Video stickers</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2068,10 +2068,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Voice note volume</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
         <translation>Zintegruj Ferniegram z menu &quot;otwórz za pomocą&quot; w SailfishOS</translation>
     </message>
@@ -2085,6 +2081,10 @@
     </message>
     <message>
         <source>Without Telegram Premium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice messages volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2252,22 +2252,6 @@
         <translation>Włącz optymalizację pamięci</translation>
     </message>
     <message>
-        <source>%1 &lt;b&gt;files&lt;/b&gt;, &lt;b&gt;totalling&lt;/b&gt; %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Local database size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;TDLib log size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;TDLib language pack database size&lt;/b&gt;: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Optimize storage</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2277,6 +2261,26 @@
     </message>
     <message>
         <source>Clearing all cache is not recommended, unless issues occur.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>&lt;b&gt;%Ln&lt;/b&gt; files, totalling &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Local database size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib log size: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib language pack database size: &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

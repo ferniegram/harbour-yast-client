@@ -283,7 +283,7 @@ AccordionItem {
 
             TextField {
                 width: parent.columnWidth
-                label: qsTr("Voice note volume")
+                label: qsTr("Voice messages volume")
                 validator: RegExpValidator { regExp: /^((?:\d|[1-9]\d+)(?:\.\d+)?)$/ }
                 text: appSettings.voiceNoteVolume
                 onTextChanged: if (acceptableInput) appSettings.voiceNoteVolume = text

@@ -65,12 +65,11 @@ AccordionItem {
                         Label {
                             x: Theme.horizontalPageMargin
                             width: parent.width-2*x
-                            text: qsTr("%1 <b>files</b>, <b>totalling</b> %2")
-                                        .arg(statisticsLoader.fullStatistics ? statisticsLoader.fullStatistics.count : statisticsLoader.statistics.file_count)
-                                        .arg(Format.formatFileSize(statisticsLoader.fullStatistics ? statisticsLoader.fullStatistics.count : statisticsLoader.statistics.files_size))
-                                  + '<br>' + qsTr("<b>Local database size</b>: %1").arg(Format.formatFileSize(statisticsLoader.statistics.database_size))
-                                  + '<br>' + qsTr("<b>TDLib log size</b>: %1").arg(Format.formatFileSize(statisticsLoader.statistics.log_size))
-                                  + '<br>' + qsTr("<b>TDLib language pack database size</b>: %1").arg(Format.formatFileSize(statisticsLoader.statistics.language_pack_database_size))
+                            text: qsTr("<b>%Ln</b> files, totalling <b>%1</b>", '', statisticsLoader.fullStatistics ? statisticsLoader.fullStatistics.count : statisticsLoader.statistics.file_count)
+                                  .arg(Format.formatFileSize(statisticsLoader.fullStatistics ? statisticsLoader.fullStatistics.count : statisticsLoader.statistics.files_size))
+                                  + '<br>' + qsTr("Local database size: <b>%1</b>").arg(Format.formatFileSize(statisticsLoader.statistics.database_size))
+                                  + '<br>' + qsTr("TDLib log size: <b>%1</b>").arg(Format.formatFileSize(statisticsLoader.statistics.log_size))
+                                  + '<br>' + qsTr("TDLib language pack database size: <b>%1</b>").arg(Format.formatFileSize(statisticsLoader.statistics.language_pack_database_size))
                             wrapMode: Text.Wrap
                         }
                         ButtonLayout {
