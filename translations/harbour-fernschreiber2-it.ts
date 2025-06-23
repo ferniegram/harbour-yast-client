@@ -620,13 +620,6 @@
     </message>
 </context>
 <context>
-    <name>DebugPage</name>
-    <message>
-        <source>Translate</source>
-        <translation>Traduci</translation>
-    </message>
-</context>
-<context>
     <name>EditGroupChatPermissionsColumn</name>
     <message>
         <source>Group Member Permissions</source>
@@ -943,14 +936,20 @@
         <source>you allowed this bot to message you</source>
         <translation>hai permesso a questo bot di scriverti</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation>ho potenziato questa chat %Ln volte</translation>
+        <translation type="unfinished">
+            <numerusform>ho potenziato questa chat %Ln volte</numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>boosted this chat %Ln times</source>
-        <translation>ha potenziato questa chat %Ln volte</translation>
+        <translation type="unfinished">
+            <numerusform>ha potenziato questa chat %Ln volte</numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>sent a gift</source>

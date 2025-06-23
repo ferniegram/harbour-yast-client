@@ -636,13 +636,6 @@
     </message>
 </context>
 <context>
-    <name>DebugPage</name>
-    <message>
-        <source>Translate</source>
-        <translation>Перевести</translation>
-    </message>
-</context>
-<context>
     <name>EditGroupChatPermissionsColumn</name>
     <message>
         <source>Group Member Permissions</source>
@@ -961,14 +954,22 @@
         <source>you allowed this bot to message you</source>
         <translation>вы разрешили этому боту писать Вам</translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation>проголосовал за этот чат %Ln раз</translation>
+        <translation type="unfinished">
+            <numerusform>проголосовал за этот чат %Ln раз</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
-    <message>
+    <message numerus="yes">
         <source>boosted this chat %Ln times</source>
-        <translation>проголосовал за этот чат %Ln раз</translation>
+        <translation type="unfinished">
+            <numerusform>проголосовал за этот чат %Ln раз</numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <source>sent a gift</source>
