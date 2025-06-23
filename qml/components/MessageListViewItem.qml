@@ -35,8 +35,6 @@ ListItem {
     property var myMessage
     property var messageAlbumMessageIds
     property var reactions
-    property var messageProperties
-    property bool canReplyToMessage
     readonly property bool isAnonymous: myMessage.sender_id["@type"] === "messageSenderChat"
     readonly property var userInformation: tdLibWrapper.getUserInformation(myMessage.sender_id.user_id)
     property QtObject precalculatedValues: ListView.view.precalculatedValues
@@ -47,7 +45,6 @@ ListItem {
         return existingMessage.id === messageId
     })
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
-    readonly property bool canDeleteMessage: !!messageProperties.can_be_deleted_for_all_users || (!!messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool wasNavigatedTo: false
@@ -57,8 +54,6 @@ ListItem {
 
     highlighted: (down || (isSelected && messageAlbumMessageIds.length === 0) || wasNavigatedTo) && !menuOpen
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
-
-    onMessagePropertiesChanged: myMessage.properties = messageProperties
 
     signal replyToMessage()
     signal editMessage()
@@ -190,18 +185,47 @@ ListItem {
         id: contextMenuLoader
         active: false
         asynchronous: true
+
+        property var messageProperties: ({stub: true})
+        property bool messagePropertiesLoading
+        Connections {
+            target: tdLibWrapper
+            onMessagePropertiesReceived: if (messageListItem.messageId === messageId) {
+                                             contextMenuLoader.messageProperties = messageProperties
+                                             contextMenuLoader.messagePropertiesLoading = false
+                                         }
+        }
+
+        function loadProperties() {
+            if (messagePropertiesLoading || !messageProperties.stub) return
+            tdLibWrapper.getMessageProperties(messageListItem.chatId, messageListItem.messageId)
+            messagePropertiesLoading = true
+        }
+        function resetProperties() {
+            messageProperties = {stub: true}
+        }
+
+        readonly property bool canDeleteMessage: !!messageProperties.can_be_deleted_for_all_users || (!!messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
+
         onStatusChanged: {
+            if (status == Loader.Loading || status == Loader.Ready)
+                loadProperties()
+
             if(status === Loader.Ready) {
                 messageListItem.menu = item
                 messageListItem.openMenu()
-            }
+            } else if (status != Loader.Loading)
+                resetProperties()
         }
+
         sourceComponent: appSettings.superCompactMessageMenu ? compactContextMenuComponent : contextMenuComponent
 
         Component {
             id: contextMenuComponent
             FancyContextMenu {
                 listItem: messageListItem
+                onActiveChanged: if (active) contextMenuLoader.loadProperties()
+                onClosed: contextMenuLoader.resetProperties() // closed is called at end of animation, and active is set to false at the start, so we use closed() for tracking close and active for tracking open
                 FancyMenuRow {
                     // NOTE: In places like this we should generally use `enabled` instead of `visible` so people can rely on spatial memory.
                     // See `compactContextMenuComponent`
@@ -228,14 +252,14 @@ ListItem {
                 FancyMenuRow {
                     checkShort: function (ratio) { return Screen.sizeCategory <= Screen.Large && ratio > 1 }
                     IconTextRowMenuItem {
-                        visible: messageProperties.can_be_forwarded
+                        visible: !!messageProperties.can_be_forwarded
                         icon.source: "image://theme/icon-m-message-forward"
                         shortText: qsTr("Forward", 'Short version for "Forward Message"')
                         longText: qsTr("Forward Message")
                         onClicked: forwardMessage()
                     }
                     IconTextRowMenuItem {
-                        visible: canReplyToMessage
+                        visible: !!messageProperties.can_be_replied
                         icon.source: "image://theme/icon-m-message-reply"
                         shortText: qsTr("Reply", 'Short version for "Reply to Message"')
                         longText: qsTr("Reply to Message")
@@ -267,6 +291,8 @@ ListItem {
             id: compactContextMenuComponent
             FancyContextMenu {
                 listItem: messageListItem
+                onActiveChanged: if (active) contextMenuLoader.loadProperties()
+                onClosed: contextMenuLoader.resetProperties()
                 FancyMenuRow {
                     // NOTE: We should generally use `enabled` instead of `visible` in places like this so people can rely spatial memory.
                     // Things which can be disabled in settings should use `visible` because that is not changed that often and instead waste space.
@@ -274,7 +300,7 @@ ListItem {
 
                     // in general, FIXME: should this be simply removed?
                     IconRowMenuItem {
-                        enabled: appSettings.superCompactMessageMenu && canDeleteMessage
+                        enabled: canDeleteMessage
                         icon.source: "image://theme/icon-m-delete"
                         onClicked: deleteMessage()
                     }
@@ -289,7 +315,7 @@ ListItem {
                     }
 
                     IconRowMenuItem {
-                        enabled: canReplyToMessage
+                        enabled: !!messageProperties.can_be_replied
                         icon.source: "image://theme/icon-m-message-reply"
                         onClicked: replyToMessage()
                     }

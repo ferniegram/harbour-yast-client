@@ -1248,12 +1248,10 @@ Page {
                                 messageAlbumMessageIds: model.album_message_ids
                                 messageViewCount: model.view_count
                                 reactions: model.reactions
-                                messageProperties: model.message_properties
                                 chatReactions: availableReactions
                                 messageIndex: chatProxyModel.mapRowToSource(model.index)
                                 hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
                                 fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
-                                canReplyToMessage: chatPage.canSendMessages
                                 onReplyToMessage: {
                                     newMessageInReplyToRow.inReplyToMessage = myMessage
                                     newMessageTextField.focus = true

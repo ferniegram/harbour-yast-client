@@ -68,7 +68,6 @@ public:
         RoleMessageReactions,
         RoleMessageAlbumEntryFilter,
         RoleMessageAlbumMessageIds,
-        RoleMessageProperties,
     };
 
     enum RoleFlag {
@@ -79,7 +78,6 @@ public:
         RoleFlagMessageReactions = 0x16,
         RoleFlagMessageAlbumEntryFilter = 0x32,
         RoleFlagMessageAlbumMessageIds = 0x64,
-        RoleFlagMessageProperties = 0x128,
     };
 
     MessageData(const QVariantMap &data, qlonglong msgid);
@@ -96,7 +94,6 @@ public:
     uint updateReactions(const QVariantMap &interactionInfo);
     uint updateAlbumEntryFilter(const bool isAlbumChild);
     uint updateAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);
-    uint updateMessageProperties(const QVariantMap &properties);
 
     QVector<int> diff(const MessageData *message) const;
     QVector<int> setMessageData(const QVariantMap &data);
@@ -105,7 +102,6 @@ public:
     QVector<int> setInteractionInfo(const QVariantMap &interactionInfo);
     QVector<int> setAlbumEntryFilter(bool isAlbumChild);
     QVector<int> setAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);
-    QVector<int> setMessageProperties(const QVariantMap &properties);
 
     int senderUserId() const;
     qlonglong senderChatId() const;
@@ -120,7 +116,6 @@ public:
     QVariantList reactions;
     bool albumEntryFilter;
     QVariantList albumMessageIds;
-    QVariantMap messageProperties;
 };
 
 ChatModel::MessageData::MessageData(const QVariantMap &data, qlonglong msgid) :
@@ -159,8 +154,6 @@ QVector<int> ChatModel::MessageData::flagsToRoles(uint flags)
     if (flags & RoleFlagMessageAlbumMessageIds) {
         roles.append(RoleMessageAlbumMessageIds);
     }
-    if (flags & RoleFlagMessageProperties)
-        roles.append(RoleMessageProperties);
     return roles;
 }
 
@@ -306,15 +299,6 @@ QVector<int> ChatModel::MessageData::setInteractionInfo(const QVariantMap &info)
     return flagsToRoles(updateInteractionInfo(info));
 }
 
-uint ChatModel::MessageData::updateMessageProperties(const QVariantMap &properties) {
-    const QVariantMap old = messageProperties;
-    messageProperties = properties;
-    return (properties == old) ? 0 : RoleFlagMessageProperties;
-}
-
-QVector<int> ChatModel::MessageData::setMessageProperties(const QVariantMap &properties) {
-    return flagsToRoles(updateMessageProperties(properties));
-}
 
 bool ChatModel::MessageData::lessThan(const MessageData *message1, const MessageData *message2)
 {
@@ -353,7 +337,6 @@ ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     connect(this->tdLibWrapper, SIGNAL(messageEditedUpdated(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageEditedUpdated(qlonglong, qlonglong, QVariantMap)));
     connect(this->tdLibWrapper, SIGNAL(messageInteractionInfoUpdated(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageInteractionInfoUpdated(qlonglong, qlonglong, QVariantMap)));
     connect(this->tdLibWrapper, SIGNAL(messagesDeleted(qlonglong, QList<qlonglong>)), this, SLOT(handleMessagesDeleted(qlonglong, QList<qlonglong>)));
-    connect(this->tdLibWrapper, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessagePropertiesReceived(qlonglong, qlonglong, QVariantMap)));
 }
 
 ChatModel::~ChatModel()
@@ -372,7 +355,6 @@ QHash<int,QByteArray> ChatModel::roleNames() const
     roles.insert(MessageData::RoleMessageReactions, "reactions");
     roles.insert(MessageData::RoleMessageAlbumEntryFilter, "album_entry_filter");
     roles.insert(MessageData::RoleMessageAlbumMessageIds, "album_message_ids");
-    roles.insert(MessageData::RoleMessageProperties, "message_properties");
     return roles;
 }
 
@@ -394,7 +376,6 @@ QVariant ChatModel::data(const QModelIndex &index, int role) const
         case MessageData::RoleMessageReactions: return message->reactions;
         case MessageData::RoleMessageAlbumEntryFilter: return message->albumEntryFilter;
         case MessageData::RoleMessageAlbumMessageIds: return message->albumMessageIds;
-        case MessageData::RoleMessageProperties: return message->messageProperties;
         }
     }
     return QVariant();
@@ -600,7 +581,6 @@ void ChatModel::handleMessagesReceived(const QVariantList &messages, int totalCo
             if (!messagesToBeAdded.isEmpty()) {
                 insertMessages(messagesToBeAdded);
                 setMessagesAlbum(messagesToBeAdded);
-                setMessagesProperties(messagesToBeAdded);
             }
 
             // First call only returns a few messages, we need to get a little more than that...
@@ -657,7 +637,6 @@ void ChatModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &me
             messagesToBeAdded.append(new MessageData(message, messageId));
             insertMessages(messagesToBeAdded);
             setMessagesAlbum(messagesToBeAdded);
-            setMessagesProperties(messagesToBeAdded);
             emit newMessageReceived(message);
         } else {
             LOG("New message in this chat, but not relevant as less recent messages need to be loaded first!");
@@ -674,7 +653,6 @@ void ChatModel::handleMessageReceived(qlonglong chatId, qlonglong messageId, con
         LOG("Message was updated at index" << position);
         const QModelIndex messageIndex(index(position));
         emit dataChanged(messageIndex, messageIndex, changedRoles);
-        setMessagesProperties(messages.at(position));
     }
 }
 
@@ -718,7 +696,6 @@ void ChatModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMes
         emit dataChanged(messageIndex, messageIndex, changedRoles);
         emit lastReadSentMessageUpdated(calculateLastReadSentMessageId());
         tdLibWrapper->viewMessage(this->chatId, messageId, false);
-        setMessagesProperties(newMessage);
     }
 }
 
@@ -789,22 +766,6 @@ void ChatModel::handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId
             MessageData* messageData = messages.at(pos);
             const QVector<int> changedRoles(messageData->setReplyMarkup(replyMarkup));
             LOG("Message was edited at index" << pos);
-            const QModelIndex messageIndex(index(pos));
-            emit dataChanged(messageIndex, messageIndex, changedRoles);
-            emit messageUpdated(pos);
-        }
-    }
-}
-
-void ChatModel::handleMessagePropertiesReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &properties) {
-    LOG("Message properties received/updated" << chatId << messageId);
-    if (chatId == this->chatId && messageIndexMap.contains(messageId)) {
-        LOG("We know the message that was updated" << messageId);
-        const int pos = messageIndexMap.value(messageId, -1);
-        if (pos >= 0) {
-            MessageData* messageData = messages.at(pos);
-            const QVector<int> changedRoles(messageData->setMessageProperties(properties));
-            LOG("Message was updated at index" << pos);
             const QModelIndex messageIndex(index(pos));
             emit dataChanged(messageIndex, messageIndex, changedRoles);
             emit messageUpdated(pos);
@@ -1018,17 +979,6 @@ void ChatModel::setMessagesAlbum(MessageData *message)
             albumMessageMap.insert(albumId, QVariantList() << messageId);
         }
         updateAlbumMessages(albumId, false);
-    }
-}
-
-void ChatModel::setMessagesProperties(MessageData *message) {
-    tdLibWrapper->getMessageProperties(chatId, message->messageId);
-}
-
-void ChatModel::setMessagesProperties(const QList<MessageData *> newMessages) {
-    const int count = newMessages.size();
-    for (int i = 0; i < count; i++) {
-        setMessagesProperties(newMessages.at(i));
     }
 }
 
