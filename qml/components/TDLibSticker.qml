@@ -85,11 +85,11 @@ Item {
                 autoPlay: true
                 onStopped: if (status == MediaPlayer.EndOfMedia) play()
 
-                /*Connections {
+                Connections {
                     target: Qt.application
                     onActiveChanged: if (!Qt.application.active) video.pause()
                                      else video.play()
-                }*/
+                }
 
                 layer.enabled: sticker.highlighted
                 layer.effect: PressEffect { source: video }
