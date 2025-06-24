@@ -289,7 +289,7 @@ signals:
     void chatPinnedUpdated(qlonglong chatId, bool isPinned);
     void chatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
     void chatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
-    void chatAvailableReactionsUpdated(const qlonglong &chatId, const QVariantMap &availableReactions);
+    void chatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions);
     void userUpdated(const QString &userId, const QVariantMap &userInformation);
     void ownUserUpdated(const QVariantMap &userInformation);
     void basicGroupUpdated(qlonglong groupId);
