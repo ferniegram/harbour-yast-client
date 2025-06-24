@@ -93,21 +93,15 @@ Page {
     ]
 
     function toggleMessageSelection(message) {
-        var selectionArray = selectedMessages
-        var foundIndex = -1
-        if(selectionArray.length > 0) {
-            for(var i = 0; i < selectionArray.length; i += 1) {
-                if(selectionArray[i].id === message.id) {
-                    foundIndex = i
-                    continue
-                }
+        for (var i = 0; i < selectedMessages.length; i++) {
+            if(selectedMessages[i].id === message.id) {
+                selectedMessages.splice(i, 1)
+                selectedMessagesChanged()
+                return
             }
         }
-        if(foundIndex > -1)
-            selectionArray.splice(foundIndex, 1)
-        else
-            selectionArray.push(message)
-        selectedMessages = selectionArray
+        selectedMessages.push(message)
+        selectedMessagesChanged()
     }
 
     function updateChatPartnerStatusText() {
