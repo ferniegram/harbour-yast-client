@@ -27,27 +27,20 @@ Page {
     id: newChatPage
     allowedOrientations: Orientation.All
 
-    property bool isLoading: true;
-    property bool syncSupported: false;
+    property bool isLoading: false
+    property bool syncSupported
 
     function resetFocus() {
-        contactsSearchField.focus = false;
-        newChatPage.focus = true;
+        contactsSearchField.focus = false
+        newChatPage.focus = true
     }
 
-    function reloadContacts() {
-        contactsListView.model = contactsProxyModel
-        newChatPage.isLoading = false
-    }
-
-    onStatusChanged: {
-        if (status === PageStatus.Active) reloadContacts()
-    }
+    Component.onDestruction: contactsProxyModel.setFilterWildcard('*')
 
     Connections {
         target: tdLibWrapper
         onContactsImported: {
-            reloadContacts()
+            newChatPage.isLoading = false
             appNotification.show(qsTr("Contacts successfully synchronized with Telegram."))
         }
     }
@@ -63,9 +56,7 @@ Page {
         id: contactSyncLoader
         source: "../components/ContactSync.qml"
         active: true
-        onLoaded: {
-            newChatPage.syncSupported = true;
-        }
+        onLoaded: newChatPage.syncSupported = true
     }
 
     SilicaFlickable {
@@ -111,19 +102,16 @@ Page {
                         placeholderText: qsTr("Search a contact...")
                         active: !newChatPage.isLoading
 
-                        onTextChanged: {
-                            contactsProxyModel.setFilterWildcard("*" + text + "*");
-                        }
+                        onTextChanged: contactsProxyModel.setFilterWildcard("*" + text + "*")
 
                         EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                        EnterKey.onClicked: {
-                            resetFocus();
-                        }
+                        EnterKey.onClicked: resetFocus()
 
                     }
 
                     SilicaListView {
                         id: contactsListView
+                        model: contactsProxyModel
                         clip: true
                         width: parent.width
                         height: parent.height - contactsSearchField.height
@@ -131,7 +119,7 @@ Page {
                         opacity: visible ? 1 : 0
                         Behavior on opacity { FadeAnimation {} }
 
-                        signal newChatInitiated ( int currentIndex )
+                        signal newChatInitiated (int currentIndex)
 
                         ViewPlaceholder {
                             y: Theme.paddingLarge
