@@ -27,36 +27,19 @@ Page {
     id: newChatPage
     allowedOrientations: Orientation.All
 
-    property bool isLoading: false
-    property bool syncSupported
-
-    function resetFocus() {
-        contactsSearchField.focus = false
-        newChatPage.focus = true
-    }
-
     Component.onDestruction: contactsProxyModel.setFilterWildcard('*')
 
     Connections {
         target: tdLibWrapper
         onContactsImported: {
-            newChatPage.isLoading = false
+            busyLabel.running = false
             appNotification.show(qsTr("Contacts successfully synchronized with Telegram."))
         }
     }
 
-    Connections {
-        target: contactSyncLoader.item
-        onSyncError: {
-            newChatPage.isLoading = false;
-        }
-    }
-
-    Loader {
-        id: contactSyncLoader
-        source: "../components/ContactSync.qml"
-        active: true
-        onLoaded: newChatPage.syncSupported = true
+    ContactSync {
+        id: contactSync
+        onSyncError: busyLabel.running = false
     }
 
     SilicaFlickable {
@@ -65,329 +48,257 @@ Page {
         anchors.fill: parent
 
         PullDownMenu {
-            visible: newChatPage.syncSupported
             MenuItem {
                 onClicked: {
-                    newChatPage.isLoading = true
-                    contactSyncLoader.item.synchronize()
+                    busyLabel.running = true
+                    contactSync.synchronize()
                     // Success message is not fired before TDLib returned "Contacts imported" (see above)
                 }
                 text: qsTr("Synchronize Contacts with Telegram")
             }
         }
 
-        Column {
-            id: newChatPageColumn
-            width: newChatPage.width
-            height: newChatPage.height
+        BusyLabel {
+            id: busyLabel
+            anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Loading contacts...")
+        }
 
-            PageHeader {
-                id: newChatPageHeader
-                title: qsTr("Your Contacts")
+        PageHeader { id: header; title: qsTr("Your Contacts") }
+
+        SearchField {
+            id: search
+            width: parent.width
+            anchors.top: header.bottom
+            placeholderText: qsTr("Search a contact...")
+            visible: !busyLabel.running
+            active: visible
+            opacity: visible ? 1 : 0
+            Behavior on opacity { FadeAnimator {} }
+
+            onTextChanged: contactsProxyModel.setFilterWildcard("*" + text + "*")
+
+            EnterKey.iconSource: "image://theme/icon-m-enter-close"
+            EnterKey.onClicked: {
+                search.focus = false
+                newChatPage.focus = true
             }
 
-            Item {
-                id: contactsItem
+        }
 
-                width: newChatPageColumn.width
-                height: newChatPageColumn.height - newChatPageHeader.height
+        SilicaListView {
+            id: listView
+            model: contactsProxyModel
+            clip: true
+            width: parent.width
+            anchors {
+                top: search.bottom
+                bottom: parent.bottom
+            }
+            visible: !busyLabel.running
+            opacity: visible ? 1 : 0
+            Behavior on opacity { FadeAnimator {} }
 
-                Column {
-                    visible: !newChatPage.isLoading
-                    width: parent.width
-                    height: parent.height
-                    SearchField {
-                        id: contactsSearchField
-                        width: parent.width
-                        placeholderText: qsTr("Search a contact...")
-                        active: !newChatPage.isLoading
+            signal newChatInitiated (int currentIndex)
 
-                        onTextChanged: contactsProxyModel.setFilterWildcard("*" + text + "*")
+            ViewPlaceholder {
+                y: Theme.paddingLarge
+                enabled: listView.count === 0
+                text: (search.text.length > 0)
+                    ? qsTr("No contacts found.")
+                    : qsTr("You don't have any contacts.")
+            }
 
-                        EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                        EnterKey.onClicked: resetFocus()
+            delegate: Item {
+                id: newChatListItem
+                width: parent.width
+                height: contactListItem.height
 
-                    }
-
-                    SilicaListView {
-                        id: contactsListView
-                        model: contactsProxyModel
-                        clip: true
-                        width: parent.width
-                        height: parent.height - contactsSearchField.height
-                        visible: !newChatPage.isLoading
-                        opacity: visible ? 1 : 0
-                        Behavior on opacity { FadeAnimation {} }
-
-                        signal newChatInitiated (int currentIndex)
-
-                        ViewPlaceholder {
-                            y: Theme.paddingLarge
-                            enabled: contactsListView.count === 0
-                            text: (contactsSearchField.text.length > 0)
-                                ? qsTr("No contacts found.")
-                                : qsTr("You don't have any contacts.")
-                        }
-
-                        delegate: Item {
-                            id: newChatListItem
-                            width: parent.width
-                            height: contactListItem.height
-
-                            PhotoTextsListItem {
-                                id: contactListItem
-
-                                opacity: visible ? 1 : 0
-                                Behavior on opacity { FadeAnimation {} }
-
-                                pictureThumbnail {
-                                    photoData: typeof photo_small !== "undefined" ? photo_small : {}
-                                }
-                                width: parent.width
-
-                                primaryText.text: Emoji.emojify(title, primaryText.font.pixelSize, "../js/emoji/")
-                                prologSecondaryText.text: "@" + ( username !== "" ? username : user_id )
-                                tertiaryText {
-                                    maximumLineCount: 1
-                                    text: Functions.getChatPartnerStatusText(user_status, user_last_online);
-                                }
-
-                                onClicked: {
-                                    contactsListView.newChatInitiated(index);
-                                }
-
-                                Connections {
-                                    target: contactsListView
-
-                                    onNewChatInitiated: {
-                                        if (index === currentIndex) {
-                                            contactListItem.visible = false;
-                                        } else {
-                                            contactListItem.visible = true;
-                                        }
-                                    }
-                                }
-
-                                Connections {
-                                    target: contactsSearchField
-                                    onFocusChanged: {
-                                        if (contactsSearchField.focus) {
-                                            contactListItem.visible = true;
-                                        }
-                                    }
-                                }
-                            }
-
-                            Column {
-                                id: selectChatTypeColumn
-                                visible: !contactListItem.visible
-                                opacity: visible ? 1 : 0
-                                Behavior on opacity { FadeAnimation {} }
-                                width: parent.width
-                                height: contactListItem.height
-
-                                Item {
-                                    width: parent.width
-                                    height: parent.height - chatTypeSeparator.height
-
-                                    Rectangle {
-                                        anchors.fill: parent
-                                        opacity: Theme.opacityLow
-                                        color: Theme.overlayBackgroundColor
-                                    }
-
-                                    Item {
-                                        id: privateChatItem
-                                        height: parent.height
-                                        width: parent.width / 2
-
-                                        Rectangle {
-                                            id: privateChatHighlightBackground
-                                            anchors.fill: parent
-                                            color: Theme.highlightBackgroundColor
-                                            opacity: Theme.opacityHigh
-                                            visible: false
-                                        }
-
-                                        Row {
-                                            width: parent.width
-                                            height: parent.height - ( 2 * Theme.paddingSmall )
-                                            anchors.verticalCenter: parent.verticalCenter
-
-                                            IconButton {
-                                                id: privateChatButton
-                                                width: Theme.itemSizeLarge
-                                                height: Theme.itemSizeLarge
-                                                icon.source: "image://theme/icon-m-chat"
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                onClicked: {
-                                                    tdLibWrapper.createPrivateChat(display.id, "openDirectly");
-                                                }
-                                            }
-
-                                            Column {
-                                                height: parent.height
-                                                width: parent.width - privateChatButton.width - Theme.horizontalPageMargin
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                spacing: Theme.paddingSmall
-                                                Text {
-                                                    id: privateChatHeader
-                                                    width: parent.width
-                                                    font.pixelSize: Theme.fontSizeMedium
-                                                    font.weight: Font.ExtraBold
-                                                    color: Theme.primaryColor
-                                                    maximumLineCount: 1
-                                                    elide: Text.ElideRight
-                                                    textFormat: Text.StyledText
-                                                    text: qsTr("Private Chat")
-                                                }
-                                                Text {
-                                                    width: parent.width
-                                                    height: parent.height - privateChatHeader.height - Theme.paddingSmall
-                                                    font.pixelSize: Theme.fontSizeTiny
-                                                    color: Theme.secondaryColor
-                                                    wrapMode: Text.Wrap
-                                                    elide: Text.ElideRight
-                                                    textFormat: Text.StyledText
-                                                    text: qsTr("Transport-encrypted, uses Telegram Cloud, sharable across devices")
-                                                }
-                                            }
-
-                                        }
-
-                                        MouseArea {
-                                            anchors.fill: parent
-                                            onClicked: {
-                                                tdLibWrapper.createPrivateChat(display.id, "openDirectly");
-                                            }
-                                            onPressed: {
-                                                privateChatHighlightBackground.visible = true;
-                                            }
-                                            onReleased: {
-                                                privateChatHighlightBackground.visible = false;
-                                            }
-                                        }
-                                    }
-
-                                    Item {
-                                        id: secretChatItem
-                                        height: parent.height
-                                        width: parent.width / 2
-                                        anchors.left: privateChatItem.right
-                                        anchors.top: parent.top
-
-                                        Rectangle {
-                                            id: secretChatHighlightBackground
-                                            anchors.fill: parent
-                                            color: Theme.highlightBackgroundColor
-                                            opacity: Theme.opacityHigh
-                                            visible: false
-                                        }
-
-                                        Row {
-                                            width: parent.width
-                                            height: parent.height - ( 2 * Theme.paddingSmall )
-                                            anchors.verticalCenter: parent.verticalCenter
-
-                                            IconButton {
-                                                id: secretChatButton
-                                                width: Theme.itemSizeLarge
-                                                height: Theme.itemSizeLarge
-                                                icon.source: "image://theme/icon-m-device-lock"
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                onClicked: {
-                                                    tdLibWrapper.createNewSecretChat(display.id, "openDirectly");
-                                                }
-                                            }
-
-                                            Column {
-                                                height: parent.height
-                                                width: parent.width - secretChatButton.width - Theme.horizontalPageMargin
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                spacing: Theme.paddingSmall
-                                                Text {
-                                                    width: parent.width
-                                                    font.pixelSize: Theme.fontSizeMedium
-                                                    font.weight: Font.ExtraBold
-                                                    color: Theme.primaryColor
-                                                    maximumLineCount: 1
-                                                    elide: Text.ElideRight
-                                                    textFormat: Text.StyledText
-                                                    text: qsTr("Secret Chat")
-                                                }
-                                                Text {
-                                                    width: parent.width
-                                                    height: parent.height - privateChatHeader.height - Theme.paddingSmall
-                                                    font.pixelSize: Theme.fontSizeTiny
-                                                    color: Theme.secondaryColor
-                                                    wrapMode: Text.Wrap
-                                                    elide: Text.ElideRight
-                                                    textFormat: Text.StyledText
-                                                    text: qsTr("End-to-end-encrypted, accessible on this device only")
-                                                }
-                                            }
-
-                                        }
-
-                                        MouseArea {
-                                            anchors.fill: parent
-                                            onClicked: {
-                                                tdLibWrapper.createNewSecretChat(display.id, "openDirectly");
-                                            }
-                                            onPressed: {
-                                                secretChatHighlightBackground.visible = true;
-                                            }
-                                            onReleased: {
-                                                secretChatHighlightBackground.visible = false;
-                                            }
-                                        }
-                                    }
-
-                                }
-
-                                Separator {
-                                    id: chatTypeSeparator
-                                    width: parent.width
-                                    color: Theme.primaryColor
-                                    horizontalAlignment: Qt.AlignHCenter
-                                }
-
-                            }
-
-                        }
-
-                        VerticalScrollDecorator {}
-                    }
-
-                }
-
-                Column {
+                PhotoTextsListItem {
+                    id: contactListItem
 
                     opacity: visible ? 1 : 0
                     Behavior on opacity { FadeAnimation {} }
-                    visible: newChatPage.isLoading
+
+                    pictureThumbnail.photoData: typeof photo_small !== "undefined" ? photo_small : {}
                     width: parent.width
-                    height: loadingLabel.height + loadingBusyIndicator.height + Theme.paddingMedium
 
-                    spacing: Theme.paddingMedium
-
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    InfoLabel {
-                        id: loadingLabel
-                        text: qsTr("Loading contacts...")
+                    primaryText.text: Emoji.emojify(title, primaryText.font.pixelSize, "../js/emoji/")
+                    prologSecondaryText.text: "@" + ( username !== "" ? username : user_id )
+                    tertiaryText {
+                        maximumLineCount: 1
+                        text: Functions.getChatPartnerStatusText(user_status, user_last_online);
                     }
 
-                    BusyIndicator {
-                        id: loadingBusyIndicator
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        running: newChatPage.isLoading
-                        size: BusyIndicatorSize.Large
+                    onClicked: listView.newChatInitiated(index)
+
+                    Connections {
+                        target: listView
+
+                        onNewChatInitiated: {
+                            if (index === currentIndex) {
+                                contactListItem.visible = false;
+                            } else {
+                                contactListItem.visible = true;
+                            }
+                        }
                     }
+
+                    Connections {
+                        target: search
+                        onFocusChanged: {
+                            if (search.focus) {
+                                contactListItem.visible = true;
+                            }
+                        }
+                    }
+                }
+
+                Column {
+                    id: selectChatTypeColumn
+                    visible: !contactListItem.visible
+                    opacity: visible ? 1 : 0
+                    Behavior on opacity { FadeAnimation {} }
+                    width: parent.width
+                    height: contactListItem.height
+
+                    Item {
+                        width: parent.width
+                        height: parent.height - chatTypeSeparator.height
+
+                        Rectangle {
+                            anchors.fill: parent
+                            opacity: Theme.opacityLow
+                            color: Theme.overlayBackgroundColor
+                        }
+
+                        BackgroundItem {
+                            id: privateChatItem
+                            height: parent.height
+                            width: parent.width / 2
+
+                            Row {
+                                x: Theme.horizontalPageMargin
+                                width: parent.width - x
+                                y: Theme.paddingSmall
+                                height: parent.height - 2*y
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                Item {
+                                    id: privateChatButton
+                                    width: Theme.itemSizeLarge
+                                    height: Theme.itemSizeLarge
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    Icon {
+                                        anchors.centerIn: parent
+                                        source: "image://theme/icon-m-chat"
+                                    }
+                                }
+
+                                Column {
+                                    height: parent.height
+                                    width: parent.width - privateChatButton.width - Theme.horizontalPageMargin
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    spacing: Theme.paddingSmall
+                                    Text {
+                                        id: privateChatHeader
+                                        width: parent.width
+                                        font.pixelSize: Theme.fontSizeMedium
+                                        font.weight: Font.ExtraBold
+                                        color: Theme.primaryColor
+                                        maximumLineCount: 1
+                                        elide: Text.ElideRight
+                                        textFormat: Text.StyledText
+                                        text: qsTr("Private Chat")
+                                    }
+                                    Text {
+                                        width: parent.width
+                                        height: parent.height - privateChatHeader.height - Theme.paddingSmall
+                                        font.pixelSize: Theme.fontSizeTiny
+                                        color: Theme.secondaryColor
+                                        wrapMode: Text.Wrap
+                                        elide: Text.ElideRight
+                                        textFormat: Text.StyledText
+                                        text: qsTr("Transport-encrypted, uses Telegram Cloud, sharable across devices")
+                                    }
+                                }
+
+                            }
+
+                            onClicked: tdLibWrapper.createPrivateChat(display.id, "openDirectly")
+                        }
+
+                        BackgroundItem {
+                            height: parent.height
+                            width: parent.width / 2
+                            anchors.left: privateChatItem.right
+                            anchors.top: parent.top
+
+
+                            Row {
+                                x: Theme.horizontalPageMargin
+                                width: parent.width - x
+                                y: Theme.paddingSmall
+                                height: parent.height - 2*y
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                Item {
+                                    id: secretChatButton
+                                    width: Theme.itemSizeLarge
+                                    height: Theme.itemSizeLarge
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    Icon {
+                                        anchors.centerIn: parent
+                                        source: "image://theme/icon-m-chat"
+                                    }
+                                }
+
+                                Column {
+                                    height: parent.height
+                                    width: parent.width - secretChatButton.width - Theme.horizontalPageMargin
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    spacing: Theme.paddingSmall
+                                    Text {
+                                        width: parent.width
+                                        font.pixelSize: Theme.fontSizeMedium
+                                        font.weight: Font.ExtraBold
+                                        color: Theme.primaryColor
+                                        maximumLineCount: 1
+                                        elide: Text.ElideRight
+                                        textFormat: Text.StyledText
+                                        text: qsTr("Secret Chat")
+                                    }
+                                    Text {
+                                        width: parent.width
+                                        height: parent.height - privateChatHeader.height - Theme.paddingSmall
+                                        font.pixelSize: Theme.fontSizeTiny
+                                        color: Theme.secondaryColor
+                                        wrapMode: Text.Wrap
+                                        elide: Text.ElideRight
+                                        textFormat: Text.StyledText
+                                        text: qsTr("End-to-end-encrypted, accessible on this device only")
+                                    }
+                                }
+
+                            }
+
+                            onClicked: tdLibWrapper.createNewSecretChat(display.id, "openDirectly")
+                        }
+
+                    }
+
+                    Separator {
+                        id: chatTypeSeparator
+                        width: parent.width
+                        color: Theme.primaryColor
+                        horizontalAlignment: Qt.AlignHCenter
+                    }
+
                 }
 
             }
 
+            VerticalScrollDecorator {}
         }
     }
 }
