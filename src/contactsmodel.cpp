@@ -150,7 +150,7 @@ void ContactsModel::startImportingContacts()
 void ContactsModel::stopImportingContacts(bool singleContact) {
     if (!deviceContacts.isEmpty()) {
         LOG("Importing found contacts" << deviceContacts.size());
-        this->tdLibWrapper->importContacts(deviceContacts, singleContact ? "single" : "");
+        this->tdLibWrapper->importContacts(deviceContacts, singleContact);
     }
 }
 

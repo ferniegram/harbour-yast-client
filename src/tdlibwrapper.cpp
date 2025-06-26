@@ -1125,9 +1125,9 @@ void TDLibWrapper::closeSecretChat(qlonglong secretChatId)
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::importContacts(const QVariantList &contacts, const QString &extra) {
+void TDLibWrapper::importContacts(const QVariantList &contacts, bool single) {
     LOG("Importing contacts");
-    this->sendRequest(QVariantMap{{_TYPE, "importContacts"}, {"contacts", contacts}, {_EXTRA, extra}});
+    this->sendRequest(QVariantMap{{_TYPE, "importContacts"}, {"contacts", contacts}, {_EXTRA, single}});
 }
 
 void TDLibWrapper::addContact(const QString &phone, const QString &firstName, const QString &lastName, qlonglong userId, bool sharePhoneNumber) {

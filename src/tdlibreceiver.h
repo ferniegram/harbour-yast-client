@@ -94,7 +94,7 @@ signals:
     void errorReceived(const int code, const QString &message, const QVariant &extra);
     void secretChat(qlonglong secretChatId, const QVariantMap &secretChat);
     void secretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
-    void contactsImported(const QVariantList &importerCount, const QVariantList &userIds, const QString &extra);
+    void contactsImported(const QVariantList &importerCount, const QVariantList &userIds, bool single);
     void chatIsMarkedAsUnreadUpdated(qlonglong chatId, bool chatIsMarkedAsUnread);
     void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage, const QString &order);
     void inlineQueryResults(const QString &inlineQueryId, const QString &nextOffset, const QVariantList &results, const QString &switchPmText, const QString &switchPmParameter, const QString &extra);

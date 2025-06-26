@@ -227,7 +227,7 @@ public:
     Q_INVOKABLE void getContacts();
     Q_INVOKABLE void getSecretChat(qlonglong secretChatId);
     Q_INVOKABLE void closeSecretChat(qlonglong secretChatId);
-    Q_INVOKABLE void importContacts(const QVariantList &contacts, const QString &extra = QString());
+    Q_INVOKABLE void importContacts(const QVariantList &contacts, bool single = false);
     Q_INVOKABLE void addContact(const QString &phone, const QString &firstName, const QString &lastName, qlonglong userId, bool sharePhoneNumber);
     Q_INVOKABLE void searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId = 0);
     Q_INVOKABLE void searchPublicChats(const QString &query);
@@ -336,7 +336,7 @@ signals:
     void usersReceived(const QString &extra, const QVariantList &userIds, int totalUsers);
     void messageSendersReceived(const QString &extra, const QVariantList &senders, int totalUsers);
     void errorReceived(int code, const QString &message, const QVariant &extra);
-    void contactsImported(const QVariantList &importerCount, const QVariantList &userIds, const QString &extra);
+    void contactsImported(const QVariantList &importerCount, const QVariantList &userIds, bool single);
     void messageNotFound(qlonglong chatId, qlonglong messageId);
     void chatIsMarkedAsUnreadUpdated(qlonglong chatId, bool chatIsMarkedAsUnread);
     void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage, const QString &order);
