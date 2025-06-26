@@ -134,6 +134,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/settingsPage/SettingsSession.qml \
     qml/components/settingsPage/SettingsStorage.qml \
     qml/components/settingsPage/SettingsUserProfile.qml \
+    qml/dialogs/AddContactDialog.qml \
     qml/js/debug.js \
     qml/js/functions.js \
     qml/pages/ChatInformationPage.qml \

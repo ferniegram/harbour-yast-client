@@ -33,7 +33,7 @@ Page {
         target: tdLibWrapper
         onContactsImported: {
             busyLabel.running = false
-            appNotification.show(qsTr("Contacts successfully synchronized with Telegram."))
+            appNotification.show(single ? qsTr("Contact imported") : qsTr("Contacts successfully synchronized with Telegram."))
         }
     }
 
@@ -54,6 +54,10 @@ Page {
                     // Success message is not fired before TDLib returned "Contacts imported" (see above)
                 }
                 text: qsTr("Synchronize Contacts with Telegram")
+            }
+            MenuItem {
+                text: qsTr("Add contact")
+                onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddContactDialog.qml"))
             }
         }
 
