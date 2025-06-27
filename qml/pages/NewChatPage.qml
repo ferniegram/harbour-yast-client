@@ -37,6 +37,12 @@ Page {
         }
     }
 
+    Connections {
+        target: contactsModel
+        // is this needed? or only useful for debugging?
+        onContactsRemoved: appNotification.show(single ? qsTr("Contact removed") : qsTr("Contacts removed"))
+    }
+
     ContactSync {
         id: contactSync
         onSyncError: busyLabel.running = false
@@ -125,11 +131,18 @@ Page {
                     }
 
                     onClicked: tdLibWrapper.createPrivateChat(display.id, "openDirectly")
+                    function remove() {
+                        remorseAction(qsTr("Contact removed"), function() { tdLibWrapper.removeContact(user_id) })
+                    }
                     menu: Component {
                         ContextMenu {
                             MenuItem {
                                 text: qsTr("Secret Chat")
                                 onClicked: tdLibWrapper.createNewSecretChat(display.id, "openDirectly")
+                            }
+                            MenuItem {
+                                text: qsTr("Remove")
+                                onClicked: remove()
                             }
                         }
                     }
