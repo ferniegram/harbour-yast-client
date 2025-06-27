@@ -78,7 +78,7 @@ Page {
                 id: search
                 width: parent.width
                 placeholderText: qsTr("Search a contact...")
-                active: visible
+                active: parent.visible // `visible` doesn't work because changing `active` affects `visible`
 
                 onTextChanged: contactsProxyModel.setFilterWildcard("*" + text + "*")
 
