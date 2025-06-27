@@ -25,11 +25,10 @@
 
 #include "tdlibwrapper.h"
 
-class ContactsModel : public QAbstractListModel
-{
+class ContactsListModel : public QAbstractListModel {
     Q_OBJECT
-public:
 
+public:
     enum ContactRole {
         RoleDisplay = Qt::DisplayRole,
         RolePhotoSmall,
@@ -41,22 +40,18 @@ public:
         RoleFilter
     };
 
-    ContactsModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
+    ContactsListModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
     virtual QHash<int,QByteArray> roleNames() const override;
     virtual int rowCount(const QModelIndex &) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
-    Q_INVOKABLE void startImportingContacts();
-    Q_INVOKABLE void stopImportingContacts(bool singleContact = false);
-    Q_INVOKABLE void importContact(const QString &firstName, const QString &lastName, const QString &phoneNumber);
-    Q_INVOKABLE void importContact(const QVariantMap &singlePerson);
+    bool compare(const QModelIndex &index1, const QModelIndex &index2) const;
 
 signals:
-    void contactsRemoved(bool single);
-    void contactNotFound();
-    void singleContactAdded(const QString &userId);
     void contactsImported();
+    void singleContactAdded(const QString &userId);
+    void contactNotFound();
 
 public slots:
     void handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers);
@@ -67,10 +62,38 @@ public slots:
 private:
     TDLibWrapper *tdLibWrapper;
     QList<QString> contactIds;
-    QString filter;
-    QVariantList deviceContacts;
 
     void addUser(const QString &userId);
+    bool compareUsersByName(const QVariantMap &user1, const QVariantMap &user2) const;
+};
+
+
+
+class ContactsModel : public QSortFilterProxyModel
+{
+    Q_OBJECT
+public:
+
+    ContactsModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
+
+    Q_INVOKABLE void startImportingContacts();
+    Q_INVOKABLE void stopImportingContacts(bool singleContact = false);
+    Q_INVOKABLE void importContact(const QString &firstName, const QString &lastName, const QString &phoneNumber);
+    Q_INVOKABLE void importContact(const QVariantMap &singlePerson);
+
+protected:
+    virtual bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const override;
+
+signals:
+    void contactsImported();
+    void singleContactAdded(const QString &userId);
+    void contactNotFound();
+
+private:
+    TDLibWrapper *tdLibWrapper;
+    QVariantList deviceContacts;
+    ContactsListModel contactsListModel;
+
     bool compareUsers(const QString &userId1, const QString &userId2);
 };
 

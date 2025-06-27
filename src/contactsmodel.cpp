@@ -34,17 +34,16 @@ namespace {
     const QString _EXTRA("@extra");
 }
 
-ContactsModel::ContactsModel(TDLibWrapper *tdLibWrapper, QObject *parent)
-    : QAbstractListModel(parent)
-{
+ContactsListModel::ContactsListModel(TDLibWrapper *tdLibWrapper, QObject *parent)
+    : QAbstractListModel(parent) {
     this->tdLibWrapper = tdLibWrapper;
-    connect(this->tdLibWrapper, &TDLibWrapper::usersReceived, this, &ContactsModel::handleUsersReceived);
-    connect(this->tdLibWrapper, &TDLibWrapper::userUpdated, this, &ContactsModel::handleUserUpdated);
-    connect(this->tdLibWrapper, &TDLibWrapper::contactsImported, this, &ContactsModel::handleContactsImported);
-    connect(this->tdLibWrapper, &TDLibWrapper::okMapReceived, this, &ContactsModel::handleOkMapReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::usersReceived, this, &ContactsListModel::handleUsersReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::userUpdated, this, &ContactsListModel::handleUserUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::contactsImported, this, &ContactsListModel::handleContactsImported);
+    connect(this->tdLibWrapper, &TDLibWrapper::okMapReceived, this, &ContactsListModel::handleOkMapReceived);
 }
 
-QHash<int, QByteArray> ContactsModel::roleNames() const {
+QHash<int, QByteArray> ContactsListModel::roleNames() const {
     QHash<int,QByteArray> roles;
     roles.insert(ContactRole::RoleDisplay, "display");
     roles.insert(ContactRole::RoleTitle, "title");
@@ -57,49 +56,45 @@ QHash<int, QByteArray> ContactsModel::roleNames() const {
     return roles;
 }
 
-int ContactsModel::rowCount(const QModelIndex &) const {
+int ContactsListModel::rowCount(const QModelIndex &) const {
     return this->contactIds.size();
 }
 
-QVariant ContactsModel::data(const QModelIndex &index, int role) const {
+QVariant ContactsListModel::data(const QModelIndex &index, int role) const {
     if (index.isValid()) {
         QVariantMap requestedContact = this->tdLibWrapper->getUserInformation(this->contactIds.value(index.row()));
         switch (static_cast<ContactRole>(role)) {
             case ContactRole::RoleDisplay: return requestedContact;
-            case ContactRole::RoleTitle: return QString(requestedContact.value("first_name").toString() + " " + requestedContact.value("last_name").toString()).trimmed();
+            case ContactRole::RoleTitle: return QString(requestedContact.value(FIRST_NAME).toString() + " " + requestedContact.value(LAST_NAME).toString()).trimmed();
             case ContactRole::RoleUserId: return requestedContact.value("id");
             case ContactRole::RoleUsername: return requestedContact.value("usernames").toMap().value("editable_username").toString();
             case ContactRole::RolePhotoSmall: return requestedContact.value("profile_photo").toMap().value("small");
-            case ContactRole::RoleUserStatus: return requestedContact.value("status").toMap().value("@type");
-            case ContactRole::RoleUserLastOnline: return requestedContact.value("status").toMap().value("was_online");
-            case ContactRole::RoleFilter: return QString(requestedContact.value("first_name").toString() + " " + requestedContact.value("last_name").toString() + " " + requestedContact.value("usernames").toMap().value("editable_username").toString()).trimmed();
+            case ContactRole::RoleUserStatus: return requestedContact.value(STATUS).toMap().value(_TYPE);
+            case ContactRole::RoleUserLastOnline: return requestedContact.value(STATUS).toMap().value("was_online");
+            case ContactRole::RoleFilter: return QString(requestedContact.value(FIRST_NAME).toString() + " " + requestedContact.value(LAST_NAME).toString() + " " + requestedContact.value("usernames").toMap().value("editable_username").toString()).trimmed();
         }
     }
     return QVariant();
 }
 
-void ContactsModel::addUser(const QString &userId) {
+void ContactsListModel::addUser(const QString &userId) {
     if (!this->tdLibWrapper->hasUserInformation(userId)) {
         this->tdLibWrapper->getUserFullInfo(userId);
     }
     this->contactIds.append(userId);
 }
 
-void ContactsModel::handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers)
+void ContactsListModel::handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers)
 {
     if (extra == "contactsRequested") {
         LOG("Received contacts list..." << totalUsers);
         this->contactIds.clear();
         for (const QVariant &userIdVariant : userIds)
             addUser(userIdVariant.toString());
-
-        std::sort(this->contactIds.begin(), this->contactIds.end(),
-                  [this](const QString &a, const QString &b) { return compareUsers(a, b); }
-        );
     }
 }
 
-void ContactsModel::handleUserUpdated(const QString &userId) {
+void ContactsListModel::handleUserUpdated(const QString &userId) {
     int i = contactIds.indexOf(userId);
     if (i > -1) {
         const QModelIndex modelIndex = index(i);
@@ -115,7 +110,7 @@ void ContactsModel::handleUserUpdated(const QString &userId) {
     }
 }
 
-void ContactsModel::handleContactsImported(const QVariantList &/*importerCount*/, const QVariantList &userIds, bool single) {
+void ContactsListModel::handleContactsImported(const QVariantList &/*importerCount*/, const QVariantList &userIds, bool single) {
     LOG("Imported" << userIds.size() << "contacts");
     for (const QVariant &userIdVariant : userIds) {
         const QString userId = userIdVariant.toString();
@@ -133,7 +128,7 @@ void ContactsModel::handleContactsImported(const QVariantList &/*importerCount*/
     // todo: sort
 }
 
-void ContactsModel::handleOkMapReceived(const QString &type, const QVariantMap &extra) {
+void ContactsListModel::handleOkMapReceived(const QString &type, const QVariantMap &extra) {
     if (type == "removeContacts") {
         LOG("Removing contacts");
         for (QString userId : extra["user_ids"].toStringList()) {
@@ -147,35 +142,54 @@ void ContactsModel::handleOkMapReceived(const QString &type, const QVariantMap &
     }
 }
 
-bool ContactsModel::compareUsers(const QString &userId1, const QString &userId2) {
-    const QVariantMap user1 = this->tdLibWrapper->getUserInformation(userId1);
-    const QVariantMap user2 = this->tdLibWrapper->getUserInformation(userId2);
+bool ContactsListModel::compareUsersByName(const QVariantMap &user1, const QVariantMap &user2) const {
+    const int lastName1 = user1.value(LAST_NAME).toString().size();
+    const int lastName2 = user2.value(LAST_NAME).toString().size();
+    if (lastName1 && lastName1 != lastName2)
+        return lastName1 < lastName2;
 
-    const QString lastName1 = user1.value(LAST_NAME).toString();
-    const QString lastName2 = user2.value(LAST_NAME).toString();
-    if (!lastName1.isEmpty()) {
-        if (lastName1 < lastName2) {
-            return true;
-        } else if (lastName1 > lastName2) {
-            return false;
-        }
-    }
+    const int firstName1 = user1.value(FIRST_NAME).toString().size();
+    const int firstName2 = user2.value(FIRST_NAME).toString().size();
+    if (firstName1 != firstName2)
+        return firstName1 < firstName2;
 
-    const QString firstName1 = user1.value(FIRST_NAME).toString();
-    const QString firstName2 = user2.value(FIRST_NAME).toString();
-    if (firstName1 < firstName2) {
-        return true;
-    } else if (firstName1 > firstName2) {
-        return false;
-    }
-    const QString userName1 = user1.value(USERNAME).toString();
-    const QString userName2 = user2.value(USERNAME).toString();
-    if (userName1 < userName2) {
-        return true;
-    } else if (userName1 > userName2) {
-        return false;
-    }
+    const int userName1 = user1.value(USERNAME).toString().size();
+    const int userName2 = user2.value(USERNAME).toString().size();
+    if (userName1 && userName1 != userName2)
+        return userName1 < userName2;
+
     return user1.value(ID).toLongLong() < user2.value(ID).toLongLong();
+}
+
+bool ContactsListModel::compare(const QModelIndex &index1, const QModelIndex &index2) const {
+    const QVariantMap user1 = tdLibWrapper->getUserInformation(contactIds[index1.row()]);
+    const QVariantMap user2 = tdLibWrapper->getUserInformation(contactIds[index2.row()]);
+
+    // todo: compare by status (and add an option to compare by name, like right now)
+    return compareUsersByName(user1, user2);
+}
+
+
+
+ContactsModel::ContactsModel(TDLibWrapper *tdLibWrapper, QObject *parent)
+    : QSortFilterProxyModel(parent),
+    tdLibWrapper(tdLibWrapper),
+    contactsListModel(tdLibWrapper, parent)
+{
+    this->tdLibWrapper = tdLibWrapper;
+
+    setSourceModel(&contactsListModel);
+    setFilterRole(ContactsListModel::RoleFilter);
+    setFilterCaseSensitivity(Qt::CaseInsensitive);
+    setDynamicSortFilter(true);
+
+    connect(&contactsListModel, &ContactsListModel::contactsImported, this, &ContactsModel::contactsImported);
+    connect(&contactsListModel, &ContactsListModel::singleContactAdded, this, &ContactsModel::singleContactAdded);
+    connect(&contactsListModel, &ContactsListModel::contactNotFound, this, &ContactsModel::contactNotFound);
+}
+
+bool ContactsModel::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const {
+    return contactsListModel.compare(source_left, source_right);
 }
 
 void ContactsModel::startImportingContacts()

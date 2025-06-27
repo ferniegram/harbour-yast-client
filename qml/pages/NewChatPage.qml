@@ -27,7 +27,7 @@ Page {
     id: page
     allowedOrientations: Orientation.All
 
-    Component.onDestruction: contactsProxyModel.setFilterWildcard('*')
+    Component.onDestruction: contactsModel.setFilterWildcard('*')
 
     Connections {
         target: contactsModel
@@ -82,7 +82,7 @@ Page {
                 placeholderText: qsTr("Search a contact...")
                 active: parent.visible // `visible` doesn't work because changing `active` affects `visible`
 
-                onTextChanged: contactsProxyModel.setFilterWildcard("*" + text + "*")
+                onTextChanged: contactsModel.setFilterWildcard("*" + text + "*")
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-close"
                 EnterKey.onClicked: {
@@ -94,7 +94,7 @@ Page {
 
             SilicaListView {
                 id: listView
-                model: contactsProxyModel
+                model: contactsModel
                 clip: true
                 width: parent.width
                 anchors {
