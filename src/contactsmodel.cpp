@@ -29,9 +29,22 @@ namespace {
     const QString TYPE("type");
     const QString FIRST_NAME("first_name");
     const QString LAST_NAME("last_name");
-    const QString USERNAME("username");
+    const QString USERNAMES("usernames");
+    const QString EDITABLE_USERNAME("editable_username");
+    const QString PHONE_NUMBER("phone_number");
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
+    const QHash<int,QByteArray> ROLE_NAMES{
+        {ContactsListModel::ContactRole::RoleDisplay, "display"},
+        {ContactsListModel::ContactRole::RoleTitle, "title"},
+        {ContactsListModel::ContactRole::RoleUserId, "user_id"},
+        {ContactsListModel::ContactRole::RoleUsername, "username"},
+        {ContactsListModel::ContactRole::RolePhoneNumber, "phone_number"},
+        {ContactsListModel::ContactRole::RolePhotoSmall, "photo_small"},
+        {ContactsListModel::ContactRole::RoleUserStatus, "user_status"},
+        {ContactsListModel::ContactRole::RoleUserLastOnline, "user_last_online"},
+        {ContactsListModel::ContactRole::RoleFilter, "filter"},
+    };
 }
 
 ContactsListModel::ContactsListModel(TDLibWrapper *tdLibWrapper, QObject *parent)
@@ -44,16 +57,7 @@ ContactsListModel::ContactsListModel(TDLibWrapper *tdLibWrapper, QObject *parent
 }
 
 QHash<int, QByteArray> ContactsListModel::roleNames() const {
-    QHash<int,QByteArray> roles;
-    roles.insert(ContactRole::RoleDisplay, "display");
-    roles.insert(ContactRole::RoleTitle, "title");
-    roles.insert(ContactRole::RoleUserId, "user_id");
-    roles.insert(ContactRole::RoleUsername, "username");
-    roles.insert(ContactRole::RolePhotoSmall, "photo_small");
-    roles.insert(ContactRole::RoleUserStatus, "user_status");
-    roles.insert(ContactRole::RoleUserLastOnline, "user_last_online");
-    roles.insert(ContactRole::RoleFilter, "filter");
-    return roles;
+    return ROLE_NAMES;
 }
 
 int ContactsListModel::rowCount(const QModelIndex &) const {
@@ -66,12 +70,18 @@ QVariant ContactsListModel::data(const QModelIndex &index, int role) const {
         switch (static_cast<ContactRole>(role)) {
             case ContactRole::RoleDisplay: return requestedContact;
             case ContactRole::RoleTitle: return QString(requestedContact.value(FIRST_NAME).toString() + " " + requestedContact.value(LAST_NAME).toString()).trimmed();
-            case ContactRole::RoleUserId: return requestedContact.value("id");
-            case ContactRole::RoleUsername: return requestedContact.value("usernames").toMap().value("editable_username").toString();
+            case ContactRole::RoleUserId: return requestedContact.value(ID);
+            case ContactRole::RoleUsername: return requestedContact.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString();
+            case ContactRole::RolePhoneNumber: return requestedContact.value(PHONE_NUMBER);
             case ContactRole::RolePhotoSmall: return requestedContact.value("profile_photo").toMap().value("small");
             case ContactRole::RoleUserStatus: return requestedContact.value(STATUS).toMap().value(_TYPE);
             case ContactRole::RoleUserLastOnline: return requestedContact.value(STATUS).toMap().value("was_online");
-            case ContactRole::RoleFilter: return QString(requestedContact.value(FIRST_NAME).toString() + " " + requestedContact.value(LAST_NAME).toString() + " " + requestedContact.value("usernames").toMap().value("editable_username").toString()).trimmed();
+            case ContactRole::RoleFilter: return QString(
+                        requestedContact.value(FIRST_NAME).toString()
+                        + " " + requestedContact.value(LAST_NAME).toString()
+                        + " " + requestedContact.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString()
+                        + " " + requestedContact.value(PHONE_NUMBER).toString()
+                        ).trimmed();
         }
     }
     return QVariant();
@@ -153,10 +163,15 @@ bool ContactsListModel::compareUsersByName(const QVariantMap &user1, const QVari
     if (!lastName1.isEmpty() && lastName1 != lastName2)
         return lastName1 < lastName2;
 
-    const QString username1 = user1.value(USERNAME).toString();
-    const QString username2 = user2.value(USERNAME).toString();
+    const QString username1 = user1.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString();
+    const QString username2 = user2.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString();
     if (!username1.isEmpty())
         return username1 < username2;
+
+    const QString phone1 = user1.value(PHONE_NUMBER).toString();
+    const QString phone2 = user2.value(PHONE_NUMBER).toString();
+    if (!phone1.isEmpty() && phone1 != phone2)
+        return phone1 < phone2;
 
     return user1.value(ID).toLongLong() < user2.value(ID).toLongLong();
 }
@@ -206,7 +221,7 @@ void ContactsModel::stopImportingContacts(bool singleContact) {
 }
 
 void ContactsModel::importContact(const QString &firstName, const QString &lastName, const QString &phoneNumber) {
-    deviceContacts.append(QVariantMap{{FIRST_NAME, firstName}, {LAST_NAME, lastName}, {"phone_number", phoneNumber}});
+    deviceContacts.append(QVariantMap{{FIRST_NAME, firstName}, {LAST_NAME, lastName}, {PHONE_NUMBER, phoneNumber}});
     LOG("Found contact" << firstName << lastName << phoneNumber);
 }
 

@@ -35,6 +35,7 @@ public:
         RoleTitle,
         RoleUserId,
         RoleUsername,
+        RolePhoneNumber,
         RoleUserStatus,
         RoleUserLastOnline,
         RoleFilter
