@@ -38,6 +38,7 @@ class TDLibWrapper : public QObject
     Q_OBJECT
     Q_PROPERTY(AuthorizationState authorizationState READ getAuthorizationState NOTIFY authorizationStateChanged)
     Q_PROPERTY(QVariantMap userInformation READ getUserInformation NOTIFY ownUserUpdated)
+    Q_PROPERTY(QVariantMap options MEMBER options NOTIFY optionUpdated)
 
 public:
     explicit TDLibWrapper(AppSettings *appSettings, MceInterface *mceInterface, QObject *parent = nullptr);

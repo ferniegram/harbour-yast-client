@@ -89,6 +89,14 @@ Page {
                                               sourceText: fernschreiberUtils.makeDummyFormattedText(translateArea.text)
                                           })
             }
+
+            SectionHeader { text: qsTr("Options") }
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                wrapMode: Text.Wrap
+                text: JSON.stringify(tdLibWrapper.options, null, '\t')
+            }
         }
 
         VerticalScrollDecorator {}
