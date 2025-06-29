@@ -23,8 +23,7 @@ import "components"
 import "./js/functions.js" as Functions
 import WerkWolf.Fernschreiber 1.0
 
-ApplicationWindow
-{
+ApplicationWindow {
     id: appWindow
 
     initialPage: Qt.resolvedUrl("pages/OverviewPage.qml")
@@ -33,12 +32,8 @@ ApplicationWindow
 
     Connections {
         target: dBusAdaptor
-        onPleaseOpenMessage: {
-            appWindow.activate()
-        }
-        onPleaseOpenUrl: {
-            appWindow.activate()
-        }
+        onPleaseOpenMessage: appWindow.activate()
+        onPleaseOpenUrl: appWindow.activate()
     }
 
     Connections {
@@ -65,10 +60,6 @@ ApplicationWindow
         Functions.setGlobals({
             tdLibWrapper: tdLibWrapper,
             appNotification: appNotification,
-            stickerManager: stickerManager,
-            createTdlibFile: function(info){
-                return tdlibFileComponent.createObject(appWindow, {fileInformation: info})
-            },
             fernschreiberUtils: fernschreiberUtils,
         })
     }

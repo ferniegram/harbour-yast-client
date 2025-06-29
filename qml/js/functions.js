@@ -23,12 +23,10 @@
 .import Sailfish.Silica 1.0 as Silica
 .import WerkWolf.Fernschreiber 1.0 as Fernschreiber
 
-var tdLibWrapper, appNotification, stickerManager, createTdlibFile, fernschreiberUtils
+var tdLibWrapper, appNotification, fernschreiberUtils
 function setGlobals(globals) {
     tdLibWrapper = globals.tdLibWrapper
     appNotification = globals.appNotification
-    stickerManager = globals.stickerManager
-    createTdlibFile = globals.createTdlibFile
     fernschreiberUtils = globals.fernschreiberUtils
 }
 function formatUnreadCount(value) {
