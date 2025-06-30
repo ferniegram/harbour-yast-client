@@ -69,6 +69,7 @@ public:
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
 
     Q_INVOKABLE QVariantList decodeWaveform(QString encodedData);
+    Q_INVOKABLE QString encodeWaveform(QVariantList waveform);
 
 signals:
     void voiceNoteDurationChanged();

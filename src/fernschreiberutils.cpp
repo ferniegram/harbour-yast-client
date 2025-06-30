@@ -610,3 +610,25 @@ QVariantList FernschreiberUtils::decodeWaveform(QString encodedData) {
 
     return result;
 }
+
+QString FernschreiberUtils::encodeWaveform(QVariantList waveform) {
+    // idk how some parts work in this but it works
+
+    const int numBits = waveform.length() * 5;
+    QByteArray result((numBits + 7) / 8 + 1, 0);
+
+    char *data = result.data();
+    for (int i=0; i < waveform.length(); i++) {
+        const int bitOffset = i * 5;
+        const int value = static_cast<int>(waveform[i].toDouble() * 31.0) & 31;
+
+        char* bytes = data + (bitOffset / 8);
+        const int bitInByte = bitOffset % 8;
+
+        // Cast to uint32_t pointer for 4-byte aligned write
+        uint32_t* ptr = reinterpret_cast<uint32_t*>(bytes);
+        *ptr |= static_cast<uint32_t>(value) << bitInByte;
+    }
+
+    return QString::fromUtf8(result.toBase64());
+}
