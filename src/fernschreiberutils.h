@@ -30,6 +30,10 @@
 class FernschreiberUtils : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(VoiceNoteRecordingState voiceNoteRecordingState READ getVoiceNoteRecordingState NOTIFY voiceNoteRecordingStateChanged)
+    Q_PROPERTY(QString voiceNotePath READ getVoiceNotePath)
+    Q_PROPERTY(qlonglong voiceNoteDuration READ getVoiceNoteDuration NOTIFY voiceNoteDurationChanged)
 public:
     explicit FernschreiberUtils(AppSettings *settings = nullptr, TDLibWrapper *tdLibWrapper = nullptr, QObject *parent = nullptr);
     ~FernschreiberUtils();
@@ -45,31 +49,31 @@ public:
 
     static QString getUserName(const QVariantMap &userInformation);
     
-    Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
+    Q_INVOKABLE static QString fixReservedHtmlCharacters(const QString &text);
     Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
     Q_INVOKABLE static QVariantMap makeDummyFormattedText(const QString &text);
     Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities = false, bool escapeReserved = true);
     Q_INVOKABLE QString getMessageText(const QVariantMap &message, bool simple = false, bool ignoreEntities = false, bool escapeReserved = true);
     Q_INVOKABLE QVariantMap getFormattedMessageText(const QVariantMap &message, bool simple = false);
 
+    inline QString getVoiceNotePath() const { return audioRecorder.outputLocation().toLocalFile(); }
+    VoiceNoteRecordingState getVoiceNoteRecordingState() const;
+    inline qlonglong getVoiceNoteDuration() const { return audioRecorder.duration(); }
+
     Q_INVOKABLE void startRecordingVoiceNote();
     Q_INVOKABLE void stopRecordingVoiceNote();
-    Q_INVOKABLE QString voiceNotePath();
-    Q_INVOKABLE VoiceNoteRecordingState getVoiceNoteRecordingState();
     Q_INVOKABLE void startGeoLocationUpdates();
     Q_INVOKABLE void stopGeoLocationUpdates();
-    Q_INVOKABLE bool supportsGeoLocation();
-    Q_INVOKABLE QString getSailfishOSVersion();
+    Q_INVOKABLE inline bool supportsGeoLocation() const { return this->geoPositionInfoSource; }
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
 
 signals:
-    void voiceNoteDurationChanged(qlonglong duration);
-    void voiceNoteRecordingStateChanged(VoiceNoteRecordingState state);
+    void voiceNoteDurationChanged();
+    void voiceNoteRecordingStateChanged();
     void newPositionInformation(const QVariantMap &positionInformation);
     void newGeocodedAddress(const QString &geocodedAddress);
 
 private slots:
-    void handleAudioRecorderStatusChanged(QMediaRecorder::Status status);
     void handleGeoPositionUpdated(const QGeoPositionInfo &info);
     void handleReverseGeocodeFinished();
 
@@ -78,7 +82,6 @@ private:
     TDLibWrapper *tdLibWrapper;
 
     QAudioRecorder audioRecorder;
-    VoiceNoteRecordingState voiceNoteRecordingState;
 
     QGeoPositionInfoSource *geoPositionInfoSource;
     QNetworkAccessManager *manager;

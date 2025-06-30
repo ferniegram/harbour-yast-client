@@ -111,11 +111,8 @@ FernschreiberUtils::FernschreiberUtils(AppSettings *settings, TDLibWrapper *tdLi
     this->audioRecorder.setEncodingSettings(encoderSettings);
     this->audioRecorder.setContainerFormat("ogg");
 
-    QMediaRecorder::Status audioRecorderStatus = this->audioRecorder.status();
-    this->handleAudioRecorderStatusChanged(audioRecorderStatus);
-
-    connect(&audioRecorder, SIGNAL(durationChanged(qlonglong)), this, SIGNAL(voiceNoteDurationChanged(qlonglong)));
-    connect(&audioRecorder, SIGNAL(statusChanged(QMediaRecorder::Status)), this, SLOT(handleAudioRecorderStatusChanged(QMediaRecorder::Status)));
+    connect(&audioRecorder, &QAudioRecorder::durationChanged, this, &FernschreiberUtils::voiceNoteDurationChanged);
+    connect(&audioRecorder, &QAudioRecorder::statusChanged, this, &FernschreiberUtils::voiceNoteRecordingStateChanged);
 
     this->geoPositionInfoSource = QGeoPositionInfoSource::createDefaultSource(this);
     if (this->geoPositionInfoSource) {
@@ -491,16 +488,6 @@ void FernschreiberUtils::stopRecordingVoiceNote() {
     this->audioRecorder.stop();
 }
 
-QString FernschreiberUtils::voiceNotePath()
-{
-    return this->audioRecorder.outputLocation().toLocalFile();
-}
-
-FernschreiberUtils::VoiceNoteRecordingState FernschreiberUtils::getVoiceNoteRecordingState()
-{
-    return this->voiceNoteRecordingState;
-}
-
 void FernschreiberUtils::startGeoLocationUpdates() {
     if (this->geoPositionInfoSource)
         this->geoPositionInfoSource->startUpdates();
@@ -509,16 +496,6 @@ void FernschreiberUtils::startGeoLocationUpdates() {
 void FernschreiberUtils::stopGeoLocationUpdates() {
     if (this->geoPositionInfoSource)
         this->geoPositionInfoSource->stopUpdates();
-}
-
-bool FernschreiberUtils::supportsGeoLocation()
-{
-    return this->geoPositionInfoSource;
-}
-
-QString FernschreiberUtils::getSailfishOSVersion()
-{
-    return QSysInfo::productVersion();
 }
 
 void FernschreiberUtils::initiateReverseGeocode(double latitude, double longitude)
@@ -540,30 +517,20 @@ void FernschreiberUtils::initiateReverseGeocode(double latitude, double longitud
     connect(reply, SIGNAL(finished()), this, SLOT(handleReverseGeocodeFinished()));
 }
 
-void FernschreiberUtils::handleAudioRecorderStatusChanged(QMediaRecorder::Status status)
-{
-    LOG("Audio recorder status changed:" << status);
-    switch (status) {
-    case QMediaRecorder::UnavailableStatus:
-    case QMediaRecorder::UnloadedStatus:
-    case QMediaRecorder::LoadingStatus:
-        this->voiceNoteRecordingState = VoiceNoteRecordingState::Unavailable;
-        break;
+FernschreiberUtils::VoiceNoteRecordingState FernschreiberUtils::getVoiceNoteRecordingState() const {
+    switch (this->audioRecorder.status()) {
     case QMediaRecorder::LoadedStatus:
     case QMediaRecorder::PausedStatus:
-        this->voiceNoteRecordingState = VoiceNoteRecordingState::Ready;
-        break;
+        return VoiceNoteRecordingState::Ready;
     case QMediaRecorder::StartingStatus:
-        this->voiceNoteRecordingState = VoiceNoteRecordingState::Starting;
-        break;
+        return VoiceNoteRecordingState::Starting;
     case QMediaRecorder::FinalizingStatus:
-        this->voiceNoteRecordingState = VoiceNoteRecordingState::Stopping;
-        break;
+        return VoiceNoteRecordingState::Stopping;
     case QMediaRecorder::RecordingStatus:
-        this->voiceNoteRecordingState = VoiceNoteRecordingState::Recording;
-        break;
+        return VoiceNoteRecordingState::Recording;
+    default:
+        return VoiceNoteRecordingState::Unavailable;
     }
-    emit voiceNoteRecordingStateChanged(this->voiceNoteRecordingState);
 }
 
 void FernschreiberUtils::handleGeoPositionUpdated(const QGeoPositionInfo &info)

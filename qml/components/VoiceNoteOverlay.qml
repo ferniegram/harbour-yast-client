@@ -27,29 +27,8 @@ Item {
     id: voiceNoteOverlayItem
     anchors.fill: parent
 
-    property int recordingState: fernschreiberUtils.getVoiceNoteRecordingState();
-    property int recordingDuration: 0;
+    property int recordingDuration: Math.round(fernschreiberUtils.voiceNoteDuration / 1000)
     property bool recordingDone: false;
-
-    function handleRecordingState() {
-        switch (recordingState) {
-        case FernschreiberUtilities.Unavailable:
-            recordingStateLabel.text = qsTr("Unavailable");
-            break;
-        case FernschreiberUtilities.Ready:
-            recordingStateLabel.text = qsTr("Ready");
-            break;
-        case FernschreiberUtilities.Starting:
-            recordingStateLabel.text = qsTr("Starting");
-            break;
-        case FernschreiberUtilities.Recording:
-            recordingStateLabel.text = qsTr("Recording");
-            break;
-        case FernschreiberUtilities.Stopping:
-            recordingStateLabel.text = qsTr("Stopping");
-            break;
-        }
-    }
 
     function getTwoDigitString(numberToBeConverted) {
         var numberString = "00";
@@ -62,29 +41,10 @@ Item {
         return numberString;
     }
 
-    function handleRecordingDuration() {
+    onRecordingDurationChanged: {
         var minutes = Math.floor(recordingDuration / 60);
         var seconds = recordingDuration % 60;
         recordingDurationLabel.text = getTwoDigitString(minutes) + ":" + getTwoDigitString(seconds);
-    }
-
-    Component.onCompleted: {
-        handleRecordingState();
-        handleRecordingDuration();
-    }
-
-    Connections {
-        target: fernschreiberUtils
-        onVoiceNoteDurationChanged: {
-            Debug.log("New duration received: " + duration);
-            recordingDuration = Math.round(duration / 1000);
-            handleRecordingDuration();
-        }
-        onVoiceNoteRecordingStateChanged: {
-            Debug.log("New state received: " + state);
-            recordingState = state;
-            handleRecordingState();
-        }
     }
 
     Rectangle {
@@ -152,8 +112,7 @@ Item {
                         onClicked: {
                             recordButton.visible = false;
                             recordingDone = false;
-                            recordingDuration = 0;
-                            handleRecordingDuration();
+                            recordingDurationLabel.text = "00:00"
                             fernschreiberUtils.startRecordingVoiceNote();
                         }
                     }
@@ -183,8 +142,13 @@ Item {
                 width: parent.width - ( 2 * Theme.horizontalPageMargin )
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Theme.fontSizeMedium
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: switch (fernschreiberUtils.voiceNoteRecordingState) {
+                case FernschreiberUtilities.Unavailable: return qsTr("Unavailable")
+                case FernschreiberUtilities.Ready: return qsTr("Ready")
+                case FernschreiberUtilities.Starting: return qsTr("Starting")
+                case FernschreiberUtilities.Recording: return qsTr("Recording")
+                case FernschreiberUtilities.Stopping: return qsTr("Stopping")
                 }
             }
 

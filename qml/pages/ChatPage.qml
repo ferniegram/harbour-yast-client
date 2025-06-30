@@ -224,7 +224,7 @@ Page {
                 if (attachmentPreviewRow.isVideo) basecall(tdLibWrapper.sendVideoMessage)
                 if (attachmentPreviewRow.isDocument) basecall(tdLibWrapper.sendDocumentMessage)
                 if (attachmentPreviewRow.isVoiceNote)
-                    tdLibWrapper.sendVoiceNoteMessage(chatInformation.id, fernschreiberUtils.voiceNotePath(), newMessageTextField.text, newMessageColumn.replyToMessageId)
+                    tdLibWrapper.sendVoiceNoteMessage(chatInformation.id, fernschreiberUtils.voiceNotePath, newMessageTextField.text, newMessageColumn.replyToMessageId)
                 if (attachmentPreviewRow.isLocation)
                     tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId)
                 clearAttachmentPreviewRow()
