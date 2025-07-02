@@ -20,45 +20,20 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import "../"
 
-MessageContentBase {
+AlbumMessageContentBase {
     id: messageContent
-    property string chatId
     readonly property int heightUnit: Math.round(width * 0.66666666)
-    readonly property var albumId: rawMessage.media_album_id
-    property var albumMessageIds: messageListItem ? messageListItem.messageAlbumMessageIds : []//overlayFlickable.messageAlbumMessageIds
-    onAlbumMessageIdsChanged: albumMessages = getMessages() //chatModel.getMessagesForAlbum(messageContent.albumId)
-    property var albumMessages: getMessages()//chatModel.getMessagesForAlbum(messageContent.albumId)
     property bool firstLarge: albumMessages.length % 2 !== 0;
 
     clip: true
-    height: defaultExtraContentHeight//(firstLarge ? heightUnit * 0.75 : 0 ) + heightUnit * 0.25 * albumMessageIds.length
-
-
-    onClicked: {
-        if(messageListItem.precalculatedValues.pageIsSelecting) {
-            page.toggleMessageSelection(rawMessage);
-            return;
-        }
-        openDetail(-1);
-    }
-    function getMessages() {
-        var msgs = [rawMessage];
-        if(messageContent.albumId === '0' || messageContent.albumMessageIds.length < 2) {
-            return msgs;
-        }
-         chatModel.getMessagesForAlbum(messageContent.albumId, 1).forEach(function(msg){
-            msgs.push(msg);
-         });
-        //
-        return msgs;
-    }
 
     function openDetail(index) {
         pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
-                           "messages" : albumMessages,
-                           "index": index || 0
+                           messages : albumMessages,
+                           index: index || 0
                        })
     }
+    onClicked: openDetail(-1)
 
     Component {
         id: photoPreviewComponent

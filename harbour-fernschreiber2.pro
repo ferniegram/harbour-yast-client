@@ -101,9 +101,11 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/inlineQueryResults/InlineQueryResultVenue.qml \
     qml/components/inlineQueryResults/InlineQueryResultVideo.qml \
     qml/components/inlineQueryResults/InlineQueryResultVoiceNote.qml \
+    qml/components/messageContent/AlbumMessageContentBase.qml \
     qml/components/messageContent/MessageAnimatedEmoji.qml \
     qml/components/messageContent/MessageAnimation.qml \
     qml/components/messageContent/MessageAudio.qml \
+    qml/components/messageContent/MessageAudioAlbum.qml \
     qml/components/messageContent/MessageContentBase.qml \
     qml/components/messageContent/MessageContentFileInfoBase.qml \
     qml/components/messageContent/MessageDocument.qml \
@@ -125,6 +127,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/messageContent/mediaAlbumPage/VideoComponent.qml \
     qml/components/messageContent/mediaAlbumPage/ZoomArea.qml \
     qml/components/messageContent/mediaAlbumPage/ZoomImage.qml \
+    qml/components/messageContent/MessageDocumentAlbum.qml \
     qml/components/settingsPage/Accordion.qml \
     qml/components/settingsPage/AccordionItem.qml \
     qml/components/settingsPage/ResponsiveGrid.qml \

@@ -439,10 +439,10 @@ ListItem {
         onTriggered: {
             if (messageListItem.hasContentComponent) {
                 var type = myMessage.content["@type"]
-                var albumComponentPart = (myMessage.media_album_id !== "0" && ['messagePhoto', 'messageVideo'].indexOf(type) !== -1) ? 'Album' : ''
+                var albumComponentPart = (myMessage.media_album_id !== "0" && chatView.albumMessages.indexOf(type) !== -1) ? 'Album' : ''
                 extraContentLoader.setSource(
                             "../components/messageContent/" + type.charAt(0).toUpperCase() + type.substring(1) + albumComponentPart + ".qml",
-                            { messageListItem: messageListItem })
+                            {messageListItem: messageListItem})
             } else
                 if (typeof myMessage.content.link_preview !== "undefined") // only in messageText
                     webPagePreviewLoader.active = true

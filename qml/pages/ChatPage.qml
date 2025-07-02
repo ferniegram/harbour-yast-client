@@ -1165,7 +1165,7 @@ Page {
                         case "messageAudio":
                         case "messageVoiceNote":
                         case "messageDocument":
-                            return Theme.itemSizeLarge
+                            return Theme.itemSizeLarge * (albumEntries + 1)
                         case "messageGame":
                             return parentWidth * 0.66666666 + Theme.itemSizeLarge // 2 / 3;
                         case "messageLocation":
@@ -1219,6 +1219,12 @@ Page {
                         "messageDocument",
                         "messageAudio",
                     ]
+                    property var albumMessages: [
+                        'messagePhoto',
+                        'messageVideo',
+                        'messageDocument',
+                        'messageAudio',
+                    ]
 
                     readonly property var simpleDelegateMessages: [
                         "messageBasicGroupChatCreate",
@@ -1244,6 +1250,7 @@ Page {
                         "messageGiveawayCompleted",
                         "messageUnsupported",
                     ]
+
                     delegate: Loader {
                         width: chatView.width
                         Component {
