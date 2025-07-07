@@ -14,9 +14,9 @@ Item {
     property alias font: text.font
     property alias color: text.color
 
-    property bool verified: !!verificationStatus.is_verified
-    property bool scam: !!verificationStatus.is_scam
-    property bool fake: !!verificationStatus.is_fake
+    property bool verified: !!(verificationStatus && verificationStatus.is_verified)
+    property bool scam: !!(verificationStatus && verificationStatus.is_scam)
+    property bool fake: !!(verificationStatus && verificationStatus.is_fake)
     property bool muted
 
     Label {
