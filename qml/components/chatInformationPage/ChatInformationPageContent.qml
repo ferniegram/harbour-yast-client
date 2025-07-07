@@ -234,6 +234,13 @@ SilicaFlickable {
             }
             text: qsTr("New Secret Chat")
         }
+        MenuItem {
+            visible: isSuperGroup && groupFullInformation.linked_chat_id !== 0
+            text: isChannel ? qsTr("View discussion") : qsTr("View linked channel")
+            onClicked: pageStack.replace(Qt.resolvedUrl("../../pages/ChatPage.qml"), {
+                                          chatInformation: tdLibWrapper.getChat(groupFullInformation.linked_chat_id)
+                                      })
+        }
     }
     // header
     PageHeader {
