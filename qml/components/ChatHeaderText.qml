@@ -6,7 +6,7 @@ Item {
     width: text.width + badgesRow.width + badgesRow.anchors.leftMargin
     height: Math.max(text.height, badgesRow.height)
 
-    property var verificationStatus: ({})
+    property var verificationStatus
     property alias showBadges: badgesRow.visible
 
     property alias textItem: text

@@ -897,7 +897,7 @@ Page {
                         id: chatNameText
                         anchors.right: parent.right
 
-                        verificationStatus: chatGroupInformation.verification_status
+                        verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
                         // do not show muted badge
 
                         text: chatInformation.title !== "" ? Emoji.emojify(Functions.textFixReserved(chatInformation.title), font.pixelSize) : qsTr("Unknown")
