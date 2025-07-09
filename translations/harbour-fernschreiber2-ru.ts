@@ -136,27 +136,27 @@
     <name>AddContactDialog</name>
     <message>
         <source>First name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <source>First name must have 1-255 characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя должно иметь 1-255 символов</translation>
     </message>
     <message>
         <source>Last name</source>
-        <translation type="unfinished"></translation>
+        <translation>Фамилия</translation>
     </message>
     <message>
         <source>Share my phone number</source>
-        <translation type="unfinished"></translation>
+        <translation>Поделиться номером телефона</translation>
     </message>
     <message>
         <source>Use the international format, e.g. %1</source>
-        <translation type="unfinished">Используйте международный формат, например %1</translation>
+        <translation>Используйте международный формат, например %1</translation>
     </message>
     <message>
         <source>Phone number</source>
-        <translation type="unfinished"></translation>
+        <translation>Номер телефона</translation>
     </message>
     <message>
         <source>Last name length must be less than 256</source>
@@ -2292,43 +2292,43 @@
     <message>
         <source>sent a self-destructing voice message that is expired</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>отправили самоисчезающее голосовое сообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing voice message that is expired</source>
-        <translation type="unfinished"></translation>
+        <translation>отправил(а) самоисчезающее голосовое сообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing video message that is expired</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>отправили самоисчезающее видеосообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing video message that is expired</source>
-        <translation type="unfinished"></translation>
+        <translation>отправил(а) самоисчезающее видеосообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
-        <translation type="unfinished">создал(а) скриншот в этом чате</translation>
+        <translation>создали снимок экрана в этом чате</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
-        <translation type="unfinished">создал(а) скриншот в этом чате</translation>
+        <translation>создал(а) снимок экрана в этом чате</translation>
     </message>
     <message>
         <source>sent a game</source>
         <comment>myself</comment>
-        <translation type="unfinished">отправил(а) игру</translation>
+        <translation>отправили игру</translation>
     </message>
     <message>
         <source>sent a game</source>
-        <translation type="unfinished">отправил(а) игру</translation>
+        <translation>отправил(а) игру</translation>
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
         <comment>myself</comment>
-        <translation type="unfinished">
+        <translation>
             <numerusform>набрал(а) %Ln очко</numerusform>
             <numerusform>набрал(а) %Ln очка</numerusform>
             <numerusform>набрал(а) %Ln очков</numerusform>
@@ -2336,7 +2336,7 @@
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>набрал(а) %Ln очко</numerusform>
             <numerusform>набрал(а) %Ln очка</numerusform>
             <numerusform>набрал(а) %Ln очков</numerusform>
@@ -2361,7 +2361,7 @@
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation type="unfinished">
+        <translation>
             <numerusform>проголосовал за этот чат %Ln раз</numerusform>
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -2369,7 +2369,7 @@
     </message>
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>проголосовал за этот чат %Ln раз</numerusform>
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -2378,11 +2378,11 @@
     <message>
         <source>sent a gift</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>отправили подарок</translation>
     </message>
     <message>
         <source>sent a gift</source>
-        <translation type="unfinished"></translation>
+        <translation>отправил(а) подарок</translation>
     </message>
     <message>
         <source>started a giveaway</source>

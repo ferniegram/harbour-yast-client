@@ -305,6 +305,10 @@
         <source>View linked channel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Date of birth</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemMembersGroups</name>
@@ -1512,14 +1516,6 @@
         <translation>Animoi tarrat</translation>
     </message>
     <message>
-        <source>Super compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize all items in one row</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Video stickers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2495,11 +2491,6 @@
         <translation>Estetty</translation>
     </message>
     <message>
-        <source>Creator</source>
-        <comment>channel user role</comment>
-        <translation>Perustaja</translation>
-    </message>
-    <message>
         <source>Restricted</source>
         <comment>channel user role</comment>
         <translation>Rajoitettu</translation>
@@ -2519,6 +2510,15 @@
     <message>
         <source>Pending acknowledgement</source>
         <translation>Odottaa hyväksyntää</translation>
+    </message>
+    <message>
+        <source>service notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Owner</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

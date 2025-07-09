@@ -309,6 +309,10 @@
         <source>View linked channel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Date of birth</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemMembersGroups</name>
@@ -1540,14 +1544,6 @@
         <translation>Animované nálepky</translation>
     </message>
     <message>
-        <source>Super compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize all items in one row</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Video stickers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2529,11 +2525,6 @@
         <translation>Zakázaný</translation>
     </message>
     <message>
-        <source>Creator</source>
-        <comment>channel user role</comment>
-        <translation>Tvorca</translation>
-    </message>
-    <message>
         <source>Restricted</source>
         <comment>channel user role</comment>
         <translation>Obmedzený</translation>
@@ -2553,6 +2544,15 @@
     <message>
         <source>Pending acknowledgement</source>
         <translation>Čaká sa na potvrdenie</translation>
+    </message>
+    <message>
+        <source>service notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Owner</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -301,6 +301,10 @@
         <source>View linked channel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Date of birth</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemMembersGroups</name>
@@ -1483,14 +1487,6 @@
         <translation>动态表情贴图</translation>
     </message>
     <message>
-        <source>Super compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize all items in one row</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Video stickers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2460,11 +2456,6 @@
         <translation>已禁止</translation>
     </message>
     <message>
-        <source>Creator</source>
-        <comment>channel user role</comment>
-        <translation>创建者</translation>
-    </message>
-    <message>
         <source>Restricted</source>
         <comment>channel user role</comment>
         <translation>已受限</translation>
@@ -2484,6 +2475,15 @@
     <message>
         <source>Pending acknowledgement</source>
         <translation>等待确认</translation>
+    </message>
+    <message>
+        <source>service notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Owner</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

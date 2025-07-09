@@ -305,6 +305,10 @@
         <source>View linked channel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Date of birth</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemMembersGroups</name>
@@ -1511,14 +1515,6 @@
         <translation>Sticker animieren</translation>
     </message>
     <message>
-        <source>Super compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize all items in one row</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Video stickers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2494,11 +2490,6 @@
         <translation>Verbannt</translation>
     </message>
     <message>
-        <source>Creator</source>
-        <comment>channel user role</comment>
-        <translation>Urheber</translation>
-    </message>
-    <message>
         <source>Restricted</source>
         <comment>channel user role</comment>
         <translation>Eingeschränkt</translation>
@@ -2518,6 +2509,15 @@
     <message>
         <source>Pending acknowledgement</source>
         <translation>Ausstehende Bestätigung</translation>
+    </message>
+    <message>
+        <source>service notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Owner</source>
+        <comment>channel user role</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
