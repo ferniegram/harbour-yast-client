@@ -268,10 +268,11 @@ function handleErrorMessage(code, message, extra) {
     // if code is 406, next updateServiceNotification will replace this message; in case it will not be received this message will not be replaced and will be shown
     if (code === 404 ||
             (code === 400 &&
-             (message === "USERNAME_INVALID" || message === "USERNAME_NOT_OCCUPIED"))) {
+             (message === "USERNAME_INVALID" || message === "USERNAME_NOT_OCCUPIED" || (extra === "getInstalledStickerSets" && message === "File not found")))) {
         // Silently ignore
         // - 404 Not Found messages (occur sometimes, without clear context...)
         // - searchPublicChat messages for "invalid" inline queries
+        // - File not found errors when downloading sticker files
         if (extra && extra['@type'] === 'searchPublicChat' && extra.doOpenOnFound)
             appNotification.show(qsTr("Unable to find user %1").arg(extra.type.substring(17)))
         return

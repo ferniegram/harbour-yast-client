@@ -71,6 +71,7 @@ namespace {
     const QString EMOJI("emoji");
     const QString TYPE_MESSAGE_REPLY_TO_MESSAGE("messageReplyToMessage");
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
+    const QString TYPE_GET_INSTALLED_STICKER_SETS("getInstalledStickerSets");
     const QString TEXT("text");
     const QString PHOTO("photo");
     const QString TYPE_INPUT_FILE_LOCAL("inputFileLocal");
@@ -664,7 +665,7 @@ void TDLibWrapper::getRecentStickers() {
 
 void TDLibWrapper::getInstalledStickerSets() {
     LOG("Retrieving installed sticker sets");
-    this->sendRequest(QVariantMap{{_TYPE, "getInstalledStickerSets"}});
+    this->sendRequest(QVariantMap{{_TYPE, TYPE_GET_INSTALLED_STICKER_SETS}, {_EXTRA, TYPE_GET_INSTALLED_STICKER_SETS}});
 }
 
 void TDLibWrapper::getStickerSet(const QString &setId) {
