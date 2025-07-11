@@ -22,6 +22,7 @@
 #include <QListIterator>
 #include <QByteArray>
 #include <QBitArray>
+#include "utilities.h"
 
 #define DEBUG_MODULE ChatModel
 #include "debuglog.h"
@@ -323,20 +324,22 @@ ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     searchModeActive(false)
 {
     this->tdLibWrapper = tdLibWrapper;
-    connect(this->tdLibWrapper, SIGNAL(messagesReceived(QVariantList, int)), this, SLOT(handleMessagesReceived(QVariantList, int)));
-    connect(this->tdLibWrapper, SIGNAL(sponsoredMessageReceived(qlonglong, QVariantMap)), this, SLOT(handleSponsoredMessageReceived(qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(newMessageReceived(qlonglong, QVariantMap)), this, SLOT(handleNewMessageReceived(qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(receivedMessage(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageReceived(qlonglong, qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(chatReadInboxUpdated(QString, QString, int)), this, SLOT(handleChatReadInboxUpdated(QString, QString, int)));
-    connect(this->tdLibWrapper, SIGNAL(chatReadOutboxUpdated(QString, QString)), this, SLOT(handleChatReadOutboxUpdated(QString, QString)));
-    connect(this->tdLibWrapper, SIGNAL(messageSendSucceeded(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageSendSucceeded(qlonglong, qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(chatNotificationSettingsUpdated(QString, QVariantMap)), this, SLOT(handleChatNotificationSettingsUpdated(QString, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(chatPhotoUpdated(qlonglong, QVariantMap)), this, SLOT(handleChatPhotoUpdated(qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(chatPinnedMessageUpdated(qlonglong, qlonglong)), this, SLOT(handleChatPinnedMessageUpdated(qlonglong, qlonglong)));
-    connect(this->tdLibWrapper, SIGNAL(messageContentUpdated(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageContentUpdated(qlonglong, qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(messageEditedUpdated(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageEditedUpdated(qlonglong, qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(messageInteractionInfoUpdated(qlonglong, qlonglong, QVariantMap)), this, SLOT(handleMessageInteractionInfoUpdated(qlonglong, qlonglong, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(messagesDeleted(qlonglong, QList<qlonglong>)), this, SLOT(handleMessagesDeleted(qlonglong, QList<qlonglong>)));
+    connect(this->tdLibWrapper, &TDLibWrapper::messagesReceived, this, &ChatModel::handleMessagesReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::sponsoredMessageReceived, this, &ChatModel::handleSponsoredMessageReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ChatModel::handleNewMessageReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::receivedMessage, this, &ChatModel::handleMessageReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatReadInboxUpdated, this, &ChatModel::handleChatReadInboxUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatReadOutboxUpdated, this, &ChatModel::handleChatReadOutboxUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageSendSucceeded, this, &ChatModel::handleMessageSendSucceeded);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatNotificationSettingsUpdated, this, &ChatModel::handleChatNotificationSettingsUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatPhotoUpdated, this, &ChatModel::handleChatPhotoUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatPinnedMessageUpdated, this, &ChatModel::handleChatPinnedMessageUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageContentUpdated, this, &ChatModel::handleMessageContentUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageEditedUpdated, this, &ChatModel::handleMessageEditedUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageInteractionInfoUpdated, this, &ChatModel::handleMessageInteractionInfoUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::messagesDeleted, this, &ChatModel::handleMessagesDeleted);
+
+    connect(this->tdLibWrapper, &TDLibWrapper::chatActionUpdated, this, &ChatModel::handleChatActionUpdated);
 }
 
 ChatModel::~ChatModel()
@@ -405,6 +408,14 @@ void ChatModel::clear(bool contentOnly)
         if (chatId) {
             chatId = 0;
             emit chatIdChanged();
+        }
+        if (!chatActionsByUsers.isEmpty()) {
+            chatActionsByUsers.clear();
+            emit chatActionsChanged();
+        }
+        if (!chatActionsByChats.isEmpty()) {
+            chatActionsByChats.clear();
+            emit chatActionsChanged();
         }
     }
 }
@@ -1077,4 +1088,24 @@ bool ChatModel::isMostRecentMessageLoaded() {
     // Need to check if we can actually add messages (only possible if the previously latest messages are loaded)
     // Trying with half of the size of an initial list to ensure that everything is there...
     return this->getLastReadMessageIndex(false) >= this->messages.size() - 25;
+}
+
+void ChatModel::handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId) {
+    const QString actionType = action.value(_TYPE).toString();
+    if (messageThreadId == 0 && chatId == this->chatId) {
+        LOG("Chat action updated");
+        if (sender.value(_TYPE).toString() == "messageSenderChat") {
+            const QString senderChatId = sender.value(CHAT_ID).toString();
+            if (actionType == "chatActionCancel")
+                chatActionsByChats.remove(senderChatId);
+            else chatActionsByChats.insert(senderChatId, actionType);
+        } else {
+            const QString senderUserId = sender.value(USER_ID).toString();
+            if (actionType == "chatActionCancel")
+                chatActionsByUsers.remove(senderUserId);
+            else chatActionsByUsers.insert(senderUserId, actionType);
+        }
+        LOG(chatActionsByChats << chatActionsByUsers << chatId << sender << action);
+        emit chatActionsChanged();
+    }
 }

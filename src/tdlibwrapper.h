@@ -265,6 +265,7 @@ public:
     Q_INVOKABLE void getStorageStatisticsFast();
     Q_INVOKABLE void optimizeStorage(bool entire = false);
     Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId);
+    Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void searchEmoji(const QString &queryString);
@@ -360,6 +361,7 @@ signals:
     void storageStatisticsFastReceived(const QVariantMap &statistics);
     void storageStatisticsReceived(const QVariantMap &statistics);
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
+    void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
 
 public slots:
     // appSettings

@@ -244,6 +244,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::storageStatisticsFastReceived, this, &TDLibWrapper::storageStatisticsFastReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::storageStatisticsReceived, this, &TDLibWrapper::storageStatisticsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::translationResultReceived, this, &TDLibWrapper::translationResultReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::chatActionUpdated, this, &TDLibWrapper::chatActionUpdated);
 
     this->tdLibReceiver->start();
 }
@@ -2135,4 +2136,10 @@ void TDLibWrapper::translateText(const QVariantMap &text, const QString &languag
     {"to_language_code", languageCode},
     {_EXTRA, TRANSLATION + QString::number(extraId)}
     });
+}
+
+void TDLibWrapper::sendChatAction(qlonglong chatId, const QString &chatActionType) {
+    this->sendRequest(QVariantMap{{_TYPE, "sendChatAction"}, {CHAT_ID, chatId},
+                                  {"action", QVariantMap{{_TYPE, chatActionType}}}
+                      });
 }

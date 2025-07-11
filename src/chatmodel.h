@@ -28,6 +28,8 @@ class ChatModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(qlonglong chatId READ getChatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
+    Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
+    Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
 
 public:
     ChatModel(TDLibWrapper *tdLibWrapper);
@@ -64,6 +66,7 @@ signals:
     void smallPhotoChanged();
     void chatIdChanged();
     void pinnedMessageChanged();
+    void chatActionsChanged();
 
 private slots:
     void handleMessagesReceived(const QVariantList &messages, int totalCount);
@@ -80,6 +83,7 @@ private slots:
     void handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
     void handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo);
     void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
+    void handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &chatAction, qlonglong messageThreadId);
 
 private:
     class MessageData;
@@ -108,6 +112,9 @@ private:
     bool inIncrementalUpdate; // if we are waiting for messages after sending a request to load more of them
     bool searchModeActive;
     QString searchQuery;
+
+    QVariantMap chatActionsByUsers; // QMap<qlonglong, QString>
+    QVariantMap chatActionsByChats; //QMap<qlonglong, QString>
 };
 
 #endif // CHATMODEL_H
