@@ -117,9 +117,9 @@ function getChatActionText(action, privateOrSecretChat, single) {
     case "chatActionUploadingVideo":
         return privateOrSecretChat ? qsTr("sending a video") : (single ? qsTr("%1 is sending a video") : qsTr("%1 are is sending a video"))
     case "chatActionUploadingVideoNote":
-        return privateOrSecretChat ? qsTr("sending a video note") : (single ? qsTr("%1 is sending a video note") : qsTr("%1 are sending a video note"))
+        return privateOrSecretChat ? qsTr("sending a video message") : (single ? qsTr("%1 is sending a video message") : qsTr("%1 are sending a video message"))
     case "chatActionUploadingVoiceNote":
-        return privateOrSecretChat ? qsTr("sending a voice note") : (single ? qsTr("%1 is sending a voice note") : qsTr("%1 are sending a voice note"))
+        return privateOrSecretChat ? qsTr("sending a voice message") : (single ? qsTr("%1 is sending a voice message") : qsTr("%1 are sending a voice message"))
     //case "chatActionWatchingAnimations":
     //    return single ? qsTr("%1 is watching animations") : qsTr("%1 are watching animations")
     }
