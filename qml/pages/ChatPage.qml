@@ -1359,6 +1359,20 @@ Page {
                     }
                 }
 
+                Timer {
+                    id: chatActionTimer
+                    property string action
+                    triggeredOnStart: true
+                    interval: 5500 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
+                    onTriggered: tdLibWrapper.sendChatAction(chatInformation.id, action)
+                    onRunningChanged: if (!running)
+                                          tdLibWrapper.sendChatAction(chatInformation.id, "chatActionCancel")
+                    function run(action) {
+                        this.action = action
+                        start()
+                    }
+                }
+
                 Loader {
                     id: stickerPickerLoader
                     active: false
@@ -1366,6 +1380,9 @@ Page {
                     width: parent.width
                     height: active ? parent.height : 0
                     source: "../components/StickerPicker.qml"
+                    onStatusChanged: if (status == Loader.Ready)
+                                         chatActionTimer.run("chatActionChoosingSticker")
+                                     else chatActionTimer.stop()
                 }
 
                 Connections {
@@ -1981,6 +1998,7 @@ Page {
 
                         onTextChanged: {
                             textReplacementTimer.restart()
+                            tdLibWrapper.sendChatAction(chatInformation.id, "chatActionTyping")
                         }
                     }
 

@@ -2137,3 +2137,9 @@ void TDLibWrapper::translateText(const QVariantMap &text, const QString &languag
     {_EXTRA, TRANSLATION + QString::number(extraId)}
     });
 }
+
+void TDLibWrapper::sendChatAction(qlonglong chatId, const QString &chatActionType) {
+    this->sendRequest(QVariantMap{{_TYPE, "sendChatAction"}, {CHAT_ID, chatId},
+                                  {"action", QVariantMap{{_TYPE, chatActionType}}}
+                      });
+}

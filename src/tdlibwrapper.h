@@ -265,6 +265,7 @@ public:
     Q_INVOKABLE void getStorageStatisticsFast();
     Q_INVOKABLE void optimizeStorage(bool entire = false);
     Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId);
+    Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void searchEmoji(const QString &queryString);
