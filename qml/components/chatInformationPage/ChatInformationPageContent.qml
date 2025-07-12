@@ -144,6 +144,7 @@ SilicaFlickable {
     Connections {
         id: destructiveChatActionConnection
         property var pendingChatId
+        ignoreUnknownSignals: true
         target: (chatInformationPage.status === PageStatus.Active && typeof pendingChatId !== 'undefined') ? tdLibWrapper : undefined
         onOkReceived: if (request == "leaveChat:"+pendingChatId)
                           pageStack.pop(pageStack.find(function(page){ return(page._depth === 0)}))

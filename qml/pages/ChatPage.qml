@@ -545,7 +545,8 @@ Page {
     Connections {
         id: destructiveChatActionConnection
         property var pendingChatId
-        target: typeof pendingChatId !== 'undefined' ? tdLibWrapper : undefined
+        ignoreUnknownSignals: true
+        target: typeof pendingChatId !== 'undefined' ? tdLibWrapper : null
         onOkReceived: if (request == "leaveChat:"+pendingChatId || request == "deleteChat:"+pendingChatId)
                           pageStack.pop(pageStack.find(function(page){ return(page._depth === 0)}))
         //onErrorReceived: if (extra == "leaveChat:"+pendingChatId || extra == "deleteChat:"+pendingChatId)
