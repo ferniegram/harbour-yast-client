@@ -1194,6 +1194,7 @@ Page {
                     property var fullWidthWidescreenContentMessages: [
                         "messageDocument",
                         "messageAudio",
+                        "messagePoll",
                     ]
                     property var albumMessages: [
                         'messagePhoto',
