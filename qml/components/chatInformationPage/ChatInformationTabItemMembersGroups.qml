@@ -188,7 +188,7 @@ ChatInformationTabItemBase {
                         pageContent.membersList.append(memberData);
                     }
                     chatInformationPage.groupInformation.member_count = totalMembers
-                    updateGroupStatusText();
+                    chatInformationPage.groupInformationChanged()
 //                    if(pageContent.membersList.count < totalMembers) {
 //                        fetchMoreMembersTimer.start()
 //                    }

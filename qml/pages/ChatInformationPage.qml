@@ -42,8 +42,9 @@ Page {
 
     property string chatPartnerGroupId
 
-    property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
-    property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized
+    readonly property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
+    readonly property bool isGroup: isBasicGroup || isSuperGroup
+    readonly property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized
                                 (isBasicGroup || isSuperGroup) && (
                                     (groupInformation.status["@type"] === "chatMemberStatusMember")
                                     || (groupInformation.status["@type"] === "chatMemberStatusAdministrator")

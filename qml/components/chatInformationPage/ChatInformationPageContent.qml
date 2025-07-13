@@ -50,28 +50,13 @@ SilicaFlickable {
         if(groupFullInfo.members && groupFullInfo.members.length > 0) {
             for(var memberIndex in groupFullInfo.members) {
                 var memberData = groupFullInfo.members[memberIndex];
-                var userInfo = tdLibWrapper.getUserInformation(memberData.member_id.user_id) || {user:{}, bot_info:{}};
+                var userInfo = tdLibWrapper.getUserInformation(memberData.member_id.user_id) || {};
                 memberData.user = userInfo;
                 memberData.bot_info = memberData.bot_info || {};
                 membersList.append(memberData);
             }
             chatInformationPage.groupInformation.member_count = groupFullInfo.members.length
-            updateGroupStatusText();
-        }
-    }
-    function updateGroupStatusText() {
-        if (chatInformationPage.chatOnlineMemberCount > 0) {
-            headerItem.description = qsTr("%1, %2", "combination of '[x members], [y online]', which are separate translations")
-                .arg(qsTr("%1 members", "", chatInformationPage.groupInformation.member_count)
-                    .arg(Functions.getShortenedCount(chatInformationPage.groupInformation.member_count)))
-                .arg(qsTr("%1 online", "", chatInformationPage.chatOnlineMemberCount)
-                    .arg(Functions.getShortenedCount(chatInformationPage.chatOnlineMemberCount)));
-        } else {
-            if (isChannel) {
-                headerItem.description = qsTr("%1 subscribers", "", chatInformationPage.groupInformation.member_count).arg(Functions.getShortenedCount(chatInformationPage.groupInformation.member_count))
-            } else {
-                headerItem.description = qsTr("%1 members", "", chatInformationPage.groupInformation.member_count).arg(Functions.getShortenedCount(chatInformationPage.groupInformation.member_count))
-            }
+            chatInformationPage.groupInformationChanged()
         }
     }
 
@@ -96,8 +81,7 @@ SilicaFlickable {
 
         onChatOnlineMemberCountUpdated: {
             if ((chatInformationPage.isSuperGroup || chatInformationPage.isBasicGroup) && chatInformationPage.chatInformation.id.toString() === chatId) {
-                chatInformationPage.chatOnlineMemberCount = onlineMemberCount;
-                updateGroupStatusText();
+                chatInformationPage.chatOnlineMemberCount = onlineMemberCount
             }
         }
         onSupergroupFullInfoReceived: {
@@ -205,9 +189,6 @@ SilicaFlickable {
             break;
         }
         Debug.log("is set up", chatInformationPage.isPrivateChat, chatInformationPage.isSecretChat, chatInformationPage.isBasicGroup, chatInformationPage.isSuperGroup, chatInformationPage.chatPartnerGroupId)
-        if(!chatInformationPage.isPrivateOrSecretChat) {
-            updateGroupStatusText()
-        }
 
 
         tabViewLoader.active = true
@@ -315,17 +296,22 @@ SilicaFlickable {
         }
         leftMargin: imageContainer.getEased((imageContainer.minDimension + Theme.paddingMedium), 0, imageContainer.tweenFactor) + Theme.horizontalPageMargin
         title: chatInformationPage.chatInformation.title !== "" ? Emoji.emojify(chatInformationPage.chatInformation.title, Theme.fontSizeLarge) : qsTr("Unknown")
-        description: chatInformationPage.username
+        description: {
+            if (chatInformationPage.isGroup)
+                return Functions.getGroupStatusText(chatInformationPage.groupInformation.member_count, chatInformationPage.chatOnlineMemberCount, isChannel)
 
-        MouseArea {
-            parent: headerItem._descriptionLabel
-            anchors.fill: parent
-            enabled: !!headerItem.description && headerItem.description === chatInformationPage.username
-            onClicked: {
-                Clipboard.text = chatInformationPage.username
-                appNotification.show(qsTr("Username has been copied to the clipboard"))
-            }
+
+            var status = Functions.getChatPartnerStatusText(chatInformationPage.privateChatUserInformation.status['@type'], chatInformationPage.privateChatUserInformation.status.was_online, chatInformationPage.privateChatUserInformation.is_support)
+            /*if (chatInformationPage.secretChatDetails) { // TODO
+                var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
+                if (status && secretChatStatus)
+                    status += " - "
+                if (secretChatStatus)
+                    status += secretChatStatus
+            }*/
+            return status
         }
+        onDescriptionChanged: console.log(description)
     }
 
     SilicaFlickable {
@@ -471,7 +457,7 @@ SilicaFlickable {
                         id: usernameItem
                         highlight: true
                         headerText: qsTr("Username", "header")
-                        text: headerItem.description != chatInformationPage.username ? chatInformationPage.username : ""
+                        text: chatInformationPage.username
                     }
                     onClicked: {
                         Clipboard.text = usernameItem.text
