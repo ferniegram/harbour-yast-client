@@ -44,7 +44,7 @@ Page {
     property bool isBasicGroup: chatInformation.type['@type'] === "chatTypeBasicGroup"
     property bool isSuperGroup: chatInformation.type['@type'] === "chatTypeSupergroup"
     property bool isChannel: false
-    property bool isDeletedUser: chatPartnerInformation.type['@type'] === "userTypeDeleted"
+    property bool isDeletedUser: !!chatPartnerInformation && chatPartnerInformation.type['@type'] === "userTypeDeleted"
     property bool containsSponsoredMessages: false
     property var chatPartnerInformation
     property var botInformation
