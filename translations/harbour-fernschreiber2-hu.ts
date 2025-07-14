@@ -173,13 +173,15 @@
     </message>
 </context>
 <context>
-    <name>ChatHeaderText</name>
+    <name>ChatBadges</name>
     <message>
         <source>SCAM</source>
+        <comment>string for a user text badge, should not be too long. Badge shows that this user was reported by many users as a fake or scam user: you should careful when interacting with them.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>FAKE</source>
+        <comment>string for a user text badge, should not be too long. Badge shows that this may be a scam user.</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -203,10 +205,6 @@
     </message>
     <message>
         <source>Join Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Leaving chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -244,17 +242,6 @@
     <message>
         <source>The Invite Link has been copied to the clipboard.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1, %2</source>
-        <comment>combination of &apos;[x members], [y online]&apos;, which are separate translations</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 online</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
     </message>
     <message>
         <source>New Secret Chat</source>
@@ -303,6 +290,10 @@
     </message>
     <message>
         <source>Date of birth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -417,18 +408,6 @@
         <source>Your message</source>
         <translation>Üzeneted</translation>
     </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation type="unfinished">
-            <numerusform>%1 tag</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation type="unfinished">
-            <numerusform>%1 feliratkozott</numerusform>
-        </translation>
-    </message>
     <message>
         <source>Loading messages...</source>
         <translation>Üzenetek betöltése...</translation>
@@ -466,10 +445,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Leaving chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You joined the chat %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -499,17 +474,6 @@
     <message numerus="yes">
         <source>%Ln messages selected</source>
         <comment>number of messages selected</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>%1, %2</source>
-        <comment>combination of &apos;[x members], [y online]&apos;, which are separate translations</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 online</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
@@ -555,10 +519,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deleting chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete Chat</source>
         <translation type="unfinished"></translation>
     </message>
@@ -572,6 +532,14 @@
     </message>
     <message>
         <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chat deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -715,14 +683,6 @@
     <message>
         <source>Download Picture</source>
         <translation>Kép letöltése</translation>
-    </message>
-    <message>
-        <source>Download of %1 successful.</source>
-        <translation>A %1 letöltése sikerült.</translation>
-    </message>
-    <message>
-        <source>Download failed.</source>
-        <translation>A letöltés nem sikerült.</translation>
     </message>
 </context>
 <context>
@@ -1246,6 +1206,11 @@
     <message>
         <source>About Ferniegram</source>
         <translation>A Ferniegram névjegye</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <comment>Button to open downloaded file, shown in an in-app notification</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2483,6 +2448,185 @@
         <source>Owner</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>choosing a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is choosing a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are choosing a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>choosing a location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is choosing a location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are choosing a location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>choosing a sticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is choosing a sticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are choosing a sticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recording a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is recording a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are recording a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recording a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is recording a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are recording a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recording a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is recording a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are recording a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>playing a game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is playing a game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are playing a game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sending a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is sending a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are sending a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sending a photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is sending a photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are sending a photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sending a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is sending a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are is sending a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sending a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is sending a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are sending a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sending a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is sending a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 are sending a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1, %2</source>
+        <comment>combination of &apos;[x members], [y online]&apos;, which are separate translations</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform>%1 tag</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 online</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform>%1 feliratkozott</numerusform>
+        </translation>
     </message>
 </context>
 </TS>
