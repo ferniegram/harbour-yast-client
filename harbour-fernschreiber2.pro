@@ -29,7 +29,6 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/contactsmodel.cpp \
     src/dbusadaptor.cpp \
     src/dbusinterface.cpp \
-    src/emojisearchworker.cpp \
     src/utilities.cpp \
     src/knownusersmodel.cpp \
     src/mceinterface.cpp \
@@ -240,7 +239,6 @@ HEADERS += \
     src/dbusinterface.h \
     src/debuglog.h \
     src/debuglogjs.h \
-    src/emojisearchworker.h \
     src/utilities.h \
     src/knownusersmodel.h \
     src/mceinterface.h \
