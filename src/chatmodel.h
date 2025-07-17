@@ -29,6 +29,7 @@ class ChatModel : public QAbstractListModel
     Q_PROPERTY(qlonglong chatId READ getChatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
     Q_PROPERTY(int lastReadSentMessageIndex READ calculateLastReadSentMessageIndex NOTIFY lastReadSentMessageUpdated)
+    Q_PROPERTY(int lastReadMessageIndex READ calculateLastReadMessageIndex NOTIFY lastReadMessageIndexChanged)
     Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
     Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
 
@@ -49,7 +50,6 @@ public:
     Q_INVOKABLE QVariantMap getMessage(int index);
     Q_INVOKABLE QVariantList getMessageIdsForAlbum(qlonglong albumId);
     Q_INVOKABLE QVariantList getMessagesForAlbum(qlonglong albumId, int startAt);
-    Q_INVOKABLE int getLastReadMessageIndex(bool classic = true);
     Q_INVOKABLE void setSearchQuery(const QString newSearchQuery);
 
     Q_INVOKABLE int getMessageIndex(qlonglong messageId);
@@ -61,6 +61,7 @@ signals:
     void messagesIncrementalUpdate(int modelIndex);
     void newMessageReceived(const QVariantMap &message);
     void unreadCountUpdated(int unreadCount, const QString &lastReadInboxMessageId);
+    void lastReadMessageIndexChanged();
     void lastReadSentMessageUpdated();
     void notificationSettingsUpdated();
     void messageUpdated(int modelIndex);

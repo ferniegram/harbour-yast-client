@@ -339,6 +339,12 @@ ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     connect(this->tdLibWrapper, &TDLibWrapper::messageInteractionInfoUpdated, this, &ChatModel::handleMessageInteractionInfoUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::messagesDeleted, this, &ChatModel::handleMessagesDeleted);
 
+    // FIXME: can this be implemented better?
+    connect(this, &ChatModel::messagesReceived, this, &ChatModel::lastReadMessageIndexChanged);
+    connect(this, &ChatModel::messagesIncrementalUpdate, this, &ChatModel::lastReadMessageIndexChanged);
+    connect(this, &ChatModel::newMessageReceived, this, &ChatModel::lastReadMessageIndexChanged);
+    connect(this, &ChatModel::unreadCountUpdated, this, &ChatModel::lastReadMessageIndexChanged);
+
     connect(this->tdLibWrapper, &TDLibWrapper::chatActionUpdated, this, &ChatModel::handleChatActionUpdated);
 }
 
@@ -522,11 +528,6 @@ QVariantList ChatModel::getMessagesForAlbum(qlonglong albumId, int startAt)
         }
     }
     return foundMessages;
-}
-
-int ChatModel::getLastReadMessageIndex(bool classic) {
-    LOG("Obtaining last read message index");
-    return this->calculateLastReadMessageIndex(classic);
 }
 
 void ChatModel::setSearchQuery(const QString newSearchQuery)
@@ -1091,7 +1092,7 @@ int ChatModel::calculateScrollPosition(int listInboxPosition)
 bool ChatModel::isMostRecentMessageLoaded() {
     // Need to check if we can actually add messages (only possible if the previously latest messages are loaded)
     // Trying with half of the size of an initial list to ensure that everything is there...
-    return this->getLastReadMessageIndex(false) >= this->messages.size() - 25;
+    return this->calculateLastReadMessageIndex(false) >= this->messages.size() - 25;
 }
 
 void ChatModel::handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId) {
