@@ -56,7 +56,9 @@ Page {
     property var messageToShow
     property string messageIdToShow
     property string messageIdToScrollTo
-    readonly property bool userIsMember: ((isPrivateChat || isSecretChat) && chatInformation["@type"]) || // should be optimized
+    readonly property bool userIsMember: ((isPrivateChat || isSecretChat) &&
+                                          chatInformation["@type"] &&
+                                          chatInformation.id !== chatPage.myUserId) || // should be optimized
                                 (isBasicGroup || isSuperGroup) && (
                                     (chatGroupInformation.status["@type"] === "chatMemberStatusMember")
                                     || (chatGroupInformation.status["@type"] === "chatMemberStatusAdministrator")
@@ -684,7 +686,7 @@ Page {
         contentWidth: width
 
         PullDownMenu {
-            visible: chatInformation.id !== chatPage.myUserId && !stickerPickerLoader.active && !voiceNoteOverlayLoader.active && !messageOverlayLoader.active && !stickerSetOverlayLoader.active
+            visible: !stickerPickerLoader.active && !voiceNoteOverlayLoader.active && !messageOverlayLoader.active && !stickerSetOverlayLoader.active
 
             MenuItem {
                 id: deleteChatMenuItem

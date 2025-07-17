@@ -151,7 +151,6 @@ private:
     void processChatOnlineMemberCountUpdated(const QVariantMap &receivedInformation);
     void processMessages(const QVariantMap &receivedInformation);
     void processFoundChatMessages(const QVariantMap &receivedInformation);
-    void processSponsoredMessage(const QVariantMap &receivedInformation);
     void processSponsoredMessages(const QVariantMap &receivedInformation);
     void processUpdateNewMessage(const QVariantMap &receivedInformation);
     void processMessage(const QVariantMap &receivedInformation);
