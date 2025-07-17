@@ -659,7 +659,7 @@ ListItem {
                     width: parent.width
                     height: active ? (myMessage.reply_markup.rows.length * (Theme.itemSizeSmall + Theme.paddingSmall) - Theme.paddingSmall) : 0
                     asynchronous: true
-                    active: !!myMessage.reply_markup && myMessage.reply_markup.rows
+                    active: !!(myMessage.reply_markup && myMessage.reply_markup.rows)
                     source: Qt.resolvedUrl("ReplyMarkupButtons.qml")
                 }
 
