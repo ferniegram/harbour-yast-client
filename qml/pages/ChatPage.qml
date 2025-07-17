@@ -362,7 +362,6 @@ Page {
     Component.onCompleted: {
         Debug.log("[ChatPage] Initializing chat page...")
         chatView.currentIndex = -1
-        chatView.lastReadSentIndex = -1
         if (isPrivateChat || isSecretChat) {
             chatPartnerInformation = tdLibWrapper.getUserInformation(chatInformation.type.user_id)
             if (isSecretChat)
@@ -515,7 +514,7 @@ Page {
         target: chatModel
         onMessagesReceived: {
             var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1)
-            Debug.log("[ChatPage] Messages received, view has ", chatView.count, " messages, last known message index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex)
+            Debug.log("[ChatPage] Messages received, view has ", chatView.count, " messages, last known message index ", proxyIndex, "("+modelIndex+")")
             if (totalCount === 0) {
                 if (chatPage.iterativeInitialization) {
                     chatPage.iterativeInitialization = false
@@ -527,7 +526,6 @@ Page {
                     chatPage.iterativeInitialization = true
             }
 
-            chatView.lastReadSentIndex = lastReadSentIndex
             chatView.scrollToIndex(proxyIndex)
             chatPage.loading = false
             if (chatOverviewItem.visible && proxyIndex >= (chatView.count - 10)) {
@@ -569,14 +567,9 @@ Page {
             chatUnreadMessagesItem.visible = ( !chatPage.loading && unreadCount > 0 && chatOverviewItem.visible )
             chatUnreadMessagesCount.text = Functions.formatUnreadCount(unreadCount)
         }
-        onLastReadSentMessageUpdated: {
-            Debug.log("[ChatPage] Updating last read sent index, new index: ", lastReadSentIndex)
-            chatView.lastReadSentIndex = lastReadSentIndex
-        }
         onMessagesIncrementalUpdate: {
             var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1)
-            Debug.log("Incremental update received. View now has ", chatView.count, " messages, view is on index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex)
-            chatView.lastReadSentIndex = lastReadSentIndex
+            Debug.log("Incremental update received. View now has ", chatView.count, " messages, view is on index ", proxyIndex, "("+modelIndex+")")
             if ((!chatPage.isInitialized) && (proxyIndex > -1))
                 chatView.scrollToIndex(proxyIndex)
             if (chatView.height > chatView.contentHeight) {
@@ -1022,7 +1015,7 @@ Page {
                     clip: true
                     highlightMoveDuration: 0
                     highlightResizeDuration: 0
-                    property int lastReadSentIndex: -1
+                    property int lastReadSentIndex: chatModel.lastReadSentMessageIndex
                     property bool inCooldown: false
                     property bool manuallyScrolledToBottom
                     property QtObject precalculatedValues: QtObject {

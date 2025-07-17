@@ -28,6 +28,7 @@ class ChatModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(qlonglong chatId READ getChatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
+    Q_PROPERTY(int lastReadSentMessageIndex READ calculateLastReadSentMessageIndex NOTIFY lastReadSentMessageUpdated)
     Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
     Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
 
@@ -56,11 +57,11 @@ public:
     qlonglong getChatId() const;
 
 signals:
-    void messagesReceived(int modelIndex, int lastReadSentIndex, int totalCount);
-    void messagesIncrementalUpdate(int modelIndex, int lastReadSentIndex);
+    void messagesReceived(int modelIndex, int totalCount);
+    void messagesIncrementalUpdate(int modelIndex);
     void newMessageReceived(const QVariantMap &message);
     void unreadCountUpdated(int unreadCount, const QString &lastReadInboxMessageId);
-    void lastReadSentMessageUpdated(int lastReadSentIndex);
+    void lastReadSentMessageUpdated();
     void notificationSettingsUpdated();
     void messageUpdated(int modelIndex);
     void smallPhotoChanged();

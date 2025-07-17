@@ -298,11 +298,10 @@ ListItem {
     }
     Connections {
         target: chatModel
-        onMessagesReceived: updateIsUnread()
-        onMessagesIncrementalUpdate: updateIsUnread()
         onNewMessageReceived: updateIsUnread()
         onUnreadCountUpdated: updateIsUnread()
         onLastReadSentMessageUpdated: {
+            var lastReadSentIndex = chatModel.lastReadSentMessageIndex
             Debug.log("[ChatModel] Messages in this chat were read, new last read: ", lastReadSentIndex, ", updating description for index ", index, ", status: ", (messageIndex <= lastReadSentIndex))
             messageDateText.text = getMessageStatusText(myMessage, messageIndex, lastReadSentIndex, messageDateText.useElapsed)
         }

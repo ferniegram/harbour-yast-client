@@ -417,6 +417,7 @@ void ChatModel::clear(bool contentOnly)
             chatActionsByChats.clear();
             emit chatActionsChanged();
         }
+        emit lastReadSentMessageUpdated();
     }
 }
 
@@ -561,13 +562,13 @@ void ChatModel::handleMessagesReceived(const QVariantList &messages, int totalCo
         LOG("No additional messages loaded, notifying chat UI...");
         this->inReload = false;
         int listInboxPosition = this->calculateLastKnownMessageId();
-        int listOutboxPosition = this->calculateLastReadSentMessageIndex();
         listInboxPosition = this->calculateScrollPosition(listInboxPosition);
+        emit lastReadSentMessageUpdated();
         if (this->inIncrementalUpdate) {
             this->inIncrementalUpdate = false;
-            emit messagesIncrementalUpdate(listInboxPosition, listOutboxPosition);
+            emit messagesIncrementalUpdate(listInboxPosition);
         } else {
-            emit messagesReceived(listInboxPosition, listOutboxPosition, totalCount);
+            emit messagesReceived(listInboxPosition, totalCount);
         }
     } else {
         if (this->isMostRecentMessageLoaded() || this->inIncrementalUpdate) {
@@ -604,13 +605,13 @@ void ChatModel::handleMessagesReceived(const QVariantList &messages, int totalCo
                 LOG("Messages loaded, notifying chat UI...");
                 this->inReload = false;
                 int listInboxPosition = this->calculateLastKnownMessageId();
-                int listOutboxPosition = this->calculateLastReadSentMessageIndex();
                 listInboxPosition = this->calculateScrollPosition(listInboxPosition);
+                emit lastReadSentMessageUpdated();
                 if (this->inIncrementalUpdate) {
                     this->inIncrementalUpdate = false;
-                    emit messagesIncrementalUpdate(listInboxPosition, listOutboxPosition);
+                    emit messagesIncrementalUpdate(listInboxPosition);
                 } else {
-                    emit messagesReceived(listInboxPosition, listOutboxPosition, totalCount);
+                    emit messagesReceived(listInboxPosition, totalCount);
                 }
             }
         } else {
@@ -678,9 +679,8 @@ void ChatModel::handleChatReadOutboxUpdated(const QString &id, const QString &la
 {
     if (id.toLongLong() == chatId) {
         this->chatInformation.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId);
-        int sentIndex = calculateLastReadSentMessageIndex();
-        LOG("Updating sent message ID, new index" << sentIndex);
-        emit lastReadSentMessageUpdated(sentIndex);
+        LOG("Updating sent message ID");
+        emit lastReadSentMessageUpdated();
     }
 }
 
@@ -702,7 +702,7 @@ void ChatModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMes
         LOG("Message was replaced at index" << pos);
         const QModelIndex messageIndex(index(pos));
         emit dataChanged(messageIndex, messageIndex, changedRoles);
-        emit lastReadSentMessageUpdated(calculateLastReadSentMessageIndex());
+        emit lastReadSentMessageUpdated();
         tdLibWrapper->viewMessage(this->chatId, messageId, false);
     }
 }
@@ -1059,8 +1059,7 @@ int ChatModel::calculateLastKnownMessageId(bool classic) {
     return (listInboxPosition > listOwnPosition) ? listInboxPosition : listOwnPosition;
 }
 
-int ChatModel::calculateLastReadSentMessageIndex()
-{
+int ChatModel::calculateLastReadSentMessageIndex() {
     LOG("calculateLastReadSentMessageIndex");
     qlonglong id = this->chatInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong();
     LOG("lastReadSentMessageId" << id);
@@ -1075,7 +1074,6 @@ int ChatModel::calculateLastReadSentMessageIndex()
         listOutboxPosition = findLastSentMessageIndex();
     }
     LOG("Last read sent message" << id << "is at position" << listOutboxPosition);
-    emit lastReadSentMessageUpdated(listOutboxPosition);
     return listOutboxPosition;
 }
 
