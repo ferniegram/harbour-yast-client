@@ -1339,6 +1339,7 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
+                            // TODO: only run this if last unread message is loaded
                             chatView.scrollToIndex(chatView.count - 1 - chatInformation.unread_count)
                         }
                     }
