@@ -313,6 +313,7 @@ bool ChatModel::MessageData::lessThan(const MessageData *message1, const Message
 
 ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     chatId(0),
+    highlightedMessageId(0),
     inReload(false),
     inIncrementalUpdate(false),
     searchModeActive(false)
@@ -384,11 +385,11 @@ QVariant ChatModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void ChatModel::clear(bool contentOnly)
-{
+void ChatModel::clear(bool contentOnly) {
     LOG("Clearing chat model");
     inReload = false;
     inIncrementalUpdate = false;
+    highlightedMessageId = 0;
     searchModeActive = false;
     searchQuery.clear();
     if (!messages.isEmpty()) {
@@ -428,6 +429,7 @@ void ChatModel::initialize(const QVariantMap &chatInformation, qlonglong fromMes
     qDeleteAll(messages);
     this->chatInformation = chatInformation;
     this->chatId = chatId;
+    this->highlightedMessageId = fromMessageId;
     this->messages.clear();
     this->messageIndexMap.clear();
     this->albumMessageMap.clear();
@@ -443,6 +445,7 @@ void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId)
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Trigger loading message with id..." << messageId);
         this->clear(true);
+        this->highlightedMessageId = messageId;
         this->tdLibWrapper->getChatHistory(chatId, messageId);
     }
 }
@@ -1072,9 +1075,9 @@ int ChatModel::calculateLastReadSentMessageIndex() {
 }
 
 int ChatModel::calculateScrollPosition() {
-    int listInboxPosition = this->calculateLastReadMessageIndex(false);
-    if (listInboxPosition == -1)
-        listInboxPosition = 0; // Go to the first message
+    int listInboxPosition = this->highlightedMessageId;
+    if (listInboxPosition == 0)
+        listInboxPosition = this->calculateLastReadMessageIndex(false);
 
     LOG("Calculating new scroll position, current:" << listInboxPosition << ", list size:" << this->messages.size());
     return qMin(listInboxPosition + 1, this->messages.size() - 1);

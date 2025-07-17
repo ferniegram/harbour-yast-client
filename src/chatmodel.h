@@ -111,6 +111,7 @@ private:
     QHash<qlonglong, QVariantList> albumMessageMap;
     QVariantMap chatInformation;
     qlonglong chatId;
+    qlonglong highlightedMessageId;
     bool inReload;
     bool inIncrementalUpdate; // if we are waiting for messages after sending a request to load more of them
     bool searchModeActive;
