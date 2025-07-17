@@ -448,7 +448,7 @@ void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId)
 {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Trigger loading message with id..." << messageId);
-        this->inIncrementalUpdate = true;
+        this->clear(true);
         this->tdLibWrapper->getChatHistory(chatId, messageId);
     }
 }
