@@ -1029,7 +1029,7 @@ Page {
                     property bool manuallyScrolledToBottom
                     property QtObject precalculatedValues: QtObject {
                         readonly property alias page: chatPage
-                        readonly property bool showUserInfo: page.isBasicGroup || ( page.isSuperGroup && !page.isChannel)
+                        readonly property bool showUserInfo: page.isBasicGroup || (page.isSuperGroup && (!page.isChannel || chatGroupInformation.show_message_sender))
                         readonly property int profileThumbnailDimensions: showUserInfo ? Theme.itemSizeSmall : 0
                         readonly property int pageMarginDouble: 2 * Theme.horizontalPageMargin
                         readonly property int paddingMediumDouble: 2 * Theme.paddingMedium
