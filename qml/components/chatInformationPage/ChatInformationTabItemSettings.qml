@@ -52,7 +52,7 @@ ChatInformationTabItemBase {
             // - canTransferOwnership?
             //   - transferChatOwnership
             Loader {
-                active: (chatInformationPage.isBasicGroup || chatInformationPage.isSuperGroup) && chatInformationPage.groupInformation &&  (chatInformationPage.groupInformation.status.can_restrict_members || chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
+                active: (chatInformationPage.isBasicGroup || chatInformationPage.isSuperGroup) && !chatInformationPage.isChannel && chatInformationPage.groupInformation &&  (chatInformationPage.groupInformation.status.can_restrict_members || chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
                 asynchronous: true
                 source: "./EditGroupChatPermissionsColumn.qml"
                 width: parent.width
