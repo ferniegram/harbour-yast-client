@@ -117,10 +117,8 @@ SilicaFlickable {
         }
         onChatPermissionsUpdated: {
             if (chatInformationPage.chatInformation.id.toString() === chatId) {
-                // set whole object to trigger change
-                var newInformation = chatInformation;
-                newInformation.permissions = permissions
-                chatInformationPage.chatInformation = newInformation
+                chatInformationPage.chatInformation.permissions = permissions
+                chatInformationPage.chatInformationChanged()
             }
         }
         onChatTitleUpdated: {
