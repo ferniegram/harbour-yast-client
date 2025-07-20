@@ -45,12 +45,13 @@ Page {
     readonly property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
     readonly property bool isGroup: isBasicGroup || isSuperGroup
     readonly property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized
-                                (isBasicGroup || isSuperGroup) && (
+                                isGroup && (
                                     (groupInformation.status["@type"] === "chatMemberStatusMember")
                                     || (groupInformation.status["@type"] === "chatMemberStatusAdministrator")
                                     || (groupInformation.status["@type"] === "chatMemberStatusRestricted" && groupInformation.status.is_member)
                                     || (groupInformation.status["@type"] === "chatMemberStatusCreator" && groupInformation.status.is_member)
                                     )
+    readonly property bool isCreator: isGroup && groupInformation.status["@type"] === "chatMemberStatusCreator"
 
     property var chatInformation:({})
     property var privateChatUserInformation:({})

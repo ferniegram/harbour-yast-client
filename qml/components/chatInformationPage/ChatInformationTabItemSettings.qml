@@ -51,15 +51,23 @@ ChatInformationTabItemBase {
             // if creator (supergroup/channel)
             // - canTransferOwnership?
             //   - transferChatOwnership
+
             Loader {
-                active: (chatInformationPage.isBasicGroup || chatInformationPage.isSuperGroup) && !chatInformationPage.isChannel && chatInformationPage.groupInformation &&  (chatInformationPage.groupInformation.status.can_restrict_members || chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
+                active: (chatInformationPage.isBasicGroup || chatInformationPage.isSuperGroup)
+                        && !chatInformationPage.isChannel && chatInformationPage.groupInformation
+
+                        && (chatInformationPage.groupInformation.status.can_restrict_members
+                            || chatInformationPage.groupInformation.status.can_change_info
+                            || chatInformationPage.isCreator)
                 asynchronous: true
                 source: "./EditGroupChatPermissionsColumn.qml"
                 width: parent.width
             }
 
             Loader {
-                active: chatInformationPage.isSuperGroup && chatInformationPage.groupInformation &&  chatInformationPage.groupInformation.status.can_restrict_members || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator"
+                active: chatInformationPage.isSuperGroup && chatInformationPage.groupInformation
+                        && (chatInformationPage.groupInformation.status.can_restrict_members
+                            || chatInformationPage.isCreator)
                 asynchronous: true
                 source: "./EditSuperGroupSlowModeColumn.qml"
                 width: parent.width
