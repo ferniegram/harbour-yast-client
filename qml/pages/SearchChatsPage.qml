@@ -49,9 +49,10 @@ Page {
         target: tdLibWrapper
         onChatsReceived: {
             Debug.log(JSON.stringify(chats))
-            Array.prototype.push.apply(chatsFound, chats)
+            chatsFound = chats
 
             searchChatsPage.isLoading = false
+            tdLibWrapper.getSearchSponsoredChats(publicChatsSearchField.text)
         }
         onSponsoredChatsReceived: {
             Debug.log(JSON.stringify(chats))
@@ -60,6 +61,7 @@ Page {
                 sponsoredChats[chatId] = chats[i]
                 chatsFound.unshift(chatId)
             }
+            chatsFoundChanged()
 
             searchChatsPage.isLoading = false
         }
