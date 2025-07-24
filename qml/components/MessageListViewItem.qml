@@ -605,21 +605,68 @@ ListItem {
                     }
                 }
 
-                Text {
-                    id: messageText
+                Item {
                     width: parent.width
-                    text: Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
-                    font.pixelSize: Theme.fontSizeSmall
-                    color: messageListItem.textColor
-                    wrapMode: Text.Wrap
-                    textFormat: Text.StyledText
-                    onLinkActivated: {
-                        var chatCommand = Functions.handleLink(link)
-                        if(chatCommand) tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
+                    height: (messageText.visible ? messageText.implicitHeight : 0)
+                            + extraContentLoader.usedHeight
+                            + (state == '' ? 0 : Theme.paddingSmall)
+                    Text {
+                        id: messageText
+                        width: parent.width
+                        text: Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: messageListItem.textColor
+                        wrapMode: Text.Wrap
+                        textFormat: Text.StyledText
+                        onLinkActivated: {
+                            var chatCommand = Functions.handleLink(link)
+                            if(chatCommand) tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
+                        }
+                        horizontalAlignment: messageListItem.textAlign
+                        linkColor: Theme.highlightColor
+                        visible: text.length > 0
                     }
-                    horizontalAlignment: messageListItem.textAlign
-                    linkColor: Theme.highlightColor
-                    visible: !!text
+
+                    Loader {
+                        id: extraContentLoader
+                        width: parent.width * getContentWidthMultiplier()
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                        asynchronous: true
+                        readonly property var defaultExtraContentHeight: messageListItem.hasContentComponent ? chatView.getContentComponentHeight(model.content_type, myMessage.content, width, model.album_message_ids.length) : 0
+                        readonly property real usedHeight: item ? item.height : defaultExtraContentHeight
+                        height: usedHeight // anchors messes up height
+                        visible: height > 0
+                    }
+
+                    states: [
+                        // empty state is also a state
+                        State {
+                            name: "normal"
+                            when: myMessage.content.show_caption_above_media === false // don't accept undefined
+                            AnchorChanges {
+                                target: messageText
+                                anchors.top: extraContentLoader.bottom
+                                anchors.bottom: extraContentLoader.bottom
+                            }
+                            PropertyChanges {
+                                target: messageText
+                                anchors.topMargin: Theme.paddingSmall
+                            }
+                        },
+                        State {
+                            name: "inverted"
+                            when: !!myMessage.content.show_caption_above_media
+                            AnchorChanges {
+                                target: extraContentLoader
+                                anchors.top: messageText.bottom
+                                anchors.bottom: messageContentItem.bottom
+                            }
+                            PropertyChanges {
+                                target: extraContentLoader
+                                anchors.topMargin: Theme.paddingSmall
+                            }
+                        }
+                    ]
                 }
 
                 Loader {
@@ -636,15 +683,6 @@ ListItem {
                             highlighted: messageListItem.highlighted
                         }
                     }
-                }
-
-                Loader {
-                    id: extraContentLoader
-                    width: parent.width * getContentWidthMultiplier()
-                    //anchors.horizontalCenter: parent.horizontalCenter
-                    asynchronous: true
-                    readonly property var defaultExtraContentHeight: messageListItem.hasContentComponent ? chatView.getContentComponentHeight(model.content_type, myMessage.content, width, model.album_message_ids.length) : 0
-                    height: item ? item.height : defaultExtraContentHeight
                 }
 
                 Binding {
