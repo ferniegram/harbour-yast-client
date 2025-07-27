@@ -55,7 +55,8 @@ namespace {
     const QString SECRET_CHAT("secret_chat");
     const QString INTERACTION_INFO("interaction_info");
     const QString ANIMATED_EMOJI("animated_emoji");
-    const QString COLOR_REPLACEMENTS("color_replacements");
+    const QString FITZPATRICK_TYPE("fitzpatrick_type");
+    const QString SOUND("sound");
     const QString STICKER("sticker");
     const QString STICKERS("stickers");
     const QString COVERS("covers");
@@ -808,7 +809,8 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
             QVariantMap animated_emoji(map);
             animated_emoji.remove(STICKER);
             animated_emoji.insert(STICKER, sticker);
-            animated_emoji.remove(COLOR_REPLACEMENTS);
+            animated_emoji.remove(FITZPATRICK_TYPE);
+            animated_emoji.remove(SOUND);
             animated_emoji.remove(_TYPE);
             animated_emoji.insert(_TYPE, TYPE_ANIMATED_EMOJI); // Replace with a shared value
             if (updated) *updated = true;
@@ -876,11 +878,11 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
         }
     } else if (type == TYPE_MESSAGE_STICKER) {
         bool cleaned = false;
-        const QVariantMap content(cleanupMap(map.value(CONTENT).toMap(), &cleaned));
+        const QVariantMap sticker(cleanupMap(map.value(STICKER).toMap(), &cleaned));
         if (cleaned) {
             QVariantMap messageSticker(map);
-            messageSticker.remove(CONTENT);
-            messageSticker.insert(CONTENT, content);
+            messageSticker.remove(STICKER);
+            messageSticker.insert(STICKER, sticker);
             messageSticker.remove(_TYPE);
             messageSticker.insert(_TYPE, TYPE_MESSAGE_STICKER); // Replace with a shared value
             if (updated) *updated = true;
