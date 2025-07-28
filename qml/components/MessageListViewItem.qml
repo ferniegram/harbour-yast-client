@@ -470,7 +470,7 @@ ListItem {
                 property bool isUnread: messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage"
                 color: isUnread ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity) : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
                 radius: parent.width / 50
-                visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji")
+                visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
                 Behavior on color { ColorAnimation { duration: 200 } }
                 Behavior on opacity { FadeAnimation {} }
             }

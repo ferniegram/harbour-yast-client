@@ -52,6 +52,7 @@ namespace {
 
     const QString MESSAGE_CONTENT_TYPE_TEXT("messageText");
     const QString MESSAGE_CONTENT_TYPE_STICKER("messageSticker");
+    const QString MESSAGE_CONTENT_TYPE_DICE("messageDice");
     const QString MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI("messageAnimatedEmoji");
     const QString MESSAGE_CONTENT_TYPE_PHOTO("messagePhoto");
     const QString MESSAGE_CONTENT_TYPE_VIDEO("messageVideo");
@@ -372,6 +373,8 @@ QVariant Utilities::getMaybeFormattedMessageText(const QVariantMap &messageConte
                       : messageContent.value(TEXT);
     if (contentType == MESSAGE_CONTENT_TYPE_STICKER)
         return simple ? messageContent.value(STICKER).toMap().value(EMOJI).toString() : "";
+    if (contentType == MESSAGE_CONTENT_TYPE_DICE)
+        return simple ? messageContent.value(EMOJI).toString() : "";
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI)
         return simple ? messageContent.value(ANIMATED_EMOJI).toMap().value(STICKER).toMap().value(EMOJI).toString() : "";
     if (contentType == MESSAGE_CONTENT_TYPE_PHOTO) {

@@ -108,6 +108,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/messageContent/MessageAudioAlbum.qml \
     qml/components/messageContent/MessageContentBase.qml \
     qml/components/messageContent/MessageContentFileInfoBase.qml \
+    qml/components/messageContent/MessageDice.qml \
     qml/components/messageContent/MessageDocument.qml \
     qml/components/messageContent/MessageGame.qml \
     qml/components/messageContent/MessageLocation.qml \
