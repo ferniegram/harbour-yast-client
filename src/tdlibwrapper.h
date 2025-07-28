@@ -154,6 +154,7 @@ public:
     Q_INVOKABLE void openFileOnDevice(const QString &filePath);
     Q_INVOKABLE bool getJoinChatRequested();
     Q_INVOKABLE void registerJoinChat();
+    Q_INVOKABLE bool isDiceEmoji(const QString &text);
 
     DBusAdaptor *getDBusAdaptor();
 
@@ -184,6 +185,7 @@ public:
     Q_INVOKABLE void sendLocationMessage(qlonglong chatId, double latitude, double longitude, double horizontalAccuracy, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void sendStickerMessage(qlonglong chatId, const QString &fileId, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void sendPollMessage(qlonglong chatId, const QString &question, const QStringList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId = 0);
+    Q_INVOKABLE void sendDiceMessage(qlonglong chatId, const QString &emoji, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void forwardMessages(const QString &chatId, const QString &fromChatId, const QVariantList &messageIds, bool sendCopy, bool removeCaption);
     Q_INVOKABLE void getMessage(qlonglong chatId, qlonglong messageId);
     Q_INVOKABLE void getMessageLinkInfo(const QString &url, const QString &extra = "");
@@ -396,6 +398,7 @@ public slots:
     void handleNetworkConfigurationChanged(const QNetworkConfiguration &config);
     void handleActiveEmojiReactionsUpdated(const QStringList& emojis);
     void handleGetPageSourceFinished();
+    void handleDiceEmojisUpdated(const QStringList &emojis);
 
 private:
     void setOption(const QString &name, const QString &type, const QVariant &value);
@@ -434,6 +437,7 @@ private:
     QHash<qlonglong,Group*> superGroups;
     QVariantMap superGroupsByName;
     QStringList activeEmojiReactions;
+    QStringList diceEmojis;
 
     int versionNumber;
     QString activeChatSearchName;

@@ -204,6 +204,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("formattedText", &TDLibReceiver::processFormattedText);
     handlers.insert("updateChatAction", &TDLibReceiver::processUpdateChatAction);
     handlers.insert("emojiKeywords", &TDLibReceiver::processEmojiKeywords);
+    handlers.insert("updateDiceEmojis", &TDLibReceiver::processUpdateDiceEmojis);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -1091,4 +1092,9 @@ void TDLibReceiver::processEmojiKeywords(const QVariantMap &receivedInformation)
     }
     //if (!emojis.isEmpty())
     emit emojiKeywordsReceived(receivedInformation.value(_EXTRA).toString(), emojis);
+}
+
+void TDLibReceiver::processUpdateDiceEmojis(const QVariantMap &receivedInformation) {
+    LOG("Received updateDiceEmojis");
+    emit diceEmojisUpdated(receivedInformation.value(EMOJIS).toStringList());
 }

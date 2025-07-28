@@ -117,6 +117,7 @@ signals:
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
+    void diceEmojisUpdated(const QStringList &emojis);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -210,6 +211,7 @@ private:
     void processFormattedText(const QVariantMap &receivedInformation);
     void processUpdateChatAction(const QVariantMap &receivedInformation);
     void processEmojiKeywords(const QVariantMap &receivedInformation);
+    void processUpdateDiceEmojis(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

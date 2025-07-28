@@ -117,6 +117,7 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
     , appSettings(settings)
     , mceInterface(mce)
     , authorizationState(AuthorizationState::Closed)
+    , diceEmojis()
     , versionNumber(0)
     , joinChatRequested(false)
     , isLoggingOut(false)
@@ -247,6 +248,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::translationResultReceived, this, &TDLibWrapper::translationResultReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatActionUpdated, this, &TDLibWrapper::chatActionUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::emojiKeywordsReceived, this, &TDLibWrapper::emojiKeywordsReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::diceEmojisUpdated, this, &TDLibWrapper::handleDiceEmojisUpdated);
 
     this->tdLibReceiver->start();
 }
@@ -491,6 +493,13 @@ void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, co
     inputMessageContent.insert(TYPE, pollType);
 
     requestObject.insert(INPUT_MESSAGE_CONTENT, inputMessageContent);
+    this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::sendDiceMessage(qlonglong chatId, const QString &emoji, qlonglong replyToMessageId) {
+    LOG("Sending dice message" << chatId << emoji << replyToMessageId);
+    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
+    requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{{_TYPE, "inputMessageDice"}, {EMOJI, emoji}});
     this->sendRequest(requestObject);
 }
 
@@ -2119,4 +2128,16 @@ void TDLibWrapper::close() {
 
 void TDLibWrapper::toggleSupergroupIsForum(bool isForum) {
     sendRequest(QVariantMap{{_TYPE, "toggleSupergroupIsForum"}, {"is_forum", isForum}});
+}
+
+void TDLibWrapper::handleDiceEmojisUpdated(const QStringList &emojis) {
+    if (diceEmojis != emojis) {
+        LOG("Dice emojis updated" << emojis);
+        diceEmojis = emojis;
+    }
+}
+
+bool TDLibWrapper::isDiceEmoji(const QString &text) {
+    LOG("Checking if text is a dice emoji" << text);
+    return diceEmojis.contains(QString(text).trimmed());
 }
