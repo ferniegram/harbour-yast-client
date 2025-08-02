@@ -19,6 +19,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import "./messageContent"
+import WerkWolf.Fernschreiber 1.0
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 import "../js/debug.js" as Debug
@@ -41,18 +42,22 @@ ListItem {
     readonly property color textColor: isOwnMessage ? Theme.highlightColor : Theme.primaryColor
     readonly property int textAlign: isOwnMessage ? Text.AlignRight : Text.AlignLeft
     readonly property Page page: precalculatedValues.page
-    readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting && page.selectedMessages.some(function(existingMessage) {
-        return existingMessage.id === messageId
-    })
+    readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting
+                                       && page.selectedMessages.some(function(existingMessage) { return existingMessage.id === messageId })
+                                       && (messageAlbumMessageIds.length === 0 || messageAlbumMessageIds.every(function(id) {
+                                           return page.selectedMessages.some(function(m) { return m.id == id })
+                                       }))
+
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
+    property bool contentAboveMedia
     property bool wasNavigatedTo: false
 
     property var chatReactions
     property var messageReactions
 
-    highlighted: (down || (isSelected && messageAlbumMessageIds.length === 0) || wasNavigatedTo) && !menuOpen
+    highlighted: (down || isSelected || wasNavigatedTo) && !menuOpen
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
 
     signal replyToMessage()
@@ -128,7 +133,7 @@ ListItem {
 
     onClicked: {
         if (messageListItem.precalculatedValues.pageIsSelecting) {
-            page.toggleMessageSelection(myMessage)
+            page.toggleMessageSelection(myMessage, messageAlbumMessageIds)
         } else {
             // Allow extra context to react to click
             var extraContent = extraContentLoader.item
@@ -216,7 +221,7 @@ ListItem {
                     // NOTE2: When a user selects a message, the finger first goes to the (horizontal) center of the message, so the most used options should be there
                     IconRowMenuItem {
                         icon.source: "image://theme/icon-m-select-all"
-                        onClicked: page.toggleMessageSelection(myMessage)
+                        onClicked: page.toggleMessageSelection(myMessage, messageAlbumMessageIds)
                     }
                     IconRowMenuItem {
                         icon.source: "image://theme/icon-m-clipboard"
@@ -268,6 +273,15 @@ ListItem {
                         longText: qsTr("Edit Message")
                         onClicked: editMessage()
                     }
+                }
+                FancyMenuItem {
+                    text: "Copy debug info"
+                    icon.source: "image://theme/icon-m-diagnostic"
+                    visible: DebugLog.enabled
+                    onClicked: Clipboard.text =
+                               "Message ID: " + messageId
+                               + "\nMessage object:\n" + JSON.stringify(myMessage, null, 2)
+                               + "\n\n\nMessage properties:\n" + JSON.stringify(messageProperties, null, 2)
                 }
 
                 Component.onCompleted: {
@@ -453,7 +467,7 @@ ListItem {
                 property bool isUnread: messageIndex > chatModel.lastReadMessageIndexInBounds && myMessage['@type'] !== "sponsoredMessage"
                 color: isUnread ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity) : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
                 radius: parent.width / 50
-                visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji")
+                visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
                 Behavior on color { ColorAnimation { duration: 200 } }
                 Behavior on opacity { FadeAnimation {} }
             }
@@ -520,7 +534,7 @@ ListItem {
                                 anchors.fill: parent
                                 onClicked: {
                                     if (precalculatedValues.pageIsSelecting) {
-                                        page.toggleMessageSelection(myMessage)
+                                        page.toggleMessageSelection(myMessage, messageAlbumMessageIds)
                                     } else {
                                         if(appSettings.goToQuotedMessage) {
                                             chatPage.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
@@ -598,21 +612,70 @@ ListItem {
                     }
                 }
 
-                Text {
-                    id: messageText
+                Item {
                     width: parent.width
-                    text: Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
-                    font.pixelSize: Theme.fontSizeSmall
-                    color: messageListItem.textColor
-                    wrapMode: Text.Wrap
-                    textFormat: Text.StyledText
-                    onLinkActivated: {
-                        var chatCommand = Functions.handleLink(link)
-                        if(chatCommand) tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
+                    height: messageText.height + extraContentLoader.height + (messageText.height > 0 && extraContentLoader.height > 0 ? Theme.paddingSmall : 0)
+                    Text {
+                        id: messageText
+                        width: parent.width
+                        text: Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: messageListItem.textColor
+                        wrapMode: Text.Wrap
+                        textFormat: Text.StyledText
+                        onLinkActivated: {
+                            var chatCommand = Functions.handleLink(link)
+                            if(chatCommand) tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
+                        }
+                        horizontalAlignment: messageListItem.textAlign
+                        linkColor: Theme.highlightColor
+                        height: text.length > 0 ? implicitHeight : 0
                     }
-                    horizontalAlignment: messageListItem.textAlign
-                    linkColor: Theme.highlightColor
-                    visible: !!text
+
+                    Loader {
+                        id: extraContentLoader
+                        width: parent.width * getContentWidthMultiplier()
+                        //anchors.horizontalCenter: parent.horizontalCenter
+                        asynchronous: true
+                        readonly property var defaultExtraContentHeight: messageListItem.hasContentComponent ? chatView.getContentComponentHeight(model.content_type, myMessage.content, width, model.album_message_ids.length) : 0
+                        height: item ? item.height : defaultExtraContentHeight
+                        visible: height > 0
+                    }
+
+                    states: [
+                        State {
+                            name: "default"
+                            when: (messageText.visible && !extraContentLoader.visible) || (!messageText.visible && extraContentLoader.visible)
+                        },
+                        State {
+                            name: "normal"
+                            when: messageText.visible && extraContentLoader.visible &&
+                                  ((typeof myMessage.content.show_caption_above_media == 'undefined' && !contentAboveMedia)
+                                   || myMessage.content.show_caption_above_media === false)
+                            AnchorChanges {
+                                target: messageText
+                                anchors.top: extraContentLoader.bottom
+                            }
+                            PropertyChanges {
+                                target: messageText
+                                anchors.topMargin: Theme.paddingSmall
+                            }
+                        },
+                        State {
+                            name: "inverted"
+                            when: messageText.visible && extraContentLoader.visible &&
+                                  ((typeof myMessage.content.show_caption_above_media == 'undefined' && contentAboveMedia)
+                                   || !!myMessage.content.show_caption_above_media)
+                            AnchorChanges {
+                                target: extraContentLoader
+                                anchors.top: messageText.bottom
+                            }
+                            PropertyChanges {
+                                target: extraContentLoader
+                                anchors.topMargin: Theme.paddingSmall
+                            }
+                        }
+                    ]
                 }
 
                 Loader {
@@ -629,15 +692,6 @@ ListItem {
                             highlighted: messageListItem.highlighted
                         }
                     }
-                }
-
-                Loader {
-                    id: extraContentLoader
-                    width: parent.width * getContentWidthMultiplier()
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    asynchronous: true
-                    readonly property var defaultExtraContentHeight: messageListItem.hasContentComponent ? chatView.getContentComponentHeight(model.content_type, myMessage.content, width, model.album_message_ids.length) : 0
-                    height: item ? item.height : defaultExtraContentHeight
                 }
 
                 Binding {

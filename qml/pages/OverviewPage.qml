@@ -255,16 +255,18 @@ Page {
             }
         }
         onCopyToDownloadsSuccessful: {
-            appNotification.show(qsTr("Download of %1 successful.").arg(fileName), function() { tdLibWrapper.openFileOnDevice(filePath) }, qsTr("Open", "Button to open downloaded file, shown in an in-app notification"));
+            appNotification.show(qsTr("Download of %1 successful.", "in-app notification text").arg(fileName),
+                                 function() { tdLibWrapper.openFileOnDevice(filePath) },
+                                 qsTr("Open", "in-app notification button: open downloaded file"));
         }
 
         onCopyToDownloadsError: {
-            appNotification.show(qsTr("Download failed."));
+            appNotification.show(qsTr("Download failed.", "in-app notification text"));
         }
         onMessageLinkInfoReceived: {
             if (extra === "openDirectly") {
                 if (messageLinkInfo.chat_id === 0) {
-                    appNotification.show(qsTr("Unable to open link."));
+                    appNotification.show(qsTr("Unable to open link.", "in-app notification text"));
                 } else {
                     openChatWithMessage(messageLinkInfo.chat_id, messageLinkInfo.message);
                 }

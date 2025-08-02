@@ -55,5 +55,7 @@ ChatInformationTabItemBase {
                 isLinkedLabel: true
             }
         }
+
+        VerticalScrollDecorator {}
     }
 }

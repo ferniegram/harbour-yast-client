@@ -42,7 +42,7 @@ function getEmojiPath(str) {
     return basePath + toCodePoint(str.indexOf(U200D) < 0 ? str.replace(UFE0Fg, '') : str) + '.svg';
 }
 
-function getEmojiTag(path, emojiSize) {
+function _getEmojiTag(path, emojiSize) {
     return '<img '.concat(
       'src="',
       path,
@@ -54,12 +54,16 @@ function getEmojiTag(path, emojiSize) {
     )
 }
 
-function fixEmojiSize(size) {
+function getEmojiTag(emoji, emojiSize) {
+    return _getEmojiTag(getEmojiPath(emoji), getEmojiSize(emojiSize))
+}
+
+function getEmojiSize(size) {
     return Math.round(size * 1.15)
 }
 
 function emojify(str, emojiSize) {
-  var fixedSize = fixEmojiSize(emojiSize)
+  var newSize = getEmojiSize(emojiSize)
   return String(str).replace(re, function (rawText) {
     var iconId = toCodePoint(rawText.indexOf(U200D) < 0 ?
         rawText.replace(UFE0Fg, '') :
@@ -67,7 +71,7 @@ function emojify(str, emojiSize) {
     return iconId ?
       // recycle the match string replacing the emoji
       // with its image counter part
-      getEmojiTag(basePath.concat(iconId, '.svg'), fixedSize)
+      _getEmojiTag(basePath.concat(iconId, '.svg'), newSize)
       : rawText;
     }
   );

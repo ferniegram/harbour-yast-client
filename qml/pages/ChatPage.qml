@@ -43,7 +43,7 @@ Page {
     property bool isSecretChatReady: false
     property bool isBasicGroup: chatInformation.type['@type'] === "chatTypeBasicGroup"
     property bool isSuperGroup: chatInformation.type['@type'] === "chatTypeSupergroup"
-    property bool isChannel: chatGroupInformation && chatGroupInformation.is_channel
+    property bool isChannel: !!(chatGroupInformation && chatGroupInformation.is_channel)
     property bool isDeletedUser: !!chatPartnerInformation && chatPartnerInformation.type['@type'] === "userTypeDeleted"
     property int unreadCount: chatInformation.unread_count
     property bool containsSponsoredMessages: false
@@ -96,20 +96,59 @@ Page {
         }
     ]
 
-    function toggleMessageSelection(message) {
+    function deselectMessage(message) {
         for (var i = 0; i < selectedMessages.length; i++) {
             if(selectedMessages[i].id === message.id) {
                 delete selectedMessages[i].properties
                 selectedMessages.splice(i, 1)
-                selectedMessagesChanged()
-                return
+                return true
             }
         }
+        return false
+    }
+    function selectMessage(message) {
         message.properties = {}
         selectedMessages.push(message)
         tdLibWrapper.getMessageProperties(message.chat_id, message.id)
+    }
+
+    function toggleSingleMessageSelection(message) {
+        if (deselectMessage(message)) {
+            selectedMessagesChanged()
+            return
+        }
+
+        selectMessage(message)
         selectedMessagesChanged()
     }
+    function toggleMultipleMessagesSelection(messages) {
+        var i;
+        if (messages.every(function(m) {
+            return selectedMessages.some(function(selectedMessage) {
+                return selectedMessage.id === m.id
+            })
+        })) {
+            for (i=0; i < messages.length; i++)
+                deselectMessage(messages[i])
+            selectedMessagesChanged()
+            return
+        }
+
+        for (i=0; i < messages.length; i++)
+            selectMessage(messages[i]);
+        selectedMessagesChanged()
+    }
+
+    function toggleMessageSelection(message, albumMessageIds) {
+        if (!albumMessageIds || message.media_album_id === '0' || albumMessageIds.length <= 1)
+            toggleSingleMessageSelection(message)
+        else {
+            var albumMessages = [message]
+            chatModel.getMessagesForAlbum(message.media_album_id, 1).forEach(function(m) { albumMessages.push(m) })
+            toggleMultipleMessagesSelection(albumMessages)
+        }
+    }
+
     Connections {
         target: tdLibWrapper
         onMessagePropertiesReceived: {
@@ -154,7 +193,7 @@ Page {
             }
         }
 
-        if (message.author_signature)
+        if (message.author_signature && !chatView.precalculatedValues.showUserInfo)
             messageStatusSuffix += " - " + message.author_signature
 
         return (useElapsed ? Functions.getDateTimeElapsed(message.date) : Functions.getDateTimeTranslated(message.date)) + messageStatusSuffix
@@ -187,8 +226,9 @@ Page {
                 if (attachmentPreviewRow.isLocation)
                     tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId)
                 clearAttachmentPreviewRow()
-            } else
-                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
+            } else if (tdLibWrapper.isDiceEmoji(newMessageTextField.text))
+                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
+            else tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
 
             if(appSettings.focusTextAreaAfterSend)
                 lostFocusTimer.start()
@@ -395,6 +435,7 @@ Page {
                 newMessageInReplyToRow.inReplyToMessage ? newMessageInReplyToRow.inReplyToMessage.id : 0)
 
         utilities.stopGeoLocationUpdates()
+        chatActionTimer.stop()
         tdLibWrapper.closeChat(chatInformation.id)
     }
 
@@ -875,7 +916,7 @@ Page {
                                 return Functions.getGroupStatusText(chatGroupInformation.member_count, chatOnlineMemberCount, isChannel)
 
 
-                            status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, timepointStatus)
+                            status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
                             if (chatPage.secretChatDetails) {
                                 var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
                                 if (status && secretChatStatus)
@@ -1149,6 +1190,11 @@ Page {
                             return Theme.itemSizeSmall * (4 + content.poll.options)
                         case "messageSticker":
                             return content.sticker.height
+                        case "messageDice":
+                            var diceStickers = content.final_state || content.initial_state
+                            if (diceStickers['@type'] === 'diceStickersSlotMachine')
+                                return diceStickers.lever.height
+                            return diceStickers.sticker.height
                         case "messageVideo":
                             if(albumEntries > 0) {
                                 unit = (parentWidth * 0.66666666)
@@ -1165,7 +1211,6 @@ Page {
                         "messageAnimation",
                         "messageAudio",
                         // "messageContact",
-                        // "messageDice"
                         "messageDocument",
                         "messageGame",
                         // "messageInvoice",
@@ -1180,17 +1225,23 @@ Page {
                         "messageVideo",
                         "messageVideoNote",
                         "messageVoiceNote",
+                        "messageDice"
                     ]
-                    property var fullWidthWidescreenContentMessages: [
+                    readonly property var fullWidthWidescreenContentMessages: [
                         "messageDocument",
                         "messageAudio",
                         "messagePoll",
+                        "messageVoiceNote",
                     ]
-                    property var albumMessages: [
+                    readonly property var albumMessages: [
                         'messagePhoto',
                         'messageVideo',
                         'messageDocument',
                         'messageAudio',
+                    ]
+                    readonly property var contentAboveMediaByDefaultMessages: [
+                        'messagePoll',
+                        'messageVenue'
                     ]
 
                     readonly property var simpleDelegateMessages: [
@@ -1242,6 +1293,7 @@ Page {
                                 }
                                 hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
                                 fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
+                                contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
                                 onReplyToMessage: {
                                     newMessageInReplyToRow.inReplyToMessage = myMessage
                                     newMessageTextField.focus = true
@@ -1250,6 +1302,7 @@ Page {
                                     newMessageColumn.editMessageId = messageId
                                     newMessageColumn.editIsCaption = !!myMessage && !!myMessage.content && !!myMessage.content.caption
                                     newMessageTextField.text = Functions.getMessageText(myMessage, false, chatPage.myUserId, true)
+                                    newMessageTextField.cursorPosition = newMessageTextField.text.length
                                     newMessageTextField.focus = true
                                 }
                                 onForwardMessage: {
@@ -1359,13 +1412,15 @@ Page {
                     id: chatActionTimer
                     property string action
                     triggeredOnStart: true
-                    interval: 5500 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
-                    onTriggered: tdLibWrapper.sendChatAction(chatInformation.id, action)
+                    interval: 5000 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
+                    repeat: true
+                    onTriggered: if (Qt.application.active)
+                                     tdLibWrapper.sendChatAction(chatInformation.id, action)
                     onRunningChanged: if (!running)
                                           tdLibWrapper.sendChatAction(chatInformation.id, "chatActionCancel")
                     function run(action) {
                         this.action = action
-                        start()
+                        restart()
                     }
                 }
 

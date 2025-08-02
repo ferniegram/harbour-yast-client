@@ -18,10 +18,10 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-
 import "./"
 import "../"
 import "../../pages"
+import WerkWolf.Fernschreiber 1.0
 
 Item {
     id: tabViewItem
@@ -138,7 +138,12 @@ Item {
                 image: "image://theme/icon-m-developer-mode"
             });
         }
-//        tabModel.append({tab:"ChatInformationTabItemDebug"});
+        if (DebugLog.enabled)
+            tabModel.append({
+                                tab:"ChatInformationTabItemDebug",
+                                title: "Debug",
+                                image: "image://theme/icon-m-diagnostic"
+                            });
 
     }
 

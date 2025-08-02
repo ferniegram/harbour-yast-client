@@ -55,7 +55,8 @@ namespace {
     const QString SECRET_CHAT("secret_chat");
     const QString INTERACTION_INFO("interaction_info");
     const QString ANIMATED_EMOJI("animated_emoji");
-    const QString COLOR_REPLACEMENTS("color_replacements");
+    const QString FITZPATRICK_TYPE("fitzpatrick_type");
+    const QString SOUND("sound");
     const QString STICKER("sticker");
     const QString STICKERS("stickers");
     const QString COVERS("covers");
@@ -70,6 +71,14 @@ namespace {
     const QString TRANSLATION("translation");
     const QString SENDER_ID("sender_id");
     const QString MESSAGE_THREAD_ID("message_thread_id");
+    const QString UNIQUE_ID("unique_id");
+    const QString INITIAL_STATE("initial_state");
+    const QString FINAL_STATE("final_state");
+    const QString BACKGROUND("background");
+    const QString LEVER("lever");
+    const QString LEFT_REEL("left_reel");
+    const QString CENTER_REEL("center_reel");
+    const QString RIGHT_REEL("right_reel");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -86,6 +95,9 @@ namespace {
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
     const QString TYPE_DRAFT_MESSAGE("draftMessage");
     const QString TYPE_SPONSORED_CHAT("sponsoredChat");
+    const QString TYPE_MESSAGE_DICE("messageDice");
+    const QString TYPE_DICE_STICKERS_REGULAR("diceStickersRegular");
+    const QString TYPE_DICE_STICKERS_SLOT_MACHINE("diceStickersSlotMachine");
 }
 
 static QString getChatPositionOrder(const QVariantMap &position)
@@ -192,6 +204,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("formattedText", &TDLibReceiver::processFormattedText);
     handlers.insert("updateChatAction", &TDLibReceiver::processUpdateChatAction);
     handlers.insert("emojiKeywords", &TDLibReceiver::processEmojiKeywords);
+    handlers.insert("updateDiceEmojis", &TDLibReceiver::processUpdateDiceEmojis);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -808,7 +821,8 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
             QVariantMap animated_emoji(map);
             animated_emoji.remove(STICKER);
             animated_emoji.insert(STICKER, sticker);
-            animated_emoji.remove(COLOR_REPLACEMENTS);
+            animated_emoji.remove(FITZPATRICK_TYPE);
+            animated_emoji.remove(SOUND);
             animated_emoji.remove(_TYPE);
             animated_emoji.insert(_TYPE, TYPE_ANIMATED_EMOJI); // Replace with a shared value
             if (updated) *updated = true;
@@ -876,11 +890,11 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
         }
     } else if (type == TYPE_MESSAGE_STICKER) {
         bool cleaned = false;
-        const QVariantMap content(cleanupMap(map.value(CONTENT).toMap(), &cleaned));
+        const QVariantMap sticker(cleanupMap(map.value(STICKER).toMap(), &cleaned));
         if (cleaned) {
             QVariantMap messageSticker(map);
-            messageSticker.remove(CONTENT);
-            messageSticker.insert(CONTENT, content);
+            messageSticker.remove(STICKER);
+            messageSticker.insert(STICKER, sticker);
             messageSticker.remove(_TYPE);
             messageSticker.insert(_TYPE, TYPE_MESSAGE_STICKER); // Replace with a shared value
             if (updated) *updated = true;
@@ -925,9 +939,91 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
     } else if (type == TYPE_SPONSORED_CHAT) {
         QVariantMap sponsoredChat(map);
         sponsoredChat.remove(_TYPE); // only used in sponsoredChats, so this is not needed
-        sponsoredChat.remove("unique_id");
+        sponsoredChat.remove(UNIQUE_ID);
         if (updated) *updated = true;
         return sponsoredChat;
+    } else if (type == TYPE_MESSAGE_DICE) {
+        QVariantMap messageDice(map);
+        bool messageDiceChanged = false, cleaned = false;
+
+        const QVariantMap initialState(cleanupMap(map.value(INITIAL_STATE).toMap(), &cleaned));
+        if (cleaned) {
+            messageDice.remove(INITIAL_STATE);
+            messageDice.insert(INITIAL_STATE, initialState);
+            messageDiceChanged = true;
+        }
+
+        const QVariantMap finalState(cleanupMap(map.value(FINAL_STATE).toMap(), &cleaned));
+        if (cleaned) {
+            messageDice.remove(FINAL_STATE);
+            messageDice.insert(FINAL_STATE, finalState);
+            messageDiceChanged = true;
+        }
+
+        if (messageDiceChanged) {
+            messageDice.remove(_TYPE);
+            messageDice.insert(_TYPE, TYPE_MESSAGE_DICE); // Replace with a shared value
+
+            if (updated) *updated = true;
+            return messageDice;
+        }
+    } else if (type == TYPE_DICE_STICKERS_REGULAR) {
+        bool cleaned = false;
+        const QVariantMap sticker(cleanupMap(map.value(STICKER).toMap(), &cleaned));
+        if (cleaned) {
+            QVariantMap diceStickers(map);
+            diceStickers.remove(STICKER);
+            diceStickers.insert(STICKER, sticker);
+            diceStickers.remove(_TYPE);
+            diceStickers.insert(_TYPE, TYPE_DICE_STICKERS_REGULAR); // Replace with a shared value
+            if (updated) *updated = true;
+            return diceStickers;
+        }
+    } else if (type == TYPE_DICE_STICKERS_SLOT_MACHINE) {
+        QVariantMap diceStickers(map);
+        bool diceStickersChanged = false, cleaned = false;
+
+
+        const QVariantMap background(cleanupMap(map.value(BACKGROUND).toMap(), &cleaned));
+        if (cleaned) {
+            diceStickers.remove(BACKGROUND);
+            diceStickers.insert(BACKGROUND, background);
+            diceStickersChanged = true;
+        }
+
+        const QVariantMap lever(cleanupMap(map.value(LEVER).toMap(), &cleaned));
+        if (cleaned) {
+            diceStickers.remove(LEVER);
+            diceStickers.insert(LEVER, lever);
+            diceStickersChanged = true;
+        }
+
+        const QVariantMap leftReel(cleanupMap(map.value(LEFT_REEL).toMap(), &cleaned));
+        if (cleaned) {
+            diceStickers.remove(LEFT_REEL);
+            diceStickers.insert(LEFT_REEL, leftReel);
+            diceStickersChanged = true;
+        }
+
+        const QVariantMap centerReel(cleanupMap(map.value(CENTER_REEL).toMap(), &cleaned));
+        if (cleaned) {
+            diceStickers.remove(CENTER_REEL);
+            diceStickers.insert(CENTER_REEL, centerReel);
+            diceStickersChanged = true;
+        }
+
+        const QVariantMap rightReel(cleanupMap(map.value(RIGHT_REEL).toMap(), &cleaned));
+        if (cleaned) {
+            diceStickers.remove(RIGHT_REEL);
+            diceStickers.insert(RIGHT_REEL, rightReel);
+            diceStickersChanged = true;
+        }
+
+
+        if (diceStickersChanged) {
+            if (updated) *updated = true;
+            return diceStickers;
+        }
     }
     if (updated) *updated = false;
     return map;
@@ -996,4 +1092,9 @@ void TDLibReceiver::processEmojiKeywords(const QVariantMap &receivedInformation)
     }
     //if (!emojis.isEmpty())
     emit emojiKeywordsReceived(receivedInformation.value(_EXTRA).toString(), emojis);
+}
+
+void TDLibReceiver::processUpdateDiceEmojis(const QVariantMap &receivedInformation) {
+    LOG("Received updateDiceEmojis");
+    emit diceEmojisUpdated(receivedInformation.value(EMOJIS).toStringList());
 }

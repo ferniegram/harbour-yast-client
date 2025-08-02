@@ -8,12 +8,16 @@ Item {
     id: sticker
     property bool highlighted
     property var stickerData
+    property bool loop: true
 
     property bool asEmoji: appSettings.showStickersAsEmojis
     readonly property bool useThumbnail: !appSettings.videoStickers && stickerData.format['@type'] === 'stickerFormatWebm'
     readonly property bool animated: appSettings.animateStickers && stickerData.format["@type"] === "stickerFormatTgs"
     readonly property bool stickerVisible: !!(stickerLoader.item && stickerLoader.item.visible)
     property real aspectRatio: stickerData.width / stickerData.height
+
+    property alias stickerItem: stickerLoader.item
+    readonly property bool loaded: file.isDownloadingCompleted && stickerLoader.status == Loader.Ready
 
     implicitWidth: stickerData.width
     implicitHeight: width * aspectRatio
@@ -24,6 +28,43 @@ Item {
         // in this implementation video (MPEG4) thumbnails are not supported, but they don't seem to appear in stickers
         fileInformation: useThumbnail ? stickerData.thumbnail.file : stickerData.sticker
         autoLoad: true
+    }
+
+    function getFrameCount() {
+        // can't use a property because is non-NOTIFYable (results in lots of warnings)
+        if (stickerLoader.sourceComponent == videoComponent)
+            return stickerLoader.item.frameCount
+        if (stickerLoader.sourceComponent == animatedComponent)
+            return stickerLoader.item.frameCount
+        return 0
+    }
+
+    function seekToFrame(frame) {
+        if (!stickerLoader.item) return
+
+        if (stickerLoader.sourceComponent == videoComponent) {
+            if (stickerLoader.item.seekable)
+                stickerLoader.item.seek(Math.min(frame * (stickerLoader.item.metaData.videoFrameRate / 1000), stickerLoader.item.duration))
+        } else if (stickerLoader.sourceComponent == animatedComponent)
+            stickerLoader.item.currentFrame = Math.min(frame, stickerLoader.item.frameCount)
+    }
+
+    function pause() {
+        if (!stickerLoader.item) return
+
+        if (stickerLoader.sourceComponent == videoComponent)
+            stickerLoader.item.pause()
+        else if (stickerLoader.sourceComponent == animatedComponent)
+            stickerLoader.item.paused = true
+    }
+
+    function play() {
+        if (!stickerLoader.item) return
+
+        if (stickerLoader.sourceComponent == videoComponent)
+            stickerLoader.item.play()
+        else if (stickerLoader.sourceComponent == animatedComponent)
+            stickerLoader.item.paused = false
     }
 
     Loader {
@@ -71,6 +112,15 @@ Item {
                 cache: false
                 layer.enabled: sticker.highlighted
                 layer.effect: PressEffect { source: animatedSticker }
+                Connections {
+                    target: loop ? null : animatedSticker
+                    ignoreUnknownSignals: true
+                    onCurrentFrameChanged:
+                        if (animatedSticker.frameCount !== 0 // can't use this in target expression because non-NOTIFYable
+                                && animatedSticker.currentFrame >= animatedSticker.frameCount - 1) {
+                            animatedSticker.paused = true
+                        }
+                }
             }
         }
 
@@ -82,7 +132,7 @@ Item {
 
                 source: file.path
                 autoPlay: true
-                onStopped: if (status == MediaPlayer.EndOfMedia) play()
+                onStopped: if (sticker.loop && status == MediaPlayer.EndOfMedia) play()
 
                 Connections {
                     target: Qt.application

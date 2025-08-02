@@ -224,52 +224,6 @@ AccordionItem {
                 }
             }
 
-            ComboBox {
-                id: sponsoredComboBox
-                width: parent.columnWidth
-                label: qsTr("Sponsored messages")
-                description: qsTr("Enable or disable sponsored messages. Note that they will always be disabled for Premium subscribers.")
-                menu: ContextMenu {
-                    id: sponsoredMenu
-                    x: 0
-                    width: sponsoredComboBox.width
-
-                    MenuItem {
-                        readonly property int value: AppSettings.SponsoredMessHandle
-                        text: qsTr("Enable")
-                        onClicked: appSettings.sponsoredMess = value
-                    }
-                    MenuItem {
-                        readonly property int value: AppSettings.SponsoredMessAutoView
-                        text: qsTr("Auto view")
-                        onClicked: appSettings.sponsoredMess = value
-                    }
-                    MenuItem {
-                        readonly property int value: AppSettings.SponsoredMessIgnore
-                        text: qsTr("Ignore")
-                        onClicked: appSettings.sponsoredMess = value
-                    }
-                }
-
-                Component.onCompleted: updateSponsoredSelection()
-
-                function updateSponsoredSelection() {
-                    var menuItems = sponsoredMenu.children
-                    var n = menuItems.length
-                    for (var i=0; i<n; i++) {
-                        if (menuItems[i].value === appSettings.sponsoredMess) {
-                            currentIndex = i
-                            return
-                        }
-                    }
-                }
-
-                Connections {
-                    target: appSettings
-                    onNotificationFeedbackChanged: sponsoredComboBox.updateSponsoredSelection()
-                }
-            }
-
             /*Slider {
                 width: parent.width
                 label: qsTr("Voice note volume")
