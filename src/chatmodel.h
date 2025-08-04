@@ -103,7 +103,6 @@ private:
     void updateAlbumMessages(QList<qlonglong> albumIds, bool checkDeleted);
     void setMessagesAlbum(const QList<MessageData*> newMessages);
     void setMessagesAlbum(MessageData *message);
-    QVariantMap enhanceMessage(const QVariantMap &message);
     int calculateLastReadMessageIndexInBounds();
     int calculateLastScrollMessageIndex();
     int calculateLastReadSentMessageIndex();
