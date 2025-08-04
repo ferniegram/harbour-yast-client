@@ -587,7 +587,7 @@ void ChatModel::handleMessagesReceived(const QVariantList &messages, int totalCo
             emit messagesReceived(scrollPosition, totalCount);
         }
     } else {
-        if (this->isMostRecentMessageLoaded() || this->inIncrementalUpdate) {
+        if (this->isMostRecentMessageLoaded() || this->inIncrementalUpdate || this->inReload) {
             QList<MessageData*> messagesToBeAdded;
             QListIterator<QVariant> messagesIterator(messages);
 
