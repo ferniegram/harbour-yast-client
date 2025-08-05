@@ -1074,8 +1074,8 @@ int ChatModel::calculateLastReadSentMessageIndex() {
 }
 
 int ChatModel::calculateScrollPosition() {
-    int listInboxPosition = this->highlightedMessageId;
-    if (listInboxPosition == 0)
+    int listInboxPosition = this->messageIndexMap.value(this->highlightedMessageId, -1);
+    if (listInboxPosition == -1)
         listInboxPosition = this->calculateLastScrollMessageIndex();
 
     LOG("Calculating new scroll position, current:" << listInboxPosition << ", list size:" << this->messages.size());
