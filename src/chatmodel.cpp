@@ -460,6 +460,8 @@ void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId)
 
 void ChatModel::loadEnd(bool markAllAsRead) {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
+        LOG("Loading end of the chat... markAllAsRead:" << markAllAsRead << (markAllAsRead ? 0 : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong()) << chatId);
+
         if (markAllAsRead) // FIXME: is this really needed?
             this->tdLibWrapper->toggleChatIsMarkedAsUnread(this->chatId, false);
 
