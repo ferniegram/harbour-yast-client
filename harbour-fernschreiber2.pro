@@ -23,6 +23,7 @@ DEFINES += QT_STATICPLUGIN
 SOURCES += src/harbour-fernschreiber2.cpp \
     src/appsettings.cpp \
     src/boolfiltermodel.cpp \
+    src/chatmodel.cpp \
     src/chatpermissionfiltermodel.cpp \
     src/chatlistmodel.cpp \
     src/contactsmodel.cpp \
@@ -234,6 +235,7 @@ INSTALLS += telegram 86.png 108.png 128.png 172.png 256.png \
 HEADERS += \
     src/appsettings.h \
     src/boolfiltermodel.h \
+    src/chatmodel.h \
     src/chatpermissionfiltermodel.h \
     src/chatlistmodel.h \
     src/contactsmodel.h \

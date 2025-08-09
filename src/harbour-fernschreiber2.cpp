@@ -43,7 +43,7 @@
 #include "tdlibwrapper.h"
 #include "chatpermissionfiltermodel.h"
 #include "chatlistmodel.h"
-#include "messagesmodel.h"
+#include "chatmodel.h"
 #include "notificationmanager.h"
 #include "mceinterface.h"
 #include "dbusadaptor.h"
@@ -156,9 +156,9 @@ int main(int argc, char *argv[])
     ChatListModel chatListModel(tdLibWrapper, appSettings, utilities);
     context->setContextProperty("chatListModel", &chatListModel);
 
-    MessagesModel chatModel(tdLibWrapper);
+    ChatModel chatModel(tdLibWrapper);
     context->setContextProperty("chatModel", &chatModel);
-    qmlRegisterUncreatableType<MessagesModel>(uri, 1, 0, "ChatModel", QString());
+    qmlRegisterUncreatableType<ChatModel>(uri, 1, 0, "ChatModel", QString());
 
     NotificationManager notificationManager(tdLibWrapper, appSettings, mceInterface, &chatModel, utilities);
     context->setContextProperty("notificationManager", &notificationManager);
