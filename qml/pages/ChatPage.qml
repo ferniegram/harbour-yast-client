@@ -1768,6 +1768,7 @@ Page {
                     property bool isDocument: false
                     property bool isVoiceNote: false
                     property bool isLocation: false
+                    property bool attachmentSelected: isPicture || isDocument || isVideo || isVoiceNote || isLocation
                     property var locationData: null
                     property var geocodedAddress: qsTr("Unknown address")
                     property var fileProperties: null
@@ -2015,7 +2016,23 @@ Page {
                         height: Math.min(chatContainer.height / 3, implicitHeight)
                         anchors.verticalCenter: parent.verticalCenter
                         font.pixelSize: Theme.fontSizeSmall
-                        placeholderText: qsTr("Your message")
+                        placeholderText: {
+                            if (isChannel)
+                                return chatInformation.default_disable_notification
+                                        ? qsTr("Silent Broadcast", "placeholder for broadcasting a message to a channel silently")
+                                        : qsTr("Broadcast", "placeholder for broadcasting a message to a channel")
+
+                            if (isSuperGroup && chatGroupInformation && chatGroupInformation.status &&
+                                    ((chatGroupInformation.status["@type"] === "chatMemberStatusCreator" && chatGroupInformation.status.is_anonymous)
+                                     || (chatGroupInformation.status["@type"] === "chatMemberStatusAdministrator" && chatGroupInformation.status.rights.is_anonymous)))
+                                return qsTr("Send anonymously", "placeholder for sending an anonymous message in a supergroup")
+
+                            if ((isSuperGroup && chatGroupInformation.paid_message_star_count > 0) || (isPrivateChat && chatPartnerInformation.paid_message_star_count > 0))
+                                // fixme: format the number somehow and maybe use ⭐️ emoji
+                                return qsTr("Message for %1 Stars", "placeholder for sending a message for %1 stars").arg(isSuperGroup ? chatGroupInformation.paid_message_star_count : chatPartnerInformation.paid_message_star_count)
+
+                            return qsTr("Message", "placeholder for sending a message")
+                        }
                         labelVisible: false
                         textLeftMargin: 0
                         textTopMargin: 0
@@ -2062,13 +2079,15 @@ Page {
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: Theme.paddingSmall
                         visible: !inlineQuery.userNameIsValid && (!appSettings.sendByEnter || (!appSettings.sendAttachmentByEnter && attachmentPreviewRow.visible))
-                        enabled: newMessageTextField.text.length !== 0
-                                 || attachmentPreviewRow.isPicture
-                                 || attachmentPreviewRow.isDocument
-                                 || attachmentPreviewRow.isVideo
-                                 || attachmentPreviewRow.isVoiceNote
-                                 || attachmentPreviewRow.isLocation
+                        enabled: (/chatPage.hasSendPrivilege('can_send_basic_messages') &&*/ newMessageTextField.text.length !== 0)
+                                 || attachmentPreviewRow.attachmentSelected
+                        /*icon.opacity: !enabled || (!attachmentPreviewRow.attachmentSelected && !chatPage.hasSendPrivilege('can_send_basic_messages'))
+                                      ? Theme.opacityLow : 1.0*/
                         onClicked: {
+                            /*if (!attachmentPreviewRow.attachmentSelected && !chatPage.hasSendPrivilege('can_send_basic_messages')) {
+                                appNotification.show(qsTr("The admins of this group don't allow sending text messages.", "app notification text"))
+                                return
+                            }*/
                             sendMessage()
                             newMessageTextField.text = ""
                             if(!appSettings.focusTextAreaAfterSend)
