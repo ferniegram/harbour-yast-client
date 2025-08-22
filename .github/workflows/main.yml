@@ -9,6 +9,10 @@ on:
       - master
     tags:
       - '*'
+    paths-ignore:
+      - doc/**
+      - README.md
+      - LICENSE
   # to prevent secrets leaking,
   # we don't build on PRs
   #pull_request:
