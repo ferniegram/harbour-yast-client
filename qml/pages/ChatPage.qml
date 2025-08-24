@@ -2079,7 +2079,7 @@ Page {
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: Theme.paddingSmall
                         visible: !inlineQuery.userNameIsValid && (!appSettings.sendByEnter || (!appSettings.sendAttachmentByEnter && attachmentPreviewRow.visible))
-                        enabled: (/chatPage.hasSendPrivilege('can_send_basic_messages') &&*/ newMessageTextField.text.length !== 0)
+                        enabled: (/*chatPage.hasSendPrivilege('can_send_basic_messages') &&*/ newMessageTextField.text.length !== 0)
                                  || attachmentPreviewRow.attachmentSelected
                         /*icon.opacity: !enabled || (!attachmentPreviewRow.attachmentSelected && !chatPage.hasSendPrivilege('can_send_basic_messages'))
                                       ? Theme.opacityLow : 1.0*/

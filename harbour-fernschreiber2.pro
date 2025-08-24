@@ -16,7 +16,7 @@ CONFIG += sailfishapp sailfishapp_i18n c++17
 
 PKGCONFIG += nemonotifications-qt5 zlib
 
-QT += core dbus sql multimedia positioning
+QT += core dbus multimedia positioning
 
 DEFINES += QT_STATICPLUGIN
 
@@ -285,7 +285,8 @@ SOURCES += \
     rlottie/src/lottie/lottiekeypath.cpp \
     rlottie/src/lottie/lottieloader.cpp \
     rlottie/src/lottie/lottiemodel.cpp \
-    rlottie/src/lottie/lottieparser.cpp
+    rlottie/src/lottie/lottieparser.cpp \
+    rlottie/src/lottie/zip/zip.cpp
 
 SOURCES += \
     rlottie/src/vector/freetype/v_ft_math.cpp \
