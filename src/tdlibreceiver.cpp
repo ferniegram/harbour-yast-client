@@ -333,7 +333,7 @@ void TDLibReceiver::processUpdateUnreadChatCount(const QVariantMap &receivedInfo
 
 void TDLibReceiver::processUpdateChatLastMessage(const QVariantMap &receivedInformation)
 {
-    const QString chat_id(receivedInformation.value(CHAT_ID).toString());
+    const QString chatId(receivedInformation.value(CHAT_ID).toString());
     QString order;
     if (receivedInformation.contains(POSITIONS)) {
         order = findChatPositionOrder(receivedInformation.value(POSITIONS).toList());
@@ -341,51 +341,51 @@ void TDLibReceiver::processUpdateChatLastMessage(const QVariantMap &receivedInfo
         order = receivedInformation.value(ORDER).toString();
     }
     const QVariantMap lastMessage = receivedInformation.value(LAST_MESSAGE).toMap();
-    LOG("Last message of chat" << chat_id << "updated, order" << order << "type" << lastMessage.value(_TYPE).toString());
-    emit chatLastMessageUpdated(chat_id, order, cleanupMap(lastMessage));
+    LOG("Last message of chat" << chatId << "updated, order" << order << "type" << lastMessage.value(_TYPE).toString());
+    emit chatLastMessageUpdated(chatId, order, cleanupMap(lastMessage));
 }
 
 void TDLibReceiver::processUpdateChatPosition(const QVariantMap &receivedInformation)
 {
-    const QString chat_id(receivedInformation.value(CHAT_ID).toString());
+    const QString chatId(receivedInformation.value(CHAT_ID).toString());
     QVariantMap positionMap = receivedInformation.value(POSITION).toMap();
 
     QString updateForChatList = positionMap.value(LIST).toMap().value(_TYPE).toString();
     const QString order(positionMap.value(ORDER).toString());
-    bool is_pinned = positionMap.value(IS_PINNED).toBool();
+    bool isPinned = positionMap.value(IS_PINNED).toBool();
 
     // We are only processing main chat list updates at the moment...
     if (updateForChatList == TYPE_CHAT_LIST_MAIN) {
-        LOG("Chat position updated for ID" << chat_id << "new order" << order << "is pinned" << is_pinned);
-        emit chatOrderUpdated(chat_id, order);
-        emit chatPinnedUpdated(chat_id.toLongLong(), is_pinned);
+        LOG("Chat position updated for ID" << chatId << "new order" << order << "is pinned" << isPinned);
+        emit chatOrderUpdated(chatId, order);
+        emit chatPinnedUpdated(chatId.toLongLong(), isPinned);
     } else {
-        LOG("Received chat position update for uninteresting list" << updateForChatList << "ID" << chat_id << "new order" << order << "is pinned" << is_pinned);
+        LOG("Received chat position update for uninteresting list" << updateForChatList << "ID" << chatId << "new order" << order << "is pinned" << isPinned);
     }
 }
 
 void TDLibReceiver::processUpdateChatReadInbox(const QVariantMap &receivedInformation)
 {
-    const QString chat_id(receivedInformation.value(CHAT_ID).toString());
-    const QString unread_count(receivedInformation.value(UNREAD_COUNT).toString());
-    LOG("Chat read information updated for" << chat_id << "unread count:" << unread_count);
-    emit chatReadInboxUpdated(chat_id, receivedInformation.value(LAST_READ_INBOX_MESSAGE_ID).toString(), unread_count.toInt());
+    const QString chatId(receivedInformation.value(CHAT_ID).toString());
+    const QString unreadCount(receivedInformation.value(UNREAD_COUNT).toString());
+    LOG("Chat read information updated for" << chatId << "unread count:" << unreadCount);
+    emit chatReadInboxUpdated(chatId, receivedInformation.value(LAST_READ_INBOX_MESSAGE_ID).toString(), unreadCount.toInt());
 }
 
 void TDLibReceiver::processUpdateChatReadOutbox(const QVariantMap &receivedInformation)
 {
-    const QString chat_id(receivedInformation.value(CHAT_ID).toString());
-    const QString last_read_outbox_message_id(receivedInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toString());
-    LOG("Sent messages read information updated for" << chat_id << "last read message ID:" << last_read_outbox_message_id);
-    emit chatReadOutboxUpdated(chat_id, last_read_outbox_message_id);
+    const QString chatId(receivedInformation.value(CHAT_ID).toString());
+    const QString lastReadOutboxMessageId(receivedInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toString());
+    LOG("Sent messages read information updated for" << chatId << "last read message ID:" << lastReadOutboxMessageId);
+    emit chatReadOutboxUpdated(chatId, lastReadOutboxMessageId);
 }
 
 void TDLibReceiver::processUpdateChatAvailableReactions(const QVariantMap &receivedInformation)
 {
-    const qlonglong chat_id(receivedInformation.value(CHAT_ID).toLongLong());
-    const QVariantMap available_reactions(receivedInformation.value(AVAILABLE_REACTIONS).toMap());
-    LOG("Available reactions updated for" << chat_id << "new information:" << available_reactions);
-    emit chatAvailableReactionsUpdated(chat_id, available_reactions);
+    const qlonglong chatId(receivedInformation.value(CHAT_ID).toLongLong());
+    const QVariantMap availableReactions(receivedInformation.value(AVAILABLE_REACTIONS).toMap());
+    LOG("Available reactions updated for" << chatId << "new information:" << availableReactions);
+    emit chatAvailableReactionsUpdated(chatId, availableReactions);
 }
 
 void TDLibReceiver::processUpdateBasicGroup(const QVariantMap &receivedInformation)
@@ -413,16 +413,16 @@ void TDLibReceiver::processChatOnlineMemberCountUpdated(const QVariantMap &recei
 
 void TDLibReceiver::processMessages(const QVariantMap &receivedInformation)
 {
-    const int total_count = receivedInformation.value(TOTAL_COUNT).toInt();
-    LOG("Received new messages, amount: " << total_count);
-    emit messagesReceived(cleanupList(receivedInformation.value(MESSAGES).toList()), total_count);
+    const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
+    LOG("Received new messages, amount: " << totalCount);
+    emit messagesReceived(cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount);
 }
 
 void TDLibReceiver::processFoundChatMessages(const QVariantMap &receivedInformation)
 {
-    const int total_count = receivedInformation.value(TOTAL_COUNT).toInt();
-    LOG("Received found chat messages, amount: " << total_count);
-    emit messagesReceived(cleanupList(receivedInformation.value(MESSAGES).toList()), total_count);
+    const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
+    LOG("Received found chat messages, amount: " << totalCount);
+    emit messagesReceived(cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount);
 }
 
 void TDLibReceiver::processSponsoredMessages(const QVariantMap &receivedInformation) {
@@ -755,9 +755,9 @@ void TDLibReceiver::processUpdateMessageInteractionInfo(const QVariantMap &recei
 
 void TDLibReceiver::processSessions(const QVariantMap &receivedInformation)
 {
-    int inactive_session_ttl_days = receivedInformation.value("inactive_session_ttl_days").toInt();
+    int inactiveSessionTTLDays = receivedInformation.value("inactive_session_ttl_days").toInt();
     QVariantList sessions = receivedInformation.value("sessions").toList();
-    emit sessionsReceived(inactive_session_ttl_days, sessions);
+    emit sessionsReceived(inactiveSessionTTLDays, sessions);
 }
 
 void TDLibReceiver::processAvailableReactions(const QVariantMap &receivedInformation)
@@ -810,15 +810,15 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
         bool cleaned = false;
         const QVariantMap sticker(cleanupMap(map.value(STICKER).toMap(), &cleaned));
         if (cleaned) {
-            QVariantMap animated_emoji(map);
-            animated_emoji.remove(STICKER);
-            animated_emoji.insert(STICKER, sticker);
-            animated_emoji.remove(FITZPATRICK_TYPE);
-            animated_emoji.remove(SOUND);
-            animated_emoji.remove(_TYPE);
-            animated_emoji.insert(_TYPE, TYPE_ANIMATED_EMOJI); // Replace with a shared value
+            QVariantMap animatedEmoji(map);
+            animatedEmoji.remove(STICKER);
+            animatedEmoji.insert(STICKER, sticker);
+            animatedEmoji.remove(FITZPATRICK_TYPE);
+            animatedEmoji.remove(SOUND);
+            animatedEmoji.remove(_TYPE);
+            animatedEmoji.insert(_TYPE, TYPE_ANIMATED_EMOJI); // Replace with a shared value
             if (updated) *updated = true;
-            return animated_emoji;
+            return animatedEmoji;
         }
     } else if (type == TYPE_MESSAGE) {
         QVariantMap message(map);
@@ -840,19 +840,19 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
             //         "origin_send_date": 0
             //     }
             //
-            QVariantMap reply_to(message.value(REPLY_TO).toMap());
-            if (reply_to.value(_TYPE).toString() == TYPE_MESSAGE_REPLY_TO_MESSAGE) {
-                if (reply_to.contains(MESSAGE_ID) &&
+            QVariantMap replyTo(message.value(REPLY_TO).toMap());
+            if (replyTo.value(_TYPE).toString() == TYPE_MESSAGE_REPLY_TO_MESSAGE) {
+                if (replyTo.contains(MESSAGE_ID) &&
                     !message.contains(REPLY_TO_MESSAGE_ID)) {
-                    message.insert(REPLY_TO_MESSAGE_ID, reply_to.value(MESSAGE_ID));
+                    message.insert(REPLY_TO_MESSAGE_ID, replyTo.value(MESSAGE_ID));
                 }
-                if (reply_to.contains(CHAT_ID) &&
+                if (replyTo.contains(CHAT_ID) &&
                     !message.contains(REPLY_IN_CHAT_ID)) {
-                    message.insert(REPLY_IN_CHAT_ID, reply_to.value(CHAT_ID));
+                    message.insert(REPLY_IN_CHAT_ID, replyTo.value(CHAT_ID));
                 }
-                reply_to.remove(_TYPE);
-                reply_to.insert(_TYPE, TYPE_MESSAGE_REPLY_TO_MESSAGE);
-                message.insert(REPLY_TO, reply_to);
+                replyTo.remove(_TYPE);
+                replyTo.insert(_TYPE, TYPE_MESSAGE_REPLY_TO_MESSAGE);
+                message.insert(REPLY_TO, replyTo);
                 messageChanged = true;
             }
         }
@@ -864,17 +864,17 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
         }
     } else if (type == TYPE_DRAFT_MESSAGE) {
         QVariantMap draftMessage(map);
-        QVariantMap reply_to(draftMessage.value(REPLY_TO).toMap());
+        QVariantMap replyTo(draftMessage.value(REPLY_TO).toMap());
         // In TdLib 1.8.21 reply_to_message_id has been replaced with reply_to
-        if (reply_to.value(_TYPE).toString() == TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE) {
-            if (reply_to.contains(MESSAGE_ID) &&
+        if (replyTo.value(_TYPE).toString() == TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE) {
+            if (replyTo.contains(MESSAGE_ID) &&
                 !draftMessage.contains(REPLY_TO_MESSAGE_ID)) {
                 // reply_to_message_id is what QML (still) expects
-                draftMessage.insert(REPLY_TO_MESSAGE_ID, reply_to.value(MESSAGE_ID));
+                draftMessage.insert(REPLY_TO_MESSAGE_ID, replyTo.value(MESSAGE_ID));
             }
-            reply_to.remove(_TYPE);
-            reply_to.insert(_TYPE, TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE); // Shared value
-            draftMessage.insert(REPLY_TO, reply_to);
+            replyTo.remove(_TYPE);
+            replyTo.insert(_TYPE, TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE); // Shared value
+            draftMessage.insert(REPLY_TO, replyTo);
             draftMessage.remove(_TYPE);
             draftMessage.insert(_TYPE, DRAFT_MESSAGE); // Shared value
             if (updated) *updated = true;
@@ -894,11 +894,11 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
         }
     } else if (type == TYPE_MESSAGE_ANIMATED_EMOJI) {
         bool cleaned = false;
-        const QVariantMap animated_emoji(cleanupMap(map.value(ANIMATED_EMOJI).toMap(), &cleaned));
+        const QVariantMap animatedEmoji(cleanupMap(map.value(ANIMATED_EMOJI).toMap(), &cleaned));
         if (cleaned) {
             QVariantMap messageAnimatedEmoji(map);
             messageAnimatedEmoji.remove(ANIMATED_EMOJI);
-            messageAnimatedEmoji.insert(ANIMATED_EMOJI, animated_emoji);
+            messageAnimatedEmoji.insert(ANIMATED_EMOJI, animatedEmoji);
             messageAnimatedEmoji.remove(_TYPE);
             messageAnimatedEmoji.insert(_TYPE, TYPE_MESSAGE_ANIMATED_EMOJI); // Replace with a shared value
             if (updated) *updated = true;
