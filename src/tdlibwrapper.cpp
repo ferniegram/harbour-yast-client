@@ -115,20 +115,14 @@ namespace {
     );
 }
 
-QVariant getChatPositionOrder(const QVariantMap &position) {
-    if (position.value(_TYPE).toString() == TYPE_CHAT_POSITION &&
-        position.value(LIST).toMap().value(_TYPE) == TYPE_CHAT_LIST_MAIN) {
-        return position.value(ORDER).toString();
+QVariantMap findChatPosition(const QVariantList &positions) {
+    for (const QVariant &positionVariant : positions) {
+        const QVariantMap position = positionVariant.toMap();
+        if (position.value(_TYPE).toString() == TYPE_CHAT_POSITION &&
+                position.value(LIST).toMap().value(_TYPE) == TYPE_CHAT_LIST_MAIN)
+            return position;
     }
-    return QVariant();
-}
-
-QVariant findChatPositionOrder(const QVariantList &positions) {
-    for (QVariant position : positions) {
-        const QVariant order = getChatPositionOrder(position.toMap());
-        if (order.isValid()) return order;
-    }
-    return QVariant();
+    return QVariantMap();
 }
 
 TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *parent)
@@ -1604,8 +1598,8 @@ void TDLibWrapper::handleNewChatDiscovered(const QVariantMap &chatInformation) {
         const QString chatListType = chatList.toMap().value(_TYPE).toString();
         const QVariantList positions = chatInformation.value(POSITIONS).toList();
         if (chatListType == TYPE_CHAT_LIST_MAIN) {
-            qlonglong order = findChatPositionOrder(positions).toLongLong(); // ignore if not found
-            emit chatAddedToMainList(chatInformation, order);
+            const QVariantMap position = findChatPosition(positions);
+            emit chatAddedToMainList(chatInformation, position.value(ORDER).toLongLong(), position.value(IS_PINNED).toBool());
         }
     }
 }
@@ -1618,8 +1612,9 @@ void TDLibWrapper::handleChatAddedToList(const QVariantMap &chatList, qlonglong 
 
         if (chatListType == TYPE_CHAT_LIST_MAIN) {
             LOG("Chat added to main list" << chatId);
-            // TODO: update positions field when needed (probably)
-            emit chatAddedToMainList(chatInformation, findChatPositionOrder(positions).toLongLong()); // ignore if not found
+            // TODO: update positions field when needed (maybe, but probably not needed)
+            const QVariantMap position = findChatPosition(positions);
+            emit chatAddedToMainList(chatInformation, position.value(ORDER).toLongLong(), position.value(IS_PINNED).toBool()); // ignore if not found
         } else LOG("Chat added to an unused list" << chatId);
     }
 }

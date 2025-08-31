@@ -74,7 +74,7 @@ public:
     Q_INVOKABLE void calculateUnreadState();
 
 private slots:
-    void handleChatAddedToList(const QVariantMap &chatInformation, qlonglong order);
+    void handleChatAddedToList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
     void handleChatRemovedFromList(qlonglong chatId);
     void handleChatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage);
     void handleChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);

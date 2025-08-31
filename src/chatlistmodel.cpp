@@ -61,7 +61,7 @@ class ChatListModel::ChatData
 {
 public:
 
-    ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data, qlonglong order);
+    ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data, qlonglong order, bool isPinned);
 
     int compareTo(const ChatData *chat) const;
     bool setOrder(const QVariant &order);
@@ -106,7 +106,7 @@ public:
 
 };
 
-ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data, qlonglong order) :
+ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data, qlonglong order, bool isPinned) :
     tdLibWrapper(tdLibWrapper),
     utilities(utilities),
     chatData(data),
@@ -129,6 +129,8 @@ ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utiliti
     case TDLibWrapper::ChatTypeSecret:
         break;
     }
+
+    chatData.insert(IS_PINNED, isPinned);
 }
 
 int ChatListModel::ChatData::compareTo(const ChatData *other) const
@@ -568,9 +570,9 @@ void ChatListModel::calculateUnreadState()
     }
 }
 
-void ChatListModel::handleChatAddedToList(const QVariantMap &chatToBeAdded, qlonglong order) {
+void ChatListModel::handleChatAddedToList(const QVariantMap &chatToBeAdded, qlonglong order, bool isPinned) {
     LOG("Chat added to list");
-    ChatData *chat = new ChatData(tdLibWrapper, utilities, chatToBeAdded, order);
+    ChatData *chat = new ChatData(tdLibWrapper, utilities, chatToBeAdded, order, isPinned);
 
     const TDLibWrapper::Group *group = tdLibWrapper->getGroup(chat->groupId);
     if (group)

@@ -289,7 +289,7 @@ signals:
     void fileUpdated(int fileId, const QVariantMap &fileInformation);
     void newChatDiscovered(qlonglong chatId, const QVariantMap &chatInformation);
 
-    void chatAddedToMainList(const QVariantMap &chatInformation, qlonglong order);
+    void chatAddedToMainList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
     void chatRemovedFromMainList(qlonglong chatId);
     void mainChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
 
