@@ -599,6 +599,7 @@ void ChatListModel::handleChatRemovedFromList(qlonglong chatId) {
 
         beginRemoveRows(QModelIndex(), i, i);
         chatList.removeAt(i);
+        chatIndexMap.remove(chatId);
         // Update damaged part of the map
         const int n = chatList.size();
         for (int pos = i; pos < n; pos++) {
