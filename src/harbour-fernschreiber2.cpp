@@ -151,6 +151,8 @@ int main(int argc, char *argv[])
 
     ChatListModel chatListModel(tdLibWrapper, appSettings, utilities);
     context->setContextProperty("chatListModel", &chatListModel);
+    ChatListModel archiveChatListModel(tdLibWrapper, appSettings, utilities, true);
+    context->setContextProperty("archiveChatListModel", &archiveChatListModel);
 
     ChatModel chatModel(tdLibWrapper);
     context->setContextProperty("chatModel", &chatModel);

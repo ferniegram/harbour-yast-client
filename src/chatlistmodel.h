@@ -60,7 +60,7 @@ public:
         RoleDraftMessageDate
     };
 
-    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities);
+    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, bool archive = false);
     ~ChatListModel() override;
 
     QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;

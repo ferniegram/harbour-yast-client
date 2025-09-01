@@ -352,15 +352,20 @@ QVector<int> ChatListModel::ChatData::updateSecretChat(const QVariantMap &secret
     return changedRoles;
 }
 
-ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities) {
+ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, bool archive) {
     this->tdLibWrapper = tdLibWrapper;
     this->appSettings = appSettings;
     this->utilities = utilities;
 
-    connect(tdLibWrapper, &TDLibWrapper::chatAddedToMainList, this, &ChatListModel::handleChatAddedToList);
-    connect(tdLibWrapper, &TDLibWrapper::chatRemovedFromMainList, this, &ChatListModel::handleChatRemovedFromList);
-
-    connect(tdLibWrapper, &TDLibWrapper::mainChatListChatPositionUpdated, this, &ChatListModel::handleChatPositionUpdated);
+    if (!archive) {
+        connect(tdLibWrapper, &TDLibWrapper::chatAddedToMainList, this, &ChatListModel::handleChatAddedToList);
+        connect(tdLibWrapper, &TDLibWrapper::chatRemovedFromMainList, this, &ChatListModel::handleChatRemovedFromList);
+        connect(tdLibWrapper, &TDLibWrapper::mainChatListChatPositionUpdated, this, &ChatListModel::handleChatPositionUpdated);
+    } else {
+        connect(tdLibWrapper, &TDLibWrapper::chatAddedToArchiveList, this, &ChatListModel::handleChatAddedToList);
+        connect(tdLibWrapper, &TDLibWrapper::chatRemovedFromArchiveList, this, &ChatListModel::handleChatRemovedFromList);
+        connect(tdLibWrapper, &TDLibWrapper::archiveChatListChatPositionUpdated, this, &ChatListModel::handleChatPositionUpdated);
+    }
 
     connect(tdLibWrapper, &TDLibWrapper::chatLastMessageUpdated, this, &ChatListModel::handleChatLastMessageUpdated);
     connect(tdLibWrapper, &TDLibWrapper::chatDraftMessageUpdated, this, &ChatListModel::handleChatDraftMessageUpdated);

@@ -166,7 +166,7 @@ public:
     Q_INVOKABLE void setAuthenticationPassword(const QString &authenticationPassword);
     Q_INVOKABLE void registerUser(const QString &firstName, const QString &lastName);
     Q_INVOKABLE void logout();
-    Q_INVOKABLE void getChats();
+    Q_INVOKABLE void loadChats(bool archive = false);
     Q_INVOKABLE void downloadFile(int fileId);
     Q_INVOKABLE void openChat(const QString &chatId);
     Q_INVOKABLE void closeChat(const QString &chatId);
@@ -293,9 +293,12 @@ signals:
     void chatRemovedFromMainList(qlonglong chatId);
     void mainChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
 
+    void chatAddedToArchiveList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
+    void chatRemovedFromArchiveList(qlonglong chatId);
+    void archiveChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
+
     void chatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage);
     void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage);
-
     void unreadMessageCountUpdated(const QVariantMap &messageCountInformation);
     void unreadChatCountUpdated(const QVariantMap &chatCountInformation);
     void chatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);

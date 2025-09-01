@@ -47,6 +47,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/BackgroundImage.qml \
     qml/components/ChatBadges.qml \
     qml/components/ChatListViewItem.qml \
+    qml/components/ChatsView.qml \
     qml/components/ContactSync.qml \
     qml/components/DocumentPreview.qml \
     qml/components/GamePreview.qml \
@@ -142,6 +143,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/dialogs/AddContactDialog.qml \
     qml/js/debug.js \
     qml/js/functions.js \
+    qml/pages/ArchivedChatsPage.qml \
     qml/pages/ChatInformationPage.qml \
     qml/pages/ChatPage.qml \
     qml/pages/ChatSelectionPage.qml \

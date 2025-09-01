@@ -35,6 +35,10 @@ Page {
     property int ownUserId;
     property bool chatListCreated: false;
 
+    property bool titleInteractionHintActive
+    property string loadingText
+    signal scrollToTopRequired
+
     // link handler:
     property string urlToOpen;
     property var chatToOpen: null; //null or [chatId, messageId]
@@ -65,15 +69,15 @@ Page {
         running: false
         repeat: false
         onTriggered: {
-            overviewPage.chatListCreated = true;
-            chatListView.scrollToTop();
-            updateSecondaryContentTimer.start();
-            var remainingInteractionHints = appSettings.remainingInteractionHints;
-            Debug.log("Remaining interaction hints: " + remainingInteractionHints);
+            overviewPage.chatListCreated = true
+            scrollToTopRequired()
+            updateSecondaryContentTimer.start()
+            var remainingInteractionHints = appSettings.remainingInteractionHints
+            Debug.log("Remaining interaction hints: " + remainingInteractionHints)
             if (remainingInteractionHints > 0) {
-                interactionHintTimer.start();
-                titleInteractionHint.opacity = 1.0;
-                appSettings.remainingInteractionHints = remainingInteractionHints - 1;
+                interactionHintTimer.start()
+                titleInteractionHintActive = true
+                appSettings.remainingInteractionHints = remainingInteractionHints - 1
             }
             processUrlToOpen()
         }
@@ -90,6 +94,7 @@ Page {
         interval: 600
         onTriggered: {
             chatListModel.calculateUnreadState()
+            archiveChatListModel.calculateUnreadState()
             tdLibWrapper.getRecentStickers()
             tdLibWrapper.getInstalledStickerSets()
             tdLibWrapper.getContacts()
@@ -100,13 +105,6 @@ Page {
             tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowProfilePhoto)
             tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowStatus)
         }
-    }
-
-    TextFilterModel {
-        id: chatListProxyModel
-        sourceModel: (chatSearchField.opacity > 0) ? chatListModel : null
-        filterRoleName: "filter"
-        filterText: chatSearchField.text
     }
 
     function openChat(chatId) {
@@ -158,11 +156,8 @@ Page {
     }
 
     function updateContent() {
-        tdLibWrapper.getChats();
-    }
-
-    function initializePage() {
-        overviewPage.handleAuthorizationState(true);
+        tdLibWrapper.loadChats()
+        tdLibWrapper.loadChats(true)
     }
 
     function handleAuthorizationState(isOnInitialization) {
@@ -173,17 +168,16 @@ Page {
         case TelegramAPI.WaitRegistration:
             overviewPage.loading = false;
             overviewPage.logoutLoading = false;
-            if(isOnInitialization) { // pageStack isn't ready on Component.onCompleted
+            if(isOnInitialization) // pageStack isn't ready on Component.onCompleted
                 openInitializationPageTimer.start()
-            } else {
-                pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"));
-            }
+            else
+                pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"))
             break;
         case TelegramAPI.AuthorizationReady:
-            loadingBusyIndicator.text = qsTr("Loading chat list...");
-            overviewPage.loading = false;
-            overviewPage.initializationCompleted = true;
-            overviewPage.updateContent();
+            loadingText = qsTr("Loading chat list...")
+            overviewPage.loading = false
+            overviewPage.initializationCompleted = true
+            overviewPage.updateContent()
             break;
         case TelegramAPI.LoggingOut:
             if (logoutLoading) {
@@ -191,48 +185,40 @@ Page {
                 return;
             }
             Debug.log("Logging out")
-            overviewPage.initializationCompleted = false;
-            overviewPage.loading = false;
-            chatListCreatedTimer.stop();
-            updateSecondaryContentTimer.stop();
-            loadingBusyIndicator.text = qsTr("Logging out")
-            overviewPage.logoutLoading = true;
-            chatListModel.reset();
-            break;
+            overviewPage.initializationCompleted = false
+            overviewPage.loading = false
+            chatListCreatedTimer.stop()
+            updateSecondaryContentTimer.stop()
+            loadingText = qsTr("Logging out")
+            overviewPage.logoutLoading = true
+            chatListModel.reset()
+            archiveChatListModel.reset()
+            break
         default:
             // Nothing ;)
         }
     }
 
-    function resetFocus() {
-        if (chatSearchField.text === "") {
-            chatSearchField.opacity = 0.0;
-            pageHeader.opacity = 1.0;
-        }
-        chatSearchField.focus = false;
-        overviewPage.focus = true;
-    }
-
     Connections {
         target: tdLibWrapper
-        onAuthorizationStateChanged: {
-            handleAuthorizationState(false);
-        }
-        onOwnUserIdFound: {
-            overviewPage.ownUserId = ownUserId;
-        }
+        onAuthorizationStateChanged:
+            handleAuthorizationState(false)
+        onOwnUserIdFound:
+            overviewPage.ownUserId = ownUserId
         onMainChatListChatLastMessageUpdated: {
-            if (!overviewPage.chatListCreated) {
-                chatListCreatedTimer.restart();
-            } else {
-                chatListModel.calculateUnreadState();
+            if (!overviewPage.chatListCreated)
+                chatListCreatedTimer.restart()
+            else {
+                chatListModel.calculateUnreadState()
+                archiveChatListModel.calculateUnreadState()
             }
         }
         onMainChatListChatPositionUpdated: {
-            if (!overviewPage.chatListCreated) {
-                chatListCreatedTimer.restart();
-            } else {
-                chatListModel.calculateUnreadState();
+            if (!overviewPage.chatListCreated)
+                chatListCreatedTimer.restart()
+            else {
+                chatListModel.calculateUnreadState()
+                archiveChatListModel.calculateUnreadState()
             }
         }
         onChatsReceived: {
@@ -274,15 +260,11 @@ Page {
         }
     }
 
-    Component.onCompleted: initializePage()
+    Component.onCompleted:
+        overviewPage.handleAuthorizationState(true)
 
-    SilicaFlickable {
-        id: overviewContainer
-        contentHeight: parent.height
-        contentWidth: parent.width
-        anchors.fill: parent
-        visible: !overviewPage.loading
-
+    ChatsView {
+        model: chatListModel
         PullDownMenu {
             MenuItem {
                 text: "Debug"
@@ -305,134 +287,9 @@ Page {
                 text: qsTr("New Chat")
                 onClicked: pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
             }
-        }
-
-        PageHeader {
-            id: pageHeader
-            title: "Ferniegram"
-            leftMargin: Theme.itemSizeMedium
-            visible: opacity > 0
-            Behavior on opacity { FadeAnimation {} }
-
-            GlassItem {
-                id: pageStatus
-                width: Theme.itemSizeMedium
-                height: Theme.itemSizeMedium
-                color: "red"
-                falloffRadius: 0.1
-                radius: 0.2
-                cache: false
-                anchors.bottom: parent.bottom
-            }
-
-            states: [
-                State {
-                    name: "WaitingForNetwork"
-                    when: tdLibWrapper.connectionState == TelegramAPI.WaitingForNetwork
-                    PropertyChanges { target: pageStatus; color: "red" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Waiting for network...") }
-                },
-                State {
-                    name: "Connecting"
-                    when: tdLibWrapper.connectionState == TelegramAPI.Connecting
-                    PropertyChanges { target: pageStatus; color: "gold" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Connecting to network...") }
-                },
-                State {
-                    name: "ConnectingToProxy"
-                    when: tdLibWrapper.connectionState == TelegramAPI.ConnectingToProxy
-                    PropertyChanges { target: pageStatus; color: "gold" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Connecting to proxy...") }
-                },
-                State {
-                    name: "ConnectionReady"
-                    when: tdLibWrapper.connectionState == TelegramAPI.ConnectionReady
-                    PropertyChanges { target: pageStatus; color: "green" }
-                    PropertyChanges { target: pageHeader; title: "Ferniegram" }
-                },
-                State {
-                    name: "Updating"
-                    when: tdLibWrapper.connectionState == TelegramAPI.Updating
-                    PropertyChanges { target: pageStatus; color: "lightblue" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Updating content...") }
-                }
-            ]
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    chatSearchField.focus = true;
-                    chatSearchField.opacity = 1.0;
-                    pageHeader.opacity = 0.0;
-                }
-            }
-
-        }
-
-        SearchField {
-            id: chatSearchField
-            visible: opacity > 0
-            opacity: 0
-            Behavior on opacity { FadeAnimation {} }
-            width: parent.width
-            height: pageHeader.height
-            placeholderText: qsTr("Filter your chats...")
-            canHide: text === ""
-
-            onHideClicked: {
-                resetFocus();
-            }
-
-            EnterKey.iconSource: "image://theme/icon-m-enter-close"
-            EnterKey.onClicked: {
-                resetFocus();
-            }
-        }
-
-        SilicaListView {
-            id: chatListView
-            anchors {
-                top: pageHeader.bottom
-                bottom: parent.bottom
-                left: parent.left
-                right: parent.right
-            }
-            clip: true
-            opacity: (overviewPage.chatListCreated && !overviewPage.logoutLoading) ? 1 : 0
-            Behavior on opacity { FadeAnimation {} }
-            model: chatListProxyModel.sourceModel ? chatListProxyModel : chatListModel
-            delegate: ChatListViewItem {
-                ownUserId: overviewPage.ownUserId
-                verificationStatus: verification_status
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {
-                        chatInformation : display,
-                        chatPicture: photo_small
-                    })
-                }
-            }
-
-            ViewPlaceholder {
-                enabled: chatListView.count === 0
-                text: chatListModel.count === 0 ? qsTr("You don't have any chats yet.") : qsTr("No matching chats found.")
-                hintText: qsTr("You can search public chats or create a new chat via the pull-down menu.")
-            }
-
-            VerticalScrollDecorator {}
-        }
-
-        Column {
-            width: parent.width
-            spacing: Theme.paddingMedium
-            anchors.verticalCenter: chatListView.verticalCenter
-
-            opacity: overviewPage.chatListCreated && !overviewPage.logoutLoading ? 0 : 1
-            Behavior on opacity { FadeAnimation {} }
-            visible: !overviewPage.chatListCreated || overviewPage.logoutLoading
-
-            BusyLabel {
-                    id: loadingBusyIndicator
-                    running: true
+            MenuItem {
+                text: qsTr("Archive")
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
             }
         }
     }
@@ -441,19 +298,7 @@ Page {
         id: interactionHintTimer
         running: false
         interval: 4000
-        onTriggered: {
-            titleInteractionHint.opacity = 0.0;
-        }
-    }
-
-    InteractionHintLabel {
-        id: titleInteractionHint
-        text: qsTr("Tap on the title bar to filter your chats")
-        visible: opacity > 0
-        invert: true
-        anchors.fill: parent
-        Behavior on opacity { FadeAnimation {} }
-        opacity: 0
+        onTriggered: titleInteractionHintActive = false
     }
 
 }
