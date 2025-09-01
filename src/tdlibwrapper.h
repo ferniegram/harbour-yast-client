@@ -155,6 +155,8 @@ public:
     Q_INVOKABLE bool getJoinChatRequested();
     Q_INVOKABLE void registerJoinChat();
     Q_INVOKABLE bool isDiceEmoji(const QString &text);
+    Q_INVOKABLE void getChatListsToAddChat(qlonglong chatId);
+    Q_INVOKABLE void addChatToList(qlonglong chatId, bool archive);
 
     DBusAdaptor *getDBusAdaptor();
 
@@ -373,6 +375,7 @@ signals:
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
     void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
+    void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
 
 public slots:
     // appSettings

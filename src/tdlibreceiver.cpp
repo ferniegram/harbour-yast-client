@@ -80,6 +80,7 @@ namespace {
     const QString CENTER_REEL("center_reel");
     const QString RIGHT_REEL("right_reel");
     const QString CHAT_LIST("chat_list");
+    const QString CHAT_LISTS("chat_lists");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -186,6 +187,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("emojiKeywords", &TDLibReceiver::processEmojiKeywords);
     handlers.insert("updateDiceEmojis", &TDLibReceiver::processUpdateDiceEmojis);
     handlers.insert("updateSuggestedActions", &TDLibReceiver::processUpdateSuggestedActions);
+    handlers.insert("chatLists", &TDLibReceiver::processChatLists);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -1071,4 +1073,9 @@ void TDLibReceiver::processUpdateDiceEmojis(const QVariantMap &receivedInformati
 void TDLibReceiver::processUpdateSuggestedActions(const QVariantMap &receivedInformation) {
     LOG("Received updateSuggestedActions");
     emit suggestedActionsUpdated(receivedInformation.value("added_actions").toList(), receivedInformation.value("removed_actions").toList());
+}
+
+void TDLibReceiver::processChatLists(const QVariantMap &receivedInformation) {
+    LOG("Received chatLists");
+    emit chatListsReceived(receivedInformation.value(_EXTRA).toLongLong(), receivedInformation.value(CHAT_LISTS).toList());
 }

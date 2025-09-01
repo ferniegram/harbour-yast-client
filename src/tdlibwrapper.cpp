@@ -86,6 +86,7 @@ namespace {
     const QString LOCATION("location");
     const QString POSITIONS("positions");
     const QString CHAT_LISTS("chat_lists");
+    const QString CHAT_LIST("chat_list");
     const QString LIST("list");
     const QString ORDER("order");
     const QString IS_PINNED("is_pinned");
@@ -268,6 +269,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::emojiKeywordsReceived, this, &TDLibWrapper::emojiKeywordsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::diceEmojisUpdated, this, &TDLibWrapper::handleDiceEmojisUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::suggestedActionsUpdated, this, &TDLibWrapper::suggestedActionsUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::chatListsReceived, this, &TDLibWrapper::chatListsReceived);
 
     this->tdLibReceiver->start();
 }
@@ -327,7 +329,7 @@ void TDLibWrapper::loadChats(bool archive) {
     this->sendRequest(QVariantMap{
                           {_TYPE, "loadChats"},
                           {"limit", 5},
-                          {"chat_list", QVariantMap{{_TYPE, (archive ? TYPE_CHAT_LIST_ARCHIVE : TYPE_CHAT_LIST_MAIN)}}}
+                          {CHAT_LIST, QVariantMap{{_TYPE, (archive ? TYPE_CHAT_LIST_ARCHIVE : TYPE_CHAT_LIST_MAIN)}}}
                       });
 }
 
@@ -992,7 +994,7 @@ void TDLibWrapper::toggleChatIsPinned(qlonglong chatId, bool isPinned) {
     LOG("Toggle chat is pinned" << chatId << isPinned);
     this->sendRequest(QVariantMap{
         {_TYPE, "toggleChatIsPinned"},
-        {"chat_list", QVariantMap{{_TYPE, TYPE_CHAT_LIST_MAIN}}},
+        {CHAT_LIST, QVariantMap{{_TYPE, TYPE_CHAT_LIST_MAIN}}},
         {CHAT_ID, chatId},
         {"is_pinned", isPinned},
         {"is_marked_as_unread", isPinned}
@@ -2237,4 +2239,14 @@ void TDLibWrapper::handleDiceEmojisUpdated(const QStringList &emojis) {
 bool TDLibWrapper::isDiceEmoji(const QString &text) {
     LOG("Checking if text is a dice emoji" << text);
     return diceEmojis.contains(QString(text).trimmed());
+}
+
+void TDLibWrapper::getChatListsToAddChat(qlonglong chatId) {
+    LOG("Getting chat lists the chat can be added to" << chatId);
+    sendRequest(QVariantMap{{_TYPE, "getChatListsToAddChat"}, {CHAT_ID, chatId}, {_EXTRA, chatId}});
+}
+
+void TDLibWrapper::addChatToList(qlonglong chatId, bool archive) {
+    LOG("Adding chat to a list" << chatId << "archive" << archive);
+    sendRequest(QVariantMap{{_TYPE, "addChatToList"}, {CHAT_ID, chatId}, {CHAT_LIST, archive ? TYPE_CHAT_LIST_ARCHIVE : TYPE_CHAT_LIST_MAIN}});
 }
