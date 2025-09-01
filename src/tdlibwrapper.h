@@ -286,7 +286,7 @@ public:
 signals:
     void versionDetected(const QString &version);
     void ownUserIdFound(const QString &ownUserId);
-    void authorizationStateChanged(const TDLibWrapper::AuthorizationState &authorizationState, const QVariantMap &authorizationStateData);
+    void authorizationStateChanged();
     void optionUpdated(const QString &optionName, const QVariant &optionValue);
     void connectionStateChanged(const TDLibWrapper::ConnectionState &connectionState);
     void fileUpdated(int fileId, const QVariantMap &fileInformation);

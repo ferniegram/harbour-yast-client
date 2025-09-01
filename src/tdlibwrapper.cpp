@@ -1530,7 +1530,7 @@ void TDLibWrapper::handleAuthorizationStateChanged(const QString &authorizationS
         this->authorizationState = AuthorizationState::WaitTdlibParameters;
     }
     this->authorizationStateData = authorizationStateData;
-    emit authorizationStateChanged(this->authorizationState, this->authorizationStateData);
+    emit authorizationStateChanged();
 }
 
 void TDLibWrapper::handleOptionUpdated(const QString &optionName, const QVariant &optionValue) {
