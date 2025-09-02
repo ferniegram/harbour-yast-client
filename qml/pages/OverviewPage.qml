@@ -162,10 +162,10 @@ Page {
 
     function handleAuthorizationState(isOnInitialization) {
         switch (tdLibWrapper.authorizationState) {
-        case TDLibWrapper.WaitPhoneNumber:
-        case TDLibWrapper.WaitCode:
-        case TDLibWrapper.WaitPassword:
-        case TDLibWrapper.WaitRegistration:
+        case TDLibState.WaitPhoneNumber:
+        case TDLibState.WaitCode:
+        case TDLibState.WaitPassword:
+        case TDLibState.WaitRegistration:
             overviewPage.loading = false;
             overviewPage.logoutLoading = false;
             if(isOnInitialization) // pageStack isn't ready on Component.onCompleted
@@ -173,13 +173,13 @@ Page {
             else
                 pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"))
             break;
-        case TDLibWrapper.AuthorizationReady:
+        case TDLibState.AuthorizationReady:
             loadingText = qsTr("Loading chat list...")
             overviewPage.loading = false
             overviewPage.initializationCompleted = true
             overviewPage.updateContent()
             break;
-        case TDLibWrapper.LoggingOut:
+        case TDLibState.LoggingOut:
             if (logoutLoading) {
                 Debug.log("Resources cleared already");
                 return;
@@ -205,7 +205,7 @@ Page {
             handleAuthorizationState(false)
         onOwnUserIdFound:
             overviewPage.ownUserId = ownUserId
-        onMainChatListChatLastMessageUpdated: {
+        onChatLastMessageUpdated: {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
             else {

@@ -54,7 +54,7 @@ AccordionItem {
             }
 
             Loader {
-                active: tdLibWrapper.authorizationState === TDLibWrapper.AuthorizationReady
+                active: tdLibWrapper.authorizationState === TDLibState.AuthorizationReady
                 width: parent.width
                 sourceComponent: Component {
                     Column {

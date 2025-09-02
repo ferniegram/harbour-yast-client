@@ -55,6 +55,7 @@
 #include "utilities.h"
 #include "knownusersmodel.h"
 #include "contactsmodel.h"
+#include "tdlibstate.h"
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
 // QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2
@@ -141,6 +142,8 @@ int main(int argc, char *argv[])
     TDLibWrapper *tdLibWrapper = new TDLibWrapper(appSettings, mceInterface, view.data());
     context->setContextProperty("tdLibWrapper", tdLibWrapper);
     qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TDLibWrapper", QString());
+
+    qmlRegisterUncreatableType<TDLibState>(uri, 1, 0, "TDLibState", QString());
 
     Utilities *utilities = new Utilities(appSettings, tdLibWrapper, view.data());
     context->setContextProperty("utilities", utilities);

@@ -33,11 +33,10 @@
 #include "appsettings.h"
 #include "mceinterface.h"
 
-class TDLibWrapper : public QObject
-{
+class TDLibWrapper : public QObject {
     Q_OBJECT
-    Q_PROPERTY(AuthorizationState authorizationState MEMBER authorizationState NOTIFY authorizationStateChanged)
-    Q_PROPERTY(QVariantMap authorizationStateData MEMBER authorizationStateData NOTIFY authorizationStateChanged)
+    Q_PROPERTY(TDLibState::AuthorizationState authorizationState READ getAuthorizationState NOTIFY authorizationStateChanged)
+    Q_PROPERTY(QVariantMap authorizationStateData READ getAuthorizationStateData NOTIFY authorizationStateChanged)
     Q_PROPERTY(QString version MEMBER versionString)
     Q_PROPERTY(ConnectionState connectionState MEMBER connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QVariantMap userInformation READ getUserInformation NOTIFY ownUserUpdated)
@@ -46,21 +45,6 @@ class TDLibWrapper : public QObject
 public:
     explicit TDLibWrapper(AppSettings *appSettings, MceInterface *mceInterface, QObject *parent = nullptr);
     ~TDLibWrapper();
-
-    enum AuthorizationState {
-        Closed,
-        Closing,
-        LoggingOut,
-        AuthorizationReady,
-        WaitCode,
-        WaitEncryptionKey,
-        WaitOtherDeviceConfirmation,
-        WaitPassword,
-        WaitPhoneNumber,
-        WaitRegistration,
-        WaitTdlibParameters
-    };
-    Q_ENUM(AuthorizationState)
 
     enum ConnectionState {
         Connecting,
@@ -134,6 +118,9 @@ public:
         const qlonglong groupId;
         QVariantMap groupInfo;
     };
+
+    Q_INVOKABLE inline TDLibState::AuthorizationState getAuthorizationState() const { return tdLibState->authorizationState; }
+    Q_INVOKABLE inline QVariantMap getAuthorizationStateData() const { return tdLibState->authorizationStateData; }
 
     Q_INVOKABLE QVariantMap getUserInformation();
     Q_INVOKABLE QVariantMap getUserInformation(const QString &userId);
@@ -384,8 +371,10 @@ public slots:
     void handleStorageOptimizerChanged();
     void handleSendMarkdownChanged();
 
+    // TDLibState
+    void setInitialParameters();
+
     void handleVersionDetected(const QString &version);
-    void handleAuthorizationStateChanged(const QString &authorizationState, const QVariantMap authorizationStateData);
     void handleOptionUpdated(const QString &optionName, const QVariant &optionValue);
     void handleConnectionStateChanged(const QString &connectionState);
     void handleUserUpdated(const QVariantMap &updatedUserInformation);
@@ -417,8 +406,6 @@ public slots:
 
 private:
     void setOption(const QString &name, const QString &type, const QVariant &value);
-    void setInitialParameters();
-    void setEncryptionKey();
     void setLogVerbosityLevel();
     QVariantMap &fillTdlibParameters(QVariantMap &parameters);
     const Group *updateGroup(qlonglong groupId, const QVariantMap &groupInfo, QHash<qlonglong,Group*> *groups);
@@ -438,8 +425,6 @@ private:
     TDLibState *tdLibState;
     DBusInterface *dbusInterface;
     QString versionString;
-    TDLibWrapper::AuthorizationState authorizationState;
-    QVariantMap authorizationStateData;
     TDLibWrapper::ConnectionState connectionState;
     QVariantMap options;
     QVariantMap userInformation;

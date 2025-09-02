@@ -31,7 +31,7 @@ Page {
         initializationPage.loading = false;
 
         switch (tdLibWrapper.authorizationState) {
-        case TDLibWrapper.WaitCode:
+        case TDLibState.WaitCode:
             initializationPage.loading = false;
             welcomeColumn.visible = false;
             enterPinColumn.visible = true;
@@ -39,14 +39,14 @@ Page {
             enterPasswordColumn.visible = false;
             waitRegistrationColumn.visible = false;
             break;
-        case TDLibWrapper.WaitPassword:
+        case TDLibState.WaitPassword:
             initializationPage.loading = false;
             welcomeColumn.visible = false;
             enterPinColumn.visible = false;
             enterPasswordColumn.visible = true;
             waitRegistrationColumn.visible = false;
             break;
-        case TDLibWrapper.WaitRegistration:
+        case TDLibState.WaitRegistration:
             initializationPage.loading = false;
             welcomeColumn.visible = false;
             enterPinColumn.visible = false;
@@ -63,26 +63,26 @@ Page {
         target: tdLibWrapper
         onAuthorizationStateChanged: {
             switch (tdLibWrapper.authorizationState) {
-            case TDLibWrapper.WaitCode:
+            case TDLibState.WaitCode:
                 initializationPage.loading = false;
                 enterPinColumn.visible = true;
                 enterPinField.focus = true
                 enterPasswordColumn.visible = false;
                 waitRegistrationColumn.visible = false;
                 break;
-            case TDLibWrapper.WaitPassword:
+            case TDLibState.WaitPassword:
                 initializationPage.loading = false;
                 enterPinColumn.visible = false;
                 enterPasswordColumn.visible = true;
                 waitRegistrationColumn.visible = false;
                 break;
-            case TDLibWrapper.WaitRegistration:
+            case TDLibState.WaitRegistration:
                 initializationPage.loading = false;
                 enterPinColumn.visible = false;
                 enterPasswordColumn.visible = false;
                 waitRegistrationColumn.visible = true;
                 break;
-            case TDLibWrapper.AuthorizationReady:
+            case TDLibState.AuthorizationReady:
                 initializationPage.loading = false;
                 pageStack.completeAnimation();
                 pageStack.pop();

@@ -134,7 +134,6 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
     , networkConfigurationManager(new QNetworkConfigurationManager(this))
     , appSettings(settings)
     , mceInterface(mce)
-    , authorizationState(AuthorizationState::Closed)
     , versionNumber(0)
     , joinChatRequested(false)
     , isLoggingOut(false)
@@ -172,7 +171,7 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
 TDLibWrapper::~TDLibWrapper() {
     LOG("Closing TDLib instance...");
     this->close();
-    while (this->authorizationState != AuthorizationState::Closed) {
+    while (this->tdLibState->authorizationState != TDLibState::AuthorizationState::Closed) {
         QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
     }
     this->tdLibReceiver->setActive(false);
@@ -187,7 +186,6 @@ void TDLibWrapper::initializeTDLibReceiver() {
     this->tdLibReceiver = new TDLibReceiver(this->tdLibClientId, this);
 
     connect(this->tdLibReceiver, &TDLibReceiver::versionDetected, this, &TDLibWrapper::handleVersionDetected);
-    connect(this->tdLibReceiver, &TDLibReceiver::authorizationStateChanged, this, &TDLibWrapper::handleAuthorizationStateChanged);
     connect(this->tdLibReceiver, &TDLibReceiver::optionUpdated, this, &TDLibWrapper::handleOptionUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::connectionStateChanged, this, &TDLibWrapper::handleConnectionStateChanged);
     connect(this->tdLibReceiver, &TDLibReceiver::userUpdated, this, &TDLibWrapper::handleUserUpdated);
@@ -272,7 +270,10 @@ void TDLibWrapper::initializeTDLibReceiver() {
     // TDLibState manages updates like users, chats, global reactions, dices, etc.
     this->tdLibState = new TDLibState(this->tdLibReceiver, this);
 
+    connect(this->tdLibState, &TDLibState::authorizationStateChanged, this, &TDLibWrapper::authorizationStateChanged);
     connect(this->tdLibState, &TDLibState::reactionsUpdated, this, &TDLibWrapper::reactionsUpdated);
+
+    connect(this->tdLibState, &TDLibState::initialParametersRequested, this, &TDLibWrapper::setInitialParameters);
 
     this->tdLibReceiver->start();
 }
@@ -1483,56 +1484,6 @@ void TDLibWrapper::handleVersionDetected(const QString &version) {
     emit versionDetected(version);
 }
 
-void TDLibWrapper::handleAuthorizationStateChanged(const QString &authorizationState, const QVariantMap authorizationStateData) {
-    if (authorizationState == "authorizationStateClosed") {
-        this->authorizationState = AuthorizationState::Closed;
-    }
-
-    if (authorizationState == "authorizationStateClosing") {
-        this->authorizationState = AuthorizationState::Closing;
-    }
-
-    if (authorizationState == "authorizationStateLoggingOut") {
-        this->authorizationState = AuthorizationState::LoggingOut;
-    }
-
-    if (authorizationState == "authorizationStateReady") {
-        this->authorizationState = AuthorizationState::AuthorizationReady;
-    }
-
-    if (authorizationState == "authorizationStateWaitCode") {
-        this->authorizationState = AuthorizationState::WaitCode;
-    }
-
-    if (authorizationState == "authorizationStateWaitEncryptionKey") {
-        this->setEncryptionKey();
-        this->authorizationState = AuthorizationState::WaitEncryptionKey;
-    }
-
-    if (authorizationState == "authorizationStateWaitOtherDeviceConfirmation") {
-        this->authorizationState = AuthorizationState::WaitOtherDeviceConfirmation;
-    }
-
-    if (authorizationState == "authorizationStateWaitPassword") {
-        this->authorizationState = AuthorizationState::WaitPassword;
-    }
-
-    if (authorizationState == "authorizationStateWaitPhoneNumber") {
-        this->authorizationState = AuthorizationState::WaitPhoneNumber;
-    }
-
-    if (authorizationState == "authorizationStateWaitRegistration") {
-        this->authorizationState = AuthorizationState::WaitRegistration;
-    }
-
-    if (authorizationState == "authorizationStateWaitTdlibParameters") {
-        this->setInitialParameters();
-        this->authorizationState = AuthorizationState::WaitTdlibParameters;
-    }
-    this->authorizationStateData = authorizationStateData;
-    emit authorizationStateChanged();
-}
-
 void TDLibWrapper::handleOptionUpdated(const QString &optionName, const QVariant &optionValue) {
     this->options.insert(optionName, optionValue);
     emit optionUpdated(optionName, optionValue);
@@ -1974,15 +1925,6 @@ void TDLibWrapper::setInitialParameters() {
     QVariantMap requestObject;
     requestObject.insert(_TYPE, "setTdlibParameters");
     fillTdlibParameters(requestObject);
-    this->sendRequest(requestObject);
-}
-
-void TDLibWrapper::setEncryptionKey() {
-    LOG("Setting database encryption key");
-    QVariantMap requestObject;
-    requestObject.insert(_TYPE, "checkDatabaseEncryptionKey");
-    // see https://github.com/tdlib/td/issues/188#issuecomment-379536139
-    requestObject.insert("encryption_key", "");
     this->sendRequest(requestObject);
 }
 

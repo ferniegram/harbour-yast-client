@@ -23,12 +23,11 @@ import "../components"
 import "../js/functions.js" as Functions
 
 CoverBackground {
-
     id: coverPage
 
     property int unreadMessages: 0
     property int unreadChats: 0
-    readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibWrapper.AuthorizationReady
+    readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibState.Ready
 
     Component.onCompleted: {
         coverPage.unreadMessages = tdLibWrapper.getUnreadMessageInformation().unread_count || 0;
@@ -123,15 +122,15 @@ CoverBackground {
         Text {
             id: connectionStateText
             text: switch (tdLibWrapper.connectionState) {
-            case TDLibWrapper.WaitingForNetwork:
+            case TDLibState.WaitingForNetwork:
                 return qsTr("Waiting for network...")
-            case TDLibWrapper.Connecting:
+            case TDLibState.Connecting:
                 return qsTr("Connecting to network...")
-            case TDLibWrapper.ConnectingToProxy:
+            case TDLibState.ConnectingToProxy:
                 return qsTr("Connecting to proxy...")
-            case TDLibWrapper.ConnectionReady:
+            case TDLibState.ConnectionReady:
                 return qsTr("Connected")
-            case TDLibWrapper.Updating:
+            case TDLibState.Updating:
                 return qsTr("Updating content...")
             default: return ''
             }
