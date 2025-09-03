@@ -27,7 +27,7 @@ CoverBackground {
 
     property int unreadMessages: 0
     property int unreadChats: 0
-    readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibState.Ready
+    readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibState.AuthorizationReady
 
     Component.onCompleted: {
         coverPage.unreadMessages = tdLibWrapper.getUnreadMessageInformation().unread_count || 0;
