@@ -89,7 +89,6 @@ signals:
     void chatPermissionsUpdated(qlonglong chatId, const QVariantMap &chatPermissions);
     void chatPhotoUpdated(qlonglong chatId, const QVariantMap &photo);
     void chatTitleUpdated(qlonglong chatId, const QString &title);
-    void chatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);
     void messageIsPinnedUpdated(qlonglong chatId, qlonglong messageId, bool isPinned);
     void usersReceived(const QString &extra, const QVariantList &senders, int totalUsers);
     void messageSendersReceived(const QString &extra, const QVariantList &userIds, int totalUsers);
