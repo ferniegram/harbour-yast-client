@@ -205,7 +205,7 @@ Page {
             handleAuthorizationState(false)
         onOwnUserIdFound:
             overviewPage.ownUserId = ownUserId
-        onMainChatListChatLastMessageUpdated: {
+        onChatLastMessageUpdated: {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
             else {
@@ -213,7 +213,7 @@ Page {
                 archiveChatListModel.calculateUnreadState()
             }
         }
-        onMainChatListChatPositionUpdated: {
+        onChatPositionUpdated: {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
             else {
