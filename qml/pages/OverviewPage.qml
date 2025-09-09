@@ -203,12 +203,7 @@ Page {
             handleAuthorizationState(false)
         onOwnUserIdFound:
             overviewPage.ownUserId = ownUserId
-        onChatLastMessageUpdated: {
-            if (!overviewPage.chatListCreated)
-                chatListCreatedTimer.restart()
-            else tdLibWrapper.chatListsCalculateUnreadState()
-        }
-        onSomeChatPositionUpdated: {
+        onSomeChatListUpdated: {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
             else tdLibWrapper.chatListsCalculateUnreadState()

@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("tdLibWrapper", tdLibWrapper);
     qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TelegramAPI", QString());
 
-    Utilities *utilities = new Utilities(appSettings, tdLibWrapper, view.data());
+    Utilities *utilities = tdLibWrapper->getUtilities();
     context->setContextProperty("utilities", utilities);
     qmlRegisterUncreatableType<Utilities>(uri, 1, 0, "Utilities", QString());
 

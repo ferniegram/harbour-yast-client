@@ -32,6 +32,9 @@
 #include "appsettings.h"
 #include "mceinterface.h"
 
+class Utilities;
+class ChatData;
+
 class TDLibWrapper : public QObject
 {
     Q_OBJECT
@@ -145,6 +148,7 @@ public:
     Q_INVOKABLE QVariantMap getBasicGroup(qlonglong groupId) const;
     Q_INVOKABLE QVariantMap getSuperGroup(qlonglong groupId) const;
     Q_INVOKABLE QVariantMap getChat(qlonglong chatId);
+    ChatData* getChatData(qlonglong chatId);
     Q_INVOKABLE QVariantMap getSecretChatFromCache(qlonglong secretChatId);
     Q_INVOKABLE QStringList getChatReactions(qlonglong chatId);
     Q_INVOKABLE QString getOptionString(const QString &optionName);
@@ -159,6 +163,7 @@ public:
     Q_INVOKABLE void getArchiveChatListSettings();
     Q_INVOKABLE void setArchiveChatListSettings(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
 
+    inline Utilities *getUtilities() const { return this->utilities; }
     DBusAdaptor *getDBusAdaptor();
 
     // Direct TDLib functions
@@ -294,27 +299,27 @@ signals:
     void fileUpdated(int fileId, const QVariantMap &fileInformation);
     void newChatDiscovered(qlonglong chatId, const QVariantMap &chatInformation);
 
-    void chatAddedToMainList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
+    void chatAddedToMainList(ChatData *chatData, qlonglong order, bool isPinned);
     void chatRemovedFromMainList(qlonglong chatId);
     void mainChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
     void mainChatListUnreadMessageCountUpdated(const QVariantMap &messageCountInformation);
     void mainChatListUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
 
-    void chatAddedToArchiveList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
+    void chatAddedToArchiveList(ChatData *chatData, qlonglong order, bool isPinned);
     void chatRemovedFromArchiveList(qlonglong chatId);
     void archiveChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
     void archiveChatListUnreadMessageCountUpdated(const QVariantMap &messageCountInformation);
     void archiveChatListUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
 
-    void chatAddedToFolderList(int folderId, const QVariantMap &chatInformation, qlonglong order, bool isPinned);
+    void chatAddedToFolderList(int folderId, ChatData *chatData, qlonglong order, bool isPinned);
     void chatRemovedFromFolderList(int folderId, qlonglong chatId);
     void folderChatListChatPositionUpdated(int folderId, qlonglong chatId, qlonglong order, bool isPinned);
     void folderChatListUnreadMessageCountUpdated(int folderId, const QVariantMap &messageCountInformation);
     void folderChatListUnreadChatCountUpdated(int folderId, const QVariantMap &chatCountInformation);
 
-    void someChatPositionUpdated();
-    void chatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage);
-    void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage);
+    void chatRolesUpdated(qlonglong chatId, const QVector<int> changedRoles = QVector<int>());
+
+    void someChatListUpdated();
     void chatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
     void chatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
     void chatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions);
@@ -464,6 +469,7 @@ private:
     MceInterface *mceInterface;
     TDLibReceiver *tdLibReceiver;
     DBusInterface *dbusInterface;
+    Utilities *utilities;
     QString versionString;
     TDLibWrapper::AuthorizationState authorizationState;
     QVariantMap authorizationStateData;
@@ -473,7 +479,7 @@ private:
     QMap<UserPrivacySetting, UserPrivacySettingRule> userPrivacySettingRules;
     QVariantMap usersById;
     QVariantMap usersByName;
-    QHash<qlonglong, QVariantMap> chats;
+    QHash<qlonglong, ChatData*> chats;
     QMap<qlonglong, QVariantMap> secretChats;
     QVariantMap unreadMessageInformation;
     QVariantMap unreadChatInformation;
