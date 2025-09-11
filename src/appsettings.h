@@ -54,6 +54,7 @@ class AppSettings : public QObject {
     Q_PROPERTY(bool unreadCountIncludeMuted READ unreadCountIncludeMuted WRITE setUnreadCountIncludeMuted NOTIFY unreadCountIncludeMutedChanged)
     Q_PROPERTY(bool foldersUnreadCountIncludeMuted READ foldersUnreadCountIncludeMuted WRITE setFoldersUnreadCountIncludeMuted NOTIFY foldersUnreadCountIncludeMutedChanged)
     Q_PROPERTY(bool archiveChatListHintCompleted READ archiveChatListHintCompleted WRITE setArchiveChatListHintCompleted NOTIFY archiveChatListHintCompletedChanged)
+    Q_PROPERTY(bool chatFoldersTabsOnBottom READ chatFoldersTabsOnBottom WRITE setChatFoldersTabsOnBottom NOTIFY chatFoldersTabsOnBottomChanged)
 public:
     enum SponsoredMess {
         SponsoredMessHandle,
@@ -162,6 +163,9 @@ public:
     bool archiveChatListHintCompleted() const;
     void setArchiveChatListHintCompleted(bool value);
 
+    bool chatFoldersTabsOnBottom() const;
+    void setChatFoldersTabsOnBottom(bool value);
+
 signals:
     void sendByEnterChanged();
     void focusTextAreaAfterSendChanged();
@@ -193,6 +197,7 @@ signals:
     void unreadCountIncludeMutedChanged();
     void foldersUnreadCountIncludeMutedChanged();
     void archiveChatListHintCompletedChanged();
+    void chatFoldersTabsOnBottomChanged();
 
 private:
     QSettings settings;

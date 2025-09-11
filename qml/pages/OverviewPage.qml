@@ -256,6 +256,9 @@ Page {
         anchors.fill: parent
         model: chatFoldersModel
 
+        tabBarVisible: count > 1
+        tabBarPosition: appSettings.chatFoldersTabsOnBottom ? Qt.AlignBottom : Qt.AlignTop
+
         delegate: Loader { // BIG HACK
             id: tabLoader
             asynchronous: true

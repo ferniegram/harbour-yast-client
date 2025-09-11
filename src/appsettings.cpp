@@ -51,6 +51,7 @@ namespace {
     const QString UNREAD_COUNT_INCLUDE_MUTED("unreadCountIncludeMuted");
     const QString FOLDERS_UNREAD_COUNT_INCLUDE_MUTED("foldersUnreadCountIncludeMuted");
     const QString ARCHIVE_CHAT_LIST_HINT_COMPLETED("archiveChatListHintCompleted");
+    const QString CHAT_FOLDERS_TABS_ON_BOTTOM("chatFoldersTabsOnBottom");
 }
 
 AppSettings::AppSettings(QObject *parent) :
@@ -451,5 +452,16 @@ void AppSettings::setArchiveChatListHintCompleted(bool value) {
         LOG(ARCHIVE_CHAT_LIST_HINT_COMPLETED << value);
         settings.setValue(ARCHIVE_CHAT_LIST_HINT_COMPLETED, value);
         emit archiveChatListHintCompletedChanged();
+    }
+}
+
+bool AppSettings::chatFoldersTabsOnBottom() const {
+    return settings.value(CHAT_FOLDERS_TABS_ON_BOTTOM).toBool();
+}
+void AppSettings::setChatFoldersTabsOnBottom(bool value) {
+    if (chatFoldersTabsOnBottom() != value) {
+        LOG(CHAT_FOLDERS_TABS_ON_BOTTOM << value);
+        settings.setValue(CHAT_FOLDERS_TABS_ON_BOTTOM, value);
+        emit chatFoldersTabsOnBottomChanged();
     }
 }

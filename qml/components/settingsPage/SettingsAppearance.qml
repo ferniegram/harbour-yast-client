@@ -42,6 +42,14 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
+                checked: appSettings.chatFoldersTabsOnBottom
+                text: qsTr("Move chat folders panel to bottom")
+                automaticCheck: false
+                onClicked: appSettings.chatFoldersTabsOnBottom = !checked
+            }
+
+            TextSwitch {
+                width: parent.columnWidth
                 checked: appSettings.showStickersAsEmojis
                 text: qsTr("Show stickers as emojis")
                 description: qsTr("Only display emojis instead of the actual stickers")
