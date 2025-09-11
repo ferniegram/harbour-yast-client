@@ -308,10 +308,6 @@ Page {
                                         onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"))
                                     }
                                     MenuItem {
-                                        text: qsTr("About Ferniegram")
-                                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/AboutPage.qml"))
-                                    }
-                                    MenuItem {
                                         text: qsTr("Settings")
                                         onClicked: pageStack.push(Qt.resolvedUrl("../pages/SettingsPage.qml"))
                                     }

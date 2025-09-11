@@ -36,6 +36,13 @@ Page {
         contentHeight: column.height
         anchors.fill: parent
 
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("About Ferniegram")
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/AboutPage.qml"))
+            }
+        }
+
         Column {
             id: column
             width: settingsPage.width
