@@ -8,8 +8,7 @@ PhotoTextsListItem {
     width: parent.width
 
     property var chatId
-
-    // ad: !!sponsoredChats[modelData] // or modelData in sponsoredChats
+    property bool doReplace
 
     property var chatInformation: tdLibWrapper.getChat(chatId)
     property var relatedInformation
@@ -17,7 +16,7 @@ PhotoTextsListItem {
     property bool isBasicGroup
     property bool isSupergroup
 
-    Component.onCompleted: {
+    function detectChatType() {
         switch (chatInformation.type["@type"]) {
         case "chatTypePrivate":
             relatedInformation = tdLibWrapper.getUserInformation(chatInformation.type.user_id);
@@ -40,6 +39,9 @@ PhotoTextsListItem {
             break;
         }
     }
+
+    Component.onCompleted: detectChatType()
+    onFoundChatInformationChanged: detectChatType()
 
     Connections {
         target: tdLibWrapper
@@ -95,6 +97,6 @@ PhotoTextsListItem {
     tertiaryText.maximumLineCount: 1
 
     onClicked: {
-        pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatInformation: chatInformation})
+        (doReplace ? pageStack.replace : pageStack.push)(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatInformation: chatInformation})
     }
 }
