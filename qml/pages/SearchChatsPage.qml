@@ -183,7 +183,7 @@ Page {
                             ColumnView {
                                 id: recentlyFoundSearchListView
                                 width: parent.width
-                                model: searchChatsPage.recentlyFoundChatsFound
+                                model: recentlyFoundChatsFound.filter(function(x) { return localChatsFound.indexOf(x) < 0 })
                                 delegate: TDLibChatListItem {
                                     id: recentlyFoundChatDelegate
                                     chatId: modelData
@@ -206,7 +206,7 @@ Page {
                             }
                         }
 
-                        model: searchChatsPage.publicChatsFound
+                        model: publicChatsFound.filter(function(x) { return recentlyFoundChatsFound.indexOf(x) < 0 && localChatsFound.indexOf(x) < 0 })
                         delegate: TDLibChatListItem {
                             chatId: modelData
                             ad: modelData in sponsoredChats
