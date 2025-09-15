@@ -2,7 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 
 ListItem {
-    id: chatListViewItem
+    id: chatItem
 
     property alias primaryText: primaryText //usually chat name
     property alias prologSecondaryText: prologSecondaryText //usually last sender name
@@ -33,13 +33,13 @@ ListItem {
             verticalCenter: parent.verticalCenter
         }
 
-        highlighted: chatListViewItem.highlighted
-        unreadCount: chatListViewItem.unreadCount
-        unreadMentionCount: chatListViewItem.unreadMentionCount
-        unreadReactionCount: chatListViewItem.unreadReactionCount
-        isSecret: chatListViewItem.isSecret
-        isMarkedAsUnread: chatListViewItem.isMarkedAsUnread
-        isPinned: chatListViewItem.isPinned
+        highlighted: chatItem.highlighted
+        unreadCount: chatItem.unreadCount
+        unreadMentionCount: chatItem.unreadMentionCount
+        unreadReactionCount: chatItem.unreadReactionCount
+        isSecret: chatItem.isSecret
+        isMarkedAsUnread: chatItem.isMarkedAsUnread
+        isPinned: chatItem.isPinned
         muted: chatBadges.muted
     }
 
@@ -65,9 +65,9 @@ ListItem {
                 truncationMode: TruncationMode.Fade
                 anchors.verticalCenter: parent.verticalCenter
                 width: Math.min(contentColumn.width - chatBadges.width - parent.spacing, implicitWidth)
-                font.bold: appSettings.highlightUnreadConversations && ( !chatListViewItem.muted && (chatListViewItem.unreadCount > 0 || chatListViewItem.isMarkedAsUnread) )
-                font.italic: appSettings.highlightUnreadConversations  && (chatListViewItem.unreadReactionCount > 0)
-                color: (appSettings.highlightUnreadConversations && (chatListViewItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+                font.bold: appSettings.highlightUnreadConversations && ( !chatItem.muted && (chatItem.unreadCount > 0 || chatItem.isMarkedAsUnread) )
+                font.italic: appSettings.highlightUnreadConversations  && (chatItem.unreadReactionCount > 0)
+                color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
             }
 
             ChatBadges {
