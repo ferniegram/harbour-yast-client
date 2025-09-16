@@ -52,7 +52,7 @@ SilicaListView {
     delegate: ChatListViewItem {
         ownUserId: overviewPage.ownUserId
         verificationStatus: verification_status
-        inArchive: overviewContainer.inArchive
+        inArchive: chatListView.inArchive
         onClicked: {
             pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {
                 chatInformation : display,
@@ -63,7 +63,7 @@ SilicaListView {
 
     ViewPlaceholder {
         enabled: chatListView.count === 0
-        text: !model || overviewContainer.model.count === 0 ? qsTr("You don't have any chats yet.") : qsTr("No matching chats found.")
+        text: !model || chatListView.model.count === 0 ? qsTr("You don't have any chats yet.") : qsTr("No matching chats found.")
         hintText: qsTr("You can search public chats or create a new chat via the pull-down menu.")
     }
 
