@@ -164,7 +164,7 @@ AboutPageBase {
             ]
         },
         InfoSection {
-            text: qsTr("TDLib version %1").arg(tdLibWrapper.version)
+            text: qsTr("TDLib version %1 (commit hash %2)").arg(tdLibWrapper.getOptionString("version")).arg(tdLibWrapper.getOptionString("commit_hash"))
         }
 
     ]

@@ -37,7 +37,6 @@ class TDLibWrapper : public QObject
     Q_OBJECT
     Q_PROPERTY(AuthorizationState authorizationState MEMBER authorizationState NOTIFY authorizationStateChanged)
     Q_PROPERTY(QVariantMap authorizationStateData MEMBER authorizationStateData NOTIFY authorizationStateChanged)
-    Q_PROPERTY(QString version MEMBER versionString)
     Q_PROPERTY(ConnectionState connectionState MEMBER connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QVariantMap userInformation READ getUserInformation NOTIFY ownUserUpdated)
     Q_PROPERTY(QVariantMap options MEMBER options NOTIFY optionUpdated)
@@ -300,7 +299,6 @@ public:
     static SecretChatState secretChatStateFromString(const QString &state);
 
 signals:
-    void versionDetected(const QString &version);
     void ownUserIdFound(const QString &ownUserId);
     void authorizationStateChanged(const TDLibWrapper::AuthorizationState &authorizationState, const QVariantMap &authorizationStateData);
     void optionUpdated(const QString &optionName, const QVariant &optionValue);
@@ -392,7 +390,6 @@ public slots:
     void handleStorageOptimizerChanged();
     void handleSendMarkdownChanged();
 
-    void handleVersionDetected(const QString &version);
     void handleAuthorizationStateChanged(const QString &authorizationState, const QVariantMap authorizationStateData);
     void handleOptionUpdated(const QString &optionName, const QVariant &optionValue);
     void handleConnectionStateChanged(const QString &connectionState);
@@ -441,7 +438,6 @@ private:
     MceInterface *mceInterface;
     TDLibReceiver *tdLibReceiver;
     DBusInterface *dbusInterface;
-    QString versionString;
     TDLibWrapper::AuthorizationState authorizationState;
     QVariantMap authorizationStateData;
     TDLibWrapper::ConnectionState connectionState;

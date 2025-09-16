@@ -172,7 +172,6 @@ TDLibWrapper::~TDLibWrapper() {
 
 void TDLibWrapper::initializeTDLibReceiver() {
     this->tdLibReceiver = new TDLibReceiver(this->tdLibClientId, this);
-    connect(this->tdLibReceiver, &TDLibReceiver::versionDetected, this, &TDLibWrapper::handleVersionDetected);
     connect(this->tdLibReceiver, &TDLibReceiver::authorizationStateChanged, this, &TDLibWrapper::handleAuthorizationStateChanged);
     connect(this->tdLibReceiver, &TDLibReceiver::optionUpdated, this, &TDLibWrapper::handleOptionUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::connectionStateChanged, this, &TDLibWrapper::handleConnectionStateChanged);
@@ -1456,20 +1455,6 @@ DBusAdaptor *TDLibWrapper::getDBusAdaptor() {
     return this->dbusInterface->getDBusAdaptor();
 }
 
-void TDLibWrapper::handleVersionDetected(const QString &version) {
-    this->versionString = version;
-    const QStringList parts(version.split('.'));
-    uint major, minor, release;
-    bool ok;
-    if (parts.count() >= 3 &&
-       (major = parts.at(0).toInt(&ok), ok) &&
-       (minor = parts.at(1).toInt(&ok), ok) &&
-       (release = parts.at(2).toInt(&ok), ok)) {
-        versionNumber = VERSION_NUMBER(major, minor, release);
-    }
-    emit versionDetected(version);
-}
-
 void TDLibWrapper::handleAuthorizationStateChanged(const QString &authorizationState, const QVariantMap authorizationStateData) {
     if (authorizationState == "authorizationStateClosed") {
         this->authorizationState = AuthorizationState::Closed;
@@ -1523,7 +1508,18 @@ void TDLibWrapper::handleAuthorizationStateChanged(const QString &authorizationS
 void TDLibWrapper::handleOptionUpdated(const QString &optionName, const QVariant &optionValue) {
     this->options.insert(optionName, optionValue);
     emit optionUpdated(optionName, optionValue);
-    if (optionName == "my_id") {
+    if (optionName == "version") {
+        const QString version = optionValue.toString();
+        const QStringList parts(version.split('.'));
+        uint major, minor, release;
+        bool ok;
+        if (parts.count() >= 3 &&
+           (major = parts.at(0).toInt(&ok), ok) &&
+           (minor = parts.at(1).toInt(&ok), ok) &&
+           (release = parts.at(2).toInt(&ok), ok)) {
+            versionNumber = VERSION_NUMBER(major, minor, release);
+        }
+    } else if (optionName == "my_id") {
         QString ownUserId = optionValue.toString();
         this->userInformation = this->getUserInformation(ownUserId);
         emit ownUserIdFound(ownUserId);

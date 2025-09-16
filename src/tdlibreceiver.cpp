@@ -240,18 +240,11 @@ void TDLibReceiver::processReceivedDocument(const QJsonDocument &receivedJsonDoc
     }
 }
 
-void TDLibReceiver::processUpdateOption(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processUpdateOption(const QVariantMap &receivedInformation) {
     const QString currentOption = receivedInformation.value(NAME).toString();
     const QVariant value = receivedInformation.value(VALUE).toMap().value(VALUE);
-    if (currentOption == "version") {
-        QString detectedVersion = value.toString();
-        LOG("TD Lib version detected: " << detectedVersion);
-        emit versionDetected(detectedVersion);
-    } else {
-        LOG("Option updated: " << currentOption << value);
-        emit optionUpdated(currentOption, value);
-    }
+    LOG("Option updated: " << currentOption << value);
+    emit optionUpdated(currentOption, value);
 }
 
 void TDLibReceiver::processUpdateAuthorizationState(const QVariantMap &receivedInformation)
