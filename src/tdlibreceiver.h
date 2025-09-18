@@ -37,7 +37,6 @@ public:
     void setActive(bool active);
 
 signals:
-    void versionDetected(const QString &version);
     void authorizationStateChanged(const QString &authorizationState, const QVariantMap &authorizationStateData);
     void optionUpdated(const QString &optionName, const QVariant &optionValue);
     void connectionStateChanged(const QString &connectionState);
@@ -70,7 +69,7 @@ signals:
     void messageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent);
     void messageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
     void messagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
-    void chats(const QVariantMap &chats);
+    void chats(const QString &extra, const QVariantList &chatIds, const int totalCount);
     void sponsoredChatsReceived(const QVariantList &chats);
     void chat(const QVariantMap &chats);
     void recentStickersUpdated(const QVariantList &stickerIds);

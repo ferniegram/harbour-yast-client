@@ -79,6 +79,7 @@ namespace {
     const QString LEFT_REEL("left_reel");
     const QString CENTER_REEL("center_reel");
     const QString RIGHT_REEL("right_reel");
+    const QString CHAT_IDS("chat_ids");
     const QString CHAT_LIST("chat_list");
     const QString CHAT_LISTS("chat_lists");
 
@@ -228,18 +229,11 @@ void TDLibReceiver::processReceivedDocument(const QJsonDocument &receivedJsonDoc
     }
 }
 
-void TDLibReceiver::processUpdateOption(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processUpdateOption(const QVariantMap &receivedInformation) {
     const QString currentOption = receivedInformation.value(NAME).toString();
     const QVariant value = receivedInformation.value(VALUE).toMap().value(VALUE);
-    if (currentOption == "version") {
-        QString detectedVersion = value.toString();
-        LOG("TD Lib version detected: " << detectedVersion);
-        emit versionDetected(detectedVersion);
-    } else {
-        LOG("Option updated: " << currentOption << value);
-        emit optionUpdated(currentOption, value);
-    }
+    LOG("Option updated: " << currentOption << value);
+    emit optionUpdated(currentOption, value);
 }
 
 void TDLibReceiver::processUpdateAuthorizationState(const QVariantMap &receivedInformation)
@@ -488,9 +482,12 @@ void TDLibReceiver::processUpdateDeleteMessages(const QVariantMap &receivedInfor
     emit messagesDeleted(chatId, ids);
 }
 
-void TDLibReceiver::processChats(const QVariantMap &receivedInformation)
-{
-    emit chats(receivedInformation);
+void TDLibReceiver::processChats(const QVariantMap &receivedInformation) {
+    const QString extra = receivedInformation.value(_EXTRA).toString();
+    const QVariantList chatIds = receivedInformation.value(CHAT_IDS).toList();
+    const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
+    LOG("Received chats" << extra << totalCount);
+    emit chats(extra, chatIds, totalCount);
 }
 
 void TDLibReceiver::processSponsoredChats(const QVariantMap &receivedInformation) {

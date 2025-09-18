@@ -57,9 +57,7 @@ Page {
                 Component.onCompleted: if (initialArea)
                                            setActiveArea(initialArea)
 
-                SettingsUserProfile {
-                    asynchronous: false
-                }
+                SettingsUserProfile {}
                 SettingsSession {}
                 SettingsPrivacy {}
                 SettingsBehavior {}

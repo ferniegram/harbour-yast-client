@@ -22,14 +22,13 @@ import WerkWolf.Fernschreiber 1.0
 import "../components"
 import "../js/debug.js" as Debug
 import "../js/twemoji.js" as Emoji
-import "../js/functions.js" as Functions
 
 Page {
     id: searchChatsPage
     allowedOrientations: Orientation.All
 
     function resetFocus() {
-        publicChatsSearchField.focus = false;
+        searchField.focus = false;
         searchChatsPage.focus = true;
     }
 
@@ -39,41 +38,59 @@ Page {
         running: false
         repeat: false
         onTriggered: {
-            Debug.log("Searching for '" + publicChatsSearchField.text + "'")
-            tdLibWrapper.searchPublicChats(publicChatsSearchField.text)
-            searchChatsPage.isLoading = true
+            Debug.log("Searching for '" + searchField.text + "' globally")
+            publicChatsFound = []
+            recentlyFoundChatsFound = []
+            tdLibWrapper.searchPublicChats(searchField.text)
+            searchChatsPage.publicLoading = true
         }
     }
 
     Connections {
         target: tdLibWrapper
         onChatsReceived: {
-            Debug.log(JSON.stringify(chats))
-            chatsFound = chats
-
-            searchChatsPage.isLoading = false
-            tdLibWrapper.getSearchSponsoredChats(publicChatsSearchField.text)
+            Debug.log("Chats found", extra, JSON.stringify(chatIds))
+            if (extra == 'searchChats') {
+                localChatsFound = chatIds
+            } else if (extra == 'searchPublicChats') {
+                publicChatsFound = chatIds
+                tdLibWrapper.getSearchSponsoredChats(searchField.text)
+                searchChatsPage.publicLoading = false
+            } else if (extra == 'searchRecentlyFoundChats') {
+                recentlyFoundChatsFound = chatIds
+                searchChatsPage.publicLoading = false
+            }
         }
         onSponsoredChatsReceived: {
-            Debug.log(JSON.stringify(chats))
+            Debug.log("Sponsored chats received", JSON.stringify(chats))
             for (var i=0; i < chats.length; i++) {
                 var chatId = chats[i].chat_id
                 sponsoredChats[chatId] = chats[i]
-                chatsFound.unshift(chatId)
+                publicChatsFound.unshift(chatId)
             }
+            sponsoredChatsChanged()
             chatsFoundChanged()
 
-            searchChatsPage.isLoading = false
+            searchChatsPage.publicLoading = false
         }
-        onErrorReceived: {
-            searchChatsPage.isLoading = false
+        onErrorReceived:
+            searchChatsPage.publicLoading = false
+        onOkReceived: {
+            if (request == 'recentlyFound')
+                tdLibWrapper.searchRecentlyFoundChats(searchField.text)
         }
     }
 
-    property bool isLoading: false;
-    property var chatsFound: []
+    property bool publicLoading: false
+    readonly property bool isLoading: publicLoading && publicSearchListView.haveNoLocalResults
+    property var recentlyFoundChatsFound: []
+    property var localChatsFound: []
+    property var publicChatsFound: []
     property var sponsoredChats: ({})
-    readonly property var ownUserId: tdLibWrapper.getUserInformation().id;
+
+    Component.onCompleted: {
+        tdLibWrapper.searchRecentlyFoundChats()
+    }
 
     SilicaFlickable {
         id: searchChatsContainer
@@ -87,7 +104,7 @@ Page {
 
             PageHeader {
                 id: searchChatsPageHeader
-                title: qsTr("Search Chats")
+                title: qsTr("Search", "page header for search page")
             }
 
             Item {
@@ -97,182 +114,259 @@ Page {
                 height: searchChatsPageColumn.height - searchChatsPageHeader.height
 
                 Column {
-
                     width: parent.width
                     height: parent.height
 
                     SearchField {
-                        id: publicChatsSearchField
+                        id: searchField
                         width: parent.width
-                        placeholderText: qsTr("Search a chat...")
+                        placeholderText: qsTr("Search", "Placeholder text for chats search field")
                         focus: true
 
                         onTextChanged: {
-                            searchPublicChatsTimer.restart();
+                            tdLibWrapper.searchRecentlyFoundChats(searchField.text)
+                            if (text) {
+                                tdLibWrapper.searchChats(searchField.text)
+                                searchPublicChatsTimer.restart();
+                                Debug.log("Searching for '" + searchField.text + "' locally")
+                            } else {
+                                localChatsFound = []
+                                publicChatsFound = []
+                            }
                         }
 
                         EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                        EnterKey.onClicked: {
-                            resetFocus();
-                        }
-
+                        EnterKey.onClicked: resetFocus()
                     }
 
                     SilicaListView {
-                        id: searchChatsListView
+                        id: publicSearchListView
                         clip: true
                         width: parent.width
-                        height: parent.height - publicChatsSearchField.height
+                        height: parent.height - searchField.height
                         visible: !searchChatsPage.isLoading
                         opacity: visible ? 1 : 0
                         Behavior on opacity { FadeAnimation {} }
-                        model: searchChatsPage.chatsFound.chat_ids
+
+                        readonly property bool haveNoLocalResults: headerItem
+                                                                   && headerItem.localSearchListView.count == 0
+                                                                   && headerItem.recentlyFoundSearchListView.count == 0
+                        
+                        header: Column {
+                            width: parent.width
+                            property alias localSearchListView: localSearchListView
+                            property alias recentlyFoundSearchListView: recentlyFoundSearchListView
+
+                            Loader {
+                                active: searchField.text == ''
+                                width: parent.width
+                                sourceComponent: Component {
+                                    Column {
+                                        width: parent.width
+                                        readonly property bool canExpand: topChatUsersView.count > topChatUsersView.columnsCount
+                                        property bool expanded: false
+
+                                        SectionHeader {
+                                            text: qsTr("Frequent contacts")
+                                            visible: topChatUsersView.count > 0
+                                            enabled: visible
+                                            rightPadding: expandButton.visible ? (expandButton.width + Theme.paddingLarge) : 0
+
+                                            highlighted: topChatUsersMouseArea.containsPress
+                                            color: highlighted ? Theme.secondaryHighlightColor : Theme.highlightColor
+
+                                            HighlightImage {
+                                                id: expandButton
+                                                anchors {
+                                                    right: parent.right
+                                                    bottom: parent.bottom
+                                                }
+                                                width: Theme.iconSizeMedium
+                                                visible: canExpand
+                                                highlighted: parent.highlighted
+                                                color: Theme.highlightColor
+                                                highlightColor: Theme.secondaryHighlightColor
+                                                source: "image://theme/icon-m-left"
+                                                rotation: expanded ? 90 : -90
+                                                Behavior on rotation { NumberAnimation { duration: 150 } }
+                                            }
+
+                                            MouseArea {
+                                                id: topChatUsersMouseArea
+                                                anchors.fill: parent
+                                                enabled: canExpand
+                                                onClicked: expanded = !expanded
+                                            }
+                                        }
+
+                                        NestedGridView {
+                                            id: topChatUsersView
+                                            width: parent.width
+                                            flickable: publicSearchListView
+                                            readonly property int columnsCount: Math.floor(width / Theme.itemSizeExtraLarge)
+                                            cellWidth: width / columnsCount
+                                            cellHeight: Theme.itemSizeHuge
+
+                                            clip: true//height < cellHeight//!expanded // always true could affect performance, but without it it doesn't look good since it doesn't apply instantly
+                                            property real contentHeight: expanded ? _listView.contentHeight : cellHeight
+                                            height: contentHeight + _listView._menuHeight
+                                            Behavior on contentHeight {
+                                                NumberAnimation {
+                                                    id: expandAnimation
+                                                    duration: 150
+                                                }
+                                            }
+
+                                            function update() {
+                                                tdLibWrapper.getTopChats(tdLibWrapper.TopChatCategoryUsers, columnsCount*2)
+                                            }
+                                            Component.onCompleted: update()
+                                            Connections {
+                                                target: tdLibWrapper
+                                                onChatsReceived:
+                                                    if (extra == 'topChatCategoryUsers')
+                                                        topChatUsersView.model = chatIds
+                                                onOkReceived:
+                                                    if (request == 'topChatCategoryUsers')
+                                                        update()
+                                            }
+
+                                            Item {
+                                                id: gridViewProxy
+                                                // HACK: GridItems inside NestedGridMenu don't properly move (down) when a menu is opened, this is the fix
+                                                // this also fixes cellWidth and cellHeight not being picked up by GridItem
+                                                // might've fixed remorse below too
+
+                                                property real cellWidth: topChatUsersView.cellWidth
+                                                property real cellHeight: topChatUsersView.cellHeight
+
+                                                property Item __silica_contextmenu_instance: topChatUsersView._listView.__silica_contextmenu_instance
+                                                property Item __silica_remorse_item: null
+                                                property real __silica_menu_height: Math.max(__silica_contextmenu_instance
+                                                                                             ? __silica_contextmenu_instance.height : 0,
+                                                                                             __silica_remorse_height)
+                                                property real __silica_remorse_height
+
+                                                NumberAnimation {
+                                                    id: remorseHeightAnimation
+
+                                                    target: gridViewProxy
+                                                    property: "__silica_remorse_height"
+                                                    duration: 200
+                                                    to: 0.0
+                                                    easing.type: Easing.InOutQuad
+                                                }
+                                                on__Silica_remorse_itemChanged:
+                                                    if (!__silica_remorse_item)
+                                                        remorseHeightAnimation.restart()
+
+                                                property int _menuOpenOffsetItemsIndex: { -1 }
+
+                                                width: topChatUsersView._listView.width
+                                            }
+                                            Binding {
+                                                target: topChatUsersView._listView
+                                                property: "_menuHeight"
+                                                value: gridViewProxy.__silica_menu_height
+                                            }
+
+                                            delegate: PhotoTextsGridItem {
+                                                Component.onCompleted: _gridView = gridViewProxy
+
+                                                enabled: (expanded && !expandAnimation.running) || index < topChatUsersView.columnsCount
+
+                                                property var chatInformation: tdLibWrapper.getChat(modelData)
+                                                primaryText.text: Emoji.emojify(chatInformation.title, primaryText.font.pixelSize)
+                                                pictureThumbnail.photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : {}
+
+                                                menu: Component {
+                                                    ContextMenu {
+                                                        MenuItem {
+                                                            text: qsTr("Remove from Recents")
+                                                            onClicked: remorseDelete(function() { tdLibWrapper.removeTopChat(tdLibWrapper.TopChatCategoryUsers, modelData) })
+                                                        }
+                                                    }
+                                                }
+
+                                                onClicked: pageStack.replace(Qt.resolvedUrl("ChatPage.qml"), {chatInformation: chatInformation})
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            ColumnView {
+                                id: localSearchListView
+                                width: parent.width
+                                model: searchChatsPage.localChatsFound
+                                delegate: TDLibChatListItem {
+                                    chatId: modelData
+                                    onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
+                                }
+                                itemHeight: Theme.itemSizeExtraLarge
+                            }
+
+                            ButtonsSectionHeader {
+                                visible: recentlyFoundSearchListView.count > 0
+                                text: qsTr("Recent", "Recently found chats")
+
+                                IconButton {
+                                    icon.source: "image://theme/icon-m-cancel"
+                                    onClicked: Remorse.popupAction(searchChatsPage, qsTr("Cleared recents", "Remorse popup indicating that recently found chats are cleared"), function() {
+                                        tdLibWrapper.clearRecentlyFoundChats()
+                                        recentlyFoundChatsFound = []
+                                    })
+                                }
+                            }
+
+                            ColumnView {
+                                id: recentlyFoundSearchListView
+                                width: parent.width
+                                model: recentlyFoundChatsFound.filter(function(x) { return localChatsFound.indexOf(x) < 0 })
+                                delegate: TDLibChatListItem {
+                                    id: recentlyFoundChatDelegate
+                                    chatId: modelData
+                                    menu: Component {
+                                        ContextMenu {
+                                            MenuItem {
+                                                text: qsTr("Remove from Recent", "Remove a chat from recently found chats")
+                                                onClicked: tdLibWrapper.removeChat(recentlyFoundChatDelegate.chatId)
+                                            }
+                                        }
+                                    }
+                                    onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
+                                }
+                                itemHeight: Theme.itemSizeExtraLarge
+                            }
+
+                            SectionHeader {
+                                visible: publicSearchListView.count > 0
+                                text: qsTr("Global search results")
+                            }
+                        }
+
+                        model: publicChatsFound.filter(function(x) { return recentlyFoundChatsFound.indexOf(x) < 0 && localChatsFound.indexOf(x) < 0 })
+                        delegate: TDLibChatListItem {
+                            chatId: modelData
+                            ad: modelData in sponsoredChats
+                            onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
+                        }
 
                         ViewPlaceholder {
                             y: Theme.paddingLarge
-                            enabled: searchChatsListView.count === 0
-                            text: publicChatsSearchField.text.length < 5 ? qsTr("Enter your query to start searching (at least 5 characters needed)") : qsTr("No chats found.")
-                        }
-
-                        delegate: Item {
-                            id: foundChatListDelegate
-                            width: parent.width
-                            height: foundChatListItem.height
-
-                            property var foundChatInformation: tdLibWrapper.getChat(modelData);
-                            property var foundSponsorInformation: sponsoredChats[modelData]
-                            property var relatedInformation;
-                            property bool isPrivateChat: false;
-                            property bool isBasicGroup: false;
-                            property bool isSupergroup: false;
-
-                            Component.onCompleted: {
-                                switch (foundChatInformation.type["@type"]) {
-                                case "chatTypePrivate":
-                                    relatedInformation = tdLibWrapper.getUserInformation(foundChatInformation.type.user_id);
-                                    foundChatListItem.prologSecondaryText.text = qsTr("Private Chat");
-                                    foundChatListItem.secondaryText.text = "@" + (relatedInformation.username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id);
-                                    tdLibWrapper.getUserFullInfo(foundChatInformation.type.user_id);
-                                    isPrivateChat = true;
-                                    break;
-                                case "chatTypeBasicGroup":
-                                    relatedInformation = tdLibWrapper.getBasicGroup(foundChatInformation.type.basic_group_id);
-                                    foundChatListItem.prologSecondaryText.text = qsTr("Group");
-                                    tdLibWrapper.getGroupFullInfo(foundChatInformation.type.basic_group_id, false);
-                                    isBasicGroup = true;
-                                    break;
-                                case "chatTypeSupergroup":
-                                    relatedInformation = tdLibWrapper.getSuperGroup(foundChatInformation.type.supergroup_id);
-                                    if (relatedInformation.is_channel) {
-                                        foundChatListItem.prologSecondaryText.text = qsTr("Channel");
-                                    } else {
-                                        foundChatListItem.prologSecondaryText.text = qsTr("Group");
-                                    }
-                                    tdLibWrapper.getGroupFullInfo(foundChatInformation.type.supergroup_id, true);
-                                    isSupergroup = true;
-                                    break;
-                                }
-                            }
-
-                            Connections {
-                                target: tdLibWrapper
-                                onUserFullInfoUpdated: {
-                                    if (foundChatListDelegate.isPrivateChat && userId.toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                                onUserFullInfoReceived: {
-                                    if (foundChatListDelegate.isPrivateChat && userFullInfo["@extra"].toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-
-                                onBasicGroupFullInfoUpdated: {
-                                    if (foundChatListDelegate.isBasicGroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.basic_group_id.toString()) {
-                                        foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                                onBasicGroupFullInfoReceived: {
-                                    if (foundChatListDelegate.isBasicGroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.basic_group_id.toString()) {
-                                        foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-
-                                onSupergroupFullInfoUpdated: {
-                                    if (foundChatListDelegate.isSupergroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.supergroup_id.toString()) {
-                                        if (foundChatListDelegate.relatedInformation.is_channel) {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        } else {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        }
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                                onSupergroupFullInfoReceived: {
-                                    if (foundChatListDelegate.isSupergroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.supergroup_id.toString()) {
-                                        if (foundChatListDelegate.relatedInformation.is_channel) {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        } else {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        }
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                            }
-
-                            PhotoTextsListItem {
-                                id: foundChatListItem
-
-                                pictureThumbnail {
-                                    photoData: typeof foundChatInformation.photo.small !== "undefined" ? foundChatInformation.photo.small : {}
-                                }
-                                width: parent.width
-
-                                primaryText.text: Emoji.emojify(foundChatInformation.title, primaryText.font.pixelSize, "../js/emoji/")
-                                tertiaryText.maximumLineCount: 1
-
-                                ad: !!foundSponsorInformation
-
-                                onClicked: {
-                                    pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), { "chatInformation" : foundChatInformation });
-                                }
-                            }
+                            enabled: publicSearchListView.count == 0 && publicSearchListView.haveNoLocalResults
+                            text: searchField.text.length < 5 ? qsTr("Enter your query to start searching (at least 5 characters needed)") : qsTr("No chats found.")
                         }
 
                         VerticalScrollDecorator {}
                     }
-
                 }
 
-                Column {
-
-                    opacity: visible ? 1 : 0
-                    Behavior on opacity { FadeAnimation {} }
-                    visible: searchChatsPage.isLoading
-                    width: parent.width
-                    height: loadingLabel.height + loadingBusyIndicator.height + Theme.paddingMedium
-
-                    spacing: Theme.paddingMedium
-
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    InfoLabel {
-                        id: loadingLabel
-                        text: qsTr("Searching chats...")
-                    }
-
-                    BusyIndicator {
-                        id: loadingBusyIndicator
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        running: searchChatsPage.isLoading
-                        size: BusyIndicatorSize.Large
-                    }
+                BusyLabel {
+                    text: qsTr("Searching chats...")
+                    running: searchChatsPage.isLoading
                 }
-
             }
-
         }
     }
 }
