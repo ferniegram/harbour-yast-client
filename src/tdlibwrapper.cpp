@@ -1871,6 +1871,7 @@ QVariantMap& TDLibWrapper::fillTdlibParameters(QVariantMap& parameters) {
     parameters.insert("api_id", TDLIB_API_ID);
     parameters.insert("api_hash", TDLIB_API_HASH);
     parameters.insert("database_directory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/tdlib");
+    parameters.insert("files_directory", QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/tdlib");
     bool onlineOnlyMode = this->appSettings->onlineOnlyMode();
     parameters.insert("use_file_database", !onlineOnlyMode);
     parameters.insert("use_chat_info_database", !onlineOnlyMode);
