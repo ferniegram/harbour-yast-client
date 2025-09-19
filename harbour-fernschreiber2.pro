@@ -69,6 +69,8 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/MessageViaLabel.qml \
     qml/components/MultilineEmojiLabel.qml \
     qml/components/OpaqueButton.qml \
+    qml/components/OpaqueIcon.qml \
+    qml/components/OpaqueItemBase.qml \
     qml/components/PhotoTextsGridItem.qml \
     qml/components/PinnedMessageItem.qml \
     qml/components/PollPreview.qml \
