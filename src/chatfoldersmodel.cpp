@@ -273,7 +273,7 @@ void ChatFoldersModel::handleChatAddedToFolderList(int folderId, ChatData *chatD
     }
 }
 
-void ChatFoldersModel::handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool tagsEnabled) {
+void ChatFoldersModel::handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool /*tagsEnabled*/) {
     LOG("Chat folders list updated" << newChatFolders.count());
 
     beginResetModel();
