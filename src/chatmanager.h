@@ -30,7 +30,7 @@ class ChatManager : public QObject {
     Q_OBJECT
     Q_PROPERTY(qlonglong chatId MEMBER chatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap chatInformation MEMBER chatInformation NOTIFY chatInformationChanged)
-    Q_PROPERTY(bool isForum READ isForum NOTIFY isForumChanged)
+    //Q_PROPERTY(bool isForum READ isForum NOTIFY isForumChanged)
     Q_PROPERTY(ChatMessagesModel* model MEMBER chatMessagesModel CONSTANT)
     Q_PROPERTY(MediaMessagesModel* mediaMessagesModel MEMBER mediaMessagesModel CONSTANT)
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
