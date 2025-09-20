@@ -55,12 +55,33 @@ QHash<int,QByteArray> ForumTopicsModel::roleNames() const {
     };
 }
 
+int ForumTopicsModel::rowCount(const QModelIndex &) const {
+    return topics.size();
+}
+
+QVariant ForumTopicsModel::data(const QModelIndex &index, int role) const {
+    const int row = index.row();
+    if (row >= 0 && row < topics.size()) {
+        switch (role) {
+        default:
+            return QVariant();
+        }
+    }
+    return QVariant();
+}
+
 void ForumTopicsModel::reset() {
     chatId = 0;
     nextOffsetDate = 0;
     nextOffsetMessageId = 0;
     nextOffsetMessageThreadId = 0;
     emit chatIdChanged();
+}
+
+void ForumTopicsModel::loadMore() {
+    if (chatId != 0) {
+        this->tdLibWrapper->getForumTopics(chatId, nextOffsetDate, nextOffsetMessageId, nextOffsetMessageThreadId);
+    }
 }
 
 void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId) {
