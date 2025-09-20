@@ -258,6 +258,7 @@ QVariant ChatFoldersModel::data(const QModelIndex &index, int role) const {
             case FolderArchive:
                 return this->archiveChatListModel->getUnreadChatCount(true);
             }
+            break;
         case RoleType:
             return data->type;
         }
