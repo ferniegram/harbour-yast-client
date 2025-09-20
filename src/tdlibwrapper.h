@@ -339,6 +339,7 @@ signals:
     void chatRolesUpdated(qlonglong chatId, const QVector<int> changedRoles = QVector<int>());
 
     void someChatListUpdated();
+    void chatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage);
     void chatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
     void chatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
     void chatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions);

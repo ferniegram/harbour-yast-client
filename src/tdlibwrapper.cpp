@@ -1760,6 +1760,7 @@ void TDLibWrapper::handleChatLastMessageUpdated(qlonglong chatId, const QVariant
     emit chatRolesUpdated(chatId, getChatData(chatId)->updateLastMessage(lastMessage));
 
     emit someChatListUpdated();
+    emit chatLastMessageUpdated(chatId, lastMessage);
     updateChatPositions(chatId, positions); // FIXME: this might affect performance
 }
 
