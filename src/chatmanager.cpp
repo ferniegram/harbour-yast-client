@@ -151,6 +151,7 @@ void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromM
     this->chatId = chatId;
     emit chatIdChanged();
     emit smallPhotoChanged();
+    emit chatInformationChanged();
 
     chatMessagesModel->chatId = chatId;
     chatMessagesModel->chatIdChanged();
