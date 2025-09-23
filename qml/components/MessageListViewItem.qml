@@ -171,7 +171,7 @@ ListItem {
     }
 
     Connections {
-        target: chatPage
+        target: view
         onResetElements: {
             messageListItem.messageReactions = null
             selectReactionBubble.visible = false

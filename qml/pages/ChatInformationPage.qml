@@ -26,6 +26,7 @@ import "../js/debug.js" as Debug
 
 Page {
     id: chatInformationPage
+    property bool isChatInformationPage: true
 
     allowedOrientations: Orientation.All
     property string searchString

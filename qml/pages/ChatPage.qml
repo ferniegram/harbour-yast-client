@@ -47,10 +47,8 @@ Page {
     property var botInformation
     property var chatGroupInformation
     property int chatOnlineMemberCount: 0
-    property bool iterativeInitialization: false
     property var messageToShow
     property string messageIdToShow
-    property string messageIdToScrollTo
     readonly property bool userIsMember: ((isPrivateChat || isSecretChat) &&
                                           chatInformation["@type"] &&
                                           chatInformation.id !== chatPage.myUserId) || // should be optimized
@@ -64,9 +62,6 @@ Page {
     property bool doSendBotStartMessage
     property string sendBotStartMessageParameter
     property var availableReactions
-    signal resetElements()
-    signal elementSelected(int elementIndex)
-    signal navigatedTo(int targetIndex)
     property bool timepointStatus
 
     readonly property Item messagesView: isForum ? null : contentLoader.item
@@ -193,22 +188,15 @@ Page {
 
     Component.onDestruction: {
         tdLibWrapper.closeChat(chatInformation.id)
+        chatManager.reset()
     }
 
     onStatusChanged: {
         switch(status) {
         case PageStatus.Activating:
             tdLibWrapper.openChat(chatInformation.id)
-            if(!chatPage.isInitialized) {
-                if(chatInformation.draft_message) {
-                    if(chatInformation.draft_message && chatInformation.draft_message.input_message_text) {
-                        newMessageTextField.text = chatInformation.draft_message.input_message_text.text.text
-                        if(chatInformation.draft_message.reply_to_message_id) {
-                            tdLibWrapper.getMessage(chatInformation.id, chatInformation.draft_message.reply_to_message_id)
-                        }
-                    }
-                }
-            }
+            if(!chatPage.isInitialized)
+                messagesView.prepareView()
             break
         case PageStatus.Active:
             if (!chatPage.isInitialized) {
@@ -222,12 +210,6 @@ Page {
                 if(doSendBotStartMessage)
                     tdLibWrapper.sendBotStartMessage(chatInformation.id, chatInformation.id, sendBotStartMessageParameter, "")
             }
-            break
-        case PageStatus.Inactive:
-            if (pageStack.depth === 1)
-                // Only clear chat model if navigated back to overview page. In other cases we keep the information...
-                chatManager.reset()
-            else resetElements()
             break
         }
     }

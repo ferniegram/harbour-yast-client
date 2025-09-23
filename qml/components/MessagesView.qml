@@ -31,6 +31,8 @@ Column {
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
     property bool containsSponsoredMessages: false
+    property string messageIdToScrollTo
+    property bool iterativeInitialization: false
     property int unreadCount: chatInformation.unread_count
 
     property alias chatView: chatView
@@ -42,6 +44,14 @@ Column {
     property alias stickerPickerLoader: stickerPickerLoader
 
     property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || messageOverlayLoader.active || stickerSetOverlayLoader.active
+
+    signal resetElements()
+    signal elementSelected(int elementIndex)
+    signal navigatedTo(int targetIndex)
+
+    signal resetElements()
+    signal elementSelected(int elementIndex)
+    signal navigatedTo(int targetIndex)
 
     function getMessageStatusText(message, listItemIndex, useElapsed) {
         var lastReadSentIndex = chatManager.model.lastReadSentMessageIndex
@@ -120,19 +130,19 @@ Column {
 
     function showMessage(messageId, initialRun) {
         // Means we tapped a quoted message and had to load it.
-        if(initialRun) {
-            chatPage.messageIdToScrollTo = messageId
-        }
-        if (chatPage.messageIdToScrollTo) {
-            var index = chatManager.model.getMessageIndex(chatPage.messageIdToScrollTo)
+        if(initialRun)
+            messageIdToScrollTo = messageId
+
+        if (messageIdToScrollTo) {
+            var index = chatModel.getMessageIndex(chatPage.messageIdToScrollTo)
             var proxyIndex = chatProxyModel.mapRowFromSource(index, -1)
             if(proxyIndex !== -1) {
-                chatPage.messageIdToScrollTo = ""
+                messageIdToScrollTo = ""
                 chatView.scrollToIndex(proxyIndex)
                 navigatedTo(proxyIndex)
             } else if(initialRun)
                 // we only want to do this once.
-                chatManager.model.triggerLoadHistoryForMessage(chatPage.messageIdToScrollTo)
+                chatManager.model.triggerLoadHistoryForMessage(messageIdToScrollTo)
         }
     }
 
@@ -146,6 +156,17 @@ Column {
         attachmentPreviewRow.locationData = null
         attachmentPreviewRow.attachmentDescription = ""
         utilities.stopGeoLocationUpdates()
+    }
+
+    function prepareView() {
+        if(chatInformation.draft_message) {
+            if(chatInformation.draft_message && chatInformation.draft_message.input_message_text) {
+                newMessageTextField.text = chatInformation.draft_message.input_message_text.text.text
+                if(chatInformation.draft_message.reply_to_message_id) {
+                    tdLibWrapper.getMessage(chatInformation.id, chatInformation.draft_message.reply_to_message_id)
+                }
+            }
+        }
     }
 
     states: [
@@ -240,14 +261,14 @@ Column {
             Debug.log("[ChatPage] Messages received, from incremental update: ", fromIncrementalUpdate, ", view has ", chatView.count, " messages, possibly need to scroll to ", proxyIndex, "("+scrollPosition+")")
 
             if (!fromIncrementalUpdate && totalCount === 0) {
-                if (chatPage.iterativeInitialization) {
-                    chatPage.iterativeInitialization = false
+                if (iterativeInitialization) {
+                    iterativeInitialization = false
                     Debug.log("[ChatPage] actually, skipping that: No Messages in Chat.")
                     chatView.positionViewAtEnd()
                     chatPage.loading = false
                     return
                 } else
-                    chatPage.iterativeInitialization = true
+                    iterativeInitialization = true
             }
 
             if (!fromIncrementalUpdate || (!chatPage.isInitialized && proxyIndex > -1))
@@ -297,7 +318,7 @@ Column {
     Connections {
         target: chatManager
         onPinnedMessageChanged: {
-            chatInformation = chatManager.model.chatInformation
+            chatInformation = chatManager.chatInformation
             if (chatInformation.pinned_message_id.toString() !== "0") {
                 Debug.log("[ChatPage] Loading pinned message ", chatInformation.pinned_message_id)
                 tdLibWrapper.getMessage(chatInformation.id, chatInformation.pinned_message_id)
@@ -331,6 +352,13 @@ Column {
                 newMessageInReplyToRow.inReplyToMessage ? newMessageInReplyToRow.inReplyToMessage.id : 0)
         chatActionTimer.stop()
         utilities.stopGeoLocationUpdates()
+    }
+
+    Connections {
+        target: pageStack
+        onCurrentPageChanged:
+            if (pageStack.currentPage && pageStack.currentPage.isChatInformationPage)
+                resetElements()
     }
 
     Timer {
