@@ -192,7 +192,7 @@ Page {
         case PageStatus.Activating:
             tdLibWrapper.openChat(chatInformation.id)
             if(!chatPage.isInitialized)
-                messagesView.prepareView()
+                if (messagesView) messagesView.prepareView()
             break
         case PageStatus.Active:
             if (!chatPage.isInitialized) {
