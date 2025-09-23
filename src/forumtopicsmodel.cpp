@@ -1,5 +1,8 @@
 #include "forumtopicsmodel.h"
 
+#define DEBUG_MODULE ChatManagerAndModel
+#include "debuglog.h"
+
 namespace {
     const QString INFO("info");
     const QString LAST_MESSAGE("last_message");
@@ -67,6 +70,7 @@ ForumTopicsModel::ForumTopicsModel(TDLibWrapper *tdLibWrapper, QObject *parent) 
 }
 
 void ForumTopicsModel::init(qlonglong chatId) {
+    LOG("Initializing" << chatId);
     this->chatId = chatId;
     emit chatIdChanged();
 
@@ -109,6 +113,7 @@ QVariant ForumTopicsModel::data(const QModelIndex &index, int role) const {
 }
 
 void ForumTopicsModel::reset() {
+    LOG("Resetting");
     chatId = 0;
     nextOffsetDate = 0;
     nextOffsetMessageId = 0;
@@ -124,6 +129,7 @@ void ForumTopicsModel::loadMore() {
 
 void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId) {
     if (this->chatId == chatId) {
+        LOG("Forum topics received" << totalCount);
         for (const QVariant &topicVariant : newTopics) {
             ForumTopic *topic = new ForumTopic(topicVariant.toMap());
             this->topics.append(topic);
@@ -138,6 +144,8 @@ void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCoun
 
 void ForumTopicsModel::handleForumTopicUpdated(qlonglong chatId, qlonglong messageThreadId, bool isPinned, qlonglong lastReadInboxMessageId, qlonglong lastReadOutboxMessageId, const QVariantMap &notificationSettings) {
     if (this->chatId == chatId && topicIndexMap.contains(messageThreadId)) {
+        LOG("Forum topic updated" << chatId << messageThreadId);
+
         const int topicIndex = topicIndexMap.value(messageThreadId);
         ForumTopic *topic = this->topics.value(topicIndex);
         QVector<int> changedRoles;
@@ -157,6 +165,8 @@ void ForumTopicsModel::handleForumTopicUpdated(qlonglong chatId, qlonglong messa
 
 void ForumTopicsModel::handleForumTopicInfoUpdated(qlonglong chatId, qlonglong messageThreadId, const QVariantMap &info) {
     if (this->chatId == chatId && topicIndexMap.contains(messageThreadId)) {
+        LOG("Forum topic info updated" << chatId << messageThreadId);
+
         const int topicIndex = topicIndexMap.value(messageThreadId);
         ForumTopic *topic = this->topics.value(topicIndex);
         topic->data.insert(INFO, info);

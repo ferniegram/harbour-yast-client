@@ -125,6 +125,7 @@ void ChatManager::reset() {
     LOG("Resetting chat manager");
     this->chatMessagesModel->reset();
     this->mediaMessagesModel->reset();
+    this->forumTopicsModel->reset();
 
     if (!chatInformation.isEmpty()) {
         chatInformation.clear();
