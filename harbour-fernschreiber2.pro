@@ -13,6 +13,7 @@
 TARGET = harbour-fernschreiber2
 
 CONFIG += sailfishapp sailfishapp_i18n c++17
+QMAKE_CXXFLAGS += -std=c++17
 
 PKGCONFIG += nemonotifications-qt5 zlib
 
@@ -337,6 +338,18 @@ SSE2 = $$system(g++ -dM -E -x c++ - < /dev/null | grep __SSE2__)
         message(Using default render functions)
     }
 }
+
+# https://github.com/desktop-app/tg_owt (required by tgcalls)
+
+INCLUDEPATH += tg_owt/include
+DEPENDPATH += tg_owt/include
+LIBS += -L$$PWD/tg_owt/$${TARGET_ARCHITECTURE}/lib -ltg_owt
+tg_owt.files = $$PWD/tg_owt/$${TARGET_ARCHITECTURE}/lib
+tg_owt.path = /usr/share/$${TARGET}
+
+DEFINES += \
+    WEBRTC_POSIX \
+    WEBRTC_LINUX
 
 # https://github.com/TelegramMessenger/tgcalls
 
