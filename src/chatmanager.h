@@ -73,6 +73,9 @@ signals:
     void groupInfoChanged();
 
 private slots:
+    void handleChatReadInboxUpdated(const QString &id);
+    void handleChatReadOutboxUpdated(const QString &id);
+    void handleChatLastMessageUpdated(qlonglong id);
     void handleChatRolesUpdated(qlonglong chatId, const QVector<int> changedRoles = QVector<int>());
     void handleChatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);
     void handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &chatAction, qlonglong messageThreadId);

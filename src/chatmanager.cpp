@@ -67,6 +67,8 @@ ChatManager::ChatManager(TDLibWrapper *tdLibWrapper, QObject *parent) :
     mediaMessagesModel(new MediaMessagesModel(tdLibWrapper, this)),
     topicsModel(new ForumTopicsModel(tdLibWrapper, this))
 {
+    connect(this->tdLibWrapper, &TDLibWrapper::chatReadInboxUpdated, this, &ChatManager::handleChatReadInboxUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatReadOutboxUpdated, this, &ChatManager::handleChatReadOutboxUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatRolesUpdated, this, &ChatManager::handleChatRolesUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatPinnedMessageUpdated, this, &ChatManager::handleChatPinnedMessageUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatActionUpdated, this, &ChatManager::handleChatActionUpdated);
@@ -76,6 +78,21 @@ ChatManager::ChatManager(TDLibWrapper *tdLibWrapper, QObject *parent) :
 
     connect(this, &ChatManager::chatIdChanged, this, &ChatManager::userInfoChanged);
     connect(this, &ChatManager::chatIdChanged, this, &ChatManager::groupInfoChanged);
+}
+
+void ChatManager::handleChatReadInboxUpdated(const QString &id) {
+    if (this->chatId == id.toLongLong())
+        emit this->chatMessagesModel->lastReadMessageIndexChanged();
+}
+
+void ChatManager::handleChatReadOutboxUpdated(const QString &id) {
+    if (this->chatId == id.toLongLong())
+        emit this->chatMessagesModel->lastReadSentMessageUpdated();
+}
+
+void ChatManager::handleChatLastMessageUpdated(qlonglong id) {
+    if (this->chatId == id)
+        emit this->chatMessagesModel->historyEndLoadedChanged();
 }
 
 QVariantMap ChatManager::smallPhoto() const {

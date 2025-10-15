@@ -29,7 +29,6 @@ signals:
 
     void lastReadSentMessageUpdated();
     void historyEndLoadedChanged();
-
     void lastReadMessageIndexChanged();
 
 private slots:
