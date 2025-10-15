@@ -103,12 +103,15 @@ namespace {
 void Utilities::setupAudioRecorder() {
     LOG("Initializing audio recorder...");
 
+#ifdef NO_HARBOUR_COMPLIANCE
     this->gstAudioRecorder = nullptr;
+#endif
 
     this->qAudioRecorder = new QAudioRecorder(this);
     const bool opusSupportedByQt = qAudioRecorder->supportedAudioCodecs().contains(AUDIO_CODEC_OPUS);
     bool needSetupQt = true;
 
+#ifdef NO_HARBOUR_COMPLIANCE
     if (!opusSupportedByQt && !appSettings->forceQtAudioRecorder()) {
         LOG("Opus codec not provided by QtMultimedia, trying to setup custom GStreamer backend");
         bool error = false;
@@ -126,6 +129,7 @@ void Utilities::setupAudioRecorder() {
         } else
             LOG("Could not setup custom GStreamer backend, falling back to Vorbis codec from QtMultimedia");
     }
+#endif
 
     if (needSetupQt) {
         QAudioEncoderSettings encoderSettings;
@@ -139,6 +143,8 @@ void Utilities::setupAudioRecorder() {
 
         connect(qAudioRecorder, &QAudioRecorder::statusChanged, this, &Utilities::voiceNoteRecordingStateChanged);
         connect(qAudioRecorder, &QAudioRecorder::durationChanged, this, &Utilities::voiceNoteDurationChanged);
+
+        LOG("Initialized QtMultimedia-based audio recorder");
     }
 
     LOG("Audio recorder initialized");
@@ -605,9 +611,12 @@ QString Utilities::getUserName(const QVariantMap &userInformation) {
 void Utilities::startRecordingVoiceNote() {
     LOG("Start recording voice note...");
     const QString location = this->getTemporaryDirectoryPath() + "/voicenote-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss") + ".ogg";
+#ifdef NO_HARBOUR_COMPLIANCE
     if (gstAudioRecorder)
         gstAudioRecorder->record(location);
-    else if (qAudioRecorder) {
+    else
+#endif
+    if (qAudioRecorder) {
         qAudioRecorder->setOutputLocation(location);
         qAudioRecorder->record();
     }
@@ -615,9 +624,12 @@ void Utilities::startRecordingVoiceNote() {
 
 void Utilities::stopRecordingVoiceNote() {
     LOG("Stop recording voice note...");
+#ifdef NO_HARBOUR_COMPLIANCE
     if (gstAudioRecorder)
         gstAudioRecorder->stop();
-    else if (qAudioRecorder)
+    else
+#endif
+    if (qAudioRecorder)
         qAudioRecorder->stop();
 }
 
@@ -632,9 +644,12 @@ void Utilities::stopGeoLocationUpdates() {
 }
 
 void Utilities::handleVoiceNoteVolumeChanged() {
+#ifdef NO_HARBOUR_COMPLIANCE
     if (gstAudioRecorder)
         this->gstAudioRecorder->setVolume(appSettings->voiceNoteVolume());
-    else if (qAudioRecorder)
+    else
+#endif
+    if (qAudioRecorder)
         this->qAudioRecorder->setVolume(appSettings->voiceNoteVolume());
 }
 
@@ -658,6 +673,7 @@ void Utilities::initiateReverseGeocode(double latitude, double longitude)
 }
 
 Utilities::VoiceNoteRecordingState Utilities::getVoiceNoteRecordingState() const {
+#ifdef NO_HARBOUR_COMPLIANCE
     if (gstAudioRecorder) {
         switch(this->gstAudioRecorder->getState()) {
         case GstAudioRecorder::Ready:
@@ -673,6 +689,7 @@ Utilities::VoiceNoteRecordingState Utilities::getVoiceNoteRecordingState() const
             return VoiceNoteRecordingState::Stopping;
         }
     }
+#endif
     if (qAudioRecorder) {
         switch (qAudioRecorder->status()) {
         case QMediaRecorder::LoadedStatus:
@@ -693,13 +710,17 @@ Utilities::VoiceNoteRecordingState Utilities::getVoiceNoteRecordingState() const
 }
 
 QString Utilities::getVoiceNotePath() const {
+#ifdef NO_HARBOUR_COMPLIANCE
     if (gstAudioRecorder) return gstAudioRecorder->getLocation();
+#endif
     if (qAudioRecorder) return qAudioRecorder->outputLocation().toString();
     return QString();
 }
 
 qlonglong Utilities::getVoiceNoteDuration() const {
+#ifdef NO_HARBOUR_COMPLIANCE
     if (gstAudioRecorder) return gstAudioRecorder->getDuration();
+#endif
     if (qAudioRecorder) return qAudioRecorder->duration();
     return 0;
 }

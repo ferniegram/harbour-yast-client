@@ -83,6 +83,11 @@ In case you want to use the same codebase which was used to compile the library 
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
+### Harbour compatibility
+Some Ferniegram features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
+
+1. Audio recording backend based on the GStreamer C API
+
 ### Github Action
 Warning: this section was not changed from the one in Fernschreiber. It may have outdated information which does not apply for Ferniegram.
 

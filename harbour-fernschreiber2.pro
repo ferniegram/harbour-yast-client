@@ -15,7 +15,6 @@ TARGET = harbour-fernschreiber2
 CONFIG += sailfishapp sailfishapp_i18n c++17
 
 PKGCONFIG += nemonotifications-qt5 zlib
-PKGCONFIG += gstreamer-1.0 gstreamer-pbutils-1.0 glib-2.0 # TODO: remove this in harbour version
 
 QT += core dbus multimedia positioning
 
@@ -33,7 +32,6 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/dbusadaptor.cpp \
     src/dbusinterface.cpp \
     src/folderchatlistmodel.cpp \
-    src/gstaudiorecorder.cpp \
     src/suggestedactionsmodel.cpp \
     src/utilities.cpp \
     src/knownusersmodel.cpp \
@@ -196,6 +194,17 @@ TRANSLATIONS += translations/harbour-fernschreiber2-de.ts \
                 translations/harbour-fernschreiber2-en.ts \
                 translations/harbour-fernschreiber2-zh_CN.ts
 
+equals(HARBOUR_COMPLIANCE, on) {
+    message(Harbour compliance enabled)
+} else {
+    message(Harbour compliance disabled)
+    DEFINES += NO_HARBOUR_COMPLIANCE
+
+    PKGCONFIG += gstreamer-1.0 gstreamer-pbutils-1.0 glib-2.0
+    HEADERS += src/gstaudiorecorder.h
+    SOURCES += src/gstaudiorecorder.cpp
+}
+
 equals(QT_ARCH, arm) {
     message(Building ARM)
     TARGET_ARCHITECTURE = armv7hl
@@ -261,7 +270,6 @@ HEADERS += \
     src/debuglog.h \
     src/debuglogjs.h \
     src/folderchatlistmodel.h \
-    src/gstaudiorecorder.h \
     src/suggestedactionsmodel.h \
     src/utilities.h \
     src/knownusersmodel.h \

@@ -183,6 +183,12 @@ int main(int argc, char *argv[])
     ContactsModel contactsModel(tdLibWrapper, view.data());
     context->setContextProperty("contactsModel", &contactsModel);
 
+#ifdef NO_HARBOUR_COMPLIANCE
+    context->setContextProperty("NO_HARBOUR_COMPLIANCE", true);
+#else
+    context->setContextProperty("NO_HARBOUR_COMPLIANCE", false);
+#endif
+
     view->setSource(SailfishApp::pathTo("qml/harbour-fernschreiber2.qml"));
     view->show();
     return app->exec();

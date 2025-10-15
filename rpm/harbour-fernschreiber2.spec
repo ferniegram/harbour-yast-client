@@ -1,7 +1,7 @@
 Name:       harbour-fernschreiber2
 
 %define __provides_exclude_from ^%{_datadir}/.*$
-%define __requires_exclude ^libtdjson.*$
+%define __requires_exclude ^libtdjson|libgstreamer.*$
 %define _binary_payload w6.xzdio
 
 Summary:    Ferniegram is a Telegram client for Sailfish OS
@@ -26,6 +26,7 @@ BuildRequires:  pkgconfig(nemonotifications-qt5)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
+BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  gperf
 BuildRequires:  desktop-file-utils
 BuildRequires: make
@@ -38,7 +39,8 @@ Ferniegram is a Telegram client for Sailfish OS
 
 %build
 
-%qmake5
+echo %qmake5
+%qmake5 HARBOUR_COMPLIANCE=off
 
 %make_build
 

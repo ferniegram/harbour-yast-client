@@ -26,7 +26,10 @@
 #include <QGeoPositionInfoSource>
 #include <QNetworkAccessManager>
 #include "tdlibwrapper.h"
+
+#ifdef NO_HARBOUR_COMPLIANCE
 #include "gstaudiorecorder.h"
+#endif
 
 class Utilities : public QObject
 {
@@ -96,7 +99,9 @@ private:
     int argc;
     char **argv;
 
+#ifdef NO_HARBOUR_COMPLIANCE
     GstAudioRecorder *gstAudioRecorder;
+#endif
     QAudioRecorder *qAudioRecorder;
 
     QGeoPositionInfoSource *geoPositionInfoSource;
