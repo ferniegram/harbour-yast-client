@@ -144,11 +144,11 @@ Item {
                 font.pixelSize: Theme.fontSizeMedium
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: switch (utilities.voiceNoteRecordingState) {
-                case FernschreiberUtilities.Unavailable: return qsTr("Unavailable")
-                case FernschreiberUtilities.Ready: return qsTr("Ready")
-                case FernschreiberUtilities.Starting: return qsTr("Starting")
-                case FernschreiberUtilities.Recording: return qsTr("Recording")
-                case FernschreiberUtilities.Stopping: return qsTr("Stopping")
+                case Utilities.Unavailable: return qsTr("Unavailable")
+                case Utilities.Ready: return qsTr("Ready")
+                case Utilities.Starting: return qsTr("Starting")
+                case Utilities.Recording: return qsTr("Recording")
+                case Utilities.Stopping: return qsTr("Stopping")
                 }
             }
 
@@ -170,11 +170,10 @@ Item {
                 }
                 text: qsTr("Use recording")
                 onClicked: {
-                    attachmentOptionsFlickable.isNeeded = false;
-                    attachmentPreviewRow.isVoiceNote = true;
-                    attachmentPreviewRow.attachmentDescription = qsTr("Voice Note (%1)").arg(recordingDurationLabel.text);
-                    controlSendButton();
-                    voiceNoteOverlayLoader.active = false;
+                    attachmentOptionsFlickable.show = false
+                    attachmentPreviewRow.isVoiceNote = true
+                    attachmentPreviewRow.attachmentDescription = qsTr("Voice Note (%1)").arg(recordingDurationLabel.text)
+                    voiceNoteOverlayLoader.active = false
                 }
             }
 

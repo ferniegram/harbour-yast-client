@@ -29,6 +29,7 @@ Column {
     property alias knownUsersRepeater: knownUsersRepeater
     property alias attachmentPreviewRow: attachmentPreviewRow
     property alias newMessageTextField: newMessageTextField
+    property alias attachmentOptionsFlickable: attachmentOptionsFlickable
 
     function getWordBoundaries(text, cursorPosition) {
         var wordBoundaries = { beginIndex : 0, endIndex : text.length}

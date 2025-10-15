@@ -40,6 +40,7 @@ Column {
     property alias knownUsersRepeater: newMessageColumn.knownUsersRepeater
     property alias attachmentPreviewRow: newMessageColumn.attachmentPreviewRow
     property alias newMessageTextField: newMessageColumn.newMessageTextField
+    property alias attachmentOptionsFlickable: newMessageColumn.attachmentOptionsFlickable
     property alias stickerPickerLoader: stickerPickerLoader
 
     property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || messageOverlayLoader.active || stickerSetOverlayLoader.active
