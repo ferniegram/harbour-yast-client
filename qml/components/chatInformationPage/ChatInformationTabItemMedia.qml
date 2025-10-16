@@ -98,15 +98,15 @@ ChatInformationTabItemBase {
         Component.onCompleted: chatManager.initializeMediaMessagesModel()
 
         Timer {
-            id: chatViewCooldownTimer
+            id: cooldownTimer
             interval: 2000
             onTriggered: Debug.log("[ChatInformationTabItemMedia] Cooldown completed...")
         }
 
         onContentYChanged: {
-            if (!chatViewCooldownTimer.running && gridView.indexAt(gridView.contentX, gridView.contentY) > Math.max(0, gridView.count - 10*columnCount)) {
+            if (!cooldownTimer.running && gridView.indexAt(gridView.contentX, gridView.contentY) > Math.max(0, gridView.count - 10*columnCount)) {
                 Debug.log("[ChatInformationTabItemMedia] Trying to get older history items...")
-                chatViewCooldownTimer.restart()
+                cooldownTimer.restart()
                 chatManager.mediaMessagesModel.triggerLoadMoreHistory()
             }
         }
