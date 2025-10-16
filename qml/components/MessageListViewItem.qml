@@ -425,7 +425,7 @@ ListItem {
 
         Loader {
             id: profileThumbnailLoader
-            active: precalculatedValues.showUserInfo
+            active: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage
             asynchronous: true
             width: precalculatedValues.profileThumbnailDimensions
             height: width
@@ -438,7 +438,7 @@ ListItem {
                     replacementStringHint: userText.text
                     width: Theme.itemSizeSmall
                     height: Theme.itemSizeSmall
-                    visible: precalculatedValues.showUserInfo
+                    visible: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
@@ -497,7 +497,7 @@ ListItem {
                     truncationMode: TruncationMode.Fade
                     textFormat: Text.StyledText
                     horizontalAlignment: messageListItem.textAlign
-                    visible: precalculatedValues.showUserInfo || myMessage['@type'] === "sponsoredMessage"
+                    visible: (precalculatedValues.showUserInfo && !messageListItem.isOwnMessage) || myMessage['@type'] === "sponsoredMessage"
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
