@@ -37,6 +37,7 @@ public:
     void setActive(bool active);
 
 signals:
+    void responseForRequestIdReceived(qlonglong requestId, const QVariantMap &response);
     void authorizationStateChanged(const QString &authorizationState, const QVariantMap &authorizationStateData);
     void optionUpdated(const QString &optionName, const QVariant &optionValue);
     void connectionStateChanged(const QString &connectionState);

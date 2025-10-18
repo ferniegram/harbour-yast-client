@@ -18,12 +18,16 @@
 */
 #include "tdlibreceiver.h"
 
+#include <QRegularExpression>
+
 #define WAIT_TIMEOUT 5.0
 
 #define DEBUG_MODULE TDLibReceiver
 #include "debuglog.h"
 
 namespace {
+    const QRegularExpression requestWithIdExtra("^R(\\d+)$");
+
     const QString ID("id");
     const QString LIST("list");
     const QString CHAT_ID("chat_id");
@@ -216,10 +220,19 @@ void TDLibReceiver::receiverLoop()
     LOG("Stopping receiver loop");
 }
 
-void TDLibReceiver::processReceivedDocument(const QJsonDocument &receivedJsonDocument)
-{
+void TDLibReceiver::processReceivedDocument(const QJsonDocument &receivedJsonDocument) {
     QVariantMap receivedInformation = receivedJsonDocument.object().toVariantMap();
     QString objectTypeName = receivedInformation.value(_TYPE).toString();
+
+    QString objectExtra = receivedInformation.value(_EXTRA).toString();
+    QRegularExpressionMatch requestIdMatch = requestWithIdExtra.match(objectExtra);
+    if (requestIdMatch.hasMatch()) {
+        const qlonglong requestId = requestIdMatch.captured(1).toLongLong();
+        LOG("Received response with request ID" << requestId);
+        //receivedInformation.remove(_EXTRA);
+        emit responseForRequestIdReceived(requestId, receivedInformation);
+        return;
+    }
 
     Handler handler = handlers.value(objectTypeName);
     if (handler) {
