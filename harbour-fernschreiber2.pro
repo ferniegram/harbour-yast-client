@@ -25,7 +25,7 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/boolfiltermodel.cpp \
     src/chatdata.cpp \
     src/chatfoldersmodel.cpp \
-    src/chatmanager.cpp \
+    src/chat/chatmanager.cpp \
     src/chatpermissionfiltermodel.cpp \
     src/chatlistmodel.cpp \
     src/contactsmodel.cpp \
@@ -33,10 +33,10 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/dbusinterface.cpp \
     src/folderchatlistmodel.cpp \
     src/forumtopicsmodel.cpp \
-    src/invertedmessagesmodel.cpp \
-    src/mediamessagesmodel.cpp \
-    src/messagedata.cpp \
-    src/messagesmodel.cpp \
+    src/chat/invertedmessagesmodel.cpp \
+    src/chat/mediamessagesmodel.cpp \
+    src/chat/messagedata.cpp \
+    src/chat/messagesmodel.cpp \
     src/readablemessagesmodel.cpp \
     src/suggestedactionsmodel.cpp \
     src/utilities.cpp \
@@ -270,7 +270,7 @@ HEADERS += \
     src/boolfiltermodel.h \
     src/chatdata.h \
     src/chatfoldersmodel.h \
-    src/chatmanager.h \
+    src/chat/chatmanager.h \
     src/chatpermissionfiltermodel.h \
     src/chatlistmodel.h \
     src/contactsmodel.h \
@@ -280,10 +280,10 @@ HEADERS += \
     src/debuglogjs.h \
     src/folderchatlistmodel.h \
     src/forumtopicsmodel.h \
-    src/invertedmessagesmodel.h \
-    src/mediamessagesmodel.h \
-    src/messagedata.h \
-    src/messagesmodel.h \
+    src/chat/invertedmessagesmodel.h \
+    src/chat/mediamessagesmodel.h \
+    src/chat/messagedata.h \
+    src/chat/messagesmodel.h \
     src/readablemessagesmodel.h \
     src/suggestedactionsmodel.h \
     src/utilities.h \
