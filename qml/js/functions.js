@@ -43,7 +43,7 @@ function getUserName(userInformation) {
 }
 
 function getMessageText(message, simple, currentUserId, ignoreEntities, asFormattedText, emojiSize) {
-    return utilities.getMessageText(message, simple, ignoreEntities)
+    return utilities.getMessageText(message, simple ? Fernschreiber.Utilities.MessageTextSimple : Fernschreiber.Utilities.MessageTextDefault, ignoreEntities)
 }
 
 function getChatPartnerStatusText(statusType, was_online, isSupport, userId, asTimepoint) {

@@ -51,6 +51,7 @@ Item {
         active: !!minithumbnail && tdLibImage.opacity < 1.0
         minithumbnail: tdLibPhoto.photo.minithumbnail
         highlighted: parent.highlighted
+        fillMode: tdLibImage.fillMode
     }
 
     BackgroundImage {

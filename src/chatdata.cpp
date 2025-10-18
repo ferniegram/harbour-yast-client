@@ -146,7 +146,15 @@ qlonglong ChatData::senderMessageDate() const
 }
 
 QString ChatData::senderMessageText() const {
-    return utilities->getMessageText(lastMessage(), true);
+    return utilities->getMessageText(lastMessage(), Utilities::MessageTextSimpleWithThumbnails);
+}
+
+QVariant ChatData::senderMessageMinithumbnail() const {
+    return utilities->getMessageMinithumbnail(lastMessage(CONTENT).toMap());
+}
+
+bool ChatData::senderMessageIsService() const {
+    return Utilities::messageContentIsService(lastMessage(CONTENT).toMap().value(_TYPE).toString());
 }
 
 
@@ -218,6 +226,8 @@ QVector<int> ChatData::updateLastMessage(const QVariantMap &message) {
     const qlonglong prevSenderUserId(senderUserId());
     const qlonglong prevSenderMessageDate(senderMessageDate());
     const QString prevSenderMessageText(senderMessageText());
+    const QVariant prevSenderMessageMinithumbnail(senderMessageMinithumbnail());
+    const bool prevSenderMessageIsService(senderMessageIsService());
     const QString prevSenderMessageStatus(senderMessageStatus());
 
 
@@ -234,6 +244,12 @@ QVector<int> ChatData::updateLastMessage(const QVariantMap &message) {
     if (prevSenderMessageText != senderMessageText()) {
         changedRoles.append(ChatData::RoleFilter);
         changedRoles.append(ChatData::RoleLastMessageText);
+    }
+    if (prevSenderMessageMinithumbnail != senderMessageMinithumbnail()) {
+        changedRoles.append(ChatData::RoleLastMessageMinithumbnail);
+    }
+    if (prevSenderMessageIsService != senderMessageIsService()) {
+        changedRoles.append(ChatData::RoleLastMessageIsService);
     }
     if (prevSenderMessageStatus != senderMessageStatus()) {
         changedRoles.append(ChatData::RoleLastMessageStatus);

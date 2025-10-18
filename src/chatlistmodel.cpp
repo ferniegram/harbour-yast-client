@@ -153,6 +153,8 @@ QHash<int,QByteArray> ChatListModel::roleNames() const
     roles.insert(ChatData::RoleLastMessageSenderId, "last_message_sender_id");
     roles.insert(ChatData::RoleLastMessageDate, "last_message_date");
     roles.insert(ChatData::RoleLastMessageText, "last_message_text");
+    roles.insert(ChatData::RoleLastMessageMinithumbnail, "last_message_minithumbnail");
+    roles.insert(ChatData::RoleLastMessageIsService, "last_message_is_service");
     roles.insert(ChatData::RoleLastMessageStatus, "last_message_status");
     roles.insert(ChatData::RoleChatMemberStatus, "chat_member_status");
     roles.insert(ChatData::RoleSecretChatState, "secret_chat_state");
@@ -190,6 +192,8 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         case ChatData::RoleLastReadInboxMessageId: return data->data->lastReadInboxMessageId();
         case ChatData::RoleLastMessageSenderId: return data->data->senderUserId();
         case ChatData::RoleLastMessageText: return data->data->senderMessageText();
+        case ChatData::RoleLastMessageMinithumbnail: return data->data->senderMessageMinithumbnail();
+        case ChatData::RoleLastMessageIsService: return data->data->senderMessageIsService();
         case ChatData::RoleLastMessageDate: return data->data->senderMessageDate();
         case ChatData::RoleLastMessageStatus: return data->data->senderMessageStatus();
         case ChatData::RoleChatMemberStatus: return data->data->memberStatus;

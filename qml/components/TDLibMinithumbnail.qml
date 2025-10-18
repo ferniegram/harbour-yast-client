@@ -23,16 +23,19 @@ import QtGraphicalEffects 1.0
 Loader {
     id: loader
     property var minithumbnail
+    property string minithumbnailData: minithumbnail ? minithumbnail.data : ''
     property bool highlighted
-    property int fillMode: tdLibImage.fillMode
+    property int fillMode: Image.PreserveAspectCrop
+    property var image: item ? item.image : null
     anchors.fill: parent
-    active: !!minithumbnail
+    active: !!minithumbnailData
     sourceComponent: Component {
         Item {
+            property alias image: minithumbnailImage
             Image {
                 id: minithumbnailImage
                 anchors.fill: parent
-                source: "data:image/jpg;base64,"+minithumbnail.data
+                source: "data:image/jpg;base64,"+minithumbnailData
                 fillMode: loader.fillMode
                 opacity: status === Image.Ready ? 1.0 : 0.0
                 cache: false
