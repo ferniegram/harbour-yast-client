@@ -21,6 +21,8 @@ public:
         RoleLastMessageSenderId,
         RoleLastMessageDate,
         RoleLastMessageText,
+        RoleLastMessageMinithumbnail,
+        RoleLastMessageIsService,
         RoleLastMessageStatus,
         RoleChatMemberStatus,
         RoleSecretChatState,
@@ -50,6 +52,8 @@ public:
     bool senderIsChat() const;
     qlonglong senderMessageDate() const;
     QString senderMessageText() const;
+    QVariant senderMessageMinithumbnail() const;
+    bool senderMessageIsService() const;
     QString senderMessageStatus() const;
     qlonglong draftMessageDate() const;
     QString draftMessageText() const;

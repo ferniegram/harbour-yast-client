@@ -51,15 +51,26 @@ public:
     };
     Q_ENUM(VoiceNoteRecordingState)
 
+    enum MessageText {
+        MessageTextDefault,
+        MessageTextSimpleWithThumbnails,
+        MessageTextSimple
+    };
+    Q_ENUM(MessageText)
+
     static QString getUserName(const QVariantMap &userInformation);
+    static QString formatDuration(int seconds);
     
     Q_INVOKABLE static QString fixReservedHtmlCharacters(const QString &text);
     Q_INVOKABLE static void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
     Q_INVOKABLE static QString enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities = false, bool escapeReserved = true);
-    Q_INVOKABLE QString getMessageText(const QVariantMap &message, bool simple = false, bool ignoreEntities = false, bool escapeReserved = true) const;
-    Q_INVOKABLE QVariantMap getFormattedMessageText(const QVariantMap &message, bool simple = false) const;
-    Q_INVOKABLE QString getMessageContentText(const QVariantMap messageContent, bool simple = false, bool ignoreEntities = false, bool escapeReserved = true) const;
+
+    Q_INVOKABLE QString getMessageText(const QVariantMap &messageContent, const QString &messageSenderType, qlonglong messageSenderUserId, bool isSponsored, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true) const;
+    Q_INVOKABLE QString getMessageText(const QVariantMap &message, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true) const;
+    Q_INVOKABLE QString getMessageContentText(const QVariantMap &messageContent, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true) const;
+
     Q_INVOKABLE static bool messageContentIsService(const QString &contentType, bool includeTextOnly = false);
+    Q_INVOKABLE static QVariant getMessageMinithumbnail(const QVariantMap &messageContent);
 
     Q_INVOKABLE static QVariantMap newFormattedText(const QString &text, const QVariantList &entities = QVariantList());
     Q_INVOKABLE static QVariantList formattedTextEntitiesFromReplacements(QList<QVariantMap> &replacements, QString &text);
@@ -109,9 +120,6 @@ private:
     QNetworkAccessManager *manager;
 
     QString getTemporaryDirectoryPath();
-
-    QVariant getMaybeFormattedMessageText(const QVariantMap &messageContent, const QString &messageSenderType, qlonglong messageSenderUserId, bool isSponsored, bool simple) const;
-    QVariant inline getMaybeFormattedMessageText(const QVariantMap &message, bool simple = false) const;
 
     QVariantList decodeWaveform(QString encodedData);
 };

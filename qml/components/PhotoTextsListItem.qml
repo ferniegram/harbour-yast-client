@@ -1,4 +1,5 @@
 import QtQuick 2.6
+import QtGraphicalEffects 1.0
 import Sailfish.Silica 1.0
 
 ListItem {
@@ -21,6 +22,8 @@ ListItem {
     property alias ad: chatBadges.ad
 
     property alias pictureThumbnail: pictureItem.pictureThumbnail
+    property var minithumbnail
+    property int minithumbnailRadius: Theme.paddingSmall / 2
 
     contentHeight: Theme.itemSizeExtraLarge
     contentWidth: parent.width
@@ -87,6 +90,36 @@ ListItem {
                 textFormat: Text.StyledText
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
+            }
+            Loader {
+                id: minithumbnailLoader
+                active: !!minithumbnail
+                width: active ? Theme.fontSizeExtraSmall : 0
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+
+                sourceComponent: Component {
+                    OpacityMask {
+                        anchors.fill: parent
+                        source: minithumbnailItem.image
+                        maskSource: minithumbnailMask
+
+                        TDLibMinithumbnail {
+                            id: minithumbnailItem
+                            minithumbnail: chatItem.minithumbnail
+                            visible: false
+                        }
+
+                        Rectangle {
+                            id: minithumbnailMask
+                            color: Theme.primaryColor
+                            width: parent.width - Theme.paddingSmall
+                            height: parent.height - Theme.paddingSmall
+                            radius: minithumbnailRadius
+                            visible: false
+                        }
+                    }
+                }
             }
             Label {
                 id: secondaryText

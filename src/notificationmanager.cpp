@@ -361,7 +361,7 @@ void NotificationManager::publishNotification(const NotificationGroup *notificat
             }
             notificationBody += fullName.trimmed() + ": ";
         }
-        notificationBody += utilities->getMessageText(messageMap, true);
+        notificationBody += utilities->getMessageText(messageMap, Utilities::MessageTextSimple);
     }
 
     const QString summary(chatInformation ? chatInformation->title : QString());
