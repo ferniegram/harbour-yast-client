@@ -20,6 +20,9 @@ QT += core dbus multimedia positioning
 
 DEFINES += QT_STATICPLUGIN
 
+# Without this sources in subdirectories would require including files with "../" prefix
+INCLUDEPATH += src/
+
 SOURCES += src/harbour-fernschreiber2.cpp \
     src/appsettings.cpp \
     src/boolfiltermodel.cpp \
