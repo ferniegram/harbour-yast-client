@@ -68,7 +68,6 @@ namespace {
     const QString REPLY_IN_CHAT_ID("reply_in_chat_id");
     const QString REPLY_TO_MESSAGE_ID("reply_to_message_id");
     const QString DRAFT_MESSAGE("draft_message");
-    const QString TRANSLATION("translation");
     const QString SENDER_ID("sender_id");
     const QString MESSAGE_THREAD_ID("message_thread_id");
     const QString UNIQUE_ID("unique_id");
@@ -1020,11 +1019,10 @@ void TDLibReceiver::processStorageStatistics(const QVariantMap &receivedInformat
 }
 
 void TDLibReceiver::processFormattedText(const QVariantMap &receivedInformation) {
-    const QString extra = receivedInformation.value(_EXTRA).toString();
-    if (extra.indexOf(TRANSLATION) == 0) {
-        LOG("Received translation result as formattedText");
-        emit translationResultReceived(extra.mid(11).toLongLong(), receivedInformation);
-    } else LOG("Received unknown formattedText, ignoring");
+    LOG("Received formattedText");
+    QVariantMap formattedText = receivedInformation;
+    const QString extra = formattedText.take(_EXTRA).toString();
+    emit formattedTextReceived(formattedText, extra);
 }
 
 void TDLibReceiver::processUpdateChatAction(const QVariantMap &receivedInformation) {

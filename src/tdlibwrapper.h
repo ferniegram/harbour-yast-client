@@ -291,7 +291,8 @@ public:
     Q_INVOKABLE void getCustomEmojiStickers(QString id);
     Q_INVOKABLE void getStorageStatisticsFast();
     Q_INVOKABLE void optimizeStorage(bool entire = false);
-    Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId);
+    Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, const QString &extra);
+    Q_INVOKABLE void translateMessageText(qlonglong chatId, qlonglong messageId, const QString &languageCode);
     Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
     Q_INVOKABLE void searchEmojis(const QString &text);
     Q_INVOKABLE void toggleSupergroupIsForum(bool isForum);
@@ -410,7 +411,7 @@ signals:
     void messagePropertiesReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &messageProperties);
     void storageStatisticsFastReceived(const QVariantMap &statistics);
     void storageStatisticsReceived(const QVariantMap &statistics);
-    void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
+    void formattedTextReceived(const QVariantMap &formattedText, const QString &extra);
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
     void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);

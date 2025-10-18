@@ -77,7 +77,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Translate"
                 onClicked: pageStack.push(Qt.resolvedUrl("TranslatePage.qml"), {
-                                              messageId: -1,
+                                              getExtra: function() { return "debug" },
                                               sourceText: utilities.newFormattedText(translateArea.text)
                                           })
             }

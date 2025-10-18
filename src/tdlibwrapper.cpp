@@ -80,7 +80,6 @@ namespace {
     const QString PHOTO("photo");
     const QString TYPE_INPUT_FILE_LOCAL("inputFileLocal");
     const QString PATH("path");
-    const QString TRANSLATION("translation");
     const QString CONTACT("contact");
     const QString PHONE_NUMBER("phone_number");
     const QString REMOVE_CONTACTS("removeContacts");
@@ -296,7 +295,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::messagePropertiesReceived, this, &TDLibWrapper::messagePropertiesReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::storageStatisticsFastReceived, this, &TDLibWrapper::storageStatisticsFastReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::storageStatisticsReceived, this, &TDLibWrapper::storageStatisticsReceived);
-    connect(this->tdLibReceiver, &TDLibReceiver::translationResultReceived, this, &TDLibWrapper::translationResultReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::formattedTextReceived, this, &TDLibWrapper::formattedTextReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatActionUpdated, this, &TDLibWrapper::chatActionUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::emojiKeywordsReceived, this, &TDLibWrapper::emojiKeywordsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::diceEmojisUpdated, this, &TDLibWrapper::handleDiceEmojisUpdated);
@@ -2401,13 +2400,24 @@ void TDLibWrapper::optimizeStorage(bool entire) {
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId) {
-    LOG("Translating text" << extraId);
+void TDLibWrapper::translateText(const QVariantMap &text, const QString &languageCode, const QString &extra) {
+    LOG("Translating text" << languageCode << extra);
     this->sendRequest(QVariantMap{
         {_TYPE, "translateText"},
     {TEXT, text},
     {"to_language_code", languageCode},
-    {_EXTRA, TRANSLATION + QString::number(extraId)}
+    {_EXTRA, extra}
+    });
+}
+
+void TDLibWrapper::translateMessageText(qlonglong chatId, qlonglong messageId, const QString &languageCode) {
+    LOG("Translating message text" << chatId << messageId << languageCode);
+    this->sendRequest(QVariantMap{
+        {_TYPE, "translateMessageText"},
+        {CHAT_ID, chatId},
+        {MESSAGE_ID, messageId},
+        {"to_language_code", languageCode},
+        {_EXTRA, "msgtr" + QString::number(chatId) + ":" + QString::number(messageId) + languageCode}
     });
 }
 

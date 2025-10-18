@@ -1,76 +1,119 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import WerkWolf.Fernschreiber 1.0
+import Opal.SortFilterProxyModel 1.0
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 
 Page {
     id: page
-    property var messageId
     property var message
+    property var chatId: message ? message.chat_id : null
+    property var messageId: message ? message.id : null
 
     readonly property var supportedLanguages: ["af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "zh-CN", "zh", "zh-Hans", "zh-TW", "zh-Hant", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "in", "ga", "it", "ja", "jv", "kn", "kk", "km", "rw", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "ji", "yo", "zu"]
 
-    property var sourceText
+    property var sourceText: appSettings.formattedTranslate ? utilities.newFormattedText(utilities.getMessageText(message)) : null
     property bool translating
     property string translated
     property string plainTranslated
 
-    property string language: {
-        var l = Qt.locale().name.slice(0, 2) // for locales like ru_RU and en_US
-        if (supportedLanguages.indexOf(l) != -1) return l
-        return "en"
+    property string deviceLanguage: Qt.locale().name.slice(0, 2) // for locales like ru_RU and en_US
+    property bool deviceLanguageSupported: supportedLanguages.indexOf(deviceLanguage) >= 0
+
+    property string language: deviceLanguageSupported ? deviceLanguage : 'en'
+
+    property var getExtra: function() {
+        return "msgtr" + chatId + ":" + messageId + language
     }
 
     /*
-        How does appSettings.formattedTranslate work:
-        1. Instead of putting formatted text with entities, we put HTML text to translateText function
+        How appSettings.formattedTranslate works:
+        1. Instead of using translateMessageText, putting formatted text with entities, we put HTML text to translateText function
         2. When receiving translated version, we don't escape HTML tag characters when running utilities.enhanceMessageText().
     */
 
-    function checkMessage() {
-        if (message) sourceText = appSettings.formattedTranslate
-                     ? utilities.newFormattedText(utilities.getMessageText(message))
-                     : utilities.getFormattedMessageText(message)
-    }
     function translate() {
         translating = true
         translated = ""
-        translating = true
-        tdLibWrapper.translateText(sourceText, language, messageId)
+        if (sourceText)
+            tdLibWrapper.translateText(sourceText, language, getExtra())
+        else if (message)
+            tdLibWrapper.translateMessageText(chatId, messageId, language)
     }
 
-    onMessageChanged: checkMessage()
     onSourceTextChanged: translate()
     onLanguageChanged: translate()
-
-    Component.onCompleted: {
-        checkMessage()
-        translate()
-    }
+    onMessageChanged: translate()
+    Component.onCompleted: translate()
 
     Connections {
         target: tdLibWrapper
-        onTranslationResultReceived: if (extraId == messageId) {
-                                         plainTranslated = utilities.enhanceMessageText(formattedText, true);
-                                         translated = Emoji.emojify(utilities.enhanceMessageText(formattedText, false, !appSettings.formattedTranslate))
-                                         translating = false
-                                     }
+        onFormattedTextReceived:
+            if (extra === getExtra()) {
+                plainTranslated = utilities.enhanceMessageText(formattedText, true)
+                translated = Emoji.emojify(utilities.enhanceMessageText(formattedText, false, !appSettings.formattedTranslate))
+                translating = false
+            }
     }
 
     Component {
-        id: languageSelectorComponent
-
+        id: languageSelectionPageComponent
         Page {
             SilicaListView {
+                id: languageSelectionView
                 anchors.fill: parent
-                model: ListModel {
-                    Component.onCompleted:
-                        supportedLanguages.forEach(function (lang) { append({lang: lang})})
+
+                property string searchQuery: headerItem ? headerItem.query : ''
+
+                // When searchins, sometimes search field looses focus.
+                // To workaround this we ensure that currentIndex of the list view is always -1 (highlighting is cleared)
+                onCurrentIndexChanged: currentIndex = -1
+
+                model: SortFilterProxyModel {
+                    sourceModel: ListModel {
+                        id: languagesModel
+                        Component.onCompleted:
+                            supportedLanguages.forEach(function(lang) {
+                                append({
+                                           lang: lang,
+                                           name: Qt.locale(lang).nativeLanguageName,
+                                           //isDevice: deviceLanguageSupported && lang === deviceLanguage
+                                       })
+                            })
+                    }
+
+                    filters: AnyOf {
+                        enabled: !!languageSelectionView.searchQuery
+                        RegExpFilter {
+                            roleName: 'lang'
+                            pattern: languageSelectionView.searchQuery
+                        }
+                        RegExpFilter {
+                            roleName: 'name'
+                            pattern: languageSelectionView.searchQuery
+                        }
+                    }
+
+                    sorters: FilterSorter {
+                        enabled: deviceLanguageSupported
+                        ValueFilter {
+                            enabled: deviceLanguageSupported
+                            roleName: 'lang'
+                            value: deviceLanguage
+                        }
+                    }
                 }
 
-                header: PageHeader {
-                    title: qsTr("Change language")
+                header: Column {
+                    width: parent.width
+                    property alias query: languageSearchField.text
+
+                    PageHeader { title: qsTr("Language") }
+                    SearchField {
+                        id: languageSearchField
+                        width: parent.width
+                    }
                 }
 
                 delegate: BackgroundItem {
@@ -82,7 +125,7 @@ Page {
                         pageStack.pop()
                     }
 
-                    property string name: Qt.locale(lang).nativeLanguageName
+                    property bool isDeviceLanguage: deviceLanguageSupported && lang === deviceLanguage
 
                     Column {
                         id: languageColumn
@@ -94,17 +137,21 @@ Page {
                             width: parent.width
                             wrapMode: Text.Wrap
                             text: name || lang
-                            visible: !!text
-                            highlighted: languageItem.highlighted || page.language === lang
+                            highlighted: languageItem.highlighted || lang === page.language
                         }
 
                         Label {
                             width: parent.width
-                            visible: !!name
+                            visible: !!name || isDeviceLanguage
                             height: visible ? implicitHeight : 0
                             font.pixelSize: Theme.fontSizeExtraSmall
                             wrapMode: Text.Wrap
-                            text: lang
+                            text: isDeviceLanguage ?
+                                      (name
+                                       ? qsTr("%2Device Language%3 (%1)", "Indicator in language selection page for translation that a certain language is currently set as the device language").arg(lang)
+                                       : '%1'+qsTr("Device Language")+'%2')
+                                      .arg(highlighted ? '' : '<font color="'+Theme.secondaryHighlightColor+'">').arg(highlighted ? '' : '</font>')
+                                    : lang
                             highlighted: mainLabel.highlighted
                             color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         }
@@ -116,8 +163,6 @@ Page {
         }
     }
 
-    ComboBox {}
-
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: column.height
@@ -125,7 +170,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Change language")
-                onClicked: pageStack.push(languageSelectorComponent)
+                onClicked: pageStack.push(languageSelectionPageComponent)
             }
             MenuItem {
                 text: qsTr("Copy")
@@ -160,7 +205,7 @@ Page {
         }
     }
 
-    /*PageBusyIndicator {
+    PageBusyIndicator {
         running: translating
-    }*/
+    }
 }
