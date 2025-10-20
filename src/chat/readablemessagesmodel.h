@@ -1,8 +1,7 @@
 #ifndef READABLEMESSAGESMODEL_H
 #define READABLEMESSAGESMODEL_H
 
-// FIXME: why is chat/ prefix needed here?..
-#include "chat/messagesmodel.h"
+#include "messagesmodel.h"
 
 class ReadableMessagesModel : public MessagesModel {
     Q_OBJECT
