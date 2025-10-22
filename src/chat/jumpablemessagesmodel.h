@@ -12,9 +12,9 @@ public:
     Q_INVOKABLE virtual bool isMostRecentMessageLoaded();
     virtual void loadMessages(qlonglong fromMessageId, int offset = -1) = 0;
 
-    Q_INVOKABLE void triggerLoadMoreHistory();
-    Q_INVOKABLE void triggerLoadMoreFuture();
-    Q_INVOKABLE void triggerLoadHistoryForMessage(qlonglong messageId);
+    Q_INVOKABLE void loadMoreHistory();
+    Q_INVOKABLE void loadMoreFuture();
+    Q_INVOKABLE void loadHistoryForMessage(qlonglong messageId);
 
 signals:
     void messagesReceived(int totalCount, bool fromIncrementalUpdate);

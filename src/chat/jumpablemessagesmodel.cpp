@@ -18,7 +18,7 @@ bool JumpableMessagesModel::clear() {
     return MessagesModel::clear();
 }
 
-void JumpableMessagesModel::triggerLoadMoreHistory() {
+void JumpableMessagesModel::loadMoreHistory() {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Loading older messages...");
         this->inIncrementalUpdate = true;
@@ -26,7 +26,7 @@ void JumpableMessagesModel::triggerLoadMoreHistory() {
     }
 }
 
-void JumpableMessagesModel::triggerLoadMoreFuture() {
+void JumpableMessagesModel::loadMoreFuture() {
     if (canLoadMoreMessages() && !this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Loading newer messages...");
         this->inIncrementalUpdate = true;
@@ -34,7 +34,7 @@ void JumpableMessagesModel::triggerLoadMoreFuture() {
     }
 }
 
-void JumpableMessagesModel::triggerLoadHistoryForMessage(qlonglong messageId) {
+void JumpableMessagesModel::loadHistoryForMessage(qlonglong messageId) {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Trigger loading message with id..." << messageId);
         this->clear();

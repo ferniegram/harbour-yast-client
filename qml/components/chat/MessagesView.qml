@@ -140,7 +140,7 @@ Column {
                 navigatedTo(proxyIndex)
             } else if(initialRun)
                 // we only want to do this once.
-                chatManager.model.triggerLoadHistoryForMessage(messageIdToScrollTo)
+                chatManager.model.loadHistoryForMessage(messageIdToScrollTo)
         }
     }
 
@@ -277,7 +277,7 @@ Column {
                 chatPage.loading = false
                 if (chatOverviewItem.visible && scrollPosition >= (chatView.count - 10)) {
                     chatView.inCooldown = true
-                    chatManager.model.triggerLoadMoreFuture()
+                    chatManager.model.loadMoreFuture()
                 }
             }
 
@@ -552,11 +552,11 @@ Column {
                     if (chatView.indexAt(chatView.contentX, chatView.contentY) < 10) {
                         Debug.log("[ChatPage] Trying to get older history items...")
                         chatView.inCooldown = true
-                        chatManager.model.triggerLoadMoreHistory()
+                        chatManager.model.loadMoreHistory()
                     } else if (chatOverviewItem.visible && chatView.indexAt(chatView.contentX, chatView.contentY) > ( count - 10)) {
                         Debug.log("[ChatPage] Trying to get newer history items...")
                         chatView.inCooldown = true
-                        chatManager.model.triggerLoadMoreFuture()
+                        chatManager.model.loadMoreFuture()
                     }
                 }
             }

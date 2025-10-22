@@ -28,7 +28,7 @@ ChatInformationTabItemBase {
     loading: gridView.count == 0
 
     function loadMessage(id) {
-        chatManager.model.triggerLoadHistoryForMessage(id) // FIXME: need to use chatPage.showMessage (improves performance in case message is already loaded and shows an animation after message is shown). Need to map album messages to main album message though
+        chatManager.model.loadHistoryForMessage(id) // FIXME: need to use chatPage.showMessage (improves performance in case message is already loaded and shows an animation after message is shown). Need to map album messages to main album message though
         appWindow.pageStack.navigateBack()
     }
 
@@ -109,7 +109,7 @@ ChatInformationTabItemBase {
             if (!cooldownTimer.running && gridView.indexAt(gridView.contentX, gridView.contentY) > Math.max(0, gridView.count - 10*columnCount)) {
                 Debug.log("[ChatInformationTabItemMedia] Trying to get older history items...")
                 cooldownTimer.restart()
-                chatManager.mediaMessagesModel.triggerLoadMoreHistory()
+                chatManager.mediaMessagesModel.loadMoreHistory()
             }
         }
 
