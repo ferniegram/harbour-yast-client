@@ -56,6 +56,7 @@
 #include "knownusersmodel.h"
 #include "contactsmodel.h"
 #include "chatfoldersmodel.h"
+#include "invertedproxymodel.h"
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
 // QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2
@@ -131,6 +132,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<TDLibFile>(uri, 1, 0, "TDLibFile");
     qmlRegisterType<TextFilterModel>(uri, 1, 0, "TextFilterModel");
     qmlRegisterType<BoolFilterModel>(uri, 1, 0, "BoolFilterModel");
+    qmlRegisterType<InvertedProxyModel>(uri, 1, 0, "InvertedProxyModel");
     qmlRegisterType<ChatPermissionFilterModel>(uri, 1, 0, "ChatPermissionFilterModel");
     qmlRegisterSingletonType<DebugLogJS>(uri, 1, 0, "DebugLog", DebugLogJS::createSingleton);
 

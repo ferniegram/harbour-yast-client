@@ -1017,7 +1017,7 @@ void TDLibReceiver::processMessageProperties(const QVariantMap &receivedInformat
     const QVariantMap extra = receivedInformation.value(_EXTRA).toMap();
     const qlonglong chatId = extra.value(CHAT_ID).toLongLong();
     const qlonglong messageId = extra.value(MESSAGE_ID).toLongLong();
-    LOG("Received message properties" << messageId << receivedInformation);
+    LOG("Received message properties" << messageId);
     emit messagePropertiesReceived(chatId, messageId, receivedInformation);
 }
 
