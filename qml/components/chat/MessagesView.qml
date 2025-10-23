@@ -823,7 +823,7 @@ Column {
             asynchronous: true
             width: parent.width
             height: active ? parent.height : 0
-            source: "../components/StickerPicker.qml"
+            source: "../StickerPicker.qml"
             onStatusChanged: if (status == Loader.Ready)
                                  chatActionTimer.run("chatActionChoosingSticker")
                              else chatActionTimer.stop()
