@@ -78,3 +78,7 @@ void JumpableMessagesModel::handleMessagesReceived(const QVariantList &messages,
         }
     }
 }
+
+int JumpableMessagesModel::calculateScrollPosition() {
+    return this->messageIndexMap.value(this->highlightedMessageId, -1);
+}

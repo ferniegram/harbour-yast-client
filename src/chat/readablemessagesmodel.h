@@ -16,7 +16,7 @@ public:
 
     Q_INVOKABLE virtual bool clear() override;
     Q_INVOKABLE void loadEnd(bool markAllAsRead = false);
-    Q_INVOKABLE int calculateScrollPosition();
+    Q_INVOKABLE virtual int calculateScrollPosition() override;
 
 signals:
     void newMessageReceived(const QVariantMap &message);
