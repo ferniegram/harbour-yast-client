@@ -27,7 +27,7 @@ MessageContentBase {
 
     onClicked: {
         pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
-            "messages" : [rawMessage],
+            message: rawMessage,
         })
     }
     function getAspectRatio() {

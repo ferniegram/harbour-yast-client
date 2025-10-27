@@ -58,6 +58,7 @@ QHash<int,QByteArray> MessagesModel::roleNames() const
         {MessageData::RoleMessageViewCount, "view_count"},
         {MessageData::RoleMessageReactions, "reactions"},
         {MessageData::RoleMessageAlbumEntryFilter, "album_entry_filter"},
+        {MessageData::RoleMessageAlbumId, "album_id"},
         {MessageData::RoleMessageAlbumMessageIds, "album_message_ids"},
         {MessageData::RoleIsFirstInSequence, "is_first_in_sequence"},
         {MessageData::RoleIsLastInSequence, "is_last_in_sequence"},
@@ -79,6 +80,7 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const {
         case MessageData::RoleMessageViewCount: return message->viewCount;
         case MessageData::RoleMessageReactions: return message->reactions;
         case MessageData::RoleMessageAlbumEntryFilter: return message->albumEntryFilter;
+        case MessageData::RoleMessageAlbumId: return message->mediaAlbumId();
         case MessageData::RoleMessageAlbumMessageIds: return message->albumMessageIds;
         case MessageData::RoleIsFirstInSequence: return messageIsFirstInSequence(row, message);
         case MessageData::RoleIsLastInSequence: return messageIsLastInSequence(row, message);

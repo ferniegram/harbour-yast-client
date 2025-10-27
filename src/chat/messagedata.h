@@ -14,6 +14,7 @@ struct MessageData {
         RoleMessageReactions,
         // When not needed these can be left unused:
         RoleMessageAlbumEntryFilter,
+        RoleMessageAlbumId,
         RoleMessageAlbumMessageIds,
 
         RoleIsFirstInSequence,
@@ -58,6 +59,8 @@ struct MessageData {
     int senderUserId() const;
     qlonglong senderChatId() const;
     bool senderIsChat() const;
+
+    qlonglong mediaAlbumId() const;
 
 
 

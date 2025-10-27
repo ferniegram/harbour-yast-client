@@ -24,6 +24,7 @@ namespace {
     const QString REACTIONS("reactions");
 
     const QString TYPE_SPONSORED_MESSAGE("sponsoredMessage");
+    const QString MEDIA_ALBUM_ID("media_album_id");
 }
 
 MessageData::MessageData(const QVariantMap &data, qlonglong msgid) :
@@ -73,6 +74,10 @@ qlonglong MessageData::senderChatId() const {
 
 bool MessageData::senderIsChat() const {
     return messageData.value(SENDER_ID).toMap().value(_TYPE).toString() == "messageSenderChat";
+}
+
+qlonglong MessageData::mediaAlbumId() const {
+    return messageData.value(MEDIA_ALBUM_ID).toLongLong();
 }
 
 QVector<int> MessageData::diff(const MessageData *message) const {

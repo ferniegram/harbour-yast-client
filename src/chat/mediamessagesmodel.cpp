@@ -30,6 +30,7 @@ void MediaMessagesModel::loadMessagesWithLimit(qlonglong fromMessageId, int offs
 void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     LOG("Initializing" << chatId << fromMessageId);
 
+    // TODO: add this to JumpableMessagesModel too
     if (this->chatId == chatId) {
         LOG("Model already initialized for this chat ID, checking if other required stuff is already loaded");
 

@@ -33,9 +33,12 @@ Page {
     id: page
     // property declarations
 
-    property alias index: pagedView.currentIndex
+    property var message
+    property var messageId: message ? message.id : 0
     property alias overlayActive: overlay.active
+    property alias index: pagedView.currentIndex
     property alias delegate: pagedView.delegate
+    property alias model: pagedView.model
     property var messages: []
     // message.content.caption.text
     palette.colorScheme: Theme.LightOnDark
@@ -54,7 +57,6 @@ Page {
 
 
     Component.onCompleted: {
-        var messageId = messages[index].id
         chatManager.initializeMediaMessagesModel(messageId)
     }
 
@@ -121,6 +123,6 @@ Page {
         id: overlay
         pageCount: messages.length
         currentIndex: page.index
-        message: pagedView.currentItem ? pagedView.currentItem._model : messages[0]
+        message: pagedView.currentItem ? pagedView.currentItem._model : message
     }
 }

@@ -170,7 +170,7 @@ MessageContentBase {
                     anchors.centerIn: parent
                     highlighted: videoMessageComponent.highlighted || down
                     icon.source: "../../../images/icon-l-fullscreen.svg"
-                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {messages: [rawMessage]})
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {message: rawMessage})
                 }
             }
         }

@@ -29,8 +29,7 @@ AlbumMessageContentBase {
 
     function openDetail(index) {
         pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
-                           messages : albumMessages,
-                           index: index || 0
+                           message: albumMessages[index || 0]
                        })
     }
     onClicked: openDetail(-1)

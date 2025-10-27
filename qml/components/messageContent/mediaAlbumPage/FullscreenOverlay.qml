@@ -18,8 +18,9 @@
 */
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
-import WerkWolf.Fernschreiber 1.0
 import Sailfish.Silica 1.0
+import WerkWolf.Fernschreiber 1.0
+import Opal.SortFilterProxyModel 1.0
 import "../../../js/functions.js" as Functions
 import "../../../js/twemoji.js" as Emoji
 import "../.."
@@ -44,11 +45,6 @@ Item {
     // object properties
     anchors.fill: parent
     opacity: active ? 1 : 0
-    Behavior on opacity { FadeAnimator {} }
-    // large property bindings
-    // child objects
-    // states
-    // transitions
 
     onActiveChanged: {
         console.log('overlay active', active)
@@ -198,27 +194,37 @@ Item {
     Loader {
         asynchronous: true
         active: overlay.pageCount > 1
-
         anchors {
             horizontalCenter: parent.horizontalCenter
             verticalCenter: buttons.bottom
         }
-        sourceComponent: Component {
 
+        sourceComponent: Component {
             Row {
                 id: pageIndicatorRow
-                height: Theme.paddingSmall
-                spacing:  height
+                height: Theme.itemSizeExtraSmall
+                spacing: Theme.paddingMedium
                 Repeater {
                     id: pageIndicator
-                    model: overlay.pageCount
-                    Rectangle {
-                        property bool active: model.index === overlay.currentIndex
-                        width: pageIndicatorRow.height
-                        height: pageIndicatorRow.height
-                        color: active ? Theme.lightPrimaryColor : Theme.rgba(Theme.lightSecondaryColor, Theme.opacityLow)
-                        Behavior on color { ColorAnimation {} }
-                        radius: Theme.paddingSmall
+                    model: SortFilterProxyModel {
+                        sourceModel: overlay.model
+                        filters: ValueFilter {
+                            roleName: 'album_id'
+                            value: message.media_album_id
+                        }
+                    }
+
+                    TDLibThumbnail {
+                        property bool current: message.id === message_id
+                        property bool isVideo: content_type === 'messageVideo'
+
+                        height: parent.height
+                        width: current ? height : (height / 2)
+
+                        Behavior on width { NumberAnimation { duration: 200 } }
+
+                        thumbnail: null // TODO
+                        minithumbnail: (isVideo ? (display.content.cover || display.content.video) : display.content.photo).minithumbnail
                     }
                 }
             }
