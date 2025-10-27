@@ -26,6 +26,7 @@ import "../components"
 import "../components/messageContent/mediaAlbumPage"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
+import "../js/debug.js" as Debug
 
 Page {
     // id
@@ -54,25 +55,23 @@ Page {
 
     Component.onCompleted: {
         var messageId = messages[index].id
-        var i = chatManager.mediaMessagesModel.getMessageIndex(messageId)
-        if (i !== -1) index = i
-        else // Required message isn't loaded
-            chatManager.initializeMediaMessagesModel(messageId)
+        chatManager.initializeMediaMessagesModel(messageId)
     }
 
-    function jumpToMessage(messageId, initialRun) {
-        chatManager.mediaMessagesModel.getMessageIndex()
+    function goToScrollPosition() {
+        var i = chatManager.mediaMessagesModel.calculateScrollPosition()
+        Debug.log("[MediaAlbumPage] Going to scroll position", i)
+        if (i !== -1)
+            pagedView.currentIndex = i
     }
 
     Connections {
         target: chatManager.mediaMessagesModel
-        onMessagesReceived: {
-            if (!fromIncrementalUpdate) {
-                var i = chatManager.mediaMessagesModel.calculateScrollPosition()
-                if (i !== -1)
-                    pagedView.currentIndex = i
-            }
-        }
+        onMessagesReceived:
+            if (!fromIncrementalUpdate)
+                goToScrollPosition()
+        onAlreadyLoaded:
+            goToScrollPosition()
     }
 
     // content

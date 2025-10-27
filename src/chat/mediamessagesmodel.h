@@ -11,6 +11,9 @@ public:
     Q_INVOKABLE virtual bool clear() override;
     Q_INVOKABLE void init(qlonglong chatId, qlonglong fromMessageId = 0);
 
+signals:
+    void alreadyLoaded();
+
 private slots:
     void handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);

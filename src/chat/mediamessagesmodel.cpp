@@ -29,6 +29,27 @@ void MediaMessagesModel::loadMessagesWithLimit(qlonglong fromMessageId, int offs
 
 void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     LOG("Initializing" << chatId << fromMessageId);
+
+    if (this->chatId == chatId) {
+        LOG("Model already initialized for this chat ID, checking if other required stuff is already loaded");
+
+        if (fromMessageId == 0) {
+            if (endReached) {
+                LOG("Message history end already loaded, skipping initialization");
+                emit alreadyLoaded();
+                return;
+            }
+        } else {
+            const int index = this->getMessageIndex(fromMessageId);
+            if (index != -1) {
+                LOG("Message is already loaded, skipping initialization");
+                this->highlightedMessageId = fromMessageId;
+                emit alreadyLoaded();
+                return;
+            }
+        }
+    }
+
     clear();
     this->chatId = chatId;
     this->highlightedMessageId = fromMessageId;

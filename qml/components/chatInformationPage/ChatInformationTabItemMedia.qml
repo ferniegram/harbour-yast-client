@@ -109,6 +109,10 @@ ChatInformationTabItemBase {
 
                 //cooldownTimer.restart()
             }
+            onAlreadyLoaded: {
+                Debug.log("[ChatInformationTabItemMedia] Chat history end already loaded")
+                busyIndicator.running = false
+            }
         }
 
         Timer {
