@@ -89,6 +89,10 @@ public:
     Q_INVOKABLE inline bool supportsGeoLocation() const { return this->geoPositionInfoSource; }
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
 
+    Q_INVOKABLE static QVariant findPhotoSize(const QVariantList &photoSizes, int width);
+    Q_INVOKABLE static QVariant findBiggestPhotoSize(const QVariantList &photoSizes);
+    Q_INVOKABLE static QVariant findSmallestPhotoSize(const QVariantList &photoSizes);
+
 signals:
     void voiceNoteDurationChanged();
     void voiceNoteRecordingStateChanged();

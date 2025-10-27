@@ -47,16 +47,11 @@ Page {
 
     Component.onCompleted: {
         if (photoData) {
-            var biggestIndex = -1
-            for (var i = 0; i < photoData.sizes.length; i++) {
-                if (biggestIndex === -1 || photoData.sizes[i].width > photoData.sizes[biggestIndex].width) {
-                    biggestIndex = i;
-                }
-            }
-            if (biggestIndex > -1) {
-                imagePage.imageWidth = photoData.sizes[biggestIndex].width;
-                imagePage.imageHeight = photoData.sizes[biggestIndex].height;
-                singleImage.fileInformation = photoData.sizes[biggestIndex].photo
+            var size = utilities.findBiggestPhotoSize(photoData.sizes)
+            if (size) {
+                imagePage.imageWidth = size.width
+                imagePage.imageHeight = size.height
+                singleImage.fileInformation = size.photo
             }
         }
     }

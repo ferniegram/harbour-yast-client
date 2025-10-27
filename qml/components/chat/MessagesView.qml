@@ -632,7 +632,7 @@ Column {
                         unit = (parentWidth * 0.66666666)
                         return (albumEntries % 2 !== 0 ? unit * 0.75 : 0) + unit * albumEntries * 0.25
                     }
-                    var biggest = content.photo.sizes[content.photo.sizes.length - 1]
+                    var biggest = utilities.findBiggestPhotoSize(content.photo.sizes)
                     var aspectRatio = biggest.width/biggest.height
                     return Math.max(Theme.itemSizeExtraSmall, Math.min(parentWidth * 0.66666666, parentWidth / aspectRatio))
                 case "messagePoll":

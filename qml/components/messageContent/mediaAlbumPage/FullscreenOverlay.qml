@@ -27,9 +27,8 @@ import "../.."
 
 
 Item {
-    // id
     id: overlay
-    // property declarations
+
     property int pageCount
     property int currentIndex
     property alias text: captionLabel.text
@@ -40,15 +39,10 @@ Item {
     property bool videoControlsVisible
     readonly property color gradientColor: '#bb000000'
     readonly property int gradientPadding: Theme.itemSizeMedium
-    // signal declarations
-    // JavaScript functions
-    // object properties
+
     anchors.fill: parent
     opacity: active ? 1 : 0
-
-    onActiveChanged: {
-        console.log('overlay active', active)
-    }
+    Behavior on opacity { FadeAnimator {} }
 
     function forwardMessage() {
         var neededPermissions = Functions.getMessagesNeededForwardPermissions([message]);
@@ -246,17 +240,7 @@ Item {
 
         fileInformation: {
             if(isPhoto) {
-                var photoData = message.content.photo
-                var biggestIndex = -1
-                for (var i = 0; i < photoData.sizes.length; i++) {
-                    if (biggestIndex === -1 || photoData.sizes[i].width > photoData.sizes[biggestIndex].width) {
-                        biggestIndex = i;
-                    }
-                }
-                if (biggestIndex > -1) {
-                    return photoData.sizes[biggestIndex].photo
-                }
-                return {}
+                return utilities.findBiggestPhotoSize(message.content.photo.sizes) || {}
             }
             return videoData[message.content['@type'] === 'messageVideoNote' ? "video" : videoData['@type']]
         }

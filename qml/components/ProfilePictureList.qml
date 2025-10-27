@@ -42,7 +42,7 @@ Item {
             height: bigProfilePictureList.itemHeight
             ProfileThumbnail {
                 id: chatPictureDetail
-                photoData: modelData.sizes[modelData.sizes.length - 1].photo
+                photoData: utilities.findBiggestPhotoSize(modelData.sizes)
                 replacementStringHint: ""
                 radius: imageContainer.thumbnailRadius
                 anchors.fill: parent

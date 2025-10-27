@@ -33,13 +33,7 @@ Item {
 
     function setImageFile() {
         if (photo) {
-            var photoSize;
-            for (var i = 0; i < photo.sizes.length; i++) {
-                photoSize = photo.sizes[i].photo;
-                if (photo.sizes[i].width >= width) {
-                    break;
-                }
-            }
+            var photoSize = utilities.findPhotoSize(photo.sizes, width)
             if (photoSize && photoSize.id !== tdLibImage.fileInformation.id) {
                 tdLibImage.fileInformation = photoSize;
             }

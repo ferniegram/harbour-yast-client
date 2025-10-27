@@ -38,16 +38,9 @@ InlineQueryResultDefaultBase {
     Component.onCompleted: {
         if (model.game.photo) {
             // Check first which size fits best...
-            var photo
-            for (var i = 0; i < model.game.photo.sizes.length; i++) {
-                photo = model.game.photo.sizes[i].photo
-                if (model.game.photo.sizes[i].width >= queryResultItem.width) {
-                    break
-                }
-            }
-            if (photo) {
+            var photo = utilities.findPhotoSize(model.game.photo.sizes, queryResultItem.width)
+            if (photo)
                 thumbnailFileInformation = photo
-            }
         }
     }
 }

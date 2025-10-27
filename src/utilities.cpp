@@ -109,6 +109,8 @@ namespace {
     // vorbis cannot be played on Telegram for iOS
     const QString AUDIO_CODEC_OPUS("audio/opus");
     const QString AUDIO_CODEC_VORBIS("audio/vorbis");
+
+    const QString WIDTH("width");
 }
 
 
@@ -864,4 +866,41 @@ void Utilities::handleReverseGeocodeFinished()
 QString Utilities::getTemporaryDirectoryPath()
 {
     return QStandardPaths::writableLocation(QStandardPaths::TempLocation) +  + "/harbour-fernschreiber2";
+}
+
+
+QVariant Utilities::findPhotoSize(const QVariantList &photoSizes, int width) {
+    QVariantMap result = photoSizes.value(0).toMap();
+    for (const QVariant &sizeVariant : photoSizes) {
+        result = sizeVariant.toMap();
+
+        if (result.value(WIDTH).toInt() >= width)
+            break;
+    }
+
+    return !result.isEmpty() ? result : QVariant();
+}
+
+QVariant Utilities::findBiggestPhotoSize(const QVariantList &photoSizes) {
+    QVariantMap result = photoSizes.value(0).toMap();
+    for (const QVariant &sizeVariant : photoSizes) {
+        const QVariantMap size = sizeVariant.toMap();
+
+        if (size.value(WIDTH).toInt() > result.value(WIDTH).toInt())
+            result = size;
+    }
+
+    return !result.isEmpty() ? result : QVariant();
+}
+
+QVariant Utilities::findSmallestPhotoSize(const QVariantList &photoSizes) {
+    QVariantMap result = photoSizes.value(0).toMap();
+    for (const QVariant &sizeVariant : photoSizes) {
+        const QVariantMap size = sizeVariant.toMap();
+
+        if (size.value(WIDTH).toInt() < result.value(WIDTH).toInt())
+            result = size;
+    }
+
+    return !result.isEmpty() ? result : QVariant();
 }

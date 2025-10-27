@@ -111,18 +111,10 @@ MessageContentBase {
         Component.onCompleted: {
             if (rawMessage.content.game.photo) {
                 // Check first which size fits best...
-                var photo
-                for (var i = 0; i < rawMessage.content.game.photo.sizes.length; i++) {
-                    photo = rawMessage.content.game.photo.sizes[i].photo
-                    if (rawMessage.content.game.photo.sizes[i].width >= gamePreviewItem.width) {
-                        break
-                    }
-                }
-                if (photo) {
+                var photo = utilities.findPhotoSize(rawMessage.content.game.photo.sizes, gamePreviewItem.width)
+                if (photo)
                     thumbnailFile.fileInformation = photo
-                }
             }
         }
     }
-
 }

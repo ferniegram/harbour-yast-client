@@ -26,19 +26,12 @@ ZoomArea {
     }
 
     Component.onCompleted: {
-//        var photoData = albumMessages[index].content.photo;
         if (photoData) {
-
-            var biggestIndex = -1
-            for (var i = 0; i < photoData.sizes.length; i++) {
-                if (biggestIndex === -1 || photoData.sizes[i].width > photoData.sizes[biggestIndex].width) {
-                    biggestIndex = i;
-                }
-            }
-            if (biggestIndex > -1) {
-                image.sourceSize.width = photoData.sizes[biggestIndex].width
-                image.sourceSize.height = photoData.sizes[biggestIndex].height
-                image.fileInformation = photoData.sizes[biggestIndex].photo
+            var size = utilities.findBiggestPhotoSize(photoData.sizes)
+            if (size) {
+                image.sourceSize.width = size.width
+                image.sourceSize.height = size.height
+                image.fileInformation = size.photo
             }
         }
     }

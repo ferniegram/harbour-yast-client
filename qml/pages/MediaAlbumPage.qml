@@ -29,9 +29,7 @@ import "../js/functions.js" as Functions
 import "../js/debug.js" as Debug
 
 Page {
-    // id
     id: page
-    // property declarations
 
     property var message
     property var messageId: message ? message.id : 0
@@ -46,15 +44,6 @@ Page {
     navigationStyle: PageNavigation.Vertical
     backgroundColor: 'black'
     allowedOrientations: Orientation.All
-    // signal declarations
-    // JavaScript functions
-
-    // object (parent) properties
-    // large property bindings
-    // child objects
-    // states
-    // transitions
-
 
     Component.onCompleted: {
         chatManager.initializeMediaMessagesModel(messageId)
