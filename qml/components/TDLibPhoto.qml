@@ -25,8 +25,9 @@ Item {
     id: tdLibPhoto
     property var photo
     property bool highlighted
-    readonly property alias fileInformation: tdLibImage.fileInformation
+    property alias fileInformation: tdLibImage.fileInformation
     readonly property alias image: tdLibImage
+    property alias minithumbnail: minithumbnailLoader.minithumbnail
 
     onWidthChanged: setImageFile()
     onPhotoChanged: setImageFile()
