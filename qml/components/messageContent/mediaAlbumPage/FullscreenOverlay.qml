@@ -188,6 +188,7 @@ Item {
         id: previewLoader
         asynchronous: true
         active: !!previewModel && previewModel.count > 1
+        height: Theme.itemSizeExtraSmall
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
