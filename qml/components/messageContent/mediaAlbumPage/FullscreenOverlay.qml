@@ -185,7 +185,7 @@ Item {
         }
     }
     Loader {
-        id: previewLoader
+        id: previewsLoader
         asynchronous: true
         active: !!previewModel && previewModel.count > 1
         height: Theme.itemSizeExtraSmall
@@ -197,7 +197,6 @@ Item {
 
         sourceComponent: Component {
             Row {
-                id: pageIndicatorRow
                 height: Theme.itemSizeExtraSmall
                 spacing: Theme.paddingMedium
 
@@ -205,7 +204,7 @@ Item {
                     model: previewModel
 
                     Loader {
-                        id: indicatorLoader
+                        id: singlePreviewLoader
 
                         readonly property bool current: message.id === message_id
                         readonly property bool isVideo: content_type === 'messageVideo'
@@ -223,8 +222,8 @@ Item {
                             TDLibThumbnail {
                                 anchors.fill: parent
                                 thumbnail: display.content.video.thumbnail
-                                minithumbnail: indicatorLoader.minithumbnail
-                                highlighted: indicatorMouseArea.containsPress
+                                minithumbnail: singlePreviewLoader.minithumbnail
+                                highlighted: singlePreviewMouseArea.containsPress
                             }
                         }
 
@@ -232,13 +231,13 @@ Item {
                             id: photoComponent
                             TDLibPhoto {
                                 fileInformation: utilities.findSmallestPhotoSize((isVideo ? display.content.cover : display.content.photo).sizes).photo || {}
-                                minithumbnail: indicatorLoader.minithumbnail
-                                highlighted: indicatorMouseArea.containsPress
+                                minithumbnail: singlePreviewLoader.minithumbnail
+                                highlighted: singlePreviewMouseArea.containsPress
                             }
                         }
 
                         MouseArea {
-                            id: indicatorMouseArea
+                            id: singlePreviewMouseArea
                             anchors.fill: parent
                             onClicked: jumpedToIndex(previewModel.mapToSource(index))
                         }
@@ -282,7 +281,7 @@ Item {
         spacing:  Theme.paddingLarge
         anchors {
             horizontalCenter: parent.horizontalCenter
-            bottom: previewLoader.top
+            bottom: previewsLoader.top
             bottomMargin: Theme.paddingSmall
         }
 
