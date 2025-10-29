@@ -53,14 +53,14 @@ void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     clear();
     this->chatId = chatId;
     this->highlightedMessageId = fromMessageId;
-    loadMessagesWithLimit(fromMessageId, fromMessageId == 0 ? 0 : -26, fromMessageId == 0 ? 100 : 51);
+    loadMessagesWithLimit(fromMessageId, fromMessageId == 0 ? 0 : -16, fromMessageId == 0 ? 100 : 32);
 }
 
 void MediaMessagesModel::loadMoreHistoryImpl() {
     this->loadMessages(nextFromMessageId);
 }
 void MediaMessagesModel::loadMoreFutureImpl() {
-    this->loadMessagesWithLimit(messages.last()->messageId, -26, 27);
+    this->loadMessagesWithLimit(messages.last()->messageId, -16, 32);
 }
 void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
     this->loadMessagesWithLimit(messageId, -26, 51);
