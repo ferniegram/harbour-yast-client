@@ -14,7 +14,7 @@ JumpableMessagesModel::JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
 bool JumpableMessagesModel::clear() {
     LOG("Clearing jumpable messages model");
     waitingFor = UpdateNone;
-    endReached = false;
+    startReached = endReached = false;
     emit endReachedChanged();
     highlightedMessageId = 0;
     return MessagesModel::clear();
