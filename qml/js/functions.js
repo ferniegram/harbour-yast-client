@@ -194,13 +194,6 @@ function getDateTimeTimepoint(timestamp) {
     return formatDate(timestamp, Silica.Formatter.Timepoint)
 }
 
-function handleHtmlEntity(messageText, messageInsertions, originalString, replacementString) {
-    var nextIndex = -1;
-    while ((nextIndex = messageText.indexOf(originalString, nextIndex + 1)) > -1) {
-        messageInsertions.push({ offset: nextIndex, insertionString: replacementString, removeLength: originalString.length });
-    }
-}
-
 
 function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {
     if (typeof formattedText === 'undefined') return ''

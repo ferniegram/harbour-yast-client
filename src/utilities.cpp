@@ -95,12 +95,14 @@ namespace {
     const QString ALBUM_COVER_MINITHUMBNAIL("album_cover_minithumbnail");
     const QString FILE_NAME("file_name");
 
-    const QString AMP("&");
-    const QString HTML_AMP("&amp;");
     const QString LT("<");
     const QString HTML_LT("&lt;");
     const QString GT(">");
     const QString HTML_GT("&gt;");
+    const QString AMP("&");
+    const QString HTML_AMP("&amp;");
+    const QString QUOT("\"");
+    const QString HTML_QUOT("&qout;");
     const QRegularExpression RAW_NEW_LINE_RE("\r?\n");
     const QString HTML_BR_TAG("<br>");
 
@@ -206,19 +208,22 @@ Utilities::~Utilities() {
 }
 
 QString Utilities::fixReservedHtmlCharacters(const QString &text) {
-    return QString(text).replace(LT, HTML_LT).replace(GT, HTML_GT).replace(RAW_NEW_LINE_RE, HTML_BR_TAG);
+    return QString(text).toHtmlEscaped().replace(RAW_NEW_LINE_RE, HTML_BR_TAG);
 }
 
-// FIXME: (possibly) Use a custom class instead of QVariantMap for messageInstertions
-void Utilities::handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString) {
+struct Utilities::FormattedTextInsertion {
+    int offset;
+    QString insertion;
+    int removeLength;
+
+    FormattedTextInsertion(int offset, QString insertion, int removeLength = 0)
+        : offset(offset), insertion(insertion), removeLength(removeLength) {}
+};
+
+void Utilities::addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &originalString, const QString &replacementString) {
     int nextIndex = -1;
     while ((nextIndex = messageText.indexOf(originalString, nextIndex + 1)) > -1) {
-        const QVariantMap insertion{
-            {OFFSET, nextIndex},
-            {INSERTION_STRING, replacementString},
-            {REMOVE_LENGTH, originalString.length()},
-        };
-        messageInsertions.append(insertion);
+        insertions.append(FormattedTextInsertion(nextIndex, replacementString, originalString.length()));
     }
 }
 
@@ -302,7 +307,7 @@ QString Utilities::enhanceMessageText(const QVariantMap &formattedText, bool ign
     if(entities.isEmpty())
         return escapeReserved ? fixReservedHtmlCharacters(messageText) : messageText;
 
-    QList<QVariantMap> messageInsertions;
+    QList<FormattedTextInsertion> messageInsertions;
 
     //emojiSize = Math.round((typeof emojiSize === 'undefined' ? Silica.Theme.fontSizeSmall : emojiSize) * 1.15)
     for (const QVariant &entityVariant : entities) {
@@ -381,16 +386,8 @@ QString Utilities::enhanceMessageText(const QVariantMap &formattedText, bool ign
             }
         break*/
 
-        const QVariantMap entityResultStart{
-            {OFFSET, entity.value(OFFSET).toInt()},
-            {INSERTION_STRING, start},
-            {REMOVE_LENGTH, 0}, // startRemove
-        };
-        const QVariantMap entityResultEnd{
-            {OFFSET, entity.value(OFFSET).toInt() + entity.value(LENGTH).toInt()},
-            {INSERTION_STRING, end},
-            {REMOVE_LENGTH, 0}, // endRemove
-        };
+        const FormattedTextInsertion entityResultStart(entity.value(OFFSET).toInt(), start /* , startRemove */);
+        const FormattedTextInsertion entityResultEnd(entity.value(OFFSET).toInt() + entity.value(LENGTH).toInt(), end /* , endRemove */);
         messageInsertions.append(entityResultStart);
         messageInsertions.append(entityResultEnd);
     }
@@ -399,14 +396,15 @@ QString Utilities::enhanceMessageText(const QVariantMap &formattedText, bool ign
         return escapeReserved ? fixReservedHtmlCharacters(messageText) : messageText;
 
     if (escapeReserved) {
-        handleHtmlEntity(messageText, messageInsertions, AMP, HTML_AMP);
-        handleHtmlEntity(messageText, messageInsertions, LT, HTML_LT);
-        handleHtmlEntity(messageText, messageInsertions, GT, HTML_GT);
+        addInsertionsFor(messageText, messageInsertions, LT, HTML_LT);
+        addInsertionsFor(messageText, messageInsertions, GT, HTML_GT);
+        addInsertionsFor(messageText, messageInsertions, AMP, HTML_AMP);
+        addInsertionsFor(messageText, messageInsertions, QUOT, HTML_QUOT);
     }
 
     std::sort(messageInsertions.begin(), messageInsertions.end(), messageInsertionSorter);
-    for (QVariantMap insertion : messageInsertions)
-        messageText.replace(insertion.value(OFFSET).toInt(), insertion.value(REMOVE_LENGTH).toInt(), insertion.value(INSERTION_STRING).toString());
+    for (const FormattedTextInsertion &insertion : messageInsertions)
+        messageText.replace(insertion.offset, insertion.removeLength, insertion.insertion);
 
     if (escapeReserved)
         messageText.replace(RAW_NEW_LINE_RE, HTML_BR_TAG);
