@@ -59,7 +59,7 @@ void JumpableMessagesModel::updateStartEndReached(int totalCount, UpdateType fro
 }
 
 void JumpableMessagesModel::handleMessagesReceived(const QVariantList &messages, int totalCount) {
-    LOG("Receiving new messages :)" << messages.size());
+    LOG("Received messages" << messages.size());
 
     auto notifyMessagesLoaded = [&]() {
         const UpdateType fromUpdate = this->waitingFor;
