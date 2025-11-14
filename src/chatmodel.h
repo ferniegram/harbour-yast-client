@@ -21,7 +21,7 @@
 #define CHATMODEL_H
 
 #include <QAbstractListModel>
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 class ChatModel : public QAbstractListModel
 {
