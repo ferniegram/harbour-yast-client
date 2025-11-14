@@ -26,8 +26,6 @@
 #include "debuglog.h"
 
 namespace {
-    const QRegularExpression requestWithIdExtra("^R(\\d+)$");
-
     const QString ID("id");
     const QString LIST("list");
     const QString CHAT_ID("chat_id");
@@ -225,7 +223,8 @@ void TDLibReceiver::processReceivedDocument(const QJsonDocument &receivedJsonDoc
     QString objectTypeName = receivedInformation.value(_TYPE).toString();
 
     QString objectExtra = receivedInformation.value(_EXTRA).toString();
-    QRegularExpressionMatch requestIdMatch = requestWithIdExtra.match(objectExtra);
+    const QRegularExpression requestWithIdExtraRe("^R(\\d+)$");
+    const QRegularExpressionMatch requestIdMatch = requestWithIdExtraRe.match(objectExtra);
     if (requestIdMatch.hasMatch()) {
         const qlonglong requestId = requestIdMatch.captured(1).toLongLong();
         LOG("Received response with request ID" << requestId);
