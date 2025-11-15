@@ -423,6 +423,16 @@
         <comment>Button: Chat media (photos and videos)</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>GIFs</source>
+        <comment>Button: Chat GIFs</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video Messages</source>
+        <comment>Button: Chat video messages</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatListViewItem</name>
