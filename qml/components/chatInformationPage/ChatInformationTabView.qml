@@ -69,18 +69,22 @@ TabView {
         return insertIndex
     }
 
-    function connectMessagesTabInsert(model, name, title, icon) {
-        model.notEmptyDetected.connect(function() {
-            insertTab(name, title, icon)
-        })
-    }
-
     Connections {
         target: chatManager.photoAndVideoMessagesModel
         onNotEmptyDetected: {
             var i = insertTab('Media', qsTr("Media", "Button: Chat media (photos and videos)"), 'image://theme/icon-m-image')
             //if (i > -1) tabView.currentIndex = i
         }
+    }
+
+    // don't use dynamic connections here, otherwise it won't be disconnected so memory will leak
+    Connections {
+        target: chatManager.animationMessagesModel
+        onNotEmptyDetected: insertTab('Gifs', qsTr("GIFs", "Button: Chat GIFs"), 'image://theme/icon-m-image')
+    }
+    Connections {
+        target: chatManager.videoNoteMessagesModel
+        onNotEmptyDetected: insertTab('VideoNotes', qsTr("Video Messages", "Button: Chat video messages"), 'image://theme/icon-m-file-video')
     }
 
     Component.onCompleted: {
@@ -96,10 +100,6 @@ TabView {
 
         if (DebugLog.enabled)
             insertTab('Debug', "Debug", 'image://theme/icon-m-diagnostic')
-
-        // Media tab is connected with a custom Connections object because it's needed to scroll to it after it's added
-        connectMessagesTabInsert(chatManager.animationMessagesModel, 'Gifs', qsTr("GIFs", "Button: Chat GIFs"), 'image://theme/icon-m-image')
-        connectMessagesTabInsert(chatManager.videoNoteMessagesModel, 'VideoNotes', qsTr("Video Messages", "Button: Chat video messages"), 'image://theme/icon-m-file-video')
 
         chatManager.initializeMediaMessagesModels()
     }
