@@ -38,6 +38,12 @@ TabView {
     // Use a custom model to make it easy to add tabs dynamically with model.append()
     model: ListModel {}
 
+    Binding {
+        target: tabView.tabBarItem
+        property: 'iconColor'
+        value: Theme.primaryColor
+    }
+
     function insertTab(name, title, icon) {
         var insertIndex = 0
         var tabOrder = [
@@ -88,8 +94,6 @@ TabView {
     }
 
     Component.onCompleted: {
-        //tabView.tabBarItem.iconColor = Qt.binding(function() { return Theme.primaryColor })
-
         if(!isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members))
             insertTab('MembersGroups',
                       chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
