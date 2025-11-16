@@ -58,7 +58,6 @@ void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     clear();
     this->chatId = chatId;
     this->highlightedMessageId = fromMessageId;
-    this->endReached = fromMessageId == 0;
 
     if (fromMessageId != 0)
         loadMessagesWithLimit(fromMessageId, -16, 32);
@@ -82,10 +81,11 @@ void MediaMessagesModel::handleChatMessageCountReceived(int count, qlonglong cha
     // see tgx implementatinon as well as tdlib docs for more info
 
     if (this->chatId == chatId && this->searchMessagesFilter == filter) {
+        endReached = true;
+        emit endReachedChanged();
         if (count == 0) {
             LOG("No messages in chat" << chatId << "for filter" << TDLibWrapper::getSearchMessagesFilterType(filter));
-            startReached = endReached = true;
-            emit endReachedChanged();
+            startReached = true;
         } else {
             LOG("Found" << count << "messages in chat" << chatId << "for filter" << TDLibWrapper::getSearchMessagesFilterType(filter) << ", loading messages");
             emit notEmptyDetected();
