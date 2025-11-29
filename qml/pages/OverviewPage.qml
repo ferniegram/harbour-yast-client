@@ -217,7 +217,8 @@ Page {
         onChatReceived: {
             var openAndSendStartToBot = chat["@extra"].toString().indexOf("openAndSendStartToBot:") === 0
             if(chat["@extra"] === "openDirectly" || openAndSendStartToBot && chat.type["@type"] === "chatTypePrivate") {
-                pageStack.pop(overviewPage, PageStackAction.Immediate)
+                //pageStack.pop(overviewPage, PageStackAction.Immediate)
+                // TODO: allow maximum of 3 chats in the page stack at the same time, also see ChatInformationTabItemMembers
                 // if we get a new chat (no messages?), we can not use the provided data
                 var chatinfo = tdLibWrapper.getChat(chat.id)
                 var options = {chatInformation: chatinfo}

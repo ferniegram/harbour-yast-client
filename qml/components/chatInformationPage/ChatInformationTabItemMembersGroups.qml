@@ -151,7 +151,8 @@ ChatInformationTabItemBase {
 
             unreadCount: unread_count
             onClicked: {
-                pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ), PageStackAction.Immediate);
+                //pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ), PageStackAction.Immediate);
+                // TODO: allow maximum of 3 chats in the page stack at the same time, also see OverviewPage: tdLibWrapper.onChatReceived
                 pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), { "chatInformation" : display });
             }
         }
