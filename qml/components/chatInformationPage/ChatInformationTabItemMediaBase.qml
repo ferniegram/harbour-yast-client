@@ -17,7 +17,7 @@ ChatInformationTabItemBase {
     }
 
     function loadMessage(message) {
-        appWindow.pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {message: message, model: model})
+        appWindow.pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {chatManager: chatManager, message: message, model: model})
     }
 
     Component.onCompleted:

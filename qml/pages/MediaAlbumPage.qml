@@ -32,6 +32,7 @@ import "../js/debug.js" as Debug
 Page {
     id: page
 
+    property var chatManager
     property var message
     property var messageId: message ? message.id : 0
     property alias overlayActive: overlay.active
