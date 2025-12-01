@@ -108,6 +108,7 @@ namespace {
     const QString IS_MARKED_AS_UNREAD("is_marked_as_unread");
     const QString SECRET_CHAT_ID("secret_chat_id");
     const QString TYPE_READ_CHAT_LIST("readChatList");
+    const QString ACTION("action");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -2566,4 +2567,13 @@ void TDLibWrapper::addRecentlyFoundChat(qlonglong chatId) {
 void TDLibWrapper::removeRecentlyFoundChat(qlonglong chatId) {
     LOG("Removing chat from recently found chats list" << chatId);
     this->sendRequest(QVariantMap{{_TYPE, "removeRecentlyFoundChat"}, {CHAT_ID, chatId}, {_EXTRA, EXTRA_RECENTLY_FOUND}});
+}
+
+void TDLibWrapper::hideSuggestedAction(const QVariantMap &action) {
+    LOG("Removing suggested action" << action.value(_TYPE).toString());
+    this->sendRequest(QVariantMap{{_TYPE, "hideSuggestedAction"}, {ACTION, action}});
+}
+
+void TDLibWrapper::hideSuggestedAction(const QString &type) {
+    this->hideSuggestedAction(QVariantMap{{_TYPE, type}});
 }

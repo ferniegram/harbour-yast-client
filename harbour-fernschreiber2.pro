@@ -37,7 +37,7 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/folderchatlistmodel.cpp \
     src/invertedproxymodel.cpp \
     src/movieitem.cpp \
-    src/suggestedactionsmodel.cpp \
+    src/suggestedactionsmanager.cpp \
     src/utilities.cpp \
     src/knownusersmodel.cpp \
     src/mceinterface.cpp \
@@ -158,6 +158,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/settingsPage/SettingsSession.qml \
     qml/components/settingsPage/SettingsStorage.qml \
     qml/components/settingsPage/SettingsUserProfile.qml \
+    qml/components/settingsPage/SuggestedActionListItem.qml \
     qml/dialogs/AddContactDialog.qml \
     qml/dialogs/ArchiveChatListTutorialDialog.qml \
     qml/js/debug.js \
@@ -277,7 +278,7 @@ HEADERS += \
     src/folderchatlistmodel.h \
     src/invertedproxymodel.h \
     src/movieitem.h \
-    src/suggestedactionsmodel.h \
+    src/suggestedactionsmanager.h \
     src/utilities.h \
     src/knownusersmodel.h \
     src/mceinterface.h \

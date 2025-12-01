@@ -58,6 +58,7 @@
 #include "chatfoldersmodel.h"
 #include "invertedproxymodel.h"
 #include "movieitem.h"
+#include "suggestedactionsmanager.h"
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
 // QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2
@@ -186,6 +187,9 @@ int main(int argc, char *argv[])
     
     ContactsModel contactsModel(tdLibWrapper, view.data());
     context->setContextProperty("contactsModel", &contactsModel);
+
+    SuggestedActionsManager suggestedActionsManager(tdLibWrapper, view.data());
+    context->setContextProperty("suggestedActionsManager", &suggestedActionsManager);
 
 #ifdef NO_HARBOUR_COMPLIANCE
     context->setContextProperty("NO_HARBOUR_COMPLIANCE", true);

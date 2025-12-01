@@ -302,6 +302,8 @@ public:
     Q_INVOKABLE void clearRecentlyFoundChats();
     Q_INVOKABLE void addRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void removeRecentlyFoundChat(qlonglong chatId);
+    Q_INVOKABLE void hideSuggestedAction(const QVariantMap &action);
+    Q_INVOKABLE void hideSuggestedAction(const QString &type);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -415,7 +417,7 @@ signals:
     void formattedTextReceived(const QVariantMap &formattedText, const QString &extra);
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
-    void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
+    void suggestedActionsUpdated(const QVariantList &added, const QVariantList &removed);
     void countReceived(int count, const QString &extra);
     void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
     void archiveChatListSettingsReceived(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
