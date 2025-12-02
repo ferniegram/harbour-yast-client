@@ -161,6 +161,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/settingsPage/SuggestedActionListItem.qml \
     qml/dialogs/AddContactDialog.qml \
     qml/dialogs/ArchiveChatListTutorialDialog.qml \
+    qml/dialogs/SetBirthdateDialog.qml \
     qml/js/debug.js \
     qml/js/functions.js \
     qml/pages/ArchivedChatsPage.qml \

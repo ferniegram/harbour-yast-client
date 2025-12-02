@@ -304,6 +304,8 @@ public:
     Q_INVOKABLE void removeRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void hideSuggestedAction(const QVariantMap &action);
     Q_INVOKABLE void hideSuggestedAction(const QString &type);
+    Q_INVOKABLE void setBirthdate(int day, int month, int year);
+    Q_INVOKABLE void setBirthdate();
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
