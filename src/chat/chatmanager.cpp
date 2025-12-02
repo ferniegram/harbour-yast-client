@@ -134,6 +134,15 @@ QVariantMap ChatManager::smallPhoto() const {
     return chatInformation().value(PHOTO).toMap().value(SMALL).toMap();
 }
 
+QVariantMap ChatManager::pendingJoinRequests() const {
+    return chatInformation().value("pending_join_requests").toMap();
+}
+
+void ChatManager::handleChatPendingJoinRequestsUpdated(qlonglong chatId) {
+    if (this->chatId == chatId)
+        emit pendingJoinRequestsChanged();
+}
+
 TDLibWrapper::ChatType ChatManager::chatType() const {
     if (tdLibWrapper) {
         ChatData* chatData = tdLibWrapper->getChatData(chatId);
@@ -244,6 +253,7 @@ void ChatManager::reset(bool resetChatId) {
     if (resetChatId) {
         chatId = 0;
         emit chatIdChanged();
+        emit pendingJoinRequestsChanged();
     }
 
     initializationFinishScheduled = false;
@@ -276,6 +286,8 @@ void ChatManager::beginInitialization(const QVariantMap &chatInformation) {
     if (this->chatId != chatId) {
         this->chatId = chatId;
         emit chatIdChanged();
+        if (!pendingJoinRequests().isEmpty())
+            emit pendingJoinRequestsChanged();
     }
 }
 

@@ -202,6 +202,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("forumTopics", &TDLibReceiver::processForumTopics);
     handlers.insert("updateForumTopic", &TDLibReceiver::processUpdateForumTopic);
     handlers.insert("updateForumTopicInfo", &TDLibReceiver::processUpdateForumTopicInfo);
+    handlers.insert("updateChatPendingJoinRequests", &TDLibReceiver::processUpdateChatPendingJoinRequests);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -1162,4 +1163,12 @@ void TDLibReceiver::processUpdateForumTopicInfo(const QVariantMap &receivedInfor
     LOG("Received updateForumTopicInfo" << chatId << messageThreadId);
 
     emit forumTopicInfoUpdated(chatId, messageThreadId, info);
+}
+
+void TDLibReceiver::processUpdateChatPendingJoinRequests(const QVariantMap &receivedInformation) {
+    const qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    const QVariantMap requests = receivedInformation.value("pending_join_requests").toMap();
+    LOG("Received updateChatPendingJoinRequests" << chatId << requests.value(TOTAL_COUNT).toInt());
+
+    emit chatPendingJoinRequestsUpdated(chatId, requests);
 }

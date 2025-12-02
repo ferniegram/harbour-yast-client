@@ -128,6 +128,7 @@ signals:
     void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, int nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
     void forumTopicUpdated(qlonglong chatId, qlonglong messageThreadId, bool isPinned, qlonglong lastReadInboxMessageId, qlonglong lastReadOutboxMessageId, const QVariantMap &notificationSettings);
     void forumTopicInfoUpdated(qlonglong chatId, qlonglong messageThreadId, const QVariantMap &info);
+    void chatPendingJoinRequestsUpdated(qlonglong chatId, const QVariantMap &pendingJoinRequests);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -231,6 +232,7 @@ private:
     void processForumTopics(const QVariantMap &receivedInformation);
     void processUpdateForumTopic(const QVariantMap &receivedInformation);
     void processUpdateForumTopicInfo(const QVariantMap &receivedInformation);
+    void processUpdateChatPendingJoinRequests(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

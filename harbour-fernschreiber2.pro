@@ -59,6 +59,7 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/waveformmanager.cpp
 
 DISTFILES += qml/harbour-fernschreiber2.qml \
+    qml/components/AnimatedLoader.qml \
     qml/components/AudioPreview.qml \
     qml/components/BackgroundImage.qml \
     qml/components/ButtonsSectionHeader.qml \
@@ -102,11 +103,13 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/TDLibPhoto.qml \
     qml/components/TDLibSticker.qml \
     qml/components/TDLibThumbnail.qml \
+    qml/components/TDLibUser.qml \
     qml/components/TDLibVideo.qml \
     qml/components/TextBadge.qml \
     qml/components/TopicsListView.qml \
     qml/components/VoiceNoteOverlay.qml \
     qml/components/chat/ChatManagerLoader.qml \
+    qml/components/chat/ChatPendingJoinRequestsItem.qml \
     qml/components/chatInformationPage/ChatInformationPageContent.qml \
     qml/components/chatInformationPage/ChatInformationProfilePicture.qml \
     qml/components/chatInformationPage/ChatInformationTabItemBase.qml \

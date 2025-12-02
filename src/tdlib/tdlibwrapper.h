@@ -453,6 +453,7 @@ signals:
     void archiveChatListSettingsReceived(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
     void chatFoldersUpdated(const QVariantList &chatFolders, int mainChatListPosition, bool tagsEnabled);
     void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
+    void chatPendingJoinRequestsUpdated(qlonglong chatId);
 
     // Signals not directly used by TDLibWrapper
     void chatListsReset();
@@ -507,6 +508,7 @@ public slots:
     void handleDiceEmojisUpdated(const QStringList &emojis);
     void handleFoundChatMessagesReceived(const int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void handleCountReceived(int count, const QString &extra);
+    void handleChatPendingJoinRequestsUpdated(qlonglong chatId, const QVariantMap &pendingJoinRequests);
 
 private:
     void setOption(const QString &name, const QString &type, const QVariant &value);

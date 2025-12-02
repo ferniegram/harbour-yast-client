@@ -113,6 +113,7 @@ namespace {
     const QString ACTION("action");
     const QString TYPE_SET_BIRTHDATE("setBirthdate");
     const QString BIRTHDATE("birthdate");
+    const QString PENDING_JOIN_REQUESTS("pending_join_requests");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -2737,4 +2738,10 @@ void TDLibWrapper::setBirthdate(int day, int month, int year) {
 void TDLibWrapper::setBirthdate() {
     LOG("Removing birthdate");
     this->sendRequest(QVariantMap{{_TYPE, TYPE_SET_BIRTHDATE}});
+}
+
+void TDLibWrapper::handleChatPendingJoinRequestsUpdated(qlonglong chatId, const QVariantMap &pendingJoinRequests) {
+    LOG("Chat pending join requests updated" << chatId);
+    this->getChatDataForce(chatId)->chatData.insert(PENDING_JOIN_REQUESTS, pendingJoinRequests);
+    emit chatPendingJoinRequestsUpdated(chatId);
 }
