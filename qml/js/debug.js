@@ -18,8 +18,8 @@
 */
 
 .pragma library
-.import App.Logic 1.0 as Fernschreiber
-var enabled = Fernschreiber.DebugLog.enabled;
+.import App.Logic 1.0 as Logic
+var enabled = Logic.DebugLog.enabled;
 var log = enabled ? console.log : function(){};
 var assert = enabled ? console.assert : function(){};
 var time = enabled ? console.time : function(){};
@@ -33,8 +33,8 @@ var warn = enabled ? console.warn: function(){};
 // Debug.error is always enabled.
 var error = console.error;
 
-Fernschreiber.DebugLog.enabledChanged.connect(function() {
-    enabled = Fernschreiber.DebugLog.enabled;
+Logic.DebugLog.enabledChanged.connect(function() {
+    enabled = Logic.DebugLog.enabled;
     if(enabled) {
         log = console.log;
         assert = console.assert;

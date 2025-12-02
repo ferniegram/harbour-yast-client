@@ -17,8 +17,8 @@
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef FERNSCHREIBER_DEBUG_LOG_H
-#define FERNSCHREIBER_DEBUG_LOG_H
+#ifndef DEBUG_LOG_H
+#define DEBUG_LOG_H
 
 #include <QLoggingCategory>
 
@@ -42,4 +42,4 @@ static const QLoggingCategory LOG_CATEGORY("fernschreiber2." QT_STRINGIFY(DEBUG_
 #  endif
 #endif
 
-#endif // FERNSCHREIBER_DEBUG_LOG_H
+#endif // DEBUG_LOG_H

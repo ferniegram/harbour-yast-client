@@ -21,7 +21,7 @@
 .import "debug.js" as Debug
 .import "twemoji.js" as Emoji
 .import Sailfish.Silica 1.0 as Silica
-.import App.Logic 1.0 as Fernschreiber
+.import App.Logic 1.0 as Logic
 
 var tdLibWrapper, appNotification, utilities
 function setGlobals(globals) {
@@ -43,7 +43,7 @@ function getUserName(userInformation) {
 }
 
 function getMessageText(message, simple, currentUserId, ignoreEntities, asFormattedText, emojiSize) {
-    return utilities.getMessageText(message, simple ? Fernschreiber.Utilities.MessageTextSimple : Fernschreiber.Utilities.MessageTextDefault, ignoreEntities)
+    return utilities.getMessageText(message, simple ? Logic.Utilities.MessageTextSimple : Logic.Utilities.MessageTextDefault, ignoreEntities)
 }
 
 function getChatPartnerStatusText(statusType, was_online, isSupport, userId, asTimepoint) {
