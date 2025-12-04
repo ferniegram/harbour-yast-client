@@ -70,7 +70,6 @@ ChatManager::ChatManager(QObject *parent)
       tdLibWrapper(nullptr),
       chatId(0),
       pinnedMessageId(0),
-      initializationFinishScheduled(false),
       mainModelsInitializationScheduled(false),
       mainModelsInitializationScheduledFromMessageId(0),
 
@@ -108,13 +107,10 @@ void ChatManager::setTDLibWrapper(QObject *obj) {
             connect(this->tdLibWrapper, &TDLibWrapper::basicGroupUpdated, this, &ChatManager::handleBasicGroupUpdated);
             connect(this->tdLibWrapper, &TDLibWrapper::superGroupUpdated, this, &ChatManager::handleSupergroupUpdated);
 
-            if (chatId)
+            if (chatId) {
+                LOG("tdLibWrapper set when chatId already is set, finishing initialization");
                 emit this->chatIdChanged(); // emit signals for chat, user, group info and so on
-
-            if (initializationFinishScheduled) {
-                LOG("tdLibWrapper set, running scheduled initialization finish");
                 finishInitialization();
-                initializationFinishScheduled = false;
             }
 
             if (mainModelsInitializationScheduled) {
@@ -153,10 +149,8 @@ void ChatManager::handleChatPendingJoinRequestsUpdated(qlonglong chatId) {
 TDLibWrapper::ChatType ChatManager::chatType() const {
     if (tdLibWrapper) {
         ChatData* chatData = tdLibWrapper->getChatData(chatId);
-        if (chatData) {
-            LOG(chatData);
+        if (chatData)
             return chatData->chatType;
-        }
     }
     return TDLibWrapper::ChatTypeUnknown;
 }
@@ -263,7 +257,6 @@ void ChatManager::reset(bool resetChatId) {
         emit pendingJoinRequestsChanged();
     }
 
-    initializationFinishScheduled = false;
     mainModelsInitializationScheduled = false;
     mainModelsInitializationScheduledFromMessageId = 0;
 
@@ -301,8 +294,7 @@ void ChatManager::setChatId(qlonglong chatId) {
     if (tdLibWrapper)
         finishInitialization();
     else {
-        LOG("tdLibWrapper not yet set, not finishing initialization and scheduling instead");
-        this->initializationFinishScheduled = true;
+        LOG("tdLibWrapper not yet set, not finishing initialization (will be done after it is set)");
     }
 }
 

@@ -120,7 +120,6 @@ private:
 
     qlonglong chatId;
     qlonglong pinnedMessageId;
-    bool initializationFinishScheduled;
     bool mainModelsInitializationScheduled;
     qlonglong mainModelsInitializationScheduledFromMessageId;
 
