@@ -12,7 +12,7 @@ public:
     explicit JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual bool clear() override;
-    virtual void loadMessages(qlonglong fromMessageId, int offset = -1) = 0;
+    virtual void loadMessages(int extra, qlonglong fromMessageId, int offset = -1) = 0;
 
     Q_INVOKABLE virtual int calculateScrollPosition();
 
@@ -26,11 +26,12 @@ signals:
     void loadingChanged();
 
 protected slots:
-    void handleMessagesReceived(const QVariantList &messages, int totalCount);
+    void handleMessagesReceived(qlonglong chatId, int extra, const QVariantList &messages, int totalCount);
+    void handleMessagesReceived(int extra, const QVariantList &messages, int totalCount);
 
 protected:
     enum UpdateType {
-        UpdateNone,
+        UpdateInitial,
         UpdatePreviousSlice,
         UpdateNextSlice,
         UpdateReload
@@ -38,7 +39,7 @@ protected:
 
     virtual bool loading() const;
 
-    inline bool waitingForSlice() const { return waitingFor == UpdatePreviousSlice || waitingFor == UpdateNextSlice; }
+    inline bool waitingForSlice() const { return waitingFor.value(UpdatePreviousSlice) || waitingFor.value(UpdateNextSlice); }
     virtual inline bool canLoadMoreMessages() const { return true; }
 
     virtual void loadMoreHistoryImpl() = 0;
@@ -48,7 +49,7 @@ protected:
     virtual void updateStartEndReached(int totalCount, UpdateType fromUpdate);
 
 protected:
-    UpdateType waitingFor; // if we are waiting for messages after sending a request to load more of them
+    QMap<UpdateType, bool> waitingFor; // what updates we're currently waiting for
     bool startReached, endReached;
     qlonglong highlightedMessageId;
 };

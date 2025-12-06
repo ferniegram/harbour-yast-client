@@ -278,13 +278,14 @@ Column {
 
             if (!fromIncrementalUpdate) {
                 if (chatOverviewItem.visible && scrollPosition >= (chatView.count - 10)) {
+                    Debug.log("[MessagesView] Not far from the end, loading more future...")
                     chatView.inCooldown = true
                     chatManager.model.loadMoreFuture()
                 }
             }
 
             if (chatView.height > chatView.contentHeight) {
-                Debug.log("[ChatPage] Chat content quite small...")
+                Debug.log("[MessagesView] Chat content quite small...")
                 viewMessageTimer.queueViewMessage(chatView.count - 1)
             } else if (fromIncrementalUpdate && messagesView.messageIdToScrollTo && messagesView.messageIdToScrollTo != "")
                 showMessage(messagesView.messageIdToScrollTo, false)

@@ -15,7 +15,7 @@ ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
     JumpableMessagesModel(tdLibWrapper, parent),
     loadingFullEnd(false)
 {
-    connect(this->tdLibWrapper, &TDLibWrapper::messagesReceived, this, &ReadableMessagesModel::handleMessagesReceived);
+    connect(this->tdLibWrapper, SIGNAL(messagesReceived(qlonglong, int, const QVariantList &, int)), this, SLOT(handleMessagesReceived(qlonglong, int, const QVariantList &, int)));
     connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &ReadableMessagesModel::handleFoundChatMessagesReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::sponsoredMessageReceived, this, &ReadableMessagesModel::handleSponsoredMessageReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ReadableMessagesModel::handleNewMessageReceived);
@@ -87,6 +87,7 @@ int ReadableMessagesModel::calculateScrollPosition() {
 
 void ReadableMessagesModel::updateStartEndReached(int totalCount, UpdateType fromUpdate) {
     LOG("Updating start/end reached values");
+    LOG(lastMessageId() << this->messageIndexMap);
 
     if (this->messageIndexMap.contains(lastMessageId())) {
         endReached = true;
@@ -120,19 +121,19 @@ int ReadableMessagesModel::calculateLastReadMessageIndexInBounds() {
 
 
 void ReadableMessagesModel::loadMoreHistoryImpl() {
-    this->loadMessages(messages.first()->messageId);
+    this->loadMessages(UpdatePreviousSlice, messages.first()->messageId);
 }
 void ReadableMessagesModel::loadMoreFutureImpl() {
-    this->loadMessages(messages.last()->messageId, -49);
+    this->loadMessages(UpdateNextSlice, messages.last()->messageId, -49);
 }
 void ReadableMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
-    this->loadMessages(messageId);
+    this->loadMessages(UpdateInitial, messageId);
 }
 
-void ReadableMessagesModel::handleFoundChatMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/) {
-    if (filter == TDLibWrapper::SearchMessagesFilterEmpty) {
+void ReadableMessagesModel::handleFoundChatMessagesReceived(qlonglong chatId, int extra, TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/) {
+    if (this->chatId == chatId && filter == TDLibWrapper::SearchMessagesFilterEmpty) {
         LOG("Found chat messages received");
-        handleMessagesReceived(messages, totalCount);
+        handleMessagesReceived(extra, messages, totalCount);
     }
 }
 
@@ -165,7 +166,7 @@ void ReadableMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVa
 
 
 void ReadableMessagesModel::loadEnd(bool markAllAsRead) {
-    if (this->waitingFor == UpdateNone && !messages.isEmpty()) {
+    if (!this->waitingForSlice() && !waitingFor.value(UpdateReload) && !messages.isEmpty()) {
         LOG("Loading end of the chat... markAllAsRead:" << markAllAsRead << (markAllAsRead ? 0 : lastReadOutboxMessageId()) << chatId);
 
         //if (markAllAsRead) // FIXME: is this really needed?
@@ -173,6 +174,6 @@ void ReadableMessagesModel::loadEnd(bool markAllAsRead) {
         this->loadingFullEnd = markAllAsRead; // doesn't seem to always work (also a similar issue with search)
 
         this->clear();
-        this->loadMessages(markAllAsRead ? 0 : lastReadOutboxMessageId());
+        this->loadMessages(UpdateInitial, markAllAsRead ? 0 : lastReadOutboxMessageId());
     }
 }

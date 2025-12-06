@@ -26,9 +26,9 @@ bool MediaMessagesModel::clear() {
     return JumpableMessagesModel::clear();
 }
 
-void MediaMessagesModel::loadMessagesWithLimit(qlonglong fromMessageId, int offset, int limit) {
+void MediaMessagesModel::loadMessagesWithLimit(int extra, qlonglong fromMessageId, int offset, int limit) {
     LOG("Loading messages" << fromMessageId << offset);
-    this->tdLibWrapper->searchChatMessages(this->chatId, QString(), fromMessageId, this->searchMessagesFilter, limit, offset);
+    this->tdLibWrapper->searchChatMessages(this->chatId, QString(), extra, fromMessageId, this->searchMessagesFilter, limit, offset);
 }
 
 void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
@@ -65,13 +65,13 @@ void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
 }
 
 void MediaMessagesModel::loadMoreHistoryImpl() {
-    this->loadMessages(nextFromMessageId);
+    this->loadMessages(UpdatePreviousSlice, nextFromMessageId);
 }
 void MediaMessagesModel::loadMoreFutureImpl() {
-    this->loadMessagesWithLimit(messages.last()->messageId, -16, 32);
+    this->loadMessagesWithLimit(UpdateNextSlice, messages.last()->messageId, -16, 32);
 }
 void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
-    this->loadMessagesWithLimit(messageId, -26, 51);
+    this->loadMessagesWithLimit(UpdateInitial, messageId, -26, 51);
 }
 
 void MediaMessagesModel::handleChatMessageCountReceived(int count, qlonglong chatId, TDLibWrapper::SearchMessagesFilter filter, bool onlyLocal) {
@@ -88,15 +88,15 @@ void MediaMessagesModel::handleChatMessageCountReceived(int count, qlonglong cha
         } else {
             LOG("Found" << count << "messages in chat" << chatId << "for filter" << TDLibWrapper::getSearchMessagesFilterType(filter) << ", loading messages");
             emit notEmptyDetected();
-            loadMessages();
+            loadMessages(UpdateInitial);
         }
     }
 }
 
-void MediaMessagesModel::handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
-    if (filter == this->searchMessagesFilter) {
+void MediaMessagesModel::handleMessagesReceived(qlonglong chatId, int extra, TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
+    if (this->chatId == chatId && filter == this->searchMessagesFilter) {
         LOG("Messages received next id:" << nextFromMessageId);
-        JumpableMessagesModel::handleMessagesReceived(messages, totalCount);
+        JumpableMessagesModel::handleMessagesReceived(chatId, extra, messages, totalCount);
         this->nextFromMessageId = nextFromMessageId;
     }
 }

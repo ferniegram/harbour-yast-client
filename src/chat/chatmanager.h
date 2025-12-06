@@ -16,7 +16,7 @@ public:
     friend class ChatManager;
 
 protected:
-    virtual void loadMessages(qlonglong fromMessageId, int offset = -1) override;
+    virtual void loadMessages(int extra, qlonglong fromMessageId, int offset = -1) override;
     virtual inline bool canLoadMoreMessages() const override { return searchQuery.isEmpty(); }
 
     virtual qlonglong lastReadInboxMessageId() const override;

@@ -396,20 +396,21 @@ void TDLibReceiver::processChatOnlineMemberCountUpdated(const QVariantMap &recei
     emit chatOnlineMemberCountUpdated(chatId, receivedInformation.value("online_member_count").toInt());
 }
 
-void TDLibReceiver::processMessages(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processMessages(const QVariantMap &receivedInformation) {
+    const QStringList extra = receivedInformation.value(_EXTRA).toString().split(":");
+    const qlonglong chatId = extra.value(0).toLongLong();
     const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
-    LOG("Received new messages, amount: " << totalCount);
-    emit messagesReceived(cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount);
+    LOG("Received new messages for chat" << chatId << "amount:" << totalCount);
+    emit messagesReceived(chatId, extra.value(1).toInt(), cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount);
 }
 
-void TDLibReceiver::processFoundChatMessages(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processFoundChatMessages(const QVariantMap &receivedInformation) {
     const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
     const qlonglong nextFromMessageId = receivedInformation.value(NEXT_FROM_MESSAGE_ID).toLongLong();
-    const int extra = receivedInformation.value(_EXTRA).toInt();
-    LOG("Received found chat messages, amount:" << totalCount << "next from message id:");
-    emit foundChatMessagesReceived(extra, cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount, nextFromMessageId);
+    const QStringList extra = receivedInformation.value(_EXTRA).toString().split(":");
+    qlonglong chatId = extra.value(0).toLongLong();
+    LOG("Received found chat messages for chat" << chatId << "amount:" << totalCount << "next from message id:" << nextFromMessageId);
+    emit foundChatMessagesReceived(chatId, extra.value(1).toInt(), extra.value(2).toInt(), cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount, nextFromMessageId);
 }
 
 void TDLibReceiver::processSponsoredMessages(const QVariantMap &receivedInformation) {

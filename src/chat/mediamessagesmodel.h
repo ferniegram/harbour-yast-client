@@ -17,12 +17,12 @@ signals:
 
 private slots:
     void handleChatMessageCountReceived(int count, qlonglong chatId, TDLibWrapper::SearchMessagesFilter filter, bool onlyLocal);
-    void handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
+    void handleMessagesReceived(qlonglong chatId, int extra, TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
 
 private:
-    inline virtual void loadMessages(qlonglong fromMessageId = 0, int offset = 0) override { loadMessagesWithLimit(fromMessageId, offset); }
-    void loadMessagesWithLimit(qlonglong fromMessageId = 0, int offset = 0, int limit = 100);
+    inline virtual void loadMessages(int extra = 0, qlonglong fromMessageId = 0, int offset = 0) override { loadMessagesWithLimit(extra, fromMessageId, offset); }
+    void loadMessagesWithLimit(int extra = 0, qlonglong fromMessageId = 0, int offset = 0, int limit = 100);
 
 protected:
     virtual void loadMoreHistoryImpl() override;

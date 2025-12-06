@@ -37,19 +37,19 @@ bool ChatMessagesModel::clear() {
     return ReadableMessagesModel::clear();
 }
 
-void ChatMessagesModel::loadMessages(qlonglong fromMessageId, int offset) {
+void ChatMessagesModel::loadMessages(int extra, qlonglong fromMessageId, int offset) {
     if (searchQuery.isEmpty())
-        this->tdLibWrapper->getChatHistory(chatId, fromMessageId, offset);
+        this->tdLibWrapper->getChatHistory(chatId, extra, fromMessageId, offset);
     else
         // ignore offset for now
-        this->tdLibWrapper->searchChatMessages(chatId, searchQuery, fromMessageId);
+        this->tdLibWrapper->searchChatMessages(chatId, searchQuery, extra, fromMessageId);
 }
 
 void ChatMessagesModel::setSearchQuery(const QString newSearchQuery) {
     if (this->searchQuery != newSearchQuery) {
         this->clear();
         this->searchQuery = newSearchQuery;
-        this->loadMessages(searchQuery.isEmpty() ? this->parent()->property(PROPERTY_CHAT_INFORMATION).toMap().value(LAST_READ_INBOX_MESSAGE_ID).toLongLong() : 0); // fixme
+        this->loadMessages(UpdateInitial, searchQuery.isEmpty() ? this->parent()->property(PROPERTY_CHAT_INFORMATION).toMap().value(LAST_READ_INBOX_MESSAGE_ID).toLongLong() : 0); // fixme
     }
 }
 
@@ -59,7 +59,7 @@ qlonglong ChatMessagesModel::lastReadInboxMessageId() const {
 qlonglong ChatMessagesModel::lastReadOutboxMessageId() const {
     return this->parent()->property(PROPERTY_CHAT_INFORMATION).toMap().value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong();
 }
-qlonglong ChatMessagesModel::lastMessageId() const { // FIXME: this is wrong and shouldn't be used ideally
+qlonglong ChatMessagesModel::lastMessageId() const {
     return this->parent()->property(PROPERTY_CHAT_INFORMATION).toMap().value(LAST_MESSAGE).toMap().value(ID).toLongLong();
 }
 
@@ -273,10 +273,21 @@ void ChatManager::reset(bool resetChatId) {
 
 void ChatManager::initializeMessageModels() {
     LOG("Initializing message models");
-    chatMessagesModel = new ChatMessagesModel(tdLibWrapper, this->chatId, this);
-    photoAndVideoMessagesModel = new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, this);
-    animationMessagesModel = new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterAnimation, this);
-    videoNoteMessagesModel = new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterVideoNote, this);
+
+    if (!chatMessagesModel)
+        chatMessagesModel = new ChatMessagesModel(tdLibWrapper, this->chatId, this);
+    else if (chatMessagesModel->chatId != this->chatId) {
+        chatMessagesModel->chatId = this->chatId;
+        emit chatMessagesModel->chatIdChanged();
+    }
+
+    if (!photoAndVideoMessagesModel)
+        photoAndVideoMessagesModel = new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, this);
+    if (!animationMessagesModel)
+        animationMessagesModel = new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterAnimation, this);
+    if (!videoNoteMessagesModel)
+        videoNoteMessagesModel = new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterVideoNote, this);
+
     emit messageModelsChanged();
 }
 

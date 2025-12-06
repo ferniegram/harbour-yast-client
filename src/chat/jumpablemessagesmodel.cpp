@@ -5,7 +5,6 @@
 
 JumpableMessagesModel::JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) :
     MessagesModel(tdLibWrapper, parent),
-    waitingFor(UpdateNone),
     startReached(false),
     endReached(false),
     highlightedMessageId(0)
@@ -15,7 +14,7 @@ JumpableMessagesModel::JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
 
 bool JumpableMessagesModel::clear() {
     LOG("Clearing jumpable messages model");
-    waitingFor = UpdateNone;
+    waitingFor.clear();
     startReached = endReached = false;
     emit endReachedChanged();
     loadingChanged();
@@ -24,17 +23,17 @@ bool JumpableMessagesModel::clear() {
 }
 
 void JumpableMessagesModel::loadMoreHistory() {
-    if (!startReached && !waitingForSlice() && !messages.isEmpty()) {
+    if (!startReached && !waitingFor.value(UpdatePreviousSlice) && !messages.isEmpty()) {
         LOG("Loading older messages...");
-        this->waitingFor = UpdatePreviousSlice;
+        this->waitingFor.insert(UpdatePreviousSlice, true);
         this->loadMoreHistoryImpl();
     }
 }
 
 void JumpableMessagesModel::loadMoreFuture() {
-    if (canLoadMoreMessages() && !endReached && !waitingForSlice() && !messages.isEmpty()) {
+    if (canLoadMoreMessages() && !endReached && !waitingFor.value(UpdateNextSlice) && !messages.isEmpty()) {
         LOG("Loading newer messages...");
-        this->waitingFor = UpdateNextSlice;
+        this->waitingFor.insert(UpdateNextSlice, true);
         this->loadMoreFutureImpl();
     }
 }
@@ -56,11 +55,12 @@ bool JumpableMessagesModel::loading() const {
 
 void JumpableMessagesModel::updateStartEndReached(int totalCount, UpdateType fromUpdate) {
     if (totalCount == 0) {
+        // UpdateMultiSlice never comes here (is replaced with UpdateNextSlice or UpdatePreviousSlice in handleMessagesReceived())
         if (fromUpdate == UpdateNextSlice)
             endReached = true;
         else if (fromUpdate == UpdatePreviousSlice)
             startReached = true;
-        else if (fromUpdate == UpdateNone) // No messages in chat
+        else if (fromUpdate == UpdateInitial) // No messages in chat
             startReached = endReached = true;
     }
 
@@ -69,40 +69,42 @@ void JumpableMessagesModel::updateStartEndReached(int totalCount, UpdateType fro
     emit endReachedChanged();
 }
 
-void JumpableMessagesModel::handleMessagesReceived(const QVariantList &messages, int totalCount) {
-    LOG("Received messages" << messages.size());
+void JumpableMessagesModel::handleMessagesReceived(qlonglong chatId, int extra, const QVariantList &messages, int totalCount) {
+    if (this->chatId == chatId)
+        handleMessagesReceived(extra, messages, totalCount);
+}
+
+void JumpableMessagesModel::handleMessagesReceived(int extra, const QVariantList &messages, int totalCount) {
+    UpdateType fromUpdate = (UpdateType)extra;
+    LOG("Received messages" << fromUpdate << messages.size() << totalCount);
 
     auto notifyMessagesLoaded = [&]() {
-        const UpdateType fromUpdate = this->waitingFor;
-        const bool fromSliceUpdate = waitingForSlice();
-        this->waitingFor = UpdateNone;
-        this->updateStartEndReached(totalCount, fromUpdate); // emits loadingChanged() as well
+        this->waitingFor.insert(fromUpdate, false);
+        this->updateStartEndReached(totalCount, fromUpdate); // emits loadingChanged() as well ;;;; UPD: FIXME!!!!! no it doesn't actually!!???
+        const bool fromSliceUpdate = fromUpdate == UpdatePreviousSlice || fromUpdate == UpdateNextSlice;
         emit messagesReceived(totalCount, fromSliceUpdate);
     };
 
     if (messages.size() == 0) {
         LOG("No additional messages loaded, notifying chat UI...");
         notifyMessagesLoaded();
-    } else {
-        if (this->waitingFor != UpdateNone || this->messages.size() == 0) {
-            QList<MessageData*> addedMessages;
-            const bool reloadNeeded = handleInsertMessages(messages, addedMessages);
+    } else if (this->waitingFor.value(fromUpdate) || this->messages.size() == 0) {
+        QList<MessageData*> addedMessages;
+        bool reloadNeeded = handleInsertMessages(messages, addedMessages);
 
-            // First call only returns a few messages, we need to get a little more than that...
-            if (reloadNeeded && this->waitingFor != UpdateReload) {
-                LOG("Only a few messages received in first call, loading more...");
-                this->waitingFor = UpdateReload;
-                this->loadMessages(addedMessages.first()->messageId, 0); // (possibly) FIXME
-            } else {
-                LOG("Messages loaded, notifying chat UI...");
-                notifyMessagesLoaded();
-            }
+        // First call only returns a few messages, we need to get a little more than that...
+        if (reloadNeeded && fromUpdate != UpdateReload) {
+            LOG("Only a few messages received in first call, loading more...");
+            this->waitingFor.insert(UpdateReload, true);
+            this->loadMessages(UpdateReload, addedMessages.first()->messageId, 0); // (possibly) FIXME
         } else {
-            // Cleanup... Is that really needed? Well, let's see...
-            this->waitingFor = UpdateNone;
-            LOG("New messages in this chat, but not relevant as less recent messages need to be loaded first!");
+            LOG("Messages loaded, notifying chat UI...");
+            notifyMessagesLoaded();
         }
-    }
+    } else
+        LOG("New messages but not relevant");
+
+    this->waitingFor.insert(fromUpdate, false);
 }
 
 int JumpableMessagesModel::calculateScrollPosition() {

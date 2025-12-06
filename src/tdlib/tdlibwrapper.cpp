@@ -440,15 +440,16 @@ void TDLibWrapper::deleteChat(qlonglong chatId) {
     this->sendRequest(QVariantMap{{_TYPE, "deleteChat"}, {CHAT_ID, chatId}});
 }
 
-void TDLibWrapper::getChatHistory(qlonglong chatId, qlonglong fromMessageId, int offset, int limit, bool onlyLocal) {
-    LOG("Retrieving chat history" << chatId << fromMessageId << offset << limit << onlyLocal);
+void TDLibWrapper::getChatHistory(qlonglong chatId, int extra, qlonglong fromMessageId, int offset, int limit, bool onlyLocal) {
+    LOG("Retrieving chat history" << chatId << extra << fromMessageId << offset << limit << onlyLocal);
     this->sendRequest(QVariantMap{
         {_TYPE, "getChatHistory"},
         {CHAT_ID, chatId},
         {"from_message_id", fromMessageId},
         {OFFSET, offset},
         {LIMIT, limit},
-        {"only_local", onlyLocal}
+        {"only_local", onlyLocal},
+        {_EXTRA, QString::number(chatId)+":"+QString::number(extra)}
     });
 }
 
@@ -1010,7 +1011,7 @@ void TDLibWrapper::removeContact(QString userId) {
     removeContacts(QStringList{userId});
 }
 
-void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId, SearchMessagesFilter filter, int limit, int offset) {
+void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, int extra, qlonglong fromMessageId, SearchMessagesFilter filter, int limit, int offset) {
     const QString filterType = getSearchMessagesFilterType(filter);
 
     LOG("Searching for messages" << chatId << query << fromMessageId << filterType << limit);
@@ -1022,7 +1023,7 @@ void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, ql
         {OFFSET, offset},
         {LIMIT, limit},
         {FILTER, QVariantMap{{_TYPE, filterType}}},
-        {_EXTRA, (int)filter}
+        {_EXTRA, QString::number(chatId)+":"+QString::number(filter)+QString::number(extra)}
     });
 }
 
@@ -2598,8 +2599,8 @@ void TDLibWrapper::removeRecentlyFoundChat(qlonglong chatId) {
 }
 
 
-void TDLibWrapper::handleFoundChatMessagesReceived(const int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
-    emit foundChatMessagesReceived((SearchMessagesFilter)extra, messages, totalCount, nextFromMessageId);
+void TDLibWrapper::handleFoundChatMessagesReceived(qlonglong chatId, int extra, int extra2, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
+    emit foundChatMessagesReceived(chatId, extra, (SearchMessagesFilter)extra2, messages, totalCount, nextFromMessageId);
 }
 
 QString TDLibWrapper::getSearchMessagesFilterType(SearchMessagesFilter filter) {

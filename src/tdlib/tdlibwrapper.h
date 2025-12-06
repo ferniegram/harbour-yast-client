@@ -220,7 +220,7 @@ public:
     Q_INVOKABLE void joinChat(const QString &chatId);
     Q_INVOKABLE void leaveChat(const QString &chatId);
     Q_INVOKABLE void deleteChat(qlonglong chatId);
-    Q_INVOKABLE void getChatHistory(qlonglong chatId, qlonglong fromMessageId = 0, int offset = -1, int limit = 50, bool onlyLocal = false);
+    Q_INVOKABLE void getChatHistory(qlonglong chatId, int extra, qlonglong fromMessageId = 0, int offset = -1, int limit = 50, bool onlyLocal = false);
     Q_INVOKABLE void viewMessage(qlonglong chatId, qlonglong messageId, bool force);
     Q_INVOKABLE void pinMessage(const QString &chatId, const QString &messageId, bool disableNotification = false);
     Q_INVOKABLE void unpinMessage(const QString &chatId, const QString &messageId);
@@ -278,7 +278,7 @@ public:
     Q_INVOKABLE void addContact(qlonglong userId, const QString &firstName, const QString &lastName, const QString &phone, bool sharePhoneNumber);
     Q_INVOKABLE void removeContacts(QStringList userIds);
     Q_INVOKABLE void removeContact(QString userId);
-    Q_INVOKABLE void searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId = 0, SearchMessagesFilter filter = SearchMessagesFilterEmpty, int limit = 50, int offset = 0);
+    Q_INVOKABLE void searchChatMessages(qlonglong chatId, const QString &query, int extra, qlonglong fromMessageId = 0, SearchMessagesFilter filter = SearchMessagesFilterEmpty, int limit = 50, int offset = 0);
     Q_INVOKABLE void searchChats(const QString &query);
     Q_INVOKABLE void searchPublicChats(const QString &query);
     Q_INVOKABLE void getSearchSponsoredChats(const QString &query);
@@ -384,8 +384,8 @@ signals:
     void basicGroupUpdated(qlonglong groupId);
     void superGroupUpdated(qlonglong groupId);
     void chatOnlineMemberCountUpdated(const QString &chatId, int onlineMemberCount);
-    void messagesReceived(const QVariantList &messages, int totalCount);
-    void foundChatMessagesReceived(SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
+    void messagesReceived(qlonglong chatId, int extra, const QVariantList &messages, int totalCount);
+    void foundChatMessagesReceived(qlonglong chatId, int extra, SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void sponsoredMessageReceived(qlonglong chatId, const QVariantMap &message);
     void messageLinkInfoReceived(const QString &url, const QVariantMap &messageLinkInfo, const QString &extra);
     void newMessageReceived(qlonglong chatId, const QVariantMap &message);
@@ -510,7 +510,7 @@ public slots:
     void handleActiveEmojiReactionsUpdated(const QStringList& emojis);
     void handleGetPageSourceFinished();
     void handleDiceEmojisUpdated(const QStringList &emojis);
-    void handleFoundChatMessagesReceived(const int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
+    void handleFoundChatMessagesReceived(qlonglong chatId, int extra, int extra2, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void handleCountReceived(int count, const QString &extra);
     void handleChatPendingJoinRequestsUpdated(qlonglong chatId, const QVariantMap &pendingJoinRequests);
 
