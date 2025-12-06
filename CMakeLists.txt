@@ -231,8 +231,9 @@ endif()
 # See https://doc.qt.io/archives/qt-5.15/cmake-manual.html
 # See https://doc.qt.io/archives/qt-5.15/qtlinguist-cmake-qt5-create-translation.html
 FILE(GLOB TsFiles "translations/*.ts")
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/translations)
-set_source_files_properties(${TsFiles} PROPERTIES OUTPUT_LOCATION "translations")
+set(TRANSLATIONS_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/translations)
+file(MAKE_DIRECTORY ${TRANSLATIONS_OUT_DIR})
+set_source_files_properties(${TsFiles} PROPERTIES OUTPUT_LOCATION ${TRANSLATIONS_OUT_DIR})
 qt5_create_translation(TRANSLATION_QM_FILES
     "qml/"
     "src/"
@@ -247,7 +248,7 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
 install(DIRECTORY qml
     DESTINATION share/${CMAKE_PROJECT_NAME}
 )
-install(DIRECTORY translations
+install(DIRECTORY ${TRANSLATIONS_OUT_DIR}
     DESTINATION share/${CMAKE_PROJECT_NAME}
     FILES_MATCHING PATTERN "*.qm"
 )
