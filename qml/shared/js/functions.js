@@ -251,6 +251,17 @@ function handleErrorMessage(code, message, extra) {
             appNotification.show(qsTr("Unable to find user %1").arg(extra.type.substring(17)))
         return
     }
+    switch (message) {
+    case 'USER_ALREADY_PARTICIPANT':
+        appNotification.show(qsTr("You are already a member of this chat."))
+        break
+    case 'INVITE_REQUEST_SENT':
+        appNotification.show(extra.isChannel ? qsTr("Request to join sent", "channel") : qsTr("Request to join sent", "group"))
+        break
+    default:
+        appNotification.show(message)
+    }
+
     if (message === "USER_ALREADY_PARTICIPANT") {
         appNotification.show(qsTr("You are already a member of this chat."));
     } else {

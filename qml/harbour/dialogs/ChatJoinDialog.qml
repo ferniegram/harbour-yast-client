@@ -9,7 +9,7 @@ Dialog {
     property bool isChannel: invite.type['@type'] === 'inviteLinkChatTypeChannel'
 
     onAccepted:
-        tdLibWrapper.joinChatByInviteLink(link)
+        tdLibWrapper.joinChatByInviteLink(link, isChannel)
 
     DialogHeader {
         id: header

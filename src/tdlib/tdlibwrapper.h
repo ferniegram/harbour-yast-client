@@ -273,7 +273,7 @@ public:
     Q_INVOKABLE void getPollVoters(const QString &chatId, qlonglong messageId, int optionId, int limit, int offset, const QString &extra);
     Q_INVOKABLE void searchPublicChat(const QString &userName, bool doOpenOnFound = false);
     Q_INVOKABLE void searchUserByPhoneNumber(const QString &phoneNumber, bool doOpenOnFound = false);
-    Q_INVOKABLE void joinChatByInviteLink(const QString &inviteLink);
+    Q_INVOKABLE void joinChatByInviteLink(const QString &inviteLink, bool isChannel = false);
     Q_INVOKABLE void getDeepLinkInfo(const QString &link);
     Q_INVOKABLE void getContacts();
     Q_INVOKABLE void getSecretChat(qlonglong secretChatId);

@@ -970,10 +970,17 @@ void TDLibWrapper::searchUserByPhoneNumber(const QString &phoneNumber, bool doOp
                       });
 }
 
-void TDLibWrapper::joinChatByInviteLink(const QString &inviteLink) {
+void TDLibWrapper::joinChatByInviteLink(const QString &inviteLink, bool isChannel) {
     LOG("Join chat by invite link" << inviteLink);
     this->joinChatRequested = true;
-    this->sendRequest(QVariantMap{{_TYPE, "joinChatByInviteLink"}, {INVITE_LINK, inviteLink}});
+    this->sendRequest({
+                          {_TYPE, "joinChatByInviteLink"},
+                          {INVITE_LINK, inviteLink},
+                          {_EXTRA, QVariantMap{
+                               {"isChannel", isChannel},
+                               {EXTRA_OPEN_DIRECTLY, true}
+                           }}
+                      });
 }
 
 void TDLibWrapper::getDeepLinkInfo(const QString &link) {
