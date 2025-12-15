@@ -81,13 +81,19 @@ if (NOT EXISTS ${RLOTTIE_CONFIG_PATH})
     file(WRITE ${RLOTTIE_CONFIG_PATH} "")
 endif()
 
+set(CMAKE_THREAD_PREFER_PTHREAD ON)
+find_package(Threads)
+
+set_target_properties(rlottie PROPERTIES POSITION_INDEPENDENT_CODE ON)
+target_link_libraries(rlottie PUBLIC ${CMAKE_THREAD_LIBS_INIT})
+
 add_definitions(-DLOTTIE_THREAD_SUPPORT)
-target_include_directories(SortFilterProxyModel PUBLIC # FIXME: should be rlottie?
+target_include_directories(rlottie PUBLIC
     rlottie/inc
     rlottie/src/vector
     rlottie/src/vector/freetype
 )
-target_sources(SortFilterProxyModel # FIXME: should be rlottie?
+target_sources(rlottie
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieanimation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieitem.cpp
