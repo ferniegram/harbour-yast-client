@@ -14,6 +14,9 @@ Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-fernschreiber2.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   qml(org.nemomobile.contacts)
+BuildRequires:  cmake
+BuildRequires:  ninja
+BuildRequires:  ccache
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -29,8 +32,6 @@ BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  gperf
 BuildRequires:  desktop-file-utils
-BuildRequires: make
-BuildRequires: ccache
 
 %description
 Ferniegram is a Telegram client for Sailfish OS
@@ -42,11 +43,11 @@ Ferniegram is a Telegram client for Sailfish OS
 
 %cmake  -DHARBOUR_COMPLIANCE=off
 
-%make_build
+%ninja_build
 
 %install
 rm -rf %{buildroot}
-%make_install
+%ninja_install
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
