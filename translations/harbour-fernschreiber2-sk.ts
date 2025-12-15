@@ -435,6 +435,53 @@
     </message>
 </context>
 <context>
+    <name>ChatJoinDialog</name>
+    <message>
+        <source>Request to join</source>
+        <comment>channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request to join</source>
+        <comment>group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join channel</source>
+        <comment>channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join group</source>
+        <comment>group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln subscribers</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln members</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>This channel accepts new subscribers only after they are approved by its admins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This group accepts new members only after they are approved by its admins.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatListViewItem</name>
     <message>
         <source>Unknown</source>
@@ -675,6 +722,10 @@
     <message>
         <source>in</source>
         <translation>v</translation>
+    </message>
+    <message>
+        <source>Connected</source>
+        <translation>Pripojené</translation>
     </message>
     <message numerus="yes">
         <source>chats</source>
@@ -3056,6 +3107,16 @@
     <message>
         <source>support</source>
         <comment>used as a status for support chats, excluding the service notifications chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request to join sent</source>
+        <comment>channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request to join sent</source>
+        <comment>group</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
