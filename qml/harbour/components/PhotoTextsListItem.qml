@@ -129,6 +129,7 @@ ListItem {
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 textFormat: Text.StyledText
+                linkColor: Theme.highlightColor
                 visible: prologSecondaryText.width < ( parent.width - Theme.paddingLarge )
             }
         }
