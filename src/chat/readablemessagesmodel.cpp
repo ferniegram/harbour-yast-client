@@ -9,7 +9,6 @@ namespace {
     const QString LAST_READ_INBOX_MESSAGE_ID("last_read_inbox_message_id");
     const QString LAST_READ_OUTBOX_MESSAGE_ID("last_read_outbox_message_id");
     const QString MESSAGE_ID("message_id");
-    const QString TYPE_SPONSORED_MESSAGE("sponsoredMessage");
 }
 
 ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) :
@@ -88,7 +87,7 @@ int ReadableMessagesModel::calculateScrollPosition() {
     return qMin(scrollPosition + 1, this->messages.size() - 1);
 }
 
-void ReadableMessagesModel::updateStartEndReached(int totalCount, UpdateType fromUpdate) {
+void ReadableMessagesModel::handlePrepareMessagesReceived(int totalCount, UpdateType fromUpdate) {
     LOG("Updating start/end reached values");
     LOG(lastMessageId() << this->messageIndexMap);
 
@@ -97,7 +96,43 @@ void ReadableMessagesModel::updateStartEndReached(int totalCount, UpdateType fro
         LOG("Last message is in the model, end was reached");
     }
 
-    JumpableMessagesModel::updateStartEndReached(totalCount, fromUpdate);
+    JumpableMessagesModel::handlePrepareMessagesReceived(totalCount, fromUpdate);
+
+
+    // Insert pending sponsored messages
+    if (containsSponsoredMessages && messages.size() > 0 && !pendingSponsoredMessages.isEmpty()) {
+        if (fromUpdate == UpdatePreviousSlice) {
+            int firstSponsored = 0;
+            for (; firstSponsored < messages.size(); firstSponsored++)
+                if (messages.at(firstSponsored)->isSponsored)
+                    break;
+
+            int i = 0;
+            for (int insertIndex = firstSponsored - sponsoredMessagesMessagesBetween;
+                 i < pendingSponsoredMessages.size() && insertIndex >= 0;
+                 i++, insertIndex -= sponsoredMessagesMessagesBetween) {
+                const QVariantMap message = pendingSponsoredMessages.at(i).toMap();
+                insertSponsoredMessage(insertIndex, message, message.value(ID).toLongLong());
+            }
+
+            pendingSponsoredMessages.erase(pendingSponsoredMessages.begin(), pendingSponsoredMessages.begin() + i);
+        } else if (fromUpdate == UpdateNextSlice) {
+            int lastSponsored = messages.size() - 1;
+            for (; lastSponsored >= 0; lastSponsored--)
+                if (messages.at(lastSponsored)->isSponsored)
+                    break;
+
+            int i = 0;
+            for (int insertIndex = lastSponsored + 1 + sponsoredMessagesMessagesBetween;
+                 i < pendingSponsoredMessages.size() && insertIndex <= messages.size();
+                 i++, insertIndex += 1 + sponsoredMessagesMessagesBetween) {
+                const QVariantMap message = pendingSponsoredMessages.at(i).toMap();
+                insertSponsoredMessage(insertIndex, message, message.value(ID).toLongLong());
+            }
+
+            pendingSponsoredMessages.erase(pendingSponsoredMessages.begin(), pendingSponsoredMessages.begin() + i);
+        }
+    }
 }
 
 int ReadableMessagesModel::calculateLastReadMessageIndexInBounds() {
@@ -166,7 +201,7 @@ void ReadableMessagesModel::appendMessages(const QList<MessageData *> newMessage
         LOG("Contains a single sponsored message, inserting before it");
         int lastIndex = messages.size() - 1;
         for (; lastIndex >= 0; lastIndex--) {
-            if (messages.at(lastIndex)->messageType != TYPE_SPONSORED_MESSAGE)
+            if (!messages.at(lastIndex)->isSponsored)
                 break;
         }
         insertMessagesAt(lastIndex, newMessages, updateIsLastInSequence);
@@ -191,6 +226,7 @@ void ReadableMessagesModel::handleSponsoredMessagesReceived(qlonglong chatId, co
         if (messageId && !messageIndexMap.contains(messageId)) {
             LOG("Single sponsored message will be added:" << messageId);
             appendMessages({new MessageData(message, messageId)});
+            this->pendingSponsoredMessages.empty();
         }
     } else {
         int insertIndex = messages.size();

@@ -31,7 +31,6 @@ namespace {
     const QString ID("id");
     const QString CHAT_ID("chat_id");
     const QString MEDIA_ALBUM_ID("media_album_id");
-    const QString TYPE_SPONSORED_MESSAGE("sponsoredMessage");
 }
 
 MessagesModel::MessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) : QAbstractListModel(parent), chatId(0) {
@@ -320,7 +319,7 @@ void MessagesModel::insertMessages(const QList<MessageData*> newMessages) {
         qlonglong lastKnownId = -1;
         for (int i = (messages.size() - 1); i >= 0; i-- ) {
             const MessageData* message = messages.at(i);
-            if (message->messageType != TYPE_SPONSORED_MESSAGE) {
+            if (!message->isSponsored) {
                 lastKnownId = message->messageId;
                 break;
             }

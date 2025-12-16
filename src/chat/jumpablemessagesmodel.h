@@ -46,7 +46,7 @@ protected:
     virtual void loadMoreFutureImpl() = 0;
     virtual void loadHistoryForMessageImpl(qlonglong messageId) = 0;
 
-    virtual void updateStartEndReached(int totalCount, UpdateType fromUpdate);
+    virtual void handlePrepareMessagesReceived(int totalCount, UpdateType fromUpdate);
 
 protected:
     QMap<UpdateType, bool> waitingFor; // what updates we're currently waiting for

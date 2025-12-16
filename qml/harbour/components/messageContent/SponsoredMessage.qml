@@ -28,23 +28,13 @@ Column {
 
     property var message
 
-    Connections {
-        target: tdLibWrapper
-        onMessageLinkInfoReceived: {
-            if (message.link.url === url) {
-                messageOverlayLoader.overlayMessage = messageLinkInfo.message
-                messageOverlayLoader.active = true
-            }
-        }
-    }
-
     Button {
         id: sponsoredMessageButton
         anchors.horizontalCenter: parent.horizontalCenter
 
         text: message ? message.button_text : ''
         onClicked:
-            // don't user utilities.handleLink here because we can't get Ferniegram-specific links here
+            // don't use utilities.handleLink here because we can't get Ferniegram-specific links here
             tdLibWrapper.getInternalLinkType(message.sponsor.url)
     }
 }

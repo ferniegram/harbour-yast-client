@@ -66,7 +66,7 @@ struct MessageData {
 
     QVariantMap messageData;
     const qlonglong messageId;
-    QString messageType;
+    bool isSponsored;
     QString messageContentType;
     int viewCount;
     QVariantList reactions;

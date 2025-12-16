@@ -53,7 +53,7 @@ bool JumpableMessagesModel::loading() const {
     return messages.isEmpty() && !endReached && !startReached;
 }
 
-void JumpableMessagesModel::updateStartEndReached(int totalCount, UpdateType fromUpdate) {
+void JumpableMessagesModel::handlePrepareMessagesReceived(int totalCount, UpdateType fromUpdate) {
     if (totalCount == 0) {
         // UpdateMultiSlice never comes here (is replaced with UpdateNextSlice or UpdatePreviousSlice in handleMessagesReceived())
         if (fromUpdate == UpdateNextSlice)
@@ -80,7 +80,7 @@ void JumpableMessagesModel::handleMessagesReceived(int extra, const QVariantList
 
     auto notifyMessagesLoaded = [&]() {
         this->waitingFor.insert(fromUpdate, false);
-        this->updateStartEndReached(totalCount, fromUpdate); // emits loadingChanged() as well ;;;; UPD: FIXME!!!!! no it doesn't actually!!???
+        this->handlePrepareMessagesReceived(totalCount, fromUpdate); // emits loadingChanged() as well ;;;; UPD: FIXME!!!!! no it doesn't actually!!???
         const bool fromSliceUpdate = fromUpdate == UpdatePreviousSlice || fromUpdate == UpdateNextSlice;
         emit messagesReceived(totalCount, fromSliceUpdate);
     };

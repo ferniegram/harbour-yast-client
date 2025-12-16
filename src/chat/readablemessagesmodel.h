@@ -52,7 +52,7 @@ protected:
     void insertSponsoredMessage(int insertIndex, const QVariantMap &message, qlonglong messageId);
 
 protected slots:
-    virtual void updateStartEndReached(int totalCount, UpdateType fromUpdate) override;
+    virtual void handlePrepareMessagesReceived(int totalCount, UpdateType fromUpdate) override;
 
 protected:
     bool loadingFullEnd;

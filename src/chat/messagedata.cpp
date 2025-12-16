@@ -30,7 +30,7 @@ namespace {
 MessageData::MessageData(const QVariantMap &data, qlonglong msgid) :
     messageData(data),
     messageId(msgid),
-    messageType(data.value(_TYPE).toString()),
+    isSponsored(data.value(_TYPE).toString() == TYPE_SPONSORED_MESSAGE),
     messageContentType(data.value(CONTENT).toMap().value(_TYPE).toString()),
     viewCount(data.value(INTERACTION_INFO).toMap().value(VIEW_COUNT).toInt()),
     reactions(data.value(INTERACTION_INFO).toMap().value(REACTIONS).toMap().value(REACTIONS).toList()),
@@ -108,7 +108,7 @@ QVector<int> MessageData::diff(const MessageData *message) const {
 
 uint MessageData::updateMessageData(const QVariantMap &data) {
     messageData = data;
-    messageType = data.value(_TYPE).toString();
+    isSponsored = data.value(_TYPE).toString() == TYPE_SPONSORED_MESSAGE;
     return RoleFlagDisplay |
         updateContentType(data.value(CONTENT).toMap()) |
         updateInteractionInfo(data.value(INTERACTION_INFO).toMap());
@@ -193,8 +193,8 @@ QVector<int> MessageData::setInteractionInfo(const QVariantMap &info) {
 
 
 bool MessageData::lessThan(const MessageData *message1, const MessageData *message2) {
-    bool message1Sponsored = message1->messageType == TYPE_SPONSORED_MESSAGE;
-    bool message2Sponsored = message2->messageType == TYPE_SPONSORED_MESSAGE;
+    bool message1Sponsored = message1->isSponsored;
+    bool message2Sponsored = message2->isSponsored;
     if (message1Sponsored != message2Sponsored)
         // sponsored messages are considered more than normal messages
         return !message1Sponsored && message2Sponsored;
