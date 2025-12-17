@@ -77,6 +77,12 @@ Page {
         onReady: initializeChatManager()
     }
 
+    function log() {
+        var a = Array.prototype.slice.call(arguments)
+        a.splice(0,0,'[ChatPage] '+chatInformation.id)
+        Debug.log.apply(console, a)
+    }
+
     function setMessageText(text, doSend) {
         if (messagesView)
             messagesView.setMessageText(text, doSend)
@@ -173,7 +179,7 @@ Page {
     }
 
     Component.onCompleted: {
-        Debug.log("[ChatPage] Initializing chat page...")
+        log("Initializing chat page...")
 
         if (isSecretChat)
             tdLibWrapper.getSecretChat(chatInformation.type.secret_chat_id)
@@ -183,7 +189,7 @@ Page {
         }
 
         if (stickerManager.needsReload()) {
-            Debug.log("[ChatPage] Recent stickers will be reloaded!")
+            log("Recent stickers will be reloaded!")
             tdLibWrapper.getRecentStickers()
             stickerManager.setNeedsReload(false)
         }
@@ -236,14 +242,14 @@ Page {
 
         onSecretChatReceived: {
             if (secretChatId === chatInformation.type.secret_chat_id) {
-                Debug.log("[ChatPage] Received detailed information about this secret chat")
+                log("Received detailed information about this secret chat")
                 chatPage.secretChatDetails = secretChat
                 chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady"
             }
         }
         onSecretChatUpdated: {
             if (secretChatId.toString() === chatInformation.type.secret_chat_id.toString()) {
-                Debug.log("[ChatPage] Detailed information about this secret chat was updated")
+                log("Detailed information about this secret chat was updated")
                 chatPage.secretChatDetails = secretChat
                 chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady"
             }

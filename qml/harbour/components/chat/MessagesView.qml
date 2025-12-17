@@ -52,9 +52,15 @@ Column {
     signal elementSelected(int elementIndex)
     signal navigatedTo(int targetIndex)
 
+    function log() {
+        var a = Array.prototype.slice.call(arguments)
+        a.splice(0,0,'[MessagesView] '+chatInformation.id)
+        Debug.log.apply(console, a)
+    }
+
     function getMessageStatusText(message, listItemIndex, useElapsed) {
         var lastReadSentIndex = chatManager.model.lastReadSentMessageIndex
-        Debug.log("Last read sent index: " + lastReadSentIndex)
+        log("Last read sent index: " + lastReadSentIndex)
         var messageStatusSuffix = ""
 
         if(!message) return ""
@@ -271,21 +277,21 @@ Column {
         onMessagesReceived: {
             var originalScrollPosition = chatManager.model.calculateScrollPosition()
             var scrollPosition = chatProxyModel.mapRowFromSource(originalScrollPosition, -1)
-            Debug.log("[MessagesView] Messages received, from incremental update:", fromIncrementalUpdate, ", view has", chatView.count, "messages, possibly need to scroll to", scrollPosition, "("+originalScrollPosition+")")
+            log("Messages received, from incremental update:", fromIncrementalUpdate, ", view has", chatView.count, "messages, possibly need to scroll to", scrollPosition, "("+originalScrollPosition+")")
 
             if (!fromIncrementalUpdate || (!chatPage.isInitialized && scrollPosition > -1))
                 chatView.scrollToIndex(scrollPosition)
 
             if (!fromIncrementalUpdate) {
                 if (chatOverviewItem.visible && scrollPosition >= (chatView.count - 10)) {
-                    Debug.log("[MessagesView] Not far from the end, loading more future...")
+                    log("Not far from the end, loading more future...")
                     chatView.inCooldown = true
                     chatManager.model.loadMoreFuture()
                 }
             }
 
             if (chatView.height > chatView.contentHeight) {
-                Debug.log("[MessagesView] Chat content quite small...")
+                log("Chat content quite small...")
                 viewMessageTimer.queueViewMessage(chatView.count - 1)
             } else if (fromIncrementalUpdate && messagesView.messageIdToScrollTo && messagesView.messageIdToScrollTo != "")
                 showMessage(messagesView.messageIdToScrollTo, false)
@@ -297,7 +303,7 @@ Column {
             // Double-tap for reactions is currently disabled, let's see if we'll ever need it again
             if (!fromIncrementalUpdate) {
                 var remainingDoubleTapHints = appSettings.remainingDoubleTapHints;
-                Debug.log("Remaining double tap hints: " + remainingDoubleTapHints);
+                log("Remaining double tap hints: " + remainingDoubleTapHints);
                 if (remainingDoubleTapHints > 0) {
                     doubleTapHintTimer.start();
                     tapHint.visible = true;
@@ -310,7 +316,7 @@ Column {
         }
         onNewMessageReceived: {
             if ((chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive) || message.sender_id.user_id === chatPage.myUserId) {
-                Debug.log("[ChatPage] Own message received or was scrolled to bottom, scrolling down to see it...")
+                log("Own message received or was scrolled to bottom, scrolling down to see it...")
                 chatView.scrollToIndex(chatView.count - 1)
                 viewMessageTimer.queueViewMessage(chatView.count - 1)
             }
@@ -322,7 +328,7 @@ Column {
         ignoreUnknownSignals: true
         onPinnedMessageChanged: {
             if (chatManager.pinnedMessageId !== 0) {
-                Debug.log("[ChatPage] Loading pinned message ", chatManager.pinnedMessageId)
+                log("Loading pinned message ", chatManager.pinnedMessageId)
                 tdLibWrapper.getMessage(chatInformation.id, chatManager.pinnedMessageId)
             } else pinnedMessageItem.pinnedMessage = undefined
         }
@@ -332,19 +338,19 @@ Column {
         target: tdLibWrapper
         onReceivedMessage: {
             if (message.is_pinned) {
-                Debug.log("[ChatPage] Received pinned message")
+                log("Received pinned message")
                 pinnedMessageItem.pinnedMessage = message
             }
             if (chatInformation.draft_message && messageId === chatInformation.draft_message.reply_to_message_id) {
                 newMessageInReplyToRow.inReplyToMessage = message
             }
-            Debug.log("Received message ID: " + messageId)
+            log("Received message ID: " + messageId)
         }
         onSponsoredMessagesReceived: messagesView.containsSponsoredMessages = true
     }
 
     Component.onCompleted: {
-        Debug.log("[MessagesView] Initializing")
+        log("Initializing")
         chatView.currentIndex = -1
     }
 
@@ -384,23 +390,23 @@ Column {
         }
 
         onTriggered: {
-            Debug.log("scroll position changed, message index: ", lastQueuedIndex)
-            Debug.log("unread count: ", chatInformation.unread_count)
+            log("scroll position changed, message index: ", lastQueuedIndex)
+            log("unread count: ", chatInformation.unread_count)
             var modelIndex = chatProxyModel.mapRowToSource(lastQueuedIndex)
             var messageToRead = chatManager.model.getMessage(modelIndex)
             if (messageToRead['@type'] === "sponsoredMessage") {
-                Debug.log("sponsored message to read: ", messageToRead.id)
+                log("sponsored message to read: ", messageToRead.id)
                 tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false)
             } else if (chatInformation.unread_count > 0 && lastQueuedIndex > -1) {
                 if (messageToRead) {
-                    Debug.log("message to read: ", messageToRead.id)
+                    log("message to read: ", messageToRead.id)
                     var messageId = messageToRead.id
                     var type = messageToRead.content["@type"]
                     if (messageToRead.media_album_id !== '0') {
                         var albumIds = chatManager.model.getMessageIdsForAlbum(messageToRead.media_album_id)
                         if (albumIds.length > 0) {
                             messageId = albumIds[albumIds.length - 1]
-                            Debug.log("message to read last album message id: ", messageId)
+                            log("message to read last album message id: ", messageId)
                         }
                     }
                     if (messageId)
@@ -450,11 +456,11 @@ Column {
             id: chatViewCooldownTimer
             interval: 2000
             onTriggered: {
-                Debug.log("[MessagesView] Cooldown completed...")
+                log("Cooldown completed...")
                 chatView.inCooldown = false
 
                 if (!chatPage.isInitialized) {
-                    Debug.log("Page is initialized!")
+                    log("Page is initialized!")
                     chatPage.isInitialized = true
                     chatView.handleScrollPositionChanged()
                 }
@@ -466,7 +472,7 @@ Column {
             interval: 200
             onTriggered: {
                 if (!chatPage.isInitialized) {
-                    Debug.log("Page is initialized!")
+                    log("Page is initialized!")
                     chatPage.isInitialized = true
                     chatView.handleScrollPositionChanged()
                     if (chatPage.isChannel || chatPage.isBot)
@@ -520,8 +526,8 @@ Column {
             }
 
             function handleScrollPositionChanged() {
-                Debug.log("Current position: ", chatView.contentY)
-                Debug.log("Contains sponsored messages?", containsSponsoredMessages)
+                log("Current position: ", chatView.contentY)
+                log("Contains sponsored messages?", containsSponsoredMessages)
                 if (chatOverviewItem.visible && ( chatInformation.unread_count > 0 || containsSponsoredMessages ) ) {
                     var bottomIndex = chatView.indexAt(chatView.contentX, ( chatView.contentY + chatView.height - Theme.horizontalPageMargin ))
                     if (bottomIndex > -1)
@@ -534,7 +540,7 @@ Column {
             }
 
             function scrollToIndex(index, mode) {
-                Debug.log("Scrolling to index", index, "with mode", mode)
+                log("Scrolling to index", index, "with mode", mode)
                 if(index > 0 && index < chatView.count) {
                     positionViewAtIndex(index, (mode === undefined) ? ListView.Contain : mode)
                     if(index === chatView.count - 1) {
@@ -549,11 +555,11 @@ Column {
                 if (!chatPage.loading && !chatView.inCooldown) {
                     // check for startReached/endReached here so inCooldown won't be true forever
                     if (!chatManager.model.startReached && chatView.indexAt(chatView.contentX, chatView.contentY) < 10) {
-                        Debug.log("[ChatPage] Trying to get older history items...")
+                        log("Trying to get older history items...")
                         chatView.inCooldown = true
                         chatManager.model.loadMoreHistory()
                     } else if (!chatManager.model.endReached && chatOverviewItem.visible && chatView.indexAt(chatView.contentX, chatView.contentY) > ( count - 10)) {
-                        Debug.log("[ChatPage] Trying to get newer history items...")
+                        log("Trying to get newer history items...")
                         chatView.inCooldown = true
                         chatManager.model.loadMoreFuture()
                         // NOTE: it might be needed to call loadMoreFuture() but without the check for endReached inside it
@@ -788,7 +794,7 @@ Column {
                 onClicked: {
                     // probably not ideal
                     var lastReadIndex = chatProxyModel.mapRowFromSource(chatManager.model.lastReadIncomingMessageIndex, -1)
-                    Debug.log("Scrolling to the bottom lastReadIndex:", lastReadIndex)
+                    log("Scrolling to the bottom lastReadIndex:", lastReadIndex)
                     if (lastReadIndex > -1) {
                         if (chatView.indexAt(chatView.contentX, chatView.contentY) >= lastReadIndex - 2
                                 || chatView.indexAt(chatView.contentX + chatView.contentWidth, chatView.contentY + chatView.contentHeight) >= lastReadIndex - 2)
@@ -832,7 +838,7 @@ Column {
         Connections {
             target: stickerPickerLoader.item
             onStickerPicked: {
-                Debug.log("Sticker picked: " + stickerId)
+                log("Sticker picked: " + stickerId)
                 stickerManager.setNeedsReload(true)
                 tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
                 stickerPickerLoader.active = false
