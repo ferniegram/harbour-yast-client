@@ -75,6 +75,7 @@ Page {
         parent: chatPage
         chatId: chatInformation.id
         onReady: initializeChatManager()
+        onInfoInitialized: initializeChatManager()
     }
 
     function log() {
@@ -205,7 +206,9 @@ Page {
     }
 
     function initializeChatManager() {
-        if (!chatManager || isInitialized) return
+        if (!chatManager || !chatManager.infoInitialized || isInitialized)
+            return
+        log("Initializing chat manager")
 
         if (status == PageStatus.Activating || status == PageStatus.Active) {
             if (messagesView) messagesView.prepareView()

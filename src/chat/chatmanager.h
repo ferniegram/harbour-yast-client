@@ -51,11 +51,11 @@ class ChatManager : public QObject {
     Q_OBJECT
     Q_PROPERTY(QObject* tdlib MEMBER tdLibWrapper WRITE setTDLibWrapper NOTIFY tdlibChanged)
     Q_PROPERTY(qlonglong chatId MEMBER chatId WRITE setChatId NOTIFY chatIdChanged)
-    Q_PROPERTY(bool infoInitialized READ infoInitialized NOTIFY chatIdChanged)
+    Q_PROPERTY(bool infoInitialized READ infoInitialized NOTIFY infoInitializedChanged)
     Q_PROPERTY(QVariantMap chatInformation READ chatInformation NOTIFY chatInformationChanged)
     Q_PROPERTY(bool viewAsTopics READ viewAsTopics NOTIFY viewAsTopicsChanged)
-    Q_PROPERTY(TDLibWrapper::ChatType chatType READ chatType NOTIFY chatIdChanged)
-    Q_PROPERTY(bool isChannel READ isChannel NOTIFY chatIdChanged)
+    Q_PROPERTY(TDLibWrapper::ChatType chatType READ chatType NOTIFY chatInformationChanged)
+    Q_PROPERTY(bool isChannel READ isChannel NOTIFY chatInformationChanged)
     Q_PROPERTY(QVariant userInfo READ userInfo NOTIFY userInfoChanged)
     Q_PROPERTY(QVariant groupInfo READ groupInfo NOTIFY groupInfoChanged)
     Q_PROPERTY(bool isBot READ isBot NOTIFY userInfoChanged)
@@ -90,7 +90,7 @@ public:
     Q_INVOKABLE void initializeMediaMessagesModels();
     bool viewAsTopics();
     inline qlonglong getChatId() { return chatId; }
-    inline bool infoInitialized() { return chatId != 0; }
+    bool infoInitialized();
     inline QVariantMap chatInformation() const {
         if (tdLibWrapper)
             return tdLibWrapper->getChat(chatId);
@@ -111,6 +111,7 @@ signals:
     void messageModelsChanged();
     void topicsModelChanged();
     void chatIdChanged();
+    void infoInitializedChanged();
     void pinnedMessageChanged();
     void chatActionsChanged();
     void chatInformationChanged();
@@ -126,6 +127,7 @@ signals:
 private slots:
     void handleChatReadInboxUpdated(const QString &id);
     void handleChatReadOutboxUpdated(const QString &id);
+    void handleNewChatDiscovered(qlonglong chatId);
     void handleChatRolesUpdated(qlonglong chatId, const QVector<int> changedRoles = QVector<int>());
     void handleChatPendingJoinRequestsUpdated(qlonglong chatId);
     void handleChatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);

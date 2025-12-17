@@ -215,6 +215,8 @@ ChatManager::ChatManager(QObject *parent)
       videoNoteMessagesModel(nullptr),
       topicsModel(nullptr)
 {
+    LOG("Created");
+    connect(this, &ChatManager::chatIdChanged, this, &ChatManager::infoInitializedChanged);
     connect(this, &ChatManager::chatIdChanged, this, &ChatManager::smallPhotoChanged);
     connect(this, &ChatManager::chatIdChanged, this, &ChatManager::chatInformationChanged);
     connect(this, &ChatManager::chatIdChanged, this, &ChatManager::viewAsTopicsChanged);
@@ -283,6 +285,10 @@ void ChatManager::handleChatPendingJoinRequestsUpdated(qlonglong chatId) {
         emit pendingJoinRequestsChanged();
 }
 
+bool ChatManager::infoInitialized() {
+    return chatId && tdLibWrapper && tdLibWrapper->hasChatData(chatId);
+}
+
 TDLibWrapper::ChatType ChatManager::chatType() const {
     if (tdLibWrapper) {
         ChatData* chatData = tdLibWrapper->getChatData(chatId);
@@ -337,6 +343,15 @@ void ChatManager::handleBasicGroupUpdated(qlonglong groupId) {
 void ChatManager::handleSupergroupUpdated(qlonglong groupId) {
     if (chatType() == TDLibWrapper::ChatTypeSupergroup && this->groupId() == groupId)
         emit groupInfoChanged();
+}
+
+void ChatManager::handleNewChatDiscovered(qlonglong chatId) {
+    if (this->chatId == chatId) {
+        LOG("Chat information for the current chat discovered");
+        emit infoInitializedChanged();
+        emit chatInformationChanged();
+        emit smallPhotoChanged();
+    }
 }
 
 void ChatManager::handleChatRolesUpdated(qlonglong chatId, const QVector<int> changedRoles) {

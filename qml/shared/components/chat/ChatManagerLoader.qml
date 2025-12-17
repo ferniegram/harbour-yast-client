@@ -6,42 +6,37 @@ QtObject {
 
     property var chatManager
     property var chatId
-    property bool doDestroy
     property var parent
     property bool doInit: true
 
-    property Component chatManagerComponent: Component {
-        ChatManager {
-            tdlib: tdLibWrapper
-            chatId: root.chatId
+    signal ready
+    signal infoInitialized
+
+    property Loader loader: Loader {
+        active: false
+        sourceComponent: Component {
+            ChatManager {
+                tdlib: tdLibWrapper
+                chatId: root.chatId
+                onInfoInitializedChanged:
+                    if (infoInitialized)
+                        root.infoInitialized()
+            }
+        }
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                root.chatManager = item
+                root.ready()
+            }
         }
     }
 
-    signal ready
-
     function init() {
-        if (typeof chatManager === 'undefined') {
-            doDestroy = true
-
-            var incubator = chatManagerComponent.incubateObject(parent)
-            incubator.onStatusChanged = function(status) {
-                // Hopefully avoid memory leaks with this:
-                if (!root) incubator.object.destroy()
-
-                if (status === Component.Ready) {
-                    root.chatManager = incubator.object
-                    ready()
-                }
-            }
-        } else {
-            doDestroy = false
+        if (typeof chatManager === 'undefined')
+            loader.active = true
+        else
             ready()
-        }
     }
 
     Component.onCompleted: if (doInit) init()
-
-    Component.onDestruction:
-        if (doDestroy && chatManager)
-            chatManager.destroy()
 }
