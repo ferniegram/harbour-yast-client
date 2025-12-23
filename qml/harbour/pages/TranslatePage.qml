@@ -18,7 +18,7 @@ Page {
     property string translated
     property string plainTranslated
 
-    property string deviceLanguage: Qt.locale().name.slice(0, 2) // for locales like ru_RU and en_US
+    property string deviceLanguage: Qt.locale().name.split('_')[0] // for locales like ru_RU and en_US
     property bool deviceLanguageSupported: supportedLanguages.indexOf(deviceLanguage) >= 0
 
     property string language: deviceLanguageSupported ? deviceLanguage : 'en'
