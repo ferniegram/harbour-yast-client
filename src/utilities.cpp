@@ -458,8 +458,11 @@ QString Utilities::getMessageText(const QVariantMap &messageContent, const QStri
     if (contentType == MESSAGE_CONTENT_TYPE_TEXT)
         return simple ? messageContent.value(TEXT).toMap().value(TEXT).toString()
                       : enhanceMessageText(messageContent.value(TEXT).toMap(), ignoreEntities, escapeReserved);
-    if (contentType == MESSAGE_CONTENT_TYPE_STICKER)
-        return simple ? messageContent.value(STICKER).toMap().value(EMOJI).toString() : "";
+    if (contentType == MESSAGE_CONTENT_TYPE_STICKER) {
+        if (!simple) return QString();
+        const QString emoji = messageContent.value(STICKER).toMap().value(EMOJI).toString();
+        return emoji.isEmpty() ? tr("Sticker") : emoji;
+    }
     if (contentType == MESSAGE_CONTENT_TYPE_DICE)
         return simple ? messageContent.value(EMOJI).toString() : "";
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI)
@@ -642,24 +645,24 @@ QString Utilities::getMessageContentText(const QVariantMap &messageContent, Mess
 
 bool Utilities::messageContentIsService(const QString &contentType, bool includeTextOnly) {
     QStringList nonServiceContentTypes{
-        "messageAnimatedEmoji",
-        "messageAnimation",
-        "messageAudio",
-        "messageDocument",
+        MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI,
+        MESSAGE_CONTENT_TYPE_ANIMATION,
+        MESSAGE_CONTENT_TYPE_AUDIO,
+        MESSAGE_CONTENT_TYPE_DOCUMENT,
         "messageGame",
         // "messageInvoice",
-        "messageLocation",
+        MESSAGE_CONTENT_TYPE_LOCATION,
         // "messagePassportDataSent",
         // "messagePaymentSuccessful",
-        "messagePhoto",
+        MESSAGE_CONTENT_TYPE_PHOTO,
         "messagePoll",
         // "messageProximityAlertTriggered",
-        "messageSticker",
-        "messageVenue",
-        "messageVideo",
-        "messageVideoNote",
-        "messageVoiceNote",
-        "messageDice"
+        MESSAGE_CONTENT_TYPE_STICKER,
+        MESSAGE_CONTENT_TYPE_VENUE,
+        MESSAGE_CONTENT_TYPE_VIDEO,
+        MESSAGE_CONTENT_TYPE_VIDEO_NOTE,
+        MESSAGE_CONTENT_TYPE_VOICE_NOTE,
+        MESSAGE_CONTENT_TYPE_DICE,
     };
     if (!includeTextOnly) {
         nonServiceContentTypes.append("messageText");
@@ -672,6 +675,7 @@ QVariant Utilities::getMessageMinithumbnail(const QVariantMap &messageContent) {
     const QString type = messageContent.value(_TYPE).toString();
 
     // TODO: messageText link preview thumbnails
+    // also maybe stickers
 
     if (type == MESSAGE_CONTENT_TYPE_PHOTO)
         return messageContent.value(PHOTO).toMap().value(MINITHUMBNAIL);
