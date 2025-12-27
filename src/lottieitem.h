@@ -12,7 +12,6 @@ class LottieItem : public QQuickItem {
     Q_PROPERTY(QUrl source MEMBER source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
     Q_PROPERTY(bool error MEMBER error NOTIFY errorChanged)
-    Q_PROPERTY(bool stopped MEMBER stopped NOTIFY stoppedChanged)
     Q_PROPERTY(bool paused MEMBER paused WRITE setPaused NOTIFY pausedChanged)
     Q_PROPERTY(int currentFrame READ currentFrame WRITE setCurrentFrame NOTIFY currentFrameChanged)
     Q_PROPERTY(QSize sourceSize READ sourceSize NOTIFY sourceSizeChanged)
@@ -54,6 +53,7 @@ signals:
     void scaledSizeChanged();
     void frameCountChanged();
     void loopChanged();
+    void loopFinished();
 
 protected:
     virtual QSGNode *updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData*) override;
@@ -62,10 +62,9 @@ private:
     void setupHandler();
     void updateSize();
     void setError();
-    void setStopped(bool value);
     void reset();
     void loadNextFrame();
-    bool loopFinished();
+    bool isLoopFinished();
 
 private slots:
     void handleNetworkRequestFinished();
@@ -82,7 +81,6 @@ private:
     bool jumpedToFrame;
     bool autoLoad;
     bool error;
-    bool stopped;
     bool paused;
     bool loop;
 };

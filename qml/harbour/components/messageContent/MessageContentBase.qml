@@ -30,6 +30,7 @@ Item {
     property bool isSponsored: !!messageListItem && messageListItem.isSponsored
     property bool isUnread: !!messageListItem && messageListItem.isUnread
     property bool generatedContentUnread: !!messageListItem && messageListItem.generatedContentUnread
+    property int messageIndex: messageListItem ? messageListItem.messageIndex : -1
     property bool highlighted
     signal clicked()
 }

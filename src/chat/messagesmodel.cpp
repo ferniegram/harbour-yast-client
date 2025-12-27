@@ -547,3 +547,17 @@ bool MessagesModel::messageIsLastInSequence(const int index, const MessageData *
     if (index == messages.size() - 1) return true;
     return !MessageData::areTogether(message, this->messages.at(index + 1));
 }
+
+void MessagesModel::markGeneratedContentAsRead(int i) {
+    if (i >= 0 && i < messages.size()) {
+        MessageData *message = messages.at(i);
+        if (message->generatedContentUnread) {
+            LOG("Marking generated content as read" << message->messageId);
+            message->generatedContentUnread = false;
+
+            const QModelIndex messageIndex(index(i));
+            emit dataChanged(messageIndex, messageIndex, {MessageData::RoleGeneratedContentUnread});
+        } else
+            LOG("Generated content already read" << message->messageId);
+    }
+}

@@ -48,6 +48,8 @@ public:
     Q_INVOKABLE int getMessageIndex(qlonglong messageId);
     inline qlonglong getChatId() const { return chatId; }
 
+    Q_INVOKABLE void markGeneratedContentAsRead(int index);
+
 signals:
     void chatIdChanged();
     void messageUpdated(int modelIndex);

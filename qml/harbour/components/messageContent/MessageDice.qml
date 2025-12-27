@@ -23,13 +23,15 @@ import App.Logic 1.0
 import "../"
 import '../../js/debug.js' as Debug
 
-// ignore appSettings.showStickersAsEmojis here (if really needed can be re-added later)
+// TODO: if needed later, respect appSettings.showStickersAsEmojis
+// also, if the current user sends a dice in the current chat from another device, it is considered completed, which is wrong
 MessageContentBase {
     id: message
 
     readonly property var diceSticker: rawMessage.content.final_state || rawMessage.content.initial_state || {}
     readonly property string emoji: rawMessage.content.emoji
-    readonly property var stickerData: (diceSticker['@type'] === "diceStickersSlotMachine" ? diceSticker.background : diceSticker.sticker) || {}
+    readonly property bool isSlotMachine: diceSticker['@type'] === "diceStickersSlotMachine"
+    readonly property var stickerData: (isSlotMachine ? diceSticker.background : diceSticker.sticker) || {}
     readonly property bool isOwnSticker: typeof messageListItem !== 'undefined' ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
 
     // do not play animation when viewing history
@@ -83,6 +85,10 @@ MessageContentBase {
                                 autoLoad = true
                         } else
                             begin()
+
+                    onLoopFinished:
+                        if (!isSlotMachine)
+                            chatManager.model.markGeneratedContentAsRead(messageIndex)
 
                     layer.enabled: message.highlighted
                     layer.effect: PressEffect { source: animatedSticker }
@@ -152,6 +158,16 @@ MessageContentBase {
                     loop: false
                 }*/
 
+                property bool leftReelStopped
+                property bool centerReelStopped
+                property bool rightReelStopped
+                property bool reelsStopped: leftReelStopped && centerReelStopped && rightReelStopped
+
+                onReelsStoppedChanged: {
+                    if (reelsStopped)
+                        chatManager.model.markGeneratedContentAsRead(messageIndex)
+                }
+
                 Repeater {
                     model: [diceSticker.left_reel, diceSticker.center_reel, diceSticker.right_reel]
                     LottieItem {
@@ -178,6 +194,19 @@ MessageContentBase {
                             fileInformation: modelData.sticker
                             autoLoad: true
                         }
+
+                        onLoopFinished:
+                            switch (index) {
+                            case 0:
+                                leftReelStopped = true
+                                break
+                            case 1:
+                                centerReelStopped = true
+                                break
+                            case 2:
+                                rightReelStopped = true
+                                break
+                            }
 
                         layer.enabled: message.highlighted
                         layer.effect: PressEffect { source: animatedSticker }

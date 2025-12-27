@@ -20,7 +20,6 @@ LottieItem::LottieItem() :
     jumpedToFrame(false),
     autoLoad(true),
     error(false),
-    stopped(true),
     paused(false),
     loop(false)
 {
@@ -157,7 +156,6 @@ void LottieItem::begin() {
         setCurrentFrame(pendingFrameJump);
         pendingFrameJump = -1;
     } else {
-        setStopped(false);
         nextImageTimer.stop();
         loadNextFrame();
     }
@@ -169,7 +167,7 @@ void LottieItem::setPaused(bool value) {
         LOG_((paused ? "Pausing" : "Unpausing"));
         if (paused && !jumpedToFrame)
             nextImageTimer.stop();
-        else if (!loopFinished())
+        else if (!isLoopFinished())
             loadNextFrame();
         emit pausedChanged();
     }
@@ -189,13 +187,12 @@ void LottieItem::setCurrentFrame(int frame) {
         if (handler->jumpToImage(frame)) {
             jumpedToFrame = true;
             nextImageTimer.stop();
-            setStopped(false);
             loadNextFrame();
             LOG_("Jumped to frame" << frame);
         } else
             LOG_("Couldn't jump to frame" << frame);
     } else {
-        LOG_("Pending frame jump");
+        LOG_("Pending frame jump" << frame);
         pendingFrameJump = frame;
     }
 }
@@ -218,17 +215,9 @@ void LottieItem::setError() {
         error = true;
         emit errorChanged();
     }
-    setStopped(true);
 }
 
-void LottieItem::setStopped(bool value) {
-    if (stopped != value) {
-        stopped = value;
-        emit stoppedChanged();
-    }
-}
-
-inline bool LottieItem::loopFinished() {
+inline bool LottieItem::isLoopFinished() {
     return !loop && (handler->currentImageNumber() % handler->imageCount()) >= (handler->imageCount() - 1);
 }
 
@@ -253,10 +242,10 @@ void LottieItem::loadNextFrame() {
     emit currentFrameChanged();
 
     if (!paused) {
-        if (!loopFinished())
+        if (!isLoopFinished())
             nextImageTimer.start(handler->nextImageDelay());
         else
-            setStopped(true);
+            emit loopFinished();
     }
 }
 
