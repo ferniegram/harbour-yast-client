@@ -209,5 +209,5 @@ void ForumTopicsModel::handleForumTopicInfoUpdated(qlonglong chatId, int forumTo
 }
 
 ForumTopicsModel::ForumTopic *ForumTopicsModel::getTopic(int id) {
-    return topicIndexMap.contains(id) ? topics.value(id) : nullptr;
+    return topicIndexMap.contains(id) ? topics.value(topicIndexMap.value(id)) : nullptr;
 }

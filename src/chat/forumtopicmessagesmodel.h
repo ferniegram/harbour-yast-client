@@ -46,6 +46,7 @@ private:
 private slots:
     void handleForumTopicUpdated(int forumTopicId);
     void handleForumTopicMessagesReceived(qlonglong chatId, int forumTopicId, int extra, const QVariantList &messages, int totalCount);
+    void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
 
 private:
     ForumTopicsModel *forumTopicsModel;

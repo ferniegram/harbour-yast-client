@@ -42,7 +42,7 @@ ChatMessagesModel::ChatMessagesModel(TDLibWrapper *tdLibWrapper, qlonglong chatI
 
     connect(this->tdLibWrapper, SIGNAL(messagesReceived(qlonglong, int, const QVariantList &, int)), this, SLOT(handleMessagesReceived(qlonglong, int, const QVariantList &, int)));
     connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &ChatMessagesModel::handleFoundChatMessagesReceived);
-    connect(this->tdLibWrapper, SIGNAL(newMessageReceived(qlonglong, const QVariantMap &)), this, SIGNAL(handleNewMessageReceived(qlonglong, const QVariantMap &)));
+    connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ChatMessagesModel::handleNewMessageReceived);
 
     connect(this->tdLibWrapper, &TDLibWrapper::sponsoredMessagesReceived, this, &ChatMessagesModel::handleSponsoredMessagesReceived);
 }
@@ -77,6 +77,11 @@ qlonglong ChatMessagesModel::lastReadOutboxMessageId() const {
 }
 qlonglong ChatMessagesModel::lastMessageId() const {
     return this->parent()->property(PROPERTY_CHAT_INFORMATION).toMap().value(LAST_MESSAGE).toMap().value(ID).toLongLong();
+}
+
+void ChatMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
+    if (chatId == this->chatId)
+        ReadableMessagesModel::handleNewMessageReceived(message);
 }
 
 void ChatMessagesModel::handleFoundChatMessagesReceived(qlonglong chatId, TDLibWrapper::SearchMessagesFilter filter, int extra, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/) {

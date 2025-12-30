@@ -27,7 +27,9 @@ Dialog {
     allowedOrientations: Orientation.All
     property string groupName
     // poll request data start
-    property string chatId
+    property var chatId
+    property var replyToMessageId
+    property var topicId
     property alias pollQuestion: questionTextArea.text
     property ListModel options: ListModel {
         ListElement {
@@ -38,7 +40,6 @@ Dialog {
     property int correctOption: -1
     property alias quiz: quizSwitch.checked
     property alias multiple: multipleSwitch.checked
-    property string replyToMessageId: "0"
     property alias quizExplanation: quizExplanationTextArea.text
     // poll request data end
 
@@ -356,6 +357,6 @@ Dialog {
         for(var i = 0; i < options.count; i += 1)
             optionsArr.push(options.get(i).text)
 
-        tdLibWrapper.sendPollMessage(chatId, pollQuestion, optionsArr, anonymous, quiz ? correctOption : -1, multiple, quizExplanation, "0")
+        tdLibWrapper.sendPollMessage(chatId, pollQuestion, optionsArr, anonymous, quiz ? correctOption : -1, multiple, quizExplanation, replyToMessageId, topicId)
     }
 }

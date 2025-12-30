@@ -302,7 +302,9 @@ Column {
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("../../pages/PollCreationPage.qml"), {
                                         chatId: chatInformation.id,
-                                        groupName: chatInformation.title,
+                                        replyToMessageId: newMessageColumn.replyToMessageId,
+                                        topicId: topicId,
+                                        groupName: chatInformation.title
                                     })
                     attachmentOptionsFlickable.show = false
                 }

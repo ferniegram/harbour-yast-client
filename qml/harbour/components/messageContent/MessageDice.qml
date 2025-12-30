@@ -165,7 +165,7 @@ MessageContentBase {
 
                 onReelsStoppedChanged: {
                     if (reelsStopped)
-                        chatManager.model.markGeneratedContentAsRead(messageIndex)
+                        messagesModel.markGeneratedContentAsRead(messageIndex)
                 }
 
                 Repeater {

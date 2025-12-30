@@ -86,7 +86,6 @@ int ReadableMessagesModel::calculateScrollPosition() {
 
 void ReadableMessagesModel::handlePrepareMessagesReceived(int totalCount, UpdateType fromUpdate) {
     LOG("Updating start/end reached values");
-    LOG(lastMessageId() << this->messageIndexMap);
 
     if (this->messageIndexMap.contains(lastMessageId())) {
         endReached = true;
@@ -127,11 +126,6 @@ void ReadableMessagesModel::loadMoreFutureImpl() {
 }
 void ReadableMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
     this->loadMessages(UpdateInitial, messageId);
-}
-
-void ReadableMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
-    if (chatId == this->chatId)
-        handleNewMessageReceived(message);
 }
 
 void ReadableMessagesModel::handleNewMessageReceived(const QVariantMap &message) {

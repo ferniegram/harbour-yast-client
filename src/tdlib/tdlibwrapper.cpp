@@ -126,6 +126,7 @@ namespace {
     const QString VIEW_AS_TOPICS("view_as_topics");
     const QString FROM_MESSAGE_ID("from_message_id");
     const QString MY_ID("my_id");
+    const QString TOPIC_ID("topic_id");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -503,59 +504,37 @@ void TDLibWrapper::unpinMessage(const QString &chatId, const QString &messageId)
     });
 }
 
-QVariantMap TDLibWrapper::newSendMessageRequest(qlonglong chatId, qlonglong replyToMessageId) {
-    QVariantMap request{{_TYPE, "sendMessage"}, {CHAT_ID, chatId}};
+void TDLibWrapper::sendMessage(qlonglong chatId, qlonglong replyToMessageId, const QVariantMap &topicId, const QVariantMap &content) {
+    QVariantMap request{{_TYPE, "sendMessage"}, {CHAT_ID, chatId}, {INPUT_MESSAGE_CONTENT, content}};
     if (replyToMessageId != 0)
         request.insert(REPLY_TO, QVariantMap{
             {_TYPE, TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE},
             {MESSAGE_ID, replyToMessageId}
         });
+    if (!topicId.isEmpty())
+        request.insert(TOPIC_ID, topicId);
 
-    return request;
+    this->sendRequest(request);
 }
 
-void TDLibWrapper::sendTextMessage(qlonglong chatId, const QString &message, qlonglong replyToMessageId) {
+void TDLibWrapper::sendTextMessage(qlonglong chatId, const QString &message, qlonglong replyToMessageId, const QVariantMap &topicId) {
     LOG("Sending text message" << chatId << message << replyToMessageId);
-    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
-    requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{{_TYPE, "inputMessageText"}, {TEXT, Utilities::enhanceInputText(message)}});
-    this->sendRequest(requestObject);
+    sendMessage(chatId, replyToMessageId, topicId, {{_TYPE, "inputMessageText"}, {TEXT, Utilities::enhanceInputText(message)}});
 }
 
-void TDLibWrapper::sendFileMessage(const QString &messageType, const QString &fileType, qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId) {
-    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
-    requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{
-                             {_TYPE, messageType},
-                             {CAPTION, Utilities::enhanceInputText(message)},
-                             {fileType, QVariantMap{{_TYPE, TYPE_INPUT_FILE_LOCAL}, {PATH, filePath}}}
-                         });
-    this->sendRequest(requestObject);
+void TDLibWrapper::sendFileMessage(qlonglong chatId, const QString &messageType, const QString &fileType, const QString &filePath, const QString &caption, qlonglong replyToMessageId, const QVariantMap &topicId, const QVariantMap &additionalOptions) {
+    QVariantMap content = additionalOptions;
+    content.insert(_TYPE, messageType);
+    content.insert(CAPTION, Utilities::enhanceInputText(caption));
+    content.insert(fileType, QVariantMap{{_TYPE, TYPE_INPUT_FILE_LOCAL}, {PATH, filePath}});
+
+    sendMessage(chatId, replyToMessageId, topicId, content);
 }
 
-void TDLibWrapper::sendPhotoMessage(qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId) {
-    LOG("Sending photo message" << chatId << filePath << message << replyToMessageId);
-    this->sendFileMessage("inputMessagePhoto", PHOTO, chatId, filePath, message, replyToMessageId);
-}
-
-void TDLibWrapper::sendVideoMessage(qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId) {
-    LOG("Sending video message" << chatId << filePath << message << replyToMessageId);
-    this->sendFileMessage("inputMessageVideo", "video", chatId, filePath, message, replyToMessageId);
-}
-
-void TDLibWrapper::sendDocumentMessage(qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId) {
-    LOG("Sending document message" << chatId << filePath << message << replyToMessageId);
-    this->sendFileMessage("inputMessageDocument", "document", chatId, filePath, message, replyToMessageId);
-}
-
-void TDLibWrapper::sendVoiceNoteMessage(qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId) {
-    LOG("Sending voice note message" << chatId << filePath << message << replyToMessageId);
-    this->sendFileMessage("inputMessageVoiceNote", "voice_note", chatId, filePath, message, replyToMessageId);
-}
-
-void TDLibWrapper::sendLocationMessage(qlonglong chatId, double latitude, double longitude, double horizontalAccuracy, qlonglong replyToMessageId) {
+void TDLibWrapper::sendLocationMessage(qlonglong chatId, double latitude, double longitude, double horizontalAccuracy, qlonglong replyToMessageId, const QVariantMap &topicId) {
     LOG("Sending location message" << chatId << latitude << longitude << horizontalAccuracy << replyToMessageId);
-    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
 
-    requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{
+    sendMessage(chatId, replyToMessageId, topicId, {
                              {_TYPE, "inputMessageLocation"},
                              {LOCATION, QVariantMap{
                                      {_TYPE, LOCATION},
@@ -567,23 +546,18 @@ void TDLibWrapper::sendLocationMessage(qlonglong chatId, double latitude, double
                              {"heading", 0},
                              {"proximity_alert_radius", 0}
                          });
-
-    this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::sendStickerMessage(qlonglong chatId, const QString &fileId, qlonglong replyToMessageId) {
+void TDLibWrapper::sendStickerMessage(qlonglong chatId, const QString &fileId, qlonglong replyToMessageId, const QVariantMap &topicId) {
     LOG("Sending sticker message" << chatId << fileId << replyToMessageId);
-    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
-    requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{
-                             {_TYPE, "inputMessageSticker"},
-                             {"sticker", QVariantMap{{_TYPE, "inputFileRemote"}, {ID, fileId}}}
-                         });
-    this->sendRequest(requestObject);
+    sendMessage(chatId, replyToMessageId, topicId, {
+                    {_TYPE, "inputMessageSticker"},
+                    {"sticker", QVariantMap{{_TYPE, "inputFileRemote"}, {ID, fileId}}}
+                });
 }
 
-void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, const QStringList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId) {
+void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, const QStringList &options, bool anonymous, int correctOption, bool multiple, const QString &explanation, qlonglong replyToMessageId, const QVariantMap &topicId) {
     LOG("Sending poll message" << chatId << question << replyToMessageId);
-    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
     QVariantMap inputMessageContent{
         {_TYPE, "inputMessagePoll"},
         {"question", Utilities::newFormattedText(question)},
@@ -607,15 +581,12 @@ void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, co
     }
     inputMessageContent.insert(TYPE, pollType);
 
-    requestObject.insert(INPUT_MESSAGE_CONTENT, inputMessageContent);
-    this->sendRequest(requestObject);
+    sendMessage(chatId, replyToMessageId, topicId, inputMessageContent);
 }
 
-void TDLibWrapper::sendDiceMessage(qlonglong chatId, const QString &emoji, qlonglong replyToMessageId) {
+void TDLibWrapper::sendDiceMessage(qlonglong chatId, const QString &emoji, qlonglong replyToMessageId, const QVariantMap &topicId) {
     LOG("Sending dice message" << chatId << emoji << replyToMessageId);
-    QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
-    requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{{_TYPE, "inputMessageDice"}, {EMOJI, emoji}});
-    this->sendRequest(requestObject);
+    sendMessage(chatId, replyToMessageId, topicId, QVariantMap{{_TYPE, "inputMessageDice"}, {EMOJI, emoji}});
 }
 
 void TDLibWrapper::forwardMessages(const QString &chatId, const QString &fromChatId, const QVariantList &messageIds, bool sendCopy, bool removeCaption) {

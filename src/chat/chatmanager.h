@@ -34,10 +34,11 @@ private:
     void insertSponsoredMessage(int insertIndex, const QVariantMap &message, qlonglong messageId);
 
 protected slots:
-    void handleFoundChatMessagesReceived(qlonglong chatId, TDLibWrapper::SearchMessagesFilter filter, int extra, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/);
     virtual void handlePrepareMessagesReceived(int totalCount, UpdateType fromUpdate) override;
 
 private slots:
+    void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
+    void handleFoundChatMessagesReceived(qlonglong chatId, TDLibWrapper::SearchMessagesFilter filter, int extra, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/);
     void handleSponsoredMessagesReceived(qlonglong chatId, const QVariantList &sponsoredMessages, int messagesBetween);
 
 private:

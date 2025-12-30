@@ -6,6 +6,8 @@ import ".."
 SilicaListView {
     model: chatManager.topicsModel
 
+    // TODO: loading screen
+
     delegate: PhotoTextsListItem {
         width: parent.width
         primaryText.text: name
@@ -22,6 +24,7 @@ SilicaListView {
             MessagesView {
                 anchors.fill: parent
                 messagesModel: topicMessagesModel
+                topicId: {'@type': 'messageTopicForum', 'forum_topic_id': forumTopicId}
 
                 ForumTopicMessagesModel {
                     id: topicMessagesModel

@@ -30,6 +30,7 @@ Column {
     id: messagesView
 
     property var messagesModel: chatManager.model
+    property var topicId
 
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
@@ -100,23 +101,34 @@ Column {
     }
 
     function sendMessage() {
+        // TODO: in other places where we use TDLibWrapper send message functions, correctly specify topic ID
         if (newMessageColumn.editMessageId !== "0")
             (newMessageColumn.editIsCaption ? tdLibWrapper.editMessageCaption : tdLibWrapper.editMessageText)
                     (chatInformation.id, newMessageColumn.editMessageId, newMessageTextField.text)
         else {
             if (attachmentPreviewRow.visible) {
-                var basecall = function(f){ f(chatInformation.id, attachmentPreviewRow.fileProperties.filePath, newMessageTextField.text, newMessageColumn.replyToMessageId) }
-                if (attachmentPreviewRow.isPicture) basecall(tdLibWrapper.sendPhotoMessage)
-                if (attachmentPreviewRow.isVideo) basecall(tdLibWrapper.sendVideoMessage)
-                if (attachmentPreviewRow.isDocument) basecall(tdLibWrapper.sendDocumentMessage)
-                if (attachmentPreviewRow.isVoiceNote)
-                    tdLibWrapper.sendVoiceNoteMessage(chatInformation.id, utilities.voiceNotePath, newMessageTextField.text, newMessageColumn.replyToMessageId)
-                if (attachmentPreviewRow.isLocation)
-                    tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId)
+                function sendFile(messageType, fileType, filePath, additionalOptions) {
+                    filePath = typeof filePath === 'undefined' ? attachmentPreviewRow.fileProperties.filePath : filePath
+
+                    tdLibWrapper.sendFileMessage(chatInformation.id, messageType, fileType, filePath, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, additionalOptions)
+                }
+
+                if (attachmentPreviewRow.isPicture)
+                    sendFile('inputMessagePhoto', 'photo')
+                else if (attachmentPreviewRow.isVideo)
+                    sendFile('inputMessageVideo', 'video')
+                else if (attachmentPreviewRow.isDocument)
+                    sendFile('inputMessageDocument', 'document')
+                else if (attachmentPreviewRow.isVoiceNote)
+                    sendFile('inputMessageVoiceNote', 'voice_note', utilities.voiceNotePath)
+                else if (attachmentPreviewRow.isLocation)
+                    tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId, topicId)
+
                 messagesView.clearAttachmentPreviewRow()
             } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdLibWrapper.isDiceEmoji(newMessageTextField.text))
-                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
-            else tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
+                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId)
+            else
+                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId)
 
             if(appSettings.focusTextAreaAfterSend)
                 lostFocusTimer.start()

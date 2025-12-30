@@ -26,7 +26,6 @@ signals:
     void lastReadMessageIndexChanged();
 
 protected slots:
-    void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
     void handleNewMessageReceived(const QVariantMap &message);
 
 protected:

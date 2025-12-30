@@ -5,6 +5,8 @@
 
 namespace {
     const QString ID("id");
+    const QString TOPIC_ID("topic_id");
+    const QString FORUM_TOPIC_ID("forum_topic_id");
 }
 
 ForumTopicMessagesModel::ForumTopicMessagesModel(QObject *parent) : ReadableMessagesModel(), forumTopicsModel(nullptr), initialized(false), forumTopicId(0) {
@@ -36,8 +38,8 @@ void ForumTopicMessagesModel::setTDLibWrapper(QObject *obj) {
 void ForumTopicMessagesModel::setupTDLibWrapper() {
     ReadableMessagesModel::setupTDLibWrapper();
 
-    LOG("CONNECT");
     connect(tdLibWrapper, &TDLibWrapper::forumTopicMessagesReceived, this, &ForumTopicMessagesModel::handleForumTopicMessagesReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ForumTopicMessagesModel::handleNewMessageReceived);
 }
 
 void ForumTopicMessagesModel::setForumTopicsModel(QObject *obj) {
@@ -89,7 +91,6 @@ void ForumTopicMessagesModel::initialize() {
 
         // todo...
         this->loadMessages(UpdateInitial, lastReadInboxMessageId());
-        LOG("Load");
     }
 }
 
@@ -100,7 +101,6 @@ bool ForumTopicMessagesModel::clear() {
 }
 
 void ForumTopicMessagesModel::loadMessages(int extra, qlonglong fromMessageId, int offset) {
-    LOG("Loading messages");
     if (searchQuery.isEmpty())
         this->tdLibWrapper->getForumTopicHistory(chatId, forumTopicId, extra, fromMessageId, offset);
     // TODO: support search
@@ -135,9 +135,13 @@ qlonglong ForumTopicMessagesModel::lastMessageId() const {
 }
 
 void ForumTopicMessagesModel::handleForumTopicMessagesReceived(qlonglong chatId, int forumTopicId, int extra, const QVariantList &messages, int totalCount) {
-    LOG("Received" << chatId << forumTopicId << this->chatId << this->forumTopicId);
     if (this->chatId == chatId && this->forumTopicId == forumTopicId) {
         LOG("Messages received");
         handleMessagesReceived(extra, messages, totalCount);
     }
+}
+
+void ForumTopicMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
+    if (this->chatId == chatId && this->forumTopicId == message.value(TOPIC_ID).toMap().value(FORUM_TOPIC_ID).toInt())
+        ReadableMessagesModel::handleNewMessageReceived(message);
 }
