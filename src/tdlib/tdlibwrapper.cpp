@@ -2657,7 +2657,7 @@ void TDLibWrapper::handleCountReceived(int count, const QString &extra) {
     }
 }
 
-void TDLibWrapper::getForumTopics(qlonglong chatId, qint32 offsetDate, qlonglong offsetMessageId, qlonglong offsetMessageThreadId, const QString &query, int limit) {
+void TDLibWrapper::getForumTopics(qlonglong chatId, qint32 offsetDate, qlonglong offsetMessageId, int offsetForumTopicId, const QString &query, int limit) {
     LOG("Retreiving forum topics" << chatId);
     this->sendRequest(QVariantMap{
                           {_TYPE, "getForumTopics"},
@@ -2665,7 +2665,7 @@ void TDLibWrapper::getForumTopics(qlonglong chatId, qint32 offsetDate, qlonglong
                           {QUERY, query},
                           {"offset_date", offsetDate},
                           {"offset_message_id", offsetMessageId},
-                          {"offset_message_thread_id", offsetMessageThreadId},
+                          {"offset_forum_topic_id", offsetForumTopicId},
                           {LIMIT, limit},
                           {_EXTRA, chatId}
                       });

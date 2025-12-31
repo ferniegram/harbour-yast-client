@@ -331,7 +331,7 @@ public:
     Q_INVOKABLE void addRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void removeRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter, bool returnLocal = false);
-    Q_INVOKABLE void getForumTopics(qlonglong chatId, qint32 offsetDate = 0, qlonglong offsetMessageId = 0, qlonglong offsetMessageThreadId = 0, const QString &query = QString(), int limit = 50);
+    Q_INVOKABLE void getForumTopics(qlonglong chatId, qint32 offsetDate = 0, qlonglong offsetMessageId = 0, int offsetForumTopicId = 0, const QString &query = QString(), int limit = 25);
     Q_INVOKABLE void hideSuggestedAction(const QVariantMap &action);
     Q_INVOKABLE void hideSuggestedAction(const QString &type);
     Q_INVOKABLE void setBirthdate(int day, int month, int year);
@@ -465,7 +465,7 @@ signals:
     void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
     void archiveChatListSettingsReceived(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
     void chatFoldersUpdated(const QVariantList &chatFolders, int mainChatListPosition, bool tagsEnabled);
-    void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
+    void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, int nextOffsetForumTopicId);
     void chatPendingJoinRequestsUpdated(qlonglong chatId);
     void chatJoinRequestsReceived(qlonglong chatId, int totalCount, const QVariantList &requests);
     void deepLinkInfoReceived(const QVariantMap &text, bool needUpdateApplication);

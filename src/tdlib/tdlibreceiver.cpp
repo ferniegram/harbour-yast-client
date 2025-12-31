@@ -1154,7 +1154,7 @@ void TDLibReceiver::processForumTopics(const QVariantMap &receivedInformation) {
                 receivedInformation.value("topics").toList(),
                 receivedInformation.value("next_offset_date").toInt(),
                 receivedInformation.value("next_offset_message_id").toLongLong(),
-                receivedInformation.value("next_offset_message_thread_id").toLongLong()
+                receivedInformation.value("next_offset_forum_topic_id").toInt()
                 );
 }
 

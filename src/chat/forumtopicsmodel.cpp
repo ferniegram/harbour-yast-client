@@ -31,7 +31,8 @@ ForumTopicsModel::ForumTopicsModel(TDLibWrapper *tdLibWrapper, Utilities *utilit
     chatId(0),
     nextOffsetDate(0),
     nextOffsetMessageId(0),
-    nextOffsetMessageThreadId(0)
+    nextOffsetForumTopicId(0),
+    endReached(false)
 {
     LOG("Initializing" << chatId);
 
@@ -136,18 +137,31 @@ void ForumTopicsModel::reset() {
     chatId = 0;
     nextOffsetDate = 0;
     nextOffsetMessageId = 0;
-    nextOffsetMessageThreadId = 0;
+    nextOffsetForumTopicId = 0;
     emit chatIdChanged();
 }
 
 void ForumTopicsModel::loadMore() {
-    if (chatId != 0 && nextOffsetDate != 0 && nextOffsetMessageId != 0 && nextOffsetMessageThreadId != 0) {
-        this->tdLibWrapper->getForumTopics(chatId, nextOffsetDate, nextOffsetMessageId, nextOffsetMessageThreadId);
+    LOG("L" << chatId << nextOffsetDate << nextOffsetMessageId << nextOffsetForumTopicId);
+    if (chatId != 0 && nextOffsetDate != 0 && nextOffsetMessageId != 0 && nextOffsetForumTopicId != 0) {
+        if (endReached)
+            LOG("End was reached, not loading more");
+        else {
+            LOG("Loading more");
+            this->tdLibWrapper->getForumTopics(chatId, nextOffsetDate, nextOffsetMessageId, nextOffsetForumTopicId);
+        }
     }
 }
 
-void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId) {
+void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, int nextOffsetForumTopicId) {
     if (this->chatId == chatId) {
+        if (newTopics.isEmpty()) {
+            LOG("End was reached");
+            endReached = true;
+            emit forumTopicsReceived();
+            return;
+        }
+
         LOG("Forum topics received" << totalCount);
         beginInsertRows(QModelIndex(), topics.length(), topics.length() + newTopics.length() - 1);
         for (const QVariant &topicVariant : newTopics) {
@@ -159,7 +173,9 @@ void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCoun
 
         this->nextOffsetDate = nextOffsetDate;
         this->nextOffsetMessageId = nextOffsetMessageId;
-        this->nextOffsetMessageThreadId = nextOffsetMessageThreadId;
+        this->nextOffsetForumTopicId = nextOffsetForumTopicId;
+
+        emit forumTopicsReceived();
     }
 }
 

@@ -25,9 +25,10 @@ public:
 signals:
     void chatIdChanged();
     void forumTopicUpdated(int forumTopicId);
+    void forumTopicsReceived();
 
 private slots:
-    void handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
+    void handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, int nextOffsetForumTopicId);
     void handleForumTopicUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &update);
     void handleForumTopicInfoUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &info);
 
@@ -44,7 +45,8 @@ private:
     qlonglong chatId;
     qint32 nextOffsetDate;
     qlonglong nextOffsetMessageId;
-    qlonglong nextOffsetMessageThreadId;
+    int nextOffsetForumTopicId;
+    bool endReached;
 };
 
 #endif // FORUMTOPICSMODEL_H
