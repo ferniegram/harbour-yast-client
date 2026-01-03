@@ -32,6 +32,7 @@ Column {
     property var messagesModel: chatManager.model
     property var topicId
     property string forumTopicName
+    property int messageSource: TDLibAPI.MessageSourceAuto
 
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
@@ -411,7 +412,7 @@ Column {
             var messageToRead = messagesModel.getMessage(modelIndex)
             if (messageToRead['@type'] === "sponsoredMessage") {
                 log("sponsored message to read: ", messageToRead.id)
-                tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false)
+                tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false, messageSource)
             } else if (chatInformation.unread_count > 0 && lastQueuedIndex > -1) {
                 if (messageToRead) {
                     log("message to read: ", messageToRead.id)
@@ -425,7 +426,7 @@ Column {
                         }
                     }
                     if (messageId)
-                        tdLibWrapper.viewMessage(chatInformation.id, messageId, false)
+                        tdLibWrapper.viewMessage(chatInformation.id, messageId, false, messageSource)
                 }
                 lastQueuedIndex = -1
             }

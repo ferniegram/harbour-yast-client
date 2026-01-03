@@ -164,6 +164,22 @@ public:
     };
     Q_ENUM(SearchMessagesFilter)
 
+    enum MessageSource {
+        MessageSourceAuto,
+        MessageSourceChatEventLog,
+        MessageSourceChatHistory,
+        MessageSourceChatList,
+        MessageSourceDirectMessagesChatTopicHistory,
+        MessageSourceForumTopicHistory,
+        MessageSourceHistoryPreview,
+        MessageSourceMessageThreadHistory,
+        MessageSourceNotification,
+        MessageSourceOther,
+        MessageSourceScreenshot,
+        MessageSourceSearch
+    };
+    Q_ENUM(MessageSource)
+
     class Group {
     public:
         Group(qlonglong id) : groupId(id) { }
@@ -229,7 +245,7 @@ public:
     Q_INVOKABLE void leaveChat(const QString &chatId);
     Q_INVOKABLE void deleteChat(qlonglong chatId);
     Q_INVOKABLE void getChatHistory(qlonglong chatId, int extra, qlonglong fromMessageId = 0, int offset = -1, int limit = 50, bool onlyLocal = false);
-    Q_INVOKABLE void viewMessage(qlonglong chatId, qlonglong messageId, bool force);
+    Q_INVOKABLE void viewMessage(qlonglong chatId, qlonglong messageId, bool force, MessageSource source = MessageSourceAuto);
     Q_INVOKABLE void pinMessage(const QString &chatId, const QString &messageId, bool disableNotification = false);
     Q_INVOKABLE void unpinMessage(const QString &chatId, const QString &messageId);
     Q_INVOKABLE void sendFileMessage(qlonglong chatId, const QString &messageType, const QString &fileType, const QString &filePath, const QString &caption, qlonglong replyToMessageId, const QVariantMap &topicId = QVariantMap(), const QVariantMap &additionalOptions = QVariantMap());
@@ -547,6 +563,7 @@ private:
     void updateUserInformation(const QString &userId, const QVariantMap &userInformation);
     void updateChatPositions(qlonglong chatId, const QVariantList &positions);
     static QString getTopChatCategoryType(TopChatCategory category);
+    static QString getMessageSourceType(MessageSource source);
 
 private:
     int tdLibClientId;

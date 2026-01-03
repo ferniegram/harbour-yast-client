@@ -127,6 +127,7 @@ namespace {
     const QString FROM_MESSAGE_ID("from_message_id");
     const QString MY_ID("my_id");
     const QString TOPIC_ID("topic_id");
+    const QString SOURCE("source");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -474,14 +475,18 @@ void TDLibWrapper::getChatHistory(qlonglong chatId, int extra, qlonglong fromMes
     });
 }
 
-void TDLibWrapper::viewMessage(qlonglong chatId, qlonglong messageId, bool force) {
-    LOG("Mark message as viewed" << chatId << messageId);
-    this->sendRequest(QVariantMap{
+void TDLibWrapper::viewMessage(qlonglong chatId, qlonglong messageId, bool force, MessageSource source) {
+    QVariantMap request{
         {_TYPE, "viewMessages"},
         {CHAT_ID, chatId},
         {"force_read", force},
         {MESSAGE_IDS, QVariantList{messageId}}
-    });
+    };
+
+    if (source != MessageSourceAuto)
+        request.insert(SOURCE, QVariantMap{{_TYPE, getMessageSourceType(source)}});
+
+    this->sendRequest(request);
 }
 
 void TDLibWrapper::pinMessage(const QString &chatId, const QString &messageId, bool disableNotification) {
@@ -2852,4 +2857,33 @@ void TDLibWrapper::getForumTopicHistory(qlonglong chatId, int forumTopicId, int 
                           {LIMIT, limit},
                           {_EXTRA, "forumTopic:"+QString::number(chatId)+":"+QString::number(forumTopicId)+":"+QString::number(extra)}
                       });
+}
+
+QString TDLibWrapper::getMessageSourceType(MessageSource source) {
+    switch (source) {
+    case MessageSourceChatEventLog:
+        return "messageSourceChatEventLog";
+    case MessageSourceChatHistory:
+        return "messageSourceChatHistory";
+    case MessageSourceChatList:
+        return "messageSourceChatList";
+    case MessageSourceDirectMessagesChatTopicHistory:
+        return "messageSourceDirectMessagesChatTopicHistory";
+    case MessageSourceForumTopicHistory:
+        return "messageSourceForumTopicHistory";
+    case MessageSourceHistoryPreview:
+        return "messageSourceHistoryPreview";
+    case MessageSourceMessageThreadHistory:
+        return "messageSourceMessageThreadHistory";
+    case MessageSourceNotification:
+        return "messageSourceNotification";
+    case MessageSourceOther:
+        return "messageSourceOther";
+    case MessageSourceScreenshot:
+        return "messageSourceScreenshot";
+    case MessageSourceSearch:
+        return "messageSourceSearch";
+    default:
+        return QString();
+    }
 }
