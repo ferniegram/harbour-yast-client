@@ -701,7 +701,7 @@ void TDLibReceiver::processUpdateMessageEdited(const QVariantMap &receivedInform
     const qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
     const qlonglong messageId = receivedInformation.value(MESSAGE_ID).toLongLong();
     LOG("Message was edited" << chatId << messageId);
-    emit messageEditedUpdated(chatId, messageId, receivedInformation.value("reply_markup").toMap());
+    emit messageEditedUpdated(chatId, messageId, receivedInformation.value("edit_date").toInt(), receivedInformation.value("reply_markup").toMap());
 }
 
 void TDLibReceiver::processImportedContacts(const QVariantMap &receivedInformation)

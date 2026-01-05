@@ -59,7 +59,7 @@ private slots:
     void handleMessageReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &message);
     void handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message);
     void handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent);
-    void handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
+    void handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, int editDate, const QVariantMap &replyMarkup);
     void handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo);
 
 private:

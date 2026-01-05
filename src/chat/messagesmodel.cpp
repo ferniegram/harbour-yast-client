@@ -229,15 +229,12 @@ void MessagesModel::handleMessageInteractionInfoUpdated(qlonglong chatId, qlongl
     }
 }
 
-void MessagesModel::handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup)
-{
-    LOG("Message edited updated" << chatId << messageId);
+void MessagesModel::handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, int editDate, const QVariantMap &replyMarkup) {
     if (chatId == this->chatId && messageIndexMap.contains(messageId)) {
-        LOG("We know the message that was updated" << messageId);
         const int pos = messageIndexMap.value(messageId, -1);
         if (pos >= 0) {
             MessageData* messageData = messages.at(pos);
-            const QVector<int> changedRoles(messageData->setReplyMarkup(replyMarkup));
+            const QVector<int> changedRoles(messageData->setEditDateReplyMarkup(editDate, replyMarkup));
             LOG("Message was edited at index" << pos);
             const QModelIndex messageIndex(index(pos));
             emit dataChanged(messageIndex, messageIndex, changedRoles);

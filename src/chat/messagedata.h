@@ -42,6 +42,7 @@ struct MessageData {
     uint updateMessageData(const QVariantMap &data);
     uint updateContent(const QVariantMap &content);
     uint updateContentType(const QVariantMap &content);
+    uint updateEditDate(const int editDate);
     uint updateReplyMarkup(const QVariantMap &replyMarkup);
     uint updateViewCount(const QVariantMap &interactionInfo);
     uint updateInteractionInfo(const QVariantMap &interactionInfo);
@@ -52,7 +53,7 @@ struct MessageData {
     QVector<int> diff(const MessageData *message) const;
     QVector<int> setMessageData(const QVariantMap &data);
     QVector<int> setContent(const QVariantMap &content);
-    QVector<int> setReplyMarkup(const QVariantMap &replyMarkup);
+    QVector<int> setEditDateReplyMarkup(const int editDate, const QVariantMap &replyMarkup);
     QVector<int> setInteractionInfo(const QVariantMap &interactionInfo);
     QVector<int> setAlbumEntryFilter(bool isAlbumChild);
     QVector<int> setAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);

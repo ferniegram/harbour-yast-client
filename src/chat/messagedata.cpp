@@ -13,6 +13,7 @@ namespace {
     const QString REPLY_MARKUP("reply_markup");
     const QString DATE("date");
     const QString _TYPE("@type");
+    const QString EDIT_DATE("edit_date");
 
     // "interaction_info": {
     //     "@type": "messageInteractionInfo",
@@ -136,13 +137,18 @@ QVector<int> MessageData::setContent(const QVariantMap &content) {
     return flagsToRoles(updateContent(content));
 }
 
+uint MessageData::updateEditDate(const int editDate) {
+    messageData.insert(EDIT_DATE, editDate);
+    return RoleFlagDisplay;
+}
+
 uint MessageData::updateReplyMarkup(const QVariantMap &replyMarkup) {
     messageData.insert(REPLY_MARKUP, replyMarkup);
     return RoleFlagDisplay;
 }
 
-QVector<int> MessageData::setReplyMarkup(const QVariantMap &replyMarkup) {
-    return flagsToRoles(updateReplyMarkup(replyMarkup));
+QVector<int> MessageData::setEditDateReplyMarkup(const int editDate, const QVariantMap &replyMarkup) {
+    return flagsToRoles(updateEditDate(editDate) | updateReplyMarkup(replyMarkup));
 }
 
 uint MessageData::updateViewCount(const QVariantMap &interactionInfo) {
