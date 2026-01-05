@@ -30,7 +30,6 @@ struct ForumTopic : public BaseMessagableData {
         RoleIsPinned,
         RoleUnreadCount,
         RoleLastReadInboxMessageId,
-        RoleLastReadOutboxMessageId,
         RoleUnreadMentionCount,
         RoleUnreadReactionCount,
         RoleNotificationSettings,

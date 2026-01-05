@@ -114,8 +114,10 @@ const QVector<int> ForumTopic::updateLastReadInboxMessageId(qlonglong value) {
 
 const QVector<int> ForumTopic::updateLastReadOutboxMessageId(qlonglong value) {
     if (data.value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong() != value) {
+        const QString prevLastMessageStatus(lastMessageStatus());
         data.insert(LAST_READ_OUTBOX_MESSAGE_ID, value);
-        return {RoleLastReadOutboxMessageId};
+        if (prevLastMessageStatus != lastMessageStatus())
+            return {RoleLastMessageStatus};
     }
     return {};
 }
