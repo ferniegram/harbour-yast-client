@@ -1847,10 +1847,11 @@ void TDLibWrapper::handleChatReadOutboxUpdated(const QString &chatId, const QStr
     bool ok;
     qlonglong id = chatId.toLongLong(&ok);
     if (ok) {
-        this->getChatDataForce(id)->chatData.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId.toLongLong());
-        emit chatRolesUpdated(id, QVector<int>{ChatData::RoleLastMessageStatus});
+        if (this->getChatDataForce(id)->updateLastReadOutboxMessageId(lastReadOutboxMessageId.toLongLong()))
+            emit chatRolesUpdated(id, QVector<int>{ChatData::RoleLastMessageStatus});
+
+        emit chatReadOutboxUpdated(chatId, lastReadOutboxMessageId);
     }
-    emit chatReadOutboxUpdated(chatId, lastReadOutboxMessageId);
 }
 
 void TDLibWrapper::handleChatTitleUpdated(qlonglong chatId, const QString &title) {

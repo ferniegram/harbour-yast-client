@@ -55,6 +55,7 @@ public:
     bool isMarkedAsUnread() const;
     bool updateUnreadCount(int unreadCount);
     bool updateLastReadInboxMessageId(qlonglong messageId);
+    bool updateLastReadOutboxMessageId(qlonglong messageId);
     QVector<int> updateLastMessage(const QVariantMap &message);
     QVector<int> updateGroup(const TDLibWrapper::Group *group);
     QVector<int> updateSecretChat(const QVariantMap &secretChatDetails);

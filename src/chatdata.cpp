@@ -157,6 +157,12 @@ bool ChatData::updateLastReadInboxMessageId(qlonglong messageId)
     return prevLastReadInboxMessageId != lastReadInboxMessageId();
 }
 
+bool ChatData::updateLastReadOutboxMessageId(qlonglong messageId) {
+    const QString prevLastMessageStatus(lastMessageStatus());
+    chatData.insert(LAST_READ_OUTBOX_MESSAGE_ID, messageId);
+    return prevLastMessageStatus != lastMessageStatus();
+}
+
 QVector<int> ChatData::updateLastMessage(const QVariantMap &message) {
     const qlonglong prevSenderUserId(lastMessageSenderUserId());
     const qlonglong prevLastMessageDate(lastMessageDate());
