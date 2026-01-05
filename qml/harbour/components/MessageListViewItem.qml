@@ -50,7 +50,7 @@ ListItem {
                                        }))
     property bool isSponsored: myMessage['@type'] === 'sponsoredMessage'
     property bool generatedContentUnread
-    readonly property bool isUnread: messageIndex > chatManager.model.lastReadMessageIndexInBounds && !isSponsored
+    readonly property bool isUnread: messageIndex > messagesModel.lastReadMessageIndexInBounds && !isSponsored
 
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
     property bool hasContentComponent
@@ -314,7 +314,7 @@ ListItem {
     property bool __otherTranslations: qsTr("Copy Message to Clipboard") + qsTr("Select Message") + qsTr("More Options...") + qsTr("Unpin Message") + qsTr("Pin Message")
 
     Connections {
-        target: chatManager.model
+        target: messagesModel
         onLastReadSentMessageUpdated: {
             Debug.log("[ChatModel] Messages in this chat were read (last read changed), updating description for index ", index)
             messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageDateText.useElapsed)
