@@ -46,6 +46,8 @@ ForumTopicsModel::ForumTopicsModel(TDLibWrapper *tdLibWrapper, Utilities *utilit
     connect(tdLibWrapper, &TDLibWrapper::forumTopicReceived, this, &ForumTopicsModel::handleForumTopicReceived);
     connect(tdLibWrapper, &TDLibWrapper::messageContentUpdated, this, &ForumTopicsModel::handleMessageContentUpdated);
     connect(tdLibWrapper, &TDLibWrapper::messageSendSucceeded, this, &ForumTopicsModel::handleMessageSendSucceeded);
+    connect(tdLibWrapper, &TDLibWrapper::messagesDeleted, this, &ForumTopicsModel::handleMessagesDeleted);
+    connect(tdLibWrapper, &TDLibWrapper::forumTopicNotFound, this, &ForumTopicsModel::handleForumTopicNotFound);
 
     // Don't start the timer until we have at least one forum topic
     relativeTimeRefreshTimer = new QTimer(this);
@@ -290,7 +292,7 @@ int ForumTopicsModel::updateForumTopicOrder(const int index) {
 
 void ForumTopicsModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
     const QVariantMap topicId = message.value(TOPIC_ID).toMap();
-    if (this->chatId != message.value(CHAT_ID).toLongLong() || topicId.value(_TYPE).toString() != TYPE_MESSAGE_TOPIC_FORUM)
+    if (this->chatId != chatId || topicId.value(_TYPE).toString() != TYPE_MESSAGE_TOPIC_FORUM)
         return;
 
     int forumTopicId = topicId.value(FORUM_TOPIC_ID).toInt();
@@ -356,7 +358,6 @@ void ForumTopicsModel::handleRelativeTimeRefreshTimer() {
 }
 
 void ForumTopicsModel::handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &content) {
-    LOG("CHat" << chatId << this->chatId << messageId << topicLastMessageIdIndexMap);
     if (this->chatId == chatId && topicLastMessageIdIndexMap.contains(messageId)) {
         int forumTopicIndex = topicLastMessageIdIndexMap.value(messageId);
         ForumTopic *topic = topics.at(forumTopicIndex);
@@ -370,5 +371,32 @@ void ForumTopicsModel::handleMessageSendSucceeded(qlonglong chatId, qlonglong ol
         ForumTopic *topic = topics.at(forumTopicIndex);
         const qlonglong prevLastMessageId = topic->lastMessageId();
         handleForumTopicRolesChanged(forumTopicIndex, topic->updateLastMessage(message), prevLastMessageId);
+    }
+}
+
+void ForumTopicsModel::handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds) {
+    if (this->chatId == chatId)
+        for (qlonglong messageId : messageIds)
+            if (topicLastMessageIdIndexMap.contains(messageId))
+                // Topic could have been deleted or last message was updated
+                tdLibWrapper->getForumTopic(chatId, topics.at(topicLastMessageIdIndexMap.value(messageId))->id);
+}
+
+void ForumTopicsModel::handleForumTopicNotFound(qlonglong chatId, int forumTopicId) {
+    if (this->chatId == chatId && topicIndexMap.contains(forumTopicId)) {
+        const int pos = topicIndexMap.value(forumTopicId);
+        LOG("Topic was deleted" << forumTopicId << pos);
+
+        beginRemoveRows(QModelIndex(), pos, pos);
+        topics.removeAt(pos);
+        topicIndexMap.remove(forumTopicId);
+        topicLastMessageIdIndexMap.remove(forumTopicId);
+        // Update damaged part of the map
+        const int n = topics.size();
+        for (int i = pos; i < n; i++) {
+            topicIndexMap.insert(topics.at(i)->id, i);
+            topicLastMessageIdIndexMap.insert(topics.at(i)->id, i);
+        }
+        endRemoveRows();
     }
 }

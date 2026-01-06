@@ -34,6 +34,8 @@ private slots:
     void handleForumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
     void handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &content);
     void handleMessageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message);
+    void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
+    void handleForumTopicNotFound(qlonglong chatId, int forumTopicId);
     // TODO: (not only here) handle updateMessageSendFailed
 
     void handleRelativeTimeRefreshTimer();

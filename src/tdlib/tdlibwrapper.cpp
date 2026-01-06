@@ -129,6 +129,7 @@ namespace {
     const QString TOPIC_ID("topic_id");
     const QString SOURCE("source");
     const QString FORUM_TOPIC_ID("forum_topic_id");
+    const QString TYPE_GET_FORUM_TOPC("getForumTopic");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -2003,6 +2004,12 @@ void TDLibWrapper::handleErrorReceived(int code, const QString &message, const Q
 
             QDesktopServices::openUrl(url);
             return;
+        } else if (parts.size() == 3 && parts.at(0) == TYPE_GET_FORUM_TOPC) {
+            qlonglong chatId = parts.at(1).toLongLong();
+            int forumTopicId = parts.at(2).toInt();
+            LOG("Forum topic not found" << chatId << forumTopicId);
+            emit forumTopicNotFound(chatId, forumTopicId);
+            return;
         } else {
             QRegularExpressionMatch match = RE_EXTRA_CHAT_MESSAGE_COUNT.match(extraString);
             if (match.hasMatch()) {
@@ -2906,5 +2913,10 @@ QString TDLibWrapper::getMessageSourceType(MessageSource source) {
 
 void TDLibWrapper::getForumTopic(qlonglong chatId, int forumTopicId) {
     LOG("Getting forum topic" << chatId << forumTopicId);
-    this->sendRequest({{_TYPE, "getForumTopic"}, {CHAT_ID, chatId}, {FORUM_TOPIC_ID, forumTopicId}});
+    this->sendRequest({
+                          {_TYPE, TYPE_GET_FORUM_TOPC},
+                          {CHAT_ID, chatId},
+                          {FORUM_TOPIC_ID, forumTopicId},
+                          {_EXTRA, "getForumTopic:"+QString::number(chatId)+":"+QString::number(forumTopicId)}
+                      });
 }
