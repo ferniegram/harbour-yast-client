@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2020 Sebastian J. Wolf and other contributors
+        Copyright (C) 2020 Sebastian J. Wolf and other contributors
 
     This file is part of Fernschreiber.
 
@@ -145,7 +145,7 @@ Page {
 
     function resetFocus() {
         if (searchInChatField.text === "")
-            chatOverviewItem.visible = true
+            chatHeader.visible = true
         searchInChatField.focus = false
         chatPage.focus = true
     }
@@ -288,7 +288,7 @@ Page {
         interval: 60000
         running: isPrivateChat || isSecretChat
         repeat: true
-        onTriggered: chatStatusText.update()
+        onTriggered: chatHeader.updateStatusText()
     }
 
     Connections {
@@ -373,10 +373,10 @@ Page {
 
             MenuItem {
                 id: searchInChatMenuItem
-                visible: !chatPage.isSecretChat && !chatPage.viewAsTopics && chatOverviewItem.visible
+                visible: !chatPage.isSecretChat && !chatPage.viewAsTopics && chatHeader.visible
                 onClicked: {
                     // This automatically shows the search field as well
-                    chatOverviewItem.visible = false
+                    chatHeader.visible = false
                     searchInChatField.focus = true
                 }
                 text: qsTr("Search in Chat")
@@ -388,9 +388,61 @@ Page {
             width: parent.width
             height: parent.height
 
-            BackgroundItem {
-                id: header
-                height: row.height
+            ChatHeader {
+                id: chatHeader
+
+                isSecret: chatPage.isSecretChat
+                chatNameText.text: chatPage.isDeletedUser ? qsTr("Deleted User") :
+                                                       chatInformation.title !== "" ?
+                                                           Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), chatNameText.font.pixelSize)
+                                                         : qsTr("Unknown")
+                chatBadges.verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
+
+                property bool _reloadStatus
+                function updateStatusText() { _reloadStatus = !_reloadStatus }
+                chatStatusText.text: {
+                    // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
+                    if (_reloadStatus && !_reloadStatus) return ''
+
+                    var status = Functions.getChatActionsText(chatManager.chatActionsByChats, chatManager.chatActionsByUsers, isPrivateChat || isSecretChat)
+                    if (status) return status
+
+                    if (isBasicGroup || isSuperGroup)
+                        return Functions.getGroupStatusText(chatGroupInformation.member_count, chatOnlineMemberCount, isChannel)
+
+
+                    status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
+                    if (chatPage.secretChatDetails) {
+                        var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
+                        if (status && secretChatStatus)
+                            status += " - "
+                        if (secretChatStatus)
+                            status += secretChatStatus
+                    }
+                    return status
+                }
+
+                ProfileThumbnail {
+                    id: chatPictureThumbnail
+                    parent: chatHeader.chatPictureContainer
+                    replacementStringHint: chatNameText.text
+                    width: parent.height
+                    height: parent.height
+
+                    // Setting it directly may cause an stale state for the thumbnail in case the chat page
+                    // was previously loaded with a picture and now it doesn't have one. Instead setting it
+                    // when the ChatModel indicates a change. This also avoids flickering when the page is loaded...
+                    Connections {
+                        target: chatManager
+                        ignoreUnknownSignals: true
+                        onSmallPhotoChanged:
+                            chatPictureThumbnail.photoData = chatManager.smallPhoto
+                    }
+                    // UPD 2025 from roundedrectangle:
+                    // for some reason when pushing the page without animation (e.g. from notification)
+                    // it doesn't show the picture now, with this line it works: (Connections is still needed for some reason)
+                    photoData: chatManager.smallPhoto
+                }
 
                 onClicked: {
                     if (messagesView && messagesView.isSelecting)
@@ -400,172 +452,6 @@ Page {
                 onPressAndHold:
                     if (isPrivateChat || isSecretChat)
                         timepointStatus = !timepointStatus
-
-                Row {
-                    id: row
-                    width: parent.width - (3 * Theme.horizontalPageMargin)
-                    height: chatOverviewItem.height +
-                            ( chatPage.isPortrait ?
-                                    ( Theme.paddingMedium + (!Screen.hasCutouts ? Theme.paddingMedium : Screen.topCutout.height) )
-                                : Theme.paddingSmall * 2
-                                )
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: Theme.paddingMedium
-
-                    Item {
-                        width: chatOverviewItem.height
-                        height: chatOverviewItem.height
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: chatPage.isPortrait ? Theme.paddingMedium : Theme.paddingSmall
-
-                        ProfileThumbnail {
-                            id: chatPictureThumbnail
-                            replacementStringHint: chatNameText.text
-                            width: parent.height
-                            height: parent.height
-
-                            // Setting it directly may cause an stale state for the thumbnail in case the chat page
-                            // was previously loaded with a picture and now it doesn't have one. Instead setting it
-                            // when the ChatModel indicates a change. This also avoids flickering when the page is loaded...
-                            Connections {
-                                target: chatManager
-                                ignoreUnknownSignals: true
-                                onSmallPhotoChanged:
-                                    chatPictureThumbnail.photoData = chatManager.smallPhoto
-                            }
-                            // UPD 2025 from roundedrectangle:
-                            // for some reason when pushing the page without animation (e.g. from notification)
-                            // it doesn't show the picture now, with this line it works: (Connections is still needed for some reason)
-                            photoData: chatManager.smallPhoto
-
-                        }
-
-                        Rectangle {
-                            id: chatSecretBackground
-                            color: Theme.rgba(Theme.overlayBackgroundColor, Theme.opacityFaint)
-                            width: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
-                            height: width
-                            anchors.left: parent.left
-                            anchors.bottom: parent.bottom
-                            radius: parent.width / 2
-                            visible: chatPage.isSecretChat
-                        }
-
-                        Image {
-                            source: "image://theme/icon-s-secure"
-                            width: chatPage.isPortrait ? Theme.fontSizeSmall : Theme.fontSizeExtraSmall
-                            height: width
-                            anchors.centerIn: chatSecretBackground
-                            visible: chatPage.isSecretChat
-                        }
-
-                    }
-
-                    Item {
-                        id: chatOverviewItem
-                        opacity: visible ? 1 : 0
-                        Behavior on opacity { FadeAnimation {} }
-                        width: parent.width - chatPictureThumbnail.width - Theme.paddingMedium
-                        height: chatNameRow.height + chatStatusText.height
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: chatPage.isPortrait ? Theme.paddingMedium : Theme.paddingSmall
-
-                        Row {
-                            id: chatNameRow
-                            anchors.right: parent.right
-                            spacing: Theme.paddingMedium
-
-                            Label {
-                                id: chatNameText
-                                anchors.verticalCenter: parent.verticalCenter
-                                width: Math.min(implicitWidth, chatOverviewItem.width - chatBadges.width - parent.spacing)
-                                text: chatPage.isDeletedUser ? qsTr("Deleted User") :
-                                                      chatInformation.title !== "" ?
-                                                          Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), font.pixelSize)
-                                                        : qsTr("Unknown")
-                                textFormat: Text.StyledText
-                                font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
-                                font.family: Theme.fontFamilyHeading
-                                color: Theme.highlightColor
-                                truncationMode: TruncationMode.Fade
-                                maximumLineCount: 1
-                            }
-
-                            ChatBadges {
-                                id: chatBadges
-                                anchors.verticalCenter: parent.verticalCenter
-                                verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
-                            }
-                        }
-
-                        Label {
-                            id: chatStatusText
-                            width: Math.min(implicitWidth, parent.width)
-                            anchors {
-                                right: parent.right
-                                bottom: parent.bottom
-                            }
-                            property bool _reload
-                            function update() { _reload = !_reload }
-                            text: {
-                                // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
-                                if (_reload && !_reload) return ''
-
-                                var status = Functions.getChatActionsText(chatManager.chatActionsByChats, chatManager.chatActionsByUsers, isPrivateChat || isSecretChat)
-                                if (status) return status
-
-                                if (isBasicGroup || isSuperGroup)
-                                    return Functions.getGroupStatusText(chatGroupInformation.member_count, chatOnlineMemberCount, isChannel)
-
-
-                                status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
-                                if (chatPage.secretChatDetails) {
-                                    var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
-                                    if (status && secretChatStatus)
-                                        status += " - "
-                                    if (secretChatStatus)
-                                        status += secretChatStatus
-                                }
-                                return status
-                            }
-
-                            textFormat: Text.StyledText
-                            font.pixelSize: chatPage.isPortrait ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
-                            minimumPixelSize: Theme.fontSizeTiny
-                            fontSizeMode: Text.Fit
-                            font.family: Theme.fontFamilyHeading
-                            color: header.pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                            truncationMode: TruncationMode.Fade
-                            maximumLineCount: 1
-                        }
-                    }
-
-                    Item {
-                        id: searchInChatItem
-                        visible: !chatOverviewItem.visible
-                        opacity: visible ? 1 : 0
-                        Behavior on opacity { FadeAnimation {} }
-                        width: parent.width - chatPictureThumbnail.width - Theme.paddingMedium
-                        height: searchInChatField.height
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: chatPage.isPortrait ? Theme.paddingSmall : 0
-
-                        SearchField {
-                            id: searchInChatField
-                            visible: false
-                            width: visible ? parent.width : 0
-                            placeholderText: qsTr("Search in chat...")
-                            active: searchInChatItem.visible
-                            canHide: text === ""
-
-                            onTextChanged: searchInChatTimer.restart()
-                            onHideClicked: resetFocus()
-
-                            EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                            EnterKey.onClicked: resetFocus()
-                        }
-                    }
-                }
             }
 
             ChatBotSponsoredMessageItem {
@@ -585,7 +471,7 @@ Page {
             Loader {
                 id: contentLoader
                 width: parent.width
-                height: chatColumn.height - header.height - chatBotSponsoredMessageItem.height - pendingJoinRequestsItem.height
+                height: chatColumn.height - chatHeader.height - chatBotSponsoredMessageItem.height - pendingJoinRequestsItem.height
                 sourceComponent: viewAsTopics ? topicsListViewComponent : messagesViewComponent
 
                 Component {

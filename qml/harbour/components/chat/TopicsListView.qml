@@ -82,19 +82,34 @@ Item {
                 property alias chatId: topicMessagesModel.chatId
                 property alias forumTopicData: topicMessagesModel.forumTopicData
 
-                MessagesView {
+                SilicaFlickable {
                     anchors.fill: parent
-                    messagesModel: topicMessagesModel
-                    topicId: {'@type': 'messageTopicForum', 'forum_topic_id': topicMessagesModel.forumTopicId}
-                    forumTopicName: topicMessagesModel.forumTopicName
-                    draftMessage: forumTopicData.draft_message
 
-                    ForumTopicMessagesModel {
-                        id: topicMessagesModel
-                        tdlib: tdLibWrapper
+                    ChatHeader {
+                        id: chatHeader
+                        chatNameText.text: topicMessagesModel.forumTopicName
+                        // TODO: icon, and status text (%n messages and typing)
                     }
 
-                    Component.onCompleted: prepareView()
+                    MessagesView {
+                        width: parent.width
+                        anchors {
+                            top: chatHeader.bottom
+                            bottom: parent.bottom
+                        }
+
+                        messagesModel: topicMessagesModel
+                        topicId: {'@type': 'messageTopicForum', 'forum_topic_id': topicMessagesModel.forumTopicId}
+                        forumTopicName: topicMessagesModel.forumTopicName
+                        draftMessage: forumTopicData.draft_message
+
+                        ForumTopicMessagesModel {
+                            id: topicMessagesModel
+                            tdlib: tdLibWrapper
+                        }
+
+                        Component.onCompleted: prepareView()
+                    }
                 }
             }
         }

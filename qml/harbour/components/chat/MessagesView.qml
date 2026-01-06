@@ -297,7 +297,7 @@ Column {
                 chatView.scrollToIndex(scrollPosition)
 
             if (!fromIncrementalUpdate) {
-                if (chatOverviewItem.visible && scrollPosition >= (chatView.count - 10)) {
+                if (chatHeader.visible && scrollPosition >= (chatView.count - 10)) {
                     log("Not far from the end, loading more future...")
                     chatView.inCooldown = true
                     messagesModel.loadMoreFuture()
@@ -541,7 +541,7 @@ Column {
             function handleScrollPositionChanged() {
                 log("Current position: ", chatView.contentY)
                 log("Contains sponsored messages?", containsSponsoredMessages)
-                if (chatOverviewItem.visible && ( chatInformation.unread_count > 0 || containsSponsoredMessages ) ) {
+                if (chatHeader.visible && ( chatInformation.unread_count > 0 || containsSponsoredMessages ) ) {
                     var bottomIndex = chatView.indexAt(chatView.contentX, ( chatView.contentY + chatView.height - Theme.horizontalPageMargin ))
                     if (bottomIndex > -1)
                         viewMessageTimer.queueViewMessage(bottomIndex)
@@ -571,7 +571,7 @@ Column {
                         log("Trying to get older history items...")
                         chatView.inCooldown = true
                         messagesModel.loadMoreHistory()
-                    } else if (!messagesModel.endReached && chatOverviewItem.visible && chatView.indexAt(chatView.contentX, chatView.contentY) > ( count - 10)) {
+                    } else if (!messagesModel.endReached && chatHeader.visible && chatView.indexAt(chatView.contentX, chatView.contentY) > ( count - 10)) {
                         log("Trying to get newer history items...")
                         chatView.inCooldown = true
                         messagesModel.loadMoreFuture()
@@ -782,7 +782,7 @@ Column {
                 bottom: parent.bottom
                 bottomMargin: Theme.paddingMedium
             }
-            visible: !chatPage.loading && chatOverviewItem.visible && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
+            visible: !chatPage.loading && chatHeader.visible && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
             property bool highlighted: chatUnreadMessagesMouseArea.containsPress
 
             // not ideal:
