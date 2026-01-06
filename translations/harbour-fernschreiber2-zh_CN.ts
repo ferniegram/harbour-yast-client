@@ -257,6 +257,13 @@
     </message>
 </context>
 <context>
+    <name>ChatHeader</name>
+    <message>
+        <source>Search in chat...</source>
+        <translation type="unfinished">搜索对话内容…</translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Leave Chat</source>
@@ -589,10 +596,6 @@
     <message>
         <source>Search in Chat</source>
         <translation>对话内搜索</translation>
-    </message>
-    <message>
-        <source>Search in chat...</source>
-        <translation>搜索对话内容…</translation>
     </message>
     <message>
         <source>Delete Chat</source>
@@ -2373,7 +2376,7 @@
         <translation type="unfinished">你</translation>
     </message>
     <message>
-        <source>No message in this topic.</source>
+        <source>This topic was created</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

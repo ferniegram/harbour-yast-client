@@ -258,6 +258,13 @@
     </message>
 </context>
 <context>
+    <name>ChatHeader</name>
+    <message>
+        <source>Search in chat...</source>
+        <translation type="unfinished">Search in chat...</translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Leave Chat</source>
@@ -593,10 +600,6 @@
     <message>
         <source>Search in Chat</source>
         <translation>Search in Chat</translation>
-    </message>
-    <message>
-        <source>Search in chat...</source>
-        <translation>Search in chat...</translation>
     </message>
     <message>
         <source>Delete Chat</source>
@@ -2402,7 +2405,7 @@ messages</numerusform>
         <translation type="unfinished">You</translation>
     </message>
     <message>
-        <source>No message in this topic.</source>
+        <source>This topic was created</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

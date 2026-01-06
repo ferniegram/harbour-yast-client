@@ -259,6 +259,13 @@
     </message>
 </context>
 <context>
+    <name>ChatHeader</name>
+    <message>
+        <source>Search in chat...</source>
+        <translation type="unfinished">Hľadanie v čete...</translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Unknown</source>
@@ -597,10 +604,6 @@
     <message>
         <source>Search in Chat</source>
         <translation>Hľadať v čete</translation>
-    </message>
-    <message>
-        <source>Search in chat...</source>
-        <translation>Hľadanie v čete...</translation>
     </message>
     <message>
         <source>Delete Chat</source>
@@ -2428,7 +2431,7 @@
         <translation type="unfinished">Ja</translation>
     </message>
     <message>
-        <source>No message in this topic.</source>
+        <source>This topic was created</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

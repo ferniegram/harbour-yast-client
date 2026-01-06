@@ -258,6 +258,13 @@
     </message>
 </context>
 <context>
+    <name>ChatHeader</name>
+    <message>
+        <source>Search in chat...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Leave Chat</source>
@@ -592,10 +599,6 @@
     </message>
     <message>
         <source>Search in Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search in chat...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2392,15 +2395,15 @@
         <translation type="unfinished">You</translation>
     </message>
     <message>
-        <source>No message in this topic.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No topics here yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This topic was created</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
