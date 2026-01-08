@@ -770,6 +770,7 @@ ListItem {
                 }
 
                 Loader {
+                    // TODO: animate choosing a reaction
                     id: interactionLoader
                     width: parent.width
                     asynchronous: true
@@ -787,11 +788,11 @@ ListItem {
                                     property bool isSupported: !!reactionLoader.sourceComponent
 
                                     visible: isSupported
-                                    height: Theme.fontSizeExtraSmall + Theme.paddingSmall
+                                    height: Theme.fontSizeSmall + Theme.paddingSmall
                                     width: childrenRect.width + Theme.paddingSmall
                                     radius: width
 
-                                    color: modelData.is_chosen ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                                    color: modelData.is_chosen ? Theme.rgba(Theme.highlightBackgroundColor, 0.6) : Theme.rgba(Theme.secondaryColor, Theme.highlightBackgroundOpacity)
 
                                     Loader {
                                         id: reactionLoader
@@ -836,7 +837,7 @@ ListItem {
                                             width: height
                                             anchors {
                                                 left: reactionLoader.right
-                                                leftMargin: (Theme.paddingSmall/2) + Theme.paddingSmall * (reactorsRepeater.count - index - 1)
+                                                leftMargin: (Theme.paddingSmall/2) + Theme.paddingMedium * (reactorsRepeater.count - index - 1)
                                             }
 
                                             photoData: isChat
@@ -869,12 +870,12 @@ ListItem {
                                     Text {
                                         anchors {
                                             left: reactionLoader.right
-                                            leftMargin: visible ? (Theme.paddingSmall + Math.max(0, Theme.paddingSmall*(modelData.recent_sender_ids.length - 1))) : 0
+                                            leftMargin: visible ? (reactorsRepeater.count > 0 ? (Theme.paddingSmall + parent.height + Math.max(0, Theme.paddingMedium*(reactorsRepeater.count - 1))) : Theme.paddingSmall/2) : 0
                                         }
-                                        visible: (modelData.total_count - modelData.recent_sender_ids.length) > 0
+                                        visible: (modelData.total_count - reactorsRepeater.count) > 0
                                         width: visible ? implicitWidth : 0
                                         text: Functions.getShortenedCount(modelData.total_count)
-                                        font.pixelSize: Theme.fontSizeTiny
+                                        font.pixelSize: Theme.fontSizeExtraSmall
                                         color: modelData.is_chosen ? Theme.highlightColor : Theme.primaryColor
                                     }
 

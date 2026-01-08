@@ -128,7 +128,9 @@ Item {
             text: getReplacementString()
             color: Theme.primaryColor
             font.bold: true
-            font.pixelSize: ( profileThumbnail.height >= Theme.itemSizeSmall ) ? Theme.fontSizeLarge : Theme.fontSizeMedium
+            font.pixelSize: (profileThumbnail.height >= Theme.itemSizeSmall)
+                            ? Theme.fontSizeLarge
+                            : (profileThumbnail.height >= Theme.fontSizeLarge ? Theme.fontSizeMedium : Theme.fontSizeTiny)
         }
     }
 }
