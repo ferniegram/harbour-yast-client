@@ -17,7 +17,7 @@
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "mainshared.h"
+#include "ferniemain.h"
 
 #include <sailfishapp.h>
 #include <QQuickView>
@@ -30,6 +30,9 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
+#include <QStandardPaths>
+
+#include "voicenoterecorder.h"
 
 void migrateSettings() {
     const QStringList sailfishOSVersion = QSysInfo::productVersion().split(".");
@@ -81,7 +84,7 @@ void migrateSettings() {
 }
 
 int main(int argc, char *argv[]) {
-    MainShared::setupLogging();
+    FernieMain::setupLogging();
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QSharedPointer<QQuickView> view(SailfishApp::createView()); // FIXME: should we actually use QScopedPointer here?
@@ -90,7 +93,11 @@ int main(int argc, char *argv[]) {
 
     migrateSettings();
 
-    QScopedPointer<MainShared::AppContext> appContext(MainShared::registerTypes(argc, argv, view));
+    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view));
+
+    VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, appContext->appSettings, view.data());
+    context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
+    qmlRegisterUncreatableType<VoiceNoteRecorder>(appContext->uri, 1, 0, "VoiceNoteRecorder", QString());
 
 #ifdef NO_HARBOUR_COMPLIANCE
     context->setContextProperty("NO_HARBOUR_COMPLIANCE", true);

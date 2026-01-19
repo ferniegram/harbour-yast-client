@@ -1558,10 +1558,6 @@
         <source>Tap on the title bar to quickly open search</source>
         <translation>Нажмите на заголовок чтобы открыть поиск</translation>
     </message>
-    <message>
-        <source>Ferniegram</source>
-        <translation>Ferniegram</translation>
-    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>

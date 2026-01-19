@@ -1537,10 +1537,6 @@
         <source>Tap on the title bar to quickly open search</source>
         <translation>Premi sulla barra del titoli per aprire velocemente la ricerca</translation>
     </message>
-    <message>
-        <source>Ferniegram</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>

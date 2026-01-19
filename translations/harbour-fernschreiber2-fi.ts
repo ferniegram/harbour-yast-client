@@ -1538,10 +1538,6 @@
         <source>Tap on the title bar to quickly open search</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Ferniegram</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
