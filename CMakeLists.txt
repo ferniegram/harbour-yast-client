@@ -145,6 +145,137 @@ else()
     message("Using default render functions")
 endif()
 
+# tgcalls
+add_library(tgcalls STATIC)
+# set_target_properties(rlottie PROPERTIES POSITION_INDEPENDENT_CODE ON)
+targer_include_directories(tgcalls PUBLIC
+    tgcalls/tgcalls
+)
+target_sources(tgcalls PRIVATE
+    # tgcalls/tgcalls/AudioDeviceHelper.h
+    # tgcalls/tgcalls/AudioFrame.h
+    # tgcalls/tgcalls/ChannelManager.h
+    # tgcalls/tgcalls/CodecSelectHelper.h
+    # tgcalls/tgcalls/CryptoHelper.h
+    # tgcalls/tgcalls/DirectConnectionChannel.h
+    # tgcalls/tgcalls/EncryptedConnection.h
+    # tgcalls/tgcalls/FakeAudioDeviceModule.h
+    # tgcalls/tgcalls/FakeVideoTrackSource.h
+    # tgcalls/tgcalls/FieldTrialsConfig.h
+    # tgcalls/tgcalls/Instance.h
+    # tgcalls/tgcalls/InstanceImpl.h
+    # tgcalls/tgcalls/LogSinkImpl.h
+    # tgcalls/tgcalls/Manager.h
+    # tgcalls/tgcalls/MediaManager.h
+    # tgcalls/tgcalls/Message.h
+    # tgcalls/tgcalls/NetworkManager.h
+    # tgcalls/tgcalls/PlatformContext.h
+    # tgcalls/tgcalls/SctpDataChannelProviderInterfaceImpl.h
+    # tgcalls/tgcalls/StaticThreads.h
+    # tgcalls/tgcalls/Stats.h
+    # tgcalls/tgcalls/ThreadLocalObject.h
+    # tgcalls/tgcalls/TurnCustomizerImpl.h
+    # tgcalls/tgcalls/VideoCaptureInterface.h
+    # tgcalls/tgcalls/VideoCaptureInterfaceImpl.h
+    # tgcalls/tgcalls/VideoCapturerInterface.h
+    # # tgcalls/tgcalls/desktop_capturer/DesktopCaptureSource.h
+    # # tgcalls/tgcalls/desktop_capturer/DesktopCaptureSourceHelper.h
+    # # tgcalls/tgcalls/desktop_capturer/DesktopCaptureSourceManager.h
+    # tgcalls/tgcalls/group/AVIOContextImpl.h
+    # tgcalls/tgcalls/group/AudioStreamingPart.h
+    # tgcalls/tgcalls/group/AudioStreamingPartInternal.h
+    # tgcalls/tgcalls/group/AudioStreamingPartPersistentDecoder.h
+    # tgcalls/tgcalls/group/GroupInstanceCustomImpl.h
+    # tgcalls/tgcalls/group/GroupInstanceImpl.h
+    # tgcalls/tgcalls/group/GroupJoinPayload.h
+    # tgcalls/tgcalls/group/GroupJoinPayloadInternal.h
+    # tgcalls/tgcalls/group/GroupNetworkManager.h
+    # tgcalls/tgcalls/group/StreamingMediaContext.h
+    # tgcalls/tgcalls/group/VideoStreamingPart.h
+    # tgcalls/tgcalls/platform/PlatformInterface.h
+    # tgcalls/tgcalls/platform/tdesktop/DesktopInterface.h
+    # tgcalls/tgcalls/platform/tdesktop/VideoCameraCapturer.h
+    # tgcalls/tgcalls/platform/tdesktop/VideoCapturerInterfaceImpl.h
+    # tgcalls/tgcalls/platform/tdesktop/VideoCapturerTrackSource.h
+    # tgcalls/tgcalls/third-party/json11.hpp
+    # tgcalls/tgcalls/utils/gzip.h
+    # tgcalls/tgcalls/v2/ContentNegotiation.h
+    # tgcalls/tgcalls/v2/DirectNetworkingImpl.h
+    # tgcalls/tgcalls/v2/ExternalSignalingConnection.h
+    # tgcalls/tgcalls/v2/InstanceNetworking.h
+    # tgcalls/tgcalls/v2/InstanceV2Impl.h
+    # tgcalls/tgcalls/v2/InstanceV2ReferenceImpl.h
+    # tgcalls/tgcalls/v2/NativeNetworkingImpl.h
+    # tgcalls/tgcalls/v2/RawTcpSocket.h
+    # tgcalls/tgcalls/v2/ReflectorPort.h
+    # tgcalls/tgcalls/v2/ReflectorRelayPortFactory.h
+    # tgcalls/tgcalls/v2/Signaling.h
+    # tgcalls/tgcalls/v2/SignalingConnection.h
+    # tgcalls/tgcalls/v2/SignalingEncryption.h
+    # tgcalls/tgcalls/v2/SignalingKcpConnection.h
+    # tgcalls/tgcalls/v2/SignalingSctpConnection.h
+    # tgcalls/tgcalls/v2/ikcp.h
+    # tgcalls/tgcalls/v2_4_0_0/Signaling_4_0_0.h
+
+
+
+    tgcalls/tgcalls/AudioDeviceHelper.cpp
+    tgcalls/tgcalls/ChannelManager.cpp
+    tgcalls/tgcalls/CodecSelectHelper.cpp
+    tgcalls/tgcalls/CryptoHelper.cpp
+    tgcalls/tgcalls/EncryptedConnection.cpp
+    tgcalls/tgcalls/FakeAudioDeviceModule.cpp
+    tgcalls/tgcalls/FakeVideoTrackSource.cpp
+    tgcalls/tgcalls/FieldTrialsConfig.cpp
+    tgcalls/tgcalls/Instance.cpp
+    tgcalls/tgcalls/InstanceImpl.cpp
+    tgcalls/tgcalls/LogSinkImpl.cpp
+    tgcalls/tgcalls/Manager.cpp
+    tgcalls/tgcalls/MediaManager.cpp
+    tgcalls/tgcalls/Message.cpp
+    tgcalls/tgcalls/NetworkManager.cpp
+    tgcalls/tgcalls/SctpDataChannelProviderInterfaceImpl.cpp
+    tgcalls/tgcalls/StaticThreads.cpp
+    tgcalls/tgcalls/ThreadLocalObject.cpp
+    tgcalls/tgcalls/TurnCustomizerImpl.cpp
+    tgcalls/tgcalls/VideoCaptureInterface.cpp
+    tgcalls/tgcalls/VideoCaptureInterfaceImpl.cpp
+    tgcalls/tgcalls/desktop_capturer/DesktopCaptureSource.cpp
+    tgcalls/tgcalls/desktop_capturer/DesktopCaptureSourceHelper.cpp
+    tgcalls/tgcalls/desktop_capturer/DesktopCaptureSourceManager.cpp
+    tgcalls/tgcalls/group/AVIOContextImpl.cpp
+    tgcalls/tgcalls/group/AudioStreamingPart.cpp
+    tgcalls/tgcalls/group/AudioStreamingPartInternal.cpp
+    tgcalls/tgcalls/group/AudioStreamingPartPersistentDecoder.cpp
+    tgcalls/tgcalls/group/GroupInstanceCustomImpl.cpp
+    tgcalls/tgcalls/group/GroupJoinPayloadInternal.cpp
+    tgcalls/tgcalls/group/GroupNetworkManager.cpp
+    tgcalls/tgcalls/group/StreamingMediaContext.cpp
+    tgcalls/tgcalls/group/VideoStreamingPart.cpp
+    tgcalls/tgcalls/platform/tdesktop/DesktopInterface.cpp
+    tgcalls/tgcalls/platform/tdesktop/VideoCameraCapturer.cpp
+    tgcalls/tgcalls/platform/tdesktop/VideoCapturerInterfaceImpl.cpp
+    tgcalls/tgcalls/platform/tdesktop/VideoCapturerTrackSource.cpp
+    tgcalls/tgcalls/third-party/json11.cpp
+    tgcalls/tgcalls/utils/gzip.cpp
+    tgcalls/tgcalls/v2/ContentNegotiation.cpp
+    tgcalls/tgcalls/v2/DirectNetworkingImpl.cpp
+    tgcalls/tgcalls/v2/ExternalSignalingConnection.cpp
+    tgcalls/tgcalls/v2/InstanceV2Impl.cpp
+    tgcalls/tgcalls/v2/InstanceV2ReferenceImpl.cpp
+    tgcalls/tgcalls/v2/NativeNetworkingImpl.cpp
+    tgcalls/tgcalls/v2/RawTcpSocket.cpp
+    tgcalls/tgcalls/v2/ReflectorPort.cpp
+    tgcalls/tgcalls/v2/ReflectorRelayPortFactory.cpp
+    tgcalls/tgcalls/v2/Signaling.cpp
+    tgcalls/tgcalls/v2/SignalingConnection.cpp
+    tgcalls/tgcalls/v2/SignalingEncryption.cpp
+    tgcalls/tgcalls/v2/SignalingKcpConnection.cpp
+    tgcalls/tgcalls/v2/SignalingSctpConnection.cpp
+    tgcalls/tgcalls/v2/ikcp.cpp
+    # tgcalls/tgcalls/v2_4_0_0/Signaling_4_0_0.cpp
+)
+
 
 add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
 # target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
