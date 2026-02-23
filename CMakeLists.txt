@@ -65,6 +65,7 @@ target_sources(libfernie PRIVATE
     src/platformapp.cpp
     src/tdlibsecrets.h
 )
+target_include_directories(libfernie PRIVATE src) # FIXME
 target_include_directories(libfernie PRIVATE
     $<BUILD_INTERFACE:
     ${SAILFISH_INCLUDE_DIRS}>
