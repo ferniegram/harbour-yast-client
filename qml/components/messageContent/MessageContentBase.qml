@@ -26,7 +26,6 @@ Item {
     property ListItem messageListItem
     property MessageOverlayFlickable overlayFlickable
     property var rawMessage: messageListItem ? messageListItem.myMessage : overlayFlickable.overlayMessage
-    property var messageProperties: messageListItem ? messageListItem.messageProperties : {}
     property bool isSponsored: !!messageListItem && messageListItem.isSponsored
     property bool isUnread: !!messageListItem && messageListItem.isUnread
     property bool generatedContentUnread: !!messageListItem && messageListItem.generatedContentUnread
