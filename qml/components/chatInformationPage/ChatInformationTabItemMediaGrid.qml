@@ -7,6 +7,7 @@ import "../../js/debug.js" as Debug
 ChatInformationTabItemBase {
     id: tabBase
     loading: gridView.count == 0
+    scrollableView: gridView
 
     property alias model: gridView.model
 

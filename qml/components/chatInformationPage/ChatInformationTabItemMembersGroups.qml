@@ -31,6 +31,8 @@ ChatInformationTabItemBase {
     loading: ( chatInformationPage.isSuperGroup || chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && !chatInformationPage.isChannel
     loadingVisible: loading && membersView.count === 0
 
+    scrollableView: membersView
+
     property var chatPartnerCommonGroupsIds: ([]);
 
     SilicaListView {
@@ -41,29 +43,11 @@ ChatInformationTabItemBase {
         width: tabBase.width
         opacity: tabBase.loading ? (count > 0 ? 0.5 : 0.0) : 1.0
         Behavior on opacity { FadeAnimation {} }
-        function handleScrollIntoView(force){
-            if(!tabBase.loading && !dragging && !quickScrollAnimating ) {
-                if(!atYBeginning) {
-                    pageContent.scrollDown()
-                } else {
-                    pageContent.scrollUp(force);
-                }
-            }
-        }
-        onDraggingChanged: {
-            handleScrollIntoView()
-        }
-        onAtYBeginningChanged: {
-            handleScrollIntoView()
-        }
         onAtYEndChanged: {
             if(tabBase.active && !tabBase.loading && chatInformationPage.isSuperGroup && !chatInformationPage.isChannel && (chatInformationPage.groupInformation.member_count > membersView.count) && membersView.atYEnd) {
                 tabBase.loading = true;
                 fetchMoreMembersTimer.start()
             }
-        }
-        onQuickScrollAnimatingChanged: {
-            handleScrollIntoView(true)
         }
         ViewPlaceholder {
             y: Theme.paddingLarge

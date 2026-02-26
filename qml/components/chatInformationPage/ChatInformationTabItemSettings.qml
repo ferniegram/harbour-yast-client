@@ -27,10 +27,10 @@ import "../../js/functions.js" as Functions
 
 ChatInformationTabItemBase {
     id: tabBase
-//    title: qsTr("Settings", "Button: Chat Settings")
-//    image: "image://theme/icon-m-developer-mode"
+    scrollableView: flickable
 
     SilicaFlickable {
+        id: flickable
         height: tabBase.height
         width: tabBase.width
         contentHeight: contentColumn.height

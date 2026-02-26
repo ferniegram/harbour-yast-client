@@ -9,6 +9,7 @@ import "../../js/functions.js" as Functions
 ChatInformationTabItemBase {
     id: tabBase
     loading: listView.count == 0
+    scrollableView: listView
 
     property alias model: listView.model
 

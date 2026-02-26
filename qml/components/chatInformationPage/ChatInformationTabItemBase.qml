@@ -32,6 +32,26 @@ TabItem {
     property bool tabActive: tabIndex === tabView.currentIndex
     property bool active: Qt.application.active && chatInformationPage.status === PageStatus.Active && tabActive
 
+    property Item scrollableView
+
+    function handleScrollIntoView(force) {
+        if(!loading && !scrollableView.dragging && !scrollableView.quickScrollAnimating) {
+            if (!scrollableView.atYBeginning)
+                pageContent.scrollDown()
+            else
+                pageContent.scrollUp(force)
+        }
+    }
+
+    Connections {
+        target: scrollableView
+        ignoreUnknownSignals: true
+
+        onDraggingChanged: handleScrollIntoView()
+        onAtYBeginningChanged: handleScrollIntoView()
+        onQuickScrollAnimatingChanged: handleScrollIntoView(true)
+    }
+
     BusyLabel {
         id: busyLabel
         running: tabItem.loading
