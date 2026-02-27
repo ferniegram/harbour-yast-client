@@ -62,7 +62,7 @@ readonly property real _yOffset:item&&item._yOffset||0
 property bool loading:Qt.application.active&&isCurrentItem&&status===Loader.Loading
 property var tabModel:model.modelData||model
 property int tabIndex:index
-property bool _haveSource:tabModel.body||tabModel.source
+property bool _haveSource:!!(tabModel.body||tabModel.source)
 sourceComponent:_haveSource?tabModel.body:tabComponent
 source:_haveSource?tabModel.source:tabSource
 asynchronous:true
