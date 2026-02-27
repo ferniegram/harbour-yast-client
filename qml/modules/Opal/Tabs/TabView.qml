@@ -23,7 +23,9 @@ property alias tabBarItem:tabBarLoader.item
 property real tabBarHeight:tabBarItem&&tabBarVisible?tabBarItem.height:0
 property Component tabComponent
 property url tabSource
-property real yOffset:currentItem&&currentItem._yOffset||0
+property real pulleyYOffset:currentItem&&currentItem._yOffset||0
+property real yOffset: pulleyYOffset
+property real maxYOffset:0
 property bool _headerBackgroundVisible:true
 property Item _page:Util.findPage(root)
 property int __silica_tab_view
@@ -46,7 +48,7 @@ TabBar{model:root.model
 visible:root.tabBarVisible
 sourceComponent:root.hasFooter?root.footer:root.header
 width:parent.width
-z:root.yOffset<0&&!root.hasFooter?-1:1
+z:root.yOffset<-maxYOffset&&!root.hasFooter?-1:1
 y:root.hasFooter?root.height-tabBarLoader.height:Math.max(0,-root.yOffset)
 Item{id:backgroundRectangleContainer
 property Item item

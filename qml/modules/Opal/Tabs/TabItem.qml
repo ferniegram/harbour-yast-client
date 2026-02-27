@@ -19,6 +19,7 @@ property Item _page:parent._ctxPage||_ctxPage
 readonly property real _yOffset:flickable&&flickable.pullDownMenu?flickable.contentY-flickable.originY:0
 property alias _cacheExpiry:cleanupTimer.interval
 property bool _hasPullDownMenu:!!flickable&&!!flickable.pullDownMenu
+property bool alterFlickablePulleyMenu:true
 property bool _hasPushUpMenu:!!flickable&&!!flickable.pushUpMenu
 implicitWidth:_tabContainer?_tabContainer.PagedView.contentWidth:0
 implicitHeight:{if(!_tabContainer){return 0
@@ -29,9 +30,9 @@ clip:!flickable||!flickable.pullDownMenu||!flickable.pushUpMenu
 Component.onCompleted:{if(_tabContainer&&!!_tabContainer.DelegateModel){_tabContainer.DelegateModel.inPersistedItems=true
 }if(!flickable){for(var child in children){if(child.hasOwnProperty("maximumFlickVelocity")&&!child.hasOwnProperty("__silica_hidden_flickable")){flickable=child
 break
-}}}}Binding{target:!!flickable&&!!flickable.pullDownMenu?flickable.pullDownMenu:null
+}}}}Binding{target:_hasPullDownMenu?flickable.pullDownMenu:null
 property:"y"
-when:topMargin>0
+when:alterFlickablePulleyMenu&&topMargin>0
 value:flickable.originY-(!!flickable.pullDownMenu?flickable.pullDownMenu.height:0)-root.topMargin+(_page.orientation&Orientation.PortraitMask?0:Theme.paddingMedium)
 }Timer{id:cleanupTimer
 running:root.allowDeletion&&root._tabContainer&&!root._tabContainer.PagedView.exposed

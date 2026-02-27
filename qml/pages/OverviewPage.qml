@@ -260,13 +260,27 @@ Page {
     Component.onCompleted:
         overviewPage.handleAuthorizationState(true)
 
+    OverviewPageHeader {
+        id: header
+        y: Math.max(0, -tabView.pulleyYOffset)
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
+        }
+    }
+
     TabView {
         id: tabView
         anchors.fill: parent
         model: chatFoldersModel
 
-        property real originalYOffset: currentItem && currentItem._yOffset || 0
-        yOffset: originalYOffset - header.height
+        // TODO: currently, we use some terrible hacks for making header work,
+        // and to make pulley menu openable when swiping from it.
+        // Ideally these patches should be improved and upstreamed.
+
+        maxYOffset: header.height
+        yOffset: pulleyYOffset - header.height
 
         Component.onCompleted: {
             tabView.tabBarItem.countRole = Qt.binding(function() { return appSettings.showFolderUnreadCount ? 'count' : '' })
@@ -285,6 +299,7 @@ Page {
                 allowDeletion: tabIndex !== 0 // always keep first tab in cache
 
                 topMargin: (parent._ctxTopMargin || _ctxTopMargin || 0) + header.height
+                alterFlickablePulleyMenu: false
 
                 Binding {
                     target: tabItem.parent
@@ -296,22 +311,8 @@ Page {
                 flickable: chatsFlickable
                 SilicaFlickable {
                     id: chatsFlickable
+                    parent: tabItem
                     anchors.fill: parent
-
-                    ChatsView {
-                        id: chatsView
-                        anchors.fill: parent
-                        model: tabModel.chat_list_model
-                        chatListType: tabModel.type
-                        folderId: tabModel.folder_id
-
-                        function readChatList() {
-                            if (tabModel.type === ChatFoldersModel.FolderFolder)
-                                tdLibWrapper.readFolderChatList(tabModel.id)
-                            else
-                                tdLibWrapper.readChatList(tabModel.type === ChatFoldersModel.FolderArchive)
-                        }
-                    }
 
                     Loader {
                         asynchronous: true
@@ -375,7 +376,7 @@ Page {
                             id: folderPullDownMenu
                             PullDownMenu {
                                 // this will be hidden if muted chats won't be included in folder counters (by settings) and only muted chats will be unread, which might not be ideal:
-                                visible: active || count > 0
+                                visible: active || tabModel.count > 0
                                 MenuItem {
                                     text: qsTr("Mark as read")
                                     onClicked: chatsView.readChatList()
@@ -383,18 +384,29 @@ Page {
                             }
                         }
                     }
+
+                    ChatsView {
+                        id: chatsView
+                        anchors {
+                            top: parent.top
+                            topMargin: tabItem.topMargin
+                        }
+                        width: parent.width
+                        height: parent.height - anchors.topMargin - tabItem.bottomMargin
+
+                        model: tabModel.chat_list_model
+                        chatListType: tabModel.type
+                        folderId: tabModel.folder_id
+
+                        function readChatList() {
+                            if (tabModel.type === ChatFoldersModel.FolderFolder)
+                                tdLibWrapper.readFolderChatList(tabModel.id)
+                            else
+                                tdLibWrapper.readChatList(tabModel.type === ChatFoldersModel.FolderArchive)
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    OverviewPageHeader {
-        id: header
-        y: Math.max(0, -tabView.originalYOffset)
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
         }
     }
 
