@@ -52,7 +52,7 @@ ListItem {
     property bool generatedContentUnread
     readonly property bool isUnread: messageIndex > messagesModel.lastReadMessageIndexInBounds && !isSponsored
 
-    readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
+    readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
@@ -408,7 +408,7 @@ ListItem {
     onMyMessageChanged: {
         Debug.log("[ChatModel] This message was updated, index", messageIndex, ", updating content...")
         messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
-        Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
+        Emoji.emojify(Functions.getMessageText(myMessage, false, tdLibWrapper.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
         if (webPagePreviewLoader.item)
             webPagePreviewLoader.item.linkPreviewData = myMessage.content.link_preview
     }
@@ -540,7 +540,7 @@ ListItem {
                             height: messageInReplyToRow.height
                             InReplyToRow {
                                 id: messageInReplyToRow
-                                myUserId: page.myUserId
+                                myUserId: tdLibWrapper.myUserId
                                 layer.enabled: messageInReplyToMouseArea.pressed && !messageListItem.highlighted && !messageListItem.menuOpen
                                 layer.effect: PressEffect { source: messageInReplyToRow }
                                 inReplyToMessage: messageInReplyToLoader.inReplyToMessage
