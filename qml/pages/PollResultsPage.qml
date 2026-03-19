@@ -26,74 +26,42 @@ import "../js/debug.js" as Debug
 Page {
     id: pollResultsPage
     allowedOrientations: Orientation.All
-    property string chatId
+
+    property var chatId
     property var message: ({})
-
-    property string messageId: message.id;
-
+    property var messageId: message.id
     property var pollData: message.content.poll
-
-    property var userInformation: tdLibWrapper.getUserInformation(message.sender_id.user_id)
-
-    property bool isQuiz: pollData.type['@type'] === "pollTypeQuiz"
-
+    property bool isQuiz: pollData.type['@type'] === 'pollTypeQuiz'
     property bool hasAnswered: pollData.options.filter(function(option) { return option.is_chosen }).length > 0
 
     property bool canAnswer: !hasAnswered && !pollData.is_closed
     onCanAnswerChanged:
-        if(canAnswer) pageStack.pop() // vote removed from another client?
+        if (canAnswer) pageStack.pop() // vote removed from another client
+
+    PageHeader {
+        id: pageHeader
+        title: pollResultsPage.isQuiz ? qsTr("Quiz Results") : qsTr("Poll Results")
+        description: qsTr("%Ln vote(s) total", "number of total votes", pollData.total_voter_count)
+        leftMargin: headerPictureThumbnail.width + Theme.paddingLarge + Theme.horizontalPageMargin
+    }
 
     SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: pageHeader.height + contentColumn.height
-
-        PageHeader {
-            id: pageHeader
-            title: pollResultsPage.isQuiz ? qsTr("Quiz Results") : qsTr("Poll Results")
-            description: qsTr("%Ln vote(s) total", "number of total votes", pollData.total_voter_count)
-            leftMargin: headerPictureThumbnail.width + Theme.paddingLarge + Theme.horizontalPageMargin
-            ProfileThumbnail {
-                id: headerPictureThumbnail
-                photoData: (typeof pollResultsPage.userInformation.profile_photo !== "undefined") ? pollResultsPage.userInformation.profile_photo.small : ""
-                replacementStringHint: Emoji.emojify(Functions.getUserName(pollResultsPage.userInformation), font.pixelSize)
-                width: visible ? Theme.itemSizeSmall : 0
-                height: visible ? Theme.itemSizeSmall : 0
-                anchors {
-                    verticalCenter: pageHeader.verticalCenter
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                }
-            }
+        id: flickable
+        width: parent.width
+        anchors {
+            top: pageHeader.bottom
+            bottom: parent.bottom
         }
+        contentHeight: contentColumn.height
+        clip: true
+
         Column {
             id: contentColumn
-            anchors {
-                left: parent.left
-                leftMargin: Theme.horizontalPageMargin
-                right: parent.right
-                rightMargin: Theme.horizontalPageMargin
-                top: pageHeader.bottom
-            }
-            SectionHeader {
-                x: 0
-                text: qsTr("Question", "section header")
-            }
-//            Label {
-//                width: parent.width
-//                font.pixelSize: Theme.fontSizeTiny
-//                wrapMode: Text.Wrap
-//                color: Theme.secondaryHighlightColor
-//                text: JSON.stringify(pollData, null, 2)
-//            }
-//            Label {
-//                width: parent.width
-//                font.pixelSize: Theme.fontSizeTiny
-//                wrapMode: Text.Wrap
-//                color: Theme.secondaryHighlightColor
-//                text: JSON.stringify(userInformation, null, 2)
-//            }
+            width: parent.width
+
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
                 wrapMode: Text.Wrap
                 color: Theme.secondaryHighlightColor
                 text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), font.pixelSize)
@@ -106,46 +74,49 @@ Page {
                 bottomPadding: Theme.paddingLarge
 
                 SectionHeader {
-                    x: 0
                     text: qsTr("Results", "section header")
                 }
+
                 Repeater {
                     model: pollData.options
-                    delegate: Item {
+                    Item {
                         id: optionDelegate
-                        width: resultsColumn.width
-                        height: displayOptionLabel.height + displayOptionStatistics.height + displayOptionUsers.height + Theme.paddingLarge
-                        property ListModel users: ListModel {}
-                        property string usersResponseIdentifierString: "pollResults."+pollResultsPage.chatId+"."+pollResultsPage.messageId+"."+index
-                        function loadUsers() {
-                            if(users.count < modelData.voter_count) {
-                                tdLibWrapper.getPollVoters(pollResultsPage.chatId, pollResultsPage.messageId, index, 50, users.length, usersResponseIdentifierString)
-                            }
+                        x: Theme.horizontalPageMargin
+                        width: parent.width - x
+                        height: optionColumn.height
+                        
+                        ListModel { id: votersModel }
+
+                        property string optionExtra: pollResultsPage.chatId+':'+pollResultsPage.messageId+':'+index
+                        property int totalCount: modelData.voter_count
+                        property bool isCorrectOption: pollResultsPage.isQuiz && pollData.type.correct_option_id === index
+
+                        function loadVoters() {
+                            tdLibWrapper.getPollVoters(pollResultsPage.chatId, pollResultsPage.messageId, index, optionExtra, votersModel.count)
                         }
-                        Component.onCompleted: {
-//                            loadUsers()
-                            loadUsersTimer.start()
-                        }
+
                         Timer {
-                            id: loadUsersTimer
+                            id: loadVotersTimer
                             interval: index * 80
-                            onTriggered: {
-                                optionDelegate.loadUsers();
-                            }
+                            running: true
+                            onTriggered:
+                                if (votersModel.count < modelData.voter_count)
+                                    loadVoters()
                         }
 
                         Connections {
                             target: tdLibWrapper
-                            onMessageSendersReceived: {
-                                Debug.log("Received poll users...")
-                                if(extra === optionDelegate.usersResponseIdentifierString) {
-                                    for(var i = 0; i < senders.length; i += 1) {
-                                        optionDelegate.users.append({id: senders[i].user_id, user:tdLibWrapper.getUserInformation(senders[i].user_id)});
-                                    }
-                                    loadUsersTimer.start();
+                            onPollVotersReceived: {
+                                if (extra === optionDelegate.optionExtra) {
+                                    Debug.log("Received poll voters")
+                                    for (var i = 0; i < voters.length; i++)
+                                        votersModel.append(voters[i])
+                                    optionDelegate.totalCount = totalCount
+                                    showMoreButton.enabled = true
                                 }
                             }
                         }
+
                         Rectangle {
                             id: displayOptionChosenMarker
                             height: parent.height
@@ -158,146 +129,125 @@ Page {
                             sourceItem: displayOptionChosenMarker
                             direction: OpacityRamp.LeftToRight
                         }
+
                         Column {
-                            id: iconsColumn
-                            width: pollResultsPage.isQuiz ?Theme.iconSizeSmall + Theme.paddingMedium : Theme.paddingMedium
-                            height: displayOptionLabel.height + displayOptionStatistics.height
+                            id: optionColumn
                             anchors {
-                                left: parent.left
-//                                verticalCenter: parent.verticalCenter
-                            }
-
-                            Icon {
-                                highlighted: true
-                                property bool isRight: pollResultsPage.isQuiz && pollData.type.correct_option_id === index
-                                source: "image://theme/icon-s-accept"
-                                visible: isRight
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                        }
-
-                        Label {
-                            id: displayOptionLabel
-                            text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
-                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                            anchors {
-                                left: iconsColumn.right
-                                top: parent.top
+                                left: displayOptionChosenMarker.right
                                 right: parent.right
                             }
-                            color: Theme.highlightColor
-                        }
-                        Item {
-                            id: displayOptionStatistics
-                            height: optionVoterPercentage.height + optionVoterPercentageBar.height
-                            anchors {
-                                top: displayOptionLabel.bottom
-                                left: iconsColumn.right
-                                right: parent.right
-                            }
-
-                            Label {
-                                id: optionVoterCount
-                                font.pixelSize: Theme.fontSizeTiny
-                                text: modelData.is_chosen ? qsTr("%Ln vote(s) including yours", "number of votes for option", modelData.voter_count) : qsTr("%Ln vote(s)", "number of votes for option", modelData.voter_count)
-                                anchors {
-                                    left: parent.left
-                                    right: parent.horizontalCenter
-                                    rightMargin: Theme.paddingSmall
-                                }
-                                color: Theme.secondaryHighlightColor
-                            }
-                            Label {
-                                id: optionVoterPercentage
-                                font.pixelSize: Theme.fontSizeTiny
-                                text: qsTr("%Ln\%", "% of votes for option", modelData.vote_percentage)
-                                horizontalAlignment: Text.AlignRight
-                                anchors {
-                                    right: parent.right
-                                    left: parent.horizontalCenter
-                                    leftMargin: Theme.paddingSmall
-                                }
-                                color: Theme.secondaryHighlightColor
-                            }
-                            Rectangle {
-                                id: optionVoterPercentageBar
-                                height: Theme.paddingSmall
-                                width: parent.width
-
-                                color: Theme.rgba(Theme.secondaryHighlightColor, 0.3)
-                                radius: height/2
-                                anchors {
-                                    left: parent.left
-                                    bottom: parent.bottom
-                                }
-
-                                Rectangle {
-                                    height: parent.height
-                                    color: Theme.highlightColor
-                                    radius: height/2
-                                    width: parent.width * modelData.vote_percentage * 0.01
-                                }
-                            }
-                        }
-
-
-                        // users voted for this:
-                        Flow {
-                            id: displayOptionUsers
-                            anchors.top: displayOptionStatistics.bottom
-                            width: parent.width
-                            visible: optionDelegate.users.count > 0
-                            topPadding: Theme.paddingLarge
                             spacing: Theme.paddingMedium
-                            leftPadding: iconsColumn.width
-                            property int itemHeight: Theme.itemSizeExtraSmall / 2
+
+                            Label {
+                                id: displayOptionLabel
+                                width: parent.width
+                                text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
+                                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                                color: Theme.highlightColor
+
+                                leftPadding: Theme.paddingMedium*2 + correctOptionIcon.width
+                                rightPadding: Theme.horizontalPageMargin
+                                Icon {
+                                    id: correctOptionIcon
+                                    source: "image://theme/icon-s-accept"
+                                    highlighted: true
+                                    visible: optionDelegate.isCorrectOption
+                                    width: visible ? Theme.iconSizeSmall : 0
+                                    anchors {
+                                        leftMargin: Theme.paddingMedium
+                                        verticalCenter: parent.verticalCenter
+                                    }
+                                }
+
+                                // TODO: implement something like section.labelPositioning = ViewSection.CurrentLabelAtStart in ListView
+                                /*y: (optionDelegate.y <= flickable.contentY && optionDelegate.y + optionDelegate.height > flickable.contentY)
+                                   //? mapFromItem(contentColumn, 0, flickable.contentY).y
+                                   ? flickable.contentY - resultsColumn.y - optionDelegate.y
+                                   : 0*/
+                            }
+
                             Item {
-                                height: displayOptionUsers.itemHeight
-                                width: chosenByUserText.width
+                                id: displayOptionStatistics
+                                anchors {
+                                    left: parent.left
+                                    leftMargin: displayOptionLabel.leftPadding
+                                    rightMargin: Theme.horizontalPageMargin
+                                    right: parent.right
+                                }
+
+                                height: optionVoterPercentage.height + optionVoterPercentageBar.height
+
                                 Label {
-                                    id: chosenByUserText
+                                    id: optionVoterCount
                                     font.pixelSize: Theme.fontSizeTiny
-                                    text: qsTr("Chosen by:", "This answer has been chosen by the following users")
-                                    width: contentWidth
-                                    anchors.centerIn: parent
+                                    text: modelData.is_chosen ? qsTr("%Ln vote(s) including yours", "number of votes for option", modelData.voter_count) : qsTr("%Ln vote(s)", "number of votes for option", modelData.voter_count)
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.horizontalCenter
+                                        rightMargin: Theme.paddingSmall
+                                    }
                                     color: Theme.secondaryHighlightColor
                                 }
-                            }
-                            Repeater {
-                                model: optionDelegate.users
-                                delegate:
-                                    Item {
-                                    id: chosenByUserItem
-                                    width: chosenByUserPictureThumbnail.width + chosenByUserLabel.width + Theme.paddingSmall
-                                    height: displayOptionUsers.itemHeight
+                                Label {
+                                    id: optionVoterPercentage
+                                    font.pixelSize: Theme.fontSizeTiny
+                                    text: qsTr("%Ln\%", "% of votes for option", modelData.vote_percentage)
+                                    horizontalAlignment: Text.AlignRight
+                                    anchors {
+                                        right: parent.right
+                                        left: parent.horizontalCenter
+                                        leftMargin: Theme.paddingSmall
+                                    }
+                                    color: Theme.secondaryHighlightColor
+                                }
+                                Rectangle {
+                                    id: optionVoterPercentageBar
+                                    height: Theme.paddingSmall
+                                    width: parent.width
 
-                                    ProfileThumbnail {
-                                        id: chosenByUserPictureThumbnail
-                                        photoData: (typeof model.user.profile_photo !== "undefined") ? model.user.profile_photo.small : ""
-                                        replacementStringHint: chosenByUserLabel.text
-                                        width: visible ? parent.height : 0
-                                        height: width
-                                        anchors {
-                                            left: parent.left
-                                            verticalCenter: parent.verticalCenter
-                                        }
+                                    color: Theme.rgba(Theme.secondaryHighlightColor, 0.3)
+                                    radius: height/2
+                                    anchors {
+                                        left: parent.left
+                                        bottom: parent.bottom
                                     }
 
-                                    Label {
-                                        id: chosenByUserLabel
-                                        font.pixelSize: Theme.fontSizeSmall
-                                        text: Emoji.emojify(Functions.getUserName(model.user), font.pixelSize)
-                                        width: contentWidth
-                                        height: contentHeight
+                                    Rectangle {
+                                        height: parent.height
                                         color: Theme.highlightColor
-                                        anchors {
-                                            right: parent.right
-                                            verticalCenter: parent.verticalCenter
-                                        }
+                                        radius: height/2
+                                        width: parent.width * modelData.vote_percentage * 0.01
                                     }
                                 }
+                            }
 
+                            ColumnView {
+                                width: parent.width
+                                model: votersModel
+                                itemHeight: Theme.itemSizeMedium
+                                clip: true
 
+                                delegate: TDLibChatListItem {
+                                    leftMargin: Theme.paddingMedium
+                                    contentHeight: Theme.itemSizeMedium
+                                    pictureThumbnailItem.height: Theme.itemSizeSmall
+                                    messageSender: voter_id
+                                    showFullInfo: false
+                                    prologSecondaryText.text: ''
+                                    secondaryText.text: Functions.getDateTimeTimepoint(date)
+                                    secondaryText.color: Theme.secondaryColor
+                                }
+                            }
+
+                            Button {
+                                id: showMoreButton
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: qsTr("Show %Ln more", "Button to show %Ln more poll voters", optionDelegate.totalCount - votersModel.count)
+                                visible: votersModel.count < optionDelegate.totalCount
+                                onClicked: {
+                                    enabled = false
+                                    loadVoters()
+                                }
                             }
                         }
 
@@ -307,6 +257,8 @@ Page {
             }
 
         }
+
+        VerticalScrollDecorator {}
     }
 
     Connections {
