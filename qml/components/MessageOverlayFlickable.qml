@@ -48,7 +48,7 @@ Flickable {
             case "messageOriginUser":
             case "messageForwardOriginUser":
                 var otherUserInformation = tdLibWrapper.getUserInformation(forwardInformation.origin.sender_id.user_id);
-                return Emoji.emojify(Functions.getUserName(otherUserInformation), fontSize);
+                return Emoji.emojify(utilities.getUserName(otherUserInformation), fontSize);
             default:
                 return Emoji.emojify(forwardInformation.origin.sender_name, fontSize);
         }
@@ -115,7 +115,7 @@ Flickable {
 
                 width: parent.width - overlayMessagePictureThumbnail.width
                 anchors.verticalCenter: parent.verticalCenter
-                text: messageOverlayFlickable.isOwnMessage ? qsTr("You") : Emoji.emojify(messageOverlayFlickable.isAnonymous ? chatPage.chatInformation.title : Functions.getUserName(messageOverlayFlickable.userInformation), font.pixelSize)
+                text: messageOverlayFlickable.isOwnMessage ? qsTr("You") : Emoji.emojify(messageOverlayFlickable.isAnonymous ? chatPage.chatInformation.title : utilities.getUserName(messageOverlayFlickable.userInformation), font.pixelSize)
                 font.pixelSize: Theme.fontSizeExtraLarge
                 font.weight: Font.ExtraBold
                 maximumLineCount: 1

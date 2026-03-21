@@ -49,7 +49,7 @@ Item {
         font.pixelSize: Theme.fontSizeExtraSmall
         property string messageContentText: utilities.getMessageText(messageListItem.myMessage, topicId ? Utilities.MessageTextSimpleInForumTopic : Utilities.MessageTextSimple, false, true, forumTopicName)
         text: (messageListItem.senderIsUser
-               ? "<a style=\"text-decoration: none; font-weight: bold; color:"+Theme.primaryColor+"\" href=\"userId://" + messageListItem.userInformation.id + "\">" + (!messageListItem.isOwnMessage ? Emoji.emojify(Functions.getUserName(messageListItem.userInformation), font.pixelSize) : qsTr("You")) + "</a> "
+               ? "<a style=\"text-decoration: none; font-weight: bold; color:"+Theme.primaryColor+"\" href=\"userId://" + messageListItem.userInformation.id + "\">" + (!messageListItem.isOwnMessage ? Emoji.emojify(utilities.getUserName(messageListItem.userInformation), font.pixelSize) : qsTr("You")) + "</a> "
                :  "<a style=\"text-decoration: none; font-weight: bold; color:"+Theme.secondaryHighlightColor+"\">" +  Emoji.emojify(chatPage.chatInformation.title || "") + "</a> ")
             + Emoji.emojify(messageContentText, font.pixelSize)
         textFormat: Text.RichText

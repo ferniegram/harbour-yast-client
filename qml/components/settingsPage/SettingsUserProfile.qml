@@ -262,7 +262,7 @@ AccordionItem {
                     ProfileThumbnail {
                         id: chatPictureReplacement
                         visible: !profilePictureLoader.active
-                        replacementStringHint: Functions.getUserName(accordionContent.userInformation)
+                        replacementStringHint: utilities.getUserName(accordionContent.userInformation)
                         radius: imageContainer.thumbnailRadius
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: Theme.itemSizeExtraLarge

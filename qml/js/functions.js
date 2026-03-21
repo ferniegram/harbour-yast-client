@@ -38,15 +38,6 @@ function formatUnreadCount(value) {
     return ''+Math.floor(value / 1000)+'k'+((value % 1000)>0 ? '+' : '');
 }
 
-function getUserName(userInformation) {
-    var name = ((userInformation.first_name || "") + " " + (userInformation.last_name || "")).trim()
-    if (name)
-        return name
-
-    var userType = userInformation.type['@type']
-    return userType === 'userTypeDeleted' || userType === 'userTypeUnknown' ? qsTr("Deleted User") : qsTr("Unknown", "A user with an unknown name")
-}
-
 function getMessageText(message, simple, currentUserId, ignoreEntities, asFormattedText, emojiSize) {
     return utilities.getMessageText(message, simple ? Logic.Utilities.MessageTextSimple : Logic.Utilities.MessageTextDefault, ignoreEntities)
 }

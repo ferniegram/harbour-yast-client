@@ -199,8 +199,8 @@ Page {
 //            profileTimer.cases.push(function(){
 //                Debug.compareAndRepeat(
 //                            "getUserName",
-//                            Functions.getUserName,
-//                            Functions.getUserName,
+//                            utilities.getUserName,
+//                            utilities.getUserName,
 //                            [
 //                                [{first_name: "Test", last_name: "User"}],
 //                                [{first_name: "Test", last_name: ""}],

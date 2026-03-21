@@ -505,7 +505,7 @@ ListItem {
                                           ? myMessage.title
                                           : (messageListItem.isAnonymous
                                                 ? page.chatInformation.title
-                                                : Functions.getUserName(messageListItem.userInformation)), font.pixelSize)
+                                                : utilities.getUserName(messageListItem.userInformation)), font.pixelSize)
                     font.pixelSize: Theme.fontSizeExtraSmall
                     font.weight: Font.ExtraBold
                     color: messageListItem.textColor
@@ -589,7 +589,7 @@ ListItem {
                                 } else if (originType === "messageOriginUser" || originType === "messageForwardOriginUser") {
                                     var otherUserInformation = tdLibWrapper.getUserInformation(myMessage.forward_info.origin.sender_user_id)
                                     forwardedThumbnail.photoData = (typeof otherUserInformation.profile_photo !== "undefined") ? otherUserInformation.profile_photo.small : {}
-                                    forwardedChannelText.text = Emoji.emojify(Functions.getUserName(otherUserInformation), Theme.fontSizeExtraSmall)
+                                    forwardedChannelText.text = Emoji.emojify(utilities.getUserName(otherUserInformation), Theme.fontSizeExtraSmall)
                                 } else {
                                     forwardedChannelText.text = Emoji.emojify(myMessage.forward_info.origin.sender_name, Theme.fontSizeExtraSmall)
                                     forwardedThumbnail.photoData = {}
@@ -845,7 +845,7 @@ ListItem {
                                                        : reactorUserInfoLoader.info.profile_photo.small
                                             replacementStringHint: isChat
                                                                    ? tdLibWrapper.getChat(modelData.chat_id).title
-                                                                   : Functions.getUserName(reactorUserInfoLoader.info)
+                                                                   : utilities.getUserName(reactorUserInfoLoader.info)
 
                                             property bool isChat: modelData['@type'] === 'messageSenderChat'
 
