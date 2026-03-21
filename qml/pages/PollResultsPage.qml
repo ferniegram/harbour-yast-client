@@ -260,14 +260,4 @@ Page {
 
         VerticalScrollDecorator {}
     }
-
-    Connections {
-        target: tdLibWrapper
-        onMessageContentUpdated: {
-            if(chatId === pollResultsPage.chatId && messageId === pollResultsPage.messageId) {
-                pollResultsPage.pollData = newContent.poll;
-            }
-        }
-    }
-
 }
