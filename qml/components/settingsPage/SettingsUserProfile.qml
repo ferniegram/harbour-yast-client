@@ -164,28 +164,22 @@ AccordionItem {
 
                     Connections {
                         target: contactSyncLoader.item
-                        onSyncError: {
-                            contactSyncItem.syncInProgress = false;
-                        }
+                        onSyncError:
+                            contactSyncItem.syncInProgress = false
                     }
 
                     Connections {
                         target: tdLibWrapper
-                        onContactsImported: {
-                            appNotification.show(qsTr("Contacts successfully synchronized with Telegram."));
-                        }
+                        onContactsImported:
+                            appNotification.show(qsTr("Contacts successfully synchronized with Telegram."))
                     }
 
                     Button {
                         id: syncContactsButton
                         text: qsTr("Synchronize Contacts with Telegram")
                         visible: !contactSyncItem.syncInProgress
-                        anchors {
-                            horizontalCenter: parent.horizontalCenter
-                        }
-                        onClicked: {
-                            contactSyncLoader.item.synchronize();
-                        }
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: contactSyncLoader.item.synchronize()
                     }
 
                     BusyIndicator {
@@ -209,44 +203,25 @@ AccordionItem {
                 spacing: Theme.paddingMedium
 
                 Item {
-                    id: imageContainer
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width / 2
-                    height: profilePictureLoader.height
-
-                    Loader {
-                        id: profilePictureLoader
-                        active: true
-                        asynchronous: true
-                        width: Theme.itemSizeExtraLarge
-                        height: Theme.itemSizeExtraLarge
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        sourceComponent: Component {
-                            ProfileThumbnail {
-                                thumbnailRadius: imageContainer.width / 2
-                                isUser: true
-                                chatId: tdLibWrapper.myUserId
-                            }
-                            ProfileThumbnail {
-                                photoData: userInformation.profile_photo.small
-                                replacementStringHint: utilities.getUserName(userInformation)
-                                width: parent.width
-                                height: width
-                                radius: imageContainer.thumbnailRadius
-                                opacity: profilePictureLoader.status !== Loader.Ready || profilePictureLoader.item.opacity < 1 ? 1.0 : 0.0
-                                optimizeImageSize: false
-                            }
-                        }
-                    }
+                    height: Theme.itemSizeExtraLarge
 
                     ProfileThumbnail {
-                        id: chatPictureReplacement
-                        visible: !profilePictureLoader.active
-                        replacementStringHint: utilities.getUserName(accordionContent.userInformation)
-                        radius: imageContainer.thumbnailRadius
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: Theme.itemSizeExtraLarge
                         height: Theme.itemSizeExtraLarge
+                        photoData: userInformation.profile_photo.small
+                        replacementStringHint: utilities.getUserName(userInformation)
+                        radius: parent.width / 2
+                        highlighted: profileThumbnailMouseArea.containsPress
+
+                        MouseArea {
+                            id: profileThumbnailMouseArea
+                            anchors.fill: parent
+                            onClicked:
+                                pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: tdLibWrapper.myUserId})
+                        }
                     }
                 }
 
@@ -254,11 +229,12 @@ AccordionItem {
                     width: parent.width / 2
                     visible: !uploadingPhoto
 
+                    // TODO: avoid size errors by cropping the picture before applying it
                     Button {
                         text: qsTr("Add Picture")
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            var page = pageStack.push('Silica.Pickers.ImagePickerPage')
+                            var page = pageStack.push('Sailfish.Pickers.ImagePickerPage')
                             page.selectedContentPropertiesChanged.connect(function () {
                                 uploadingPhoto = true
                                 tdLibWrapper.setProfilePhoto(page.selectedContentProperties.filePath)
@@ -309,7 +285,7 @@ AccordionItem {
                     anchors.horizontalCenter: parent.horizontalCenter
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignBottom
-                    text: qsTr("Phone number: +%1").arg(accordionContent.userInformation.phone_number)
+                    text: qsTr("Phone number: +%1").arg(userInformation.phone_number)
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.Wrap
                     anchors {

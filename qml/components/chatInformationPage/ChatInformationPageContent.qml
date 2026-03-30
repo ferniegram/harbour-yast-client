@@ -269,14 +269,16 @@ SilicaFlickable {
                         replacementStringHint: ""
                         radius: imageContainer.thumbnailRadius
                         optimizeImageSize: false
+                        highlighted: profileThumbnailMouseArea.containsPress
+
                         MouseArea {
+                            id: profileThumbnailMouseArea
                             anchors.fill: parent
-                            onClicked: {
+                            onClicked:
                                 if (isPrivateOrSecretChat)
                                     pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: chatUserOrGroupId})
                                 else
                                     pageStack.push(Qt.resolvedUrl("../../pages/ChatPhotosPage.qml"), {chatManager: chatManager})
-                            }
                         }
                     }
                 }
