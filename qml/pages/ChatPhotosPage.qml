@@ -1,0 +1,62 @@
+import QtQuick 2.0
+import Sailfish.Silica 1.0
+import App.Logic 1.0
+import '../components'
+import '../components/messageContent/mediaAlbumPage'
+
+MediaAlbumPage {
+    id: page
+    property var chatManager
+
+    model: InvertedMediaMessagesModel {
+        id: chatPhotosModel
+        tdlib: tdLibWrapper
+        filter: TDLibAPI.SearchMessagesFilterChatPhoto
+        Component.onCompleted: init(chatManager.chatId) //, messageId
+    }
+
+    pagedView.direction: PagedView.LeftToRight
+    delegate: PhotoComponent {
+        width: PagedView.contentWidth
+        height: PagedView.contentHeight
+
+        readonly property var _model: display
+    }
+
+    onIndexChanged:
+        if (index >= count - 1 - 10)
+            model.loadMoreHistory()
+
+    // TODO: make photos preview a ListView so only currently needed items would be loaded (see also ProfilePicturesPage)
+    overlay.previewModel: chatPhotosModel
+    overlay.previewComponent: Component {
+        TDLibPhoto {
+            readonly property bool current: overlay.message.id === message_id
+            property var chatPhoto: model.display.content.photo
+
+            height: parent.height
+            width: current ? height : (height / 2)
+            Behavior on width { NumberAnimation { duration: 150 } }
+
+            fileInformation: utilities.findSmallestPhotoSize(chatPhoto.sizes).photo
+            minithumbnail: chatPhoto.minithumbnail
+            highlighted: singlePreviewMouseArea.containsPress
+
+            MouseArea {
+                id: singlePreviewMouseArea
+                anchors.fill: parent
+                onClicked: overlay.jumpedToIndex(index)
+            }
+        }
+    }
+
+    overlay.message: pagedView.currentItem._model
+    overlay.forwardButtonVisible: false
+    overlay.deleteButtonVisible: !!overlay.propertiesLoader.properties.can_be_deleted_for_all_users
+    overlay.applyButtonVisible: false // TODO
+
+    overlay.onDeleted:
+        tdLibWrapper.deleteMessages(chatManager.chatId, [overlay.message.id], true)
+    overlay.onApplied:
+        tdLibWrapper.setPreviousChatPhoto(chatManager.chatId, overlay.message.content.photo.id)
+}

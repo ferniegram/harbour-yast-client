@@ -39,6 +39,7 @@ Page {
     property alias overlayActive: overlay.active
     property alias pagedView: pagedView
     property alias index: pagedView.currentIndex
+    property alias count: pagedView.count
     property alias delegate: pagedView.delegate
     property bool singleElement: false
     property bool modelIsMedia: !singleElement

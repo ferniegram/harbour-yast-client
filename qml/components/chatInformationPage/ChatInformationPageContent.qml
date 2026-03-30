@@ -274,11 +274,8 @@ SilicaFlickable {
                             onClicked: {
                                 if (isPrivateOrSecretChat)
                                     pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: chatUserOrGroupId})
-                                else {
-                                    // TODO (use MediaAlbumPage)
-                                    //var preparedPhotoData = {sizes:[{width:640,height: 640,photo:chatPictureDetail.photoData}]};
-                                    //pageStack.push(Qt.resolvedUrl("../../pages/ImagePage.qml"), { "photoData" : preparedPhotoData });
-                                }
+                                else
+                                    pageStack.push(Qt.resolvedUrl("../../pages/ChatPhotosPage.qml"), {chatManager: chatManager})
                             }
                         }
                     }

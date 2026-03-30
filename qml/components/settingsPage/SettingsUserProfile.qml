@@ -36,48 +36,21 @@ AccordionItem {
 
             readonly property var userInformation: tdLibWrapper.userInformation
             property var fullUserInformation: ({})
-            property bool uploadInProgress: false
             property bool contactSyncEnabled: false
+            property bool uploadingPhoto
 
             Component.onCompleted:
                 tdLibWrapper.getUserFullInfo(userInformation.id)
 
             Connections {
                 target: tdLibWrapper
-                onOwnUserUpdated: {
-                    firstNameEditArea.text = userInformation.first_name;
-                    lastNameEditArea.text = userInformation.last_name;
-                    userNameEditArea.text = userInformation.username;
-                }
-                onChatPhotosReceived: {
-                    if (chatId === userInformation.id) {
-                        imageContainer.thumbnailModel = photos;
-                    }
-                }
                 onUserFullInfoReceived:
                     accordionContent.fullUserInformation = userFullInfo
                 onUserFullInfoUpdated:
                     accordionContent.fullUserInformation = userFullInfo
-                // TODO: fix all of this by moving to UserProfilePicturesModel
-                onFileUpdated: {
-                    if (uploadInProgress) {
-                        profilePictureButtonColumn.visible = !fileInformation.remote.is_uploading_active;
-                        uploadInProgress = fileInformation.remote.is_uploading_active;
-                        if (!fileInformation.remote.is_uploading_active) {
-                            uploadInProgress = false;
-                            tdLibWrapper.getUserProfilePhotos(userInformation.id, 100, 0);
-                        }
-                    }
-                }
-                onOkReceived: {
-                    if (extra === "deleteProfilePhoto") {
-                        tdLibWrapper.getUserProfilePhotos(userInformation.id, 100, 0);
-                    } else if (extra === "setProfilePhoto") {
-                        tdLibWrapper.getUserProfilePhotos(userInformation.id, 100, 0);
-                        profilePictureButtonColumn.visible = true;
-                        uploadInProgress = false;
-                    }
-                }
+                onOkReceived:
+                    if (extra === "setProfilePhoto")
+                        uploadingPhoto = false
             }
 
             ResponsiveGrid {
@@ -85,7 +58,6 @@ AccordionItem {
 
                 InformationEditArea {
                     id: firstNameEditArea
-                    visible: true
                     canEdit: true
                     headerText: qsTr("First Name", "first name of the logged-in profile - header")
                     text: userInformation.first_name
@@ -94,21 +66,21 @@ AccordionItem {
 
                     onSaveButtonClicked: {
                         if(!editItem.errorHighlight) {
-                            tdLibWrapper.setName(textValue, lastNameEditArea.text);
+                            tdLibWrapper.setName(textValue, lastNameEditArea.text)
                         } else {
-                            isEditing = true;
+                            isEditing = true
                         }
                     }
 
                     onTextEdited: {
                         if(textValue.length > 0 && textValue.length < 65) {
-                            editItem.errorHighlight = false;
-                            editItem.label = "";
-                            editItem.placeholderText = "";
+                            editItem.errorHighlight = false
+                            editItem.label = ""
+                            editItem.placeholderText = ""
                         } else {
-                            editItem.label = qsTr("Enter 1-64 characters");
-                            editItem.placeholderText = editItem.label;
-                            editItem.errorHighlight = true;
+                            editItem.label = qsTr("Enter 1-64 characters")
+                            editItem.placeholderText = editItem.label
+                            editItem.errorHighlight = true
                         }
                     }
                 }
@@ -152,9 +124,8 @@ AccordionItem {
                     width: parent.columnWidth
                     headerLeftAligned: true
 
-                    onSaveButtonClicked: {
-                        tdLibWrapper.setUsername(textValue);
-                    }
+                    onSaveButtonClicked:
+                        tdLibWrapper.setUsername(textValue)
                 }
 
                 Item {
@@ -251,10 +222,19 @@ AccordionItem {
                         height: Theme.itemSizeExtraLarge
                         anchors.horizontalCenter: parent.horizontalCenter
                         sourceComponent: Component {
-                            ProfilePictureList {
+                            ProfileThumbnail {
                                 thumbnailRadius: imageContainer.width / 2
                                 isUser: true
                                 chatId: tdLibWrapper.myUserId
+                            }
+                            ProfileThumbnail {
+                                photoData: userInformation.profile_photo.small
+                                replacementStringHint: utilities.getUserName(userInformation)
+                                width: parent.width
+                                height: width
+                                radius: imageContainer.thumbnailRadius
+                                opacity: profilePictureLoader.status !== Loader.Ready || profilePictureLoader.item.opacity < 1 ? 1.0 : 0.0
+                                optimizeImageSize: false
                             }
                         }
                     }
@@ -271,37 +251,24 @@ AccordionItem {
                 }
 
                 Column {
-                    id: profilePictureButtonColumn
-                    spacing: Theme.paddingSmall
                     width: parent.width / 2
+                    visible: !uploadingPhoto
 
                     Button {
-                        id: addProfilePictureButton
                         text: qsTr("Add Picture")
-                        anchors {
-                            horizontalCenter: parent.horizontalCenter
-                        }
+                        anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            pageStack.push(imagePickerPage);
-                        }
-                    }
-
-                    Button {
-                        id: removeProfilePictureButton
-                        text: qsTr("Delete Picture")
-                        anchors {
-                            horizontalCenter: parent.horizontalCenter
-                        }
-                        onClicked: {
-                            var pictureIdForDeletion = imageContainer.thumbnailModel[profilePictureLoader.item.currentPictureIndex].id;
-                            Remorse.popupAction(settingsPage, qsTr("Deleting profile picture"), function() { tdLibWrapper.deleteProfilePhoto(pictureIdForDeletion) });
+                            var page = pageStack.push('Silica.Pickers.ImagePickerPage')
+                            page.selectedContentPropertiesChanged.connect(function () {
+                                uploadingPhoto = true
+                                tdLibWrapper.setProfilePhoto(page.selectedContentProperties.filePath)
+                            })
                         }
                     }
                 }
 
                 Column {
-                    id: uploadStatusColumn
-                    visible: !profilePictureButtonColumn.visible
+                    visible: uploadingPhoto
                     spacing: Theme.paddingMedium
                     width: parent.width / 2
 
@@ -316,32 +283,19 @@ AccordionItem {
 
                     BusyIndicator {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        running: uploadStatusColumn.visible
+                        running: uploadingPhoto
                         size: BusyIndicatorSize.Medium
                     }
-
                 }
 
             }
 
             Loader {
                 id: contactSyncLoader
-                source: "../ContactSync.qml"
+                source: Qt.resolvedUrl('../ContactSync.qml')
                 active: true
-                onLoaded: {
-                    accordionContent.contactSyncEnabled = true;
-                }
-            }
-
-            Component {
-                id: imagePickerPage
-                ImagePickerPage {
-                    onSelectedContentPropertiesChanged: {
-                        profilePictureButtonColumn.visible = false;
-                        uploadInProgress = true;
-                        tdLibWrapper.setProfilePhoto(selectedContentProperties.filePath);
-                    }
-                }
+                onLoaded:
+                    accordionContent.contactSyncEnabled = true
             }
 
             Column {

@@ -34,8 +34,14 @@ Item {
     property var message
     property bool hidePreview
     property var previewModel
+    property alias propertiesLoader: propertiesLoader
+    property alias buttonsRow: buttons
     readonly property color gradientColor: '#bb000000'
     readonly property int gradientPadding: Theme.itemSizeMedium
+
+    property bool forwardButtonVisible: true
+    property bool deleteButtonVisible
+    property bool applyButtonVisible
 
     property Component previewComponent: Component {
         Loader {
@@ -47,7 +53,6 @@ Item {
 
             height: parent.height
             width: current ? height : (height / 2)
-
             Behavior on width { NumberAnimation { duration: 150 } }
 
             sourceComponent: isVideo && !display.content.cover ? thumbnailComponent : photoComponent
@@ -80,6 +85,8 @@ Item {
     }
 
     signal jumpedToIndex(int index)
+    signal deleted
+    signal applied
 
     anchors.fill: parent
     opacity: active ? 1 : 0
@@ -229,7 +236,7 @@ Item {
     Loader {
         id: previewsLoader
         asynchronous: true
-        active: !!previewModel && previewModel.count > 1
+        active: !!previewModel && (typeof previewModel.count == 'undefined' || previewModel.count > 1)
         height: hidePreview ? 0 : Theme.itemSizeExtraSmall
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -282,23 +289,20 @@ Item {
         id: buttons
         height: Theme.itemSizeSmall
         width: childrenRect.width
-        spacing:  Theme.paddingLarge
+        spacing: visibleChildren.length > 2 ? Theme.paddingLarge : Theme.paddingLarge*2 + Theme.itemSizeSmall
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: previewsLoader.top
             bottomMargin: Theme.paddingSmall
         }
 
+        property color iconColor: pressed ? Theme.highlightColor : Theme.lightPrimaryColor
+
         IconButton {
-            icon.source: (file.isDownloadingActive
+            icon.source: file.isDownloadingActive
                        ? "image://theme/icon-m-cancel"
-                       : "image://theme/icon-m-downloads")
-                      + "?"
-                      + (
-                          pressed
-                          ? Theme.highlightColor
-                          : Theme.lightPrimaryColor
-                          )
+                       : "image://theme/icon-m-downloads"
+            icon.color: buttons.iconColor
             onClicked: {
                 if(file.isDownloadingCompleted)
                     tdLibWrapper.copyFileToDownloads(file.path, false)
@@ -306,18 +310,28 @@ Item {
                 else file.cancel()
             }
         }
-        Item {
-            width: Theme.itemSizeSmall
-            height: Theme.itemSizeSmall
+
+        IconButton {
+            visible: forwardButtonVisible
+            enabled: !!propertiesLoader.properties.can_be_forwarded
+            opacity: enabled ? 1.0 : 0.2
+            icon.source: 'image://theme/icon-m-share'
+            icon.color: buttons.iconColor
+            onClicked: forwardMessage()
         }
 
         IconButton {
-            enabled: !!propertiesLoader.properties.can_be_forwarded
-            opacity: enabled ? 1.0 : 0.2
-            icon.source: "image://theme/icon-m-share?" + (pressed
-                      ? Theme.highlightColor
-                      : Theme.lightPrimaryColor)
-            onClicked: forwardMessage()
+            visible: deleteButtonVisible
+            icon.source: 'image://theme/icon-m-delete'
+            icon.color: buttons.iconColor
+            onClicked: deleted()
+        }
+
+        IconButton {
+            visible: applyButtonVisible
+            icon.source: 'image://theme/icon-m-acknowledge'
+            icon.color: buttons.iconColor
+            onClicked: applied()
         }
     }
 
