@@ -30,10 +30,9 @@ MessageContentBase {
 
     height: defaultExtraContentHeight
 
+    // TODO: handle updating message album messages
+    // we could use SortFilterProxyModel and filter by media_album_id, but that might not be the best method
     function getMessages() {
-        var msgs = [rawMessage]
-        if (messageContent.albumId === '0' || messageContent.albumMessageIds.length <= 1) return msgs
-        chatManager.model.getMessagesForAlbum(messageContent.albumId, 1).forEach(function(m) { msgs.push(m) })
-        return msgs
+        return chatManager.model.getMessagesForAlbum(messageContent.albumId)
     }
 }
