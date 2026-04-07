@@ -21,7 +21,11 @@ QtObject {
     }
 
     function load() {
-        if (messageId === 0 || _messagePropertiesLoading || loaded) return
+        if (!message || messageId === 0) {
+            properties = {stub: true}
+            return
+        }
+        if (_messagePropertiesLoading || loaded) return
         tdLibWrapper.getMessageProperties(loader.chatId, loader.messageId)
         _messagePropertiesLoading = true
     }
