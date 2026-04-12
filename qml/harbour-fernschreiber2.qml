@@ -47,9 +47,8 @@ ApplicationWindow {
             } else
                 appNotification.show(text)
         }
+        onDeepLinkInfoReceived: appNotification.show(utilities.enhanceMessageText(text))
         onLinkUnsupportedByApp: appNotification.show(qsTr("Link unsupported: %1").arg(type))
-        onDeepLinkInfoReceived:
-            appNotification.show(utilities.getMessageContentText(text, Utilities.MessageTextSimple))
     }
 
     Connections {
