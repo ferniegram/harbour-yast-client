@@ -8,6 +8,14 @@ In Fernschreiber, the code styling is very mixed. In Ferniegram, it can be mixed
 
 - ~~setMessageProperties could probably be implemented better. Currently it is hardcoded in several places, including new message success callback. It is also not same as other set* chat list functions, others simply scrap data from the message, but this one sends a tdlib request. Not sure if this should also be added to handleMessageContentUpdated, handleMessageEditedUpdated or anything similar. Probably not, but who knows~~ Nevermind, messageProperties should only be received when opening a menu. That's what we do now
 
+## Integers handling
+
+TDLib has the following integer types: int32, int53 and int64 (consisting of 32, 53 or 64 bits). In JS/QML, int32 can be a normal integer (`property int` if is a QML property), int53 can be a BigInt (a special kind of integer; if it's a property in QML, it should be `property var`, not `property int`) and int64 can only be represented as a string (`property string` if is a QML property).
+
+For example, chat, basic group, supergroup, user and message IDs are stored as 53-bit integers type. Some other values, such as sticker IDs are 64-bit. Smaller values, like various counters, are stored as simple 32-bit integers.
+
+See typedefs documentation [in the TDLib documentation](https://core.telegram.org/tdlib/docs/td__api_8h.html) for more information.
+
 ## Chat list handling
 
 When a chat is discovered, these updates are sent:
