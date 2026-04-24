@@ -6,7 +6,7 @@ Exec=harbour-ferniegram
 Name=Ferniegram
 
 X-DBusActivatable=true
-MimeType=x-url-handler/t.me;x-scheme-handler/tg;
+MimeType=x-url-handler/t.me;x-scheme-handler/tg
 X-Maemo-Service=io.ferniegram.ferniegram
 X-Maemo-Object-Path=/io/ferniegram/ferniegram
 X-Maemo-Method=io.libfernie.default.openUrl

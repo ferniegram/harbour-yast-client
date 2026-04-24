@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QSharedPointer<QQuickView> view(SailfishApp::createView()); // FIXME: should we actually use QScopedPointer here?
 
-    QQmlContext *context = view.data()->rootContext();
+    QQmlContext *context = view->rootContext();
 
     const QString dbusPath = "/io/ferniegram/ferniegram";
     const QString dbusServiceName = "io.ferniegram.ferniegram";
