@@ -47,7 +47,6 @@ int main(int argc, char *argv[]) {
 
     QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, dbusPath, dbusServiceName));
 
-    QScopedPointer<DBusAdaptor> dBusAdaptor(FernieMain::registerDBusAdaptor(view, appContext->tdLibWrapper));
     FernieMain::registerDBusService(view, dbusPath, dbusServiceName);
     // FIXME: there's a short period of time when the application closes (waiting for tdlib to close),
     // but the dbus service isn't unregistered yet, in which clicking the application doesn't open it.
