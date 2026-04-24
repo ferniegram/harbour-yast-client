@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     FernieMain::setupLogging();
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    QSharedPointer<QQuickView> view(SailfishApp::createView()); // FIXME: should we actually use QScopedPointer here?
+    QSharedPointer<QQuickView> view(SailfishApp::createView());
 
     QQmlContext *context = view->rootContext();
 
@@ -49,6 +49,9 @@ int main(int argc, char *argv[]) {
 
     QScopedPointer<DBusAdaptor> dBusAdaptor(FernieMain::registerDBusAdaptor(view, appContext->tdLibWrapper));
     FernieMain::registerDBusService(view, dbusPath, dbusServiceName);
+    // FIXME: there's a short period of time when the application closes (waiting for tdlib to close),
+    // but the dbus service isn't unregistered yet, in which clicking the application doesn't open it.
+    // Seems like SailfishOS uses X-Maemo-Method not only for opening URLs, but for opening the app itself too
 
     VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, appContext->appSettings, view.data());
     context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
