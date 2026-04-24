@@ -34,55 +34,6 @@
 
 #include "voicenoterecorder.h"
 
-void migrateSettings() {
-    const QStringList sailfishOSVersion = QSysInfo::productVersion().split(".");
-    int sailfishOSMajorVersion = sailfishOSVersion.value(0).toInt();
-    int sailfishOSMinorVersion = sailfishOSVersion.value(1).toInt();
-    if ((sailfishOSMajorVersion == 4 && sailfishOSMinorVersion >= 4) || sailfishOSMajorVersion > 4) {
-        LOG("Checking if we need to migrate settings...");
-        QSettings settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/io.ferniegram/ferniegram/settings.conf", QSettings::NativeFormat);
-        if (settings.contains("migrated")) {
-            return;
-        }
-        QSettings oldSettings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/harbour-ferniegram/settings.conf", QSettings::NativeFormat);
-        const QStringList oldKeys = oldSettings.allKeys();
-        if (oldKeys.isEmpty()) {
-            return;
-        }
-        LOG("SailfishOS >= 4.4 and old configuration file detected, migrating settings to new location...");
-        for (const QString &key : oldKeys) {
-            settings.setValue(key, oldSettings.value(key));
-        }
-
-        QDir oldDataLocation(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/harbour-ferniegram/harbour-ferniegram");
-        LOG("Old data directory: " + oldDataLocation.path());
-        if (oldDataLocation.exists()) {
-            LOG("Old data files detected, migrating files to new location...");
-            const int oldDataPathLength = oldDataLocation.absolutePath().length();
-            QString dataLocationPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-            QDir dataLocation(dataLocationPath);
-            QDirIterator oldDataIterator(oldDataLocation, QDirIterator::Subdirectories);
-            while (oldDataIterator.hasNext()) {
-                oldDataIterator.next();
-                QFileInfo currentFileInfo = oldDataIterator.fileInfo();
-                if (!currentFileInfo.isHidden()) {
-                    const QString subPath = currentFileInfo.absoluteFilePath().mid(oldDataPathLength);
-                    const QString targetPath = dataLocationPath + subPath;
-                    if (currentFileInfo.isDir()) {
-                        LOG("Creating new directory " + targetPath);
-                        dataLocation.mkpath(targetPath);
-                    } else if(currentFileInfo.isFile()) {
-                        LOG("Copying file to " + targetPath);
-                        QFile::copy(currentFileInfo.absoluteFilePath(), targetPath);
-                    }
-                }
-            }
-        }
-
-        settings.setValue("migrated", true);
-    }
-}
-
 int main(int argc, char *argv[]) {
     FernieMain::setupLogging();
 
@@ -90,8 +41,6 @@ int main(int argc, char *argv[]) {
     QSharedPointer<QQuickView> view(SailfishApp::createView()); // FIXME: should we actually use QScopedPointer here?
 
     QQmlContext *context = view.data()->rootContext();
-
-    migrateSettings();
 
     const QString dbusPath = "/io/ferniegram/ferniegram";
     const QString dbusServiceName = "io.ferniegram.ferniegram";
