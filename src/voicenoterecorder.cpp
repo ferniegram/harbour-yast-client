@@ -26,6 +26,7 @@
 #include <QUrl>
 #include <QDateTime>
 
+#define DEBUG_ROOT_MODULE "ferniegram"
 #define DEBUG_MODULE VoiceNoteRecorder
 #include "debuglog.h"
 

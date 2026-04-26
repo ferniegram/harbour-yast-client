@@ -17,8 +17,6 @@
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ferniemain.h"
-
 #include <sailfishapp.h>
 #include <QQuickView>
 //#include <QtQml>
@@ -31,6 +29,18 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QStandardPaths>
+
+// The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
+// QT_LOGGING_RULES="libfernie.*=true;ferniegram.*=true" harbour-ferniegram
+#if defined (QT_DEBUG) || defined(DEBUG)
+#  define DEFAULT_LOG_FILTER "libfernie.*=true;ferniegram.*=true"
+#else
+#  define DEFAULT_LOG_FILTER "libfernie.*=false;ferniegram.*=false"
+#endif
+
+#define JS_DEBUG_ROOT_MODULE "ferniegram.JS"
+
+#include "ferniemain.h"
 
 #include "voicenoterecorder.h"
 
