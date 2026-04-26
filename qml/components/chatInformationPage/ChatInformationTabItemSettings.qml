@@ -40,7 +40,7 @@ ChatInformationTabItemBase {
 
             //permissions
 
-            // if chatInformationPage.chatInformation.permissions.can_change_info
+            // if chatManager.permissions.can_change_info
             //  - upload/change chat photo/VIDEO (hahaha)
             //  - description change
             //  - toggleSupergroupIsAllHistoryAvailable

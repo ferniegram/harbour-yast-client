@@ -100,29 +100,6 @@ SilicaFlickable {
 
         onUserFullInfoReceived: handleUserFullInfo(userId, userFullInfo)
         onUserFullInfoUpdated: handleUserFullInfo(userId, userFullInfo)
-
-        onChatPermissionsUpdated: {
-            if (chatInformationPage.chatInformation.id === chatId) {
-                chatInformationPage.chatInformation.permissions = permissions
-                chatInformationPage.chatInformationChanged()
-            }
-        }
-        onChatTitleUpdated: {
-            if (chatInformationPage.chatInformation.id === chatId) {
-                // set whole object to trigger change
-                var newInformation = chatInformation;
-                newInformation.title = title
-                chatInformationPage.chatInformation = newInformation
-            }
-        }
-        onChatNotificationSettingsUpdated: {
-            if (chatInformationPage.chatInformation.id === chatId) {
-                // set whole object to trigger change
-                var newInformation = chatInformation;
-                newInformation.notification_settings = chatNotificationSettings;
-                chatInformationPage.chatInformation = newInformation;
-            }
-        }
     }
 
     Connections {

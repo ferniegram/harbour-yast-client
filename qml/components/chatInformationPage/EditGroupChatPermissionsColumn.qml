@@ -41,13 +41,13 @@ Column {
             automaticCheck: false
             readonly property string permission: modelData[0]
             text: modelData[1]
-            checked: chatInformationPage.chatInformation.permissions[permission]
+            checked: chatManager.permissions[permission]
             onCheckedChanged: busy = false
             onClicked: {
                 if(busy) return
                 var value = !checked
                 busy = true
-                var newPermissions = JSON.parse(JSON.stringify(chatInformationPage.chatInformation.permissions))
+                var newPermissions = JSON.parse(JSON.stringify(chatManager.permissions))
                 if (permission in newPermissions) {
                     newPermissions[permission] = value
                     // some permissions infer can_send_messages:
@@ -57,7 +57,7 @@ Column {
                     } else if(mediaPermissions.indexOf(permission) > -1 && value)
                         newPermissions.can_send_messages = true
                 }
-                tdLibWrapper.setChatPermissions(chatInformationPage.chatInformation.id, newPermissions)
+                chatManager.permissions = newPermissions
             }
         }
     }
@@ -79,13 +79,13 @@ Column {
         TextSwitch {
             text: qsTr("Send media", "member permission")
             automaticCheck: false
-            checked: mediaPermissions.some(function(permission) { return chatInformationPage.chatInformation.permissions[permission] })
+            checked: mediaPermissions.some(function(permission) { return chatManager.permissions[permission] })
             onCheckedChanged: busy = false
             onClicked: {
                 if (busy) return
                 busy = true
 
-                var permissions = JSON.parse(JSON.stringify(chatInformationPage.chatInformation.permissions))
+                var permissions = JSON.parse(JSON.stringify(chatManager.permissions))
 
                 if (checked)
                     mediaPermissions.forEach(function(permission) { permissions[permission] = false })
@@ -94,7 +94,7 @@ Column {
                     permissions.can_send_messages = true
                 }
 
-                tdLibWrapper.setChatPermissions(chatInformationPage.chatInformation.id, permissions)
+                chatManager.permissions = permissions
             }
         }
 

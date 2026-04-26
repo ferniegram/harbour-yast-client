@@ -79,7 +79,7 @@ Page {
     }
 
     onStatusChanged: {
-        switch(status) {
+        switch (status) {
         case PageStatus.Activating:
             Debug.log("activating Loader")
             mainContentLoader.active = true
@@ -94,7 +94,6 @@ Page {
         active: false
         asynchronous: true
         anchors.fill: parent
-        source: Qt.resolvedUrl("../components/chatInformationPage/ChatInformationPageContent.qml");
+        source: Qt.resolvedUrl("../components/chatInformationPage/ChatInformationPageContent.qml")
     }
-
 }

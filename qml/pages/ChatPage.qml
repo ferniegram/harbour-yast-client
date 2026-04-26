@@ -118,13 +118,14 @@ Page {
         var groupStatus = chatGroupInformation ? chatGroupInformation.status : null
         var groupStatusType = groupStatus ? groupStatus["@type"] : null
         return chatPage.isPrivateChat
-                    || (groupStatusType === "chatMemberStatusMember" && chatInformation.permissions[privilege])
+                    || (groupStatusType === "chatMemberStatusMember" && chatManager.permissions[privilege])
                     || groupStatusType === "chatMemberStatusAdministrator"
                     || groupStatusType === "chatMemberStatusCreator"
                     || (groupStatusType === "chatMemberStatusRestricted" && groupStatus.permissions[privilege])
                     || (chatPage.isSecretChat && chatPage.isSecretChatReady)
     }
     function canPinMessages() {
+        // TODO: remove this when we support multiple pinned messages
         Debug.log("Can we pin messages?")
         if (chatPage.isPrivateChat || chatPage.isSecretChat) {
             Debug.log("Private/Secret Chat: No!")
@@ -134,7 +135,7 @@ Page {
             Debug.log("Creator of this chat: Yes!")
             return true
         }
-        if (chatPage.chatInformation.permissions.can_pin_messages) {
+        if (chatManager.permissions.can_pin_messages) {
             Debug.log("All people can pin: Yes!")
             return true
         }
