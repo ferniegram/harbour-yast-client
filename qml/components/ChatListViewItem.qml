@@ -2,6 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import App.Logic 1.0
 
+import "../pages"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 
@@ -32,22 +33,32 @@ PhotoTextsListItem {
     isSecret: chat_type === TDLibAPI.ChatTypeSecret
     isMarkedAsUnread: is_marked_as_unread
     isPinned: is_pinned
-    muted: display.notification_settings.mute_for > 0
+    muted: tdLibWrapper.chatIsMuted(chat_id, notification_settings) //notification_settings.mute_for > 0
 
-    onPressAndHold: contextMenuLoader.active = true
+    onPressAndHold:
+        if (menu && menu.isMain)
+            openMenu()
+        else {
+            contextMenuLoader.sourceComponent = defaultContextMenu
+            contextMenuLoader.active = true
+        }
 
     Loader {
         id: contextMenuLoader
         active: false
         asynchronous: true
-        onStatusChanged: {
-            if(status === Loader.Ready) {
-                listItem.menu = item;
-                listItem.openMenu();
+        onStatusChanged:
+            if (status === Loader.Ready) {
+                listItem.menu = item
+                listItem.openMenu()
             }
-        }
-        sourceComponent: Component {
+        sourceComponent: defaultContextMenu
+
+        Component {
+            id: defaultContextMenu
             ContextMenu {
+                readonly property bool isMain: true
+
                 property bool canArchive: true
                 Connections {
                     target: tdLibWrapper
@@ -107,16 +118,22 @@ PhotoTextsListItem {
                 MenuItem {
                     visible: chat_id != tdLibWrapper.myUserId
                     onClicked: {
-                        var newNotificationSettings = display.notification_settings;
-                        if (newNotificationSettings.mute_for > 0) {
-                            newNotificationSettings.mute_for = 0;
-                        } else {
-                            newNotificationSettings.mute_for = 6666666;
-                        }
-                        newNotificationSettings.use_default_mute_for = false;
-                        tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings);
+                        if (tdLibWrapper.chatIsMuted(chat_id, notification_settings)) {
+                            var newNotificationSettings = notification_settings
+                            if (tdLibWrapper.getChatScopeNotificationSettings(chat_id).mute_for == 0)
+                                newNotificationSettings.use_default_mute_for = true
+                            else {
+                                newNotificationSettings.use_default_mute_for = false
+                                newNotificationSettings.mute_for = 0
+                            }
+
+                            tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
+                        } else
+                            contextMenuLoader.sourceComponent = notificationsContextMenuComponent
                     }
-                    text: display.notification_settings.mute_for > 0 ? qsTr("Unmute chat") : qsTr("Mute chat")
+                    text: tdLibWrapper.chatIsMuted(chat_id, notification_settings)
+                            ? (qsTr("Unmute") + ' <font color="'+(highlighted ? palette.secondaryHighlightColor : palette.secondaryColor) + '">' + Format.formatDuration(notification_settings.mute_for) + '</font>')
+                            : qsTr("Mute notifications")
                 }
 
                 MenuItem {
@@ -129,6 +146,49 @@ PhotoTextsListItem {
                     }
                     text: model.display.type['@type'] === "chatTypePrivate" ? qsTr("User Info") : qsTr("Group Info")
                 }
+            }
+        }
+
+        Component {
+            id: notificationsContextMenuComponent
+            ContextMenu {
+                Repeater {
+                    model: [60, 60*8, 60*24]
+                    MenuItem {
+                        text: qsTr("Mute for %1").arg(Format.formatDuration(modelData))
+                        onClicked: {
+                            var newNotificationSettings = notification_settings
+                            newNotificationSettings.mute_for = modelData
+                            tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
+                        }
+                    }
+                }
+
+                MenuItem {
+                    text: qsTr("Mute forever")
+                    onClicked: {
+                        var newNotificationSettings = notification_settings
+                        if (tdLibWrapper.getChatScopeNotificationSettings(chat_id).mute_for > 31622400)
+                            newNotificationSettings.use_default_mute_for = true
+                        else {
+                            newNotificationSettings.use_default_mute_for = false
+                            newNotificationSettings.mute_for = 31622401 // 366 days + 1 second
+                        }
+
+                        tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
+                    }
+                }
+
+                /*MenuItem {
+                    text: qsTr("Customize")
+                    onClicked: pageStack.push(customizeNotificationsPageComponent)
+                    Component {
+                        id: customizeNotificationsPageComponent
+                        // Pass as bindings
+                        chatId: chat_id
+                        notificationSettings: notification_settings
+                    }
+                }*/
             }
         }
     }

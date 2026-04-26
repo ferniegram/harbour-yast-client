@@ -199,7 +199,7 @@ ListItem {
             if (status == Loader.Loading || status == Loader.Ready)
                 propertiesLoader.load()
 
-            if(status === Loader.Ready) {
+            if (status === Loader.Ready) {
                 messageListItem.menu = item
                 messageListItem.openMenu()
             } else if (status != Loader.Loading)
@@ -215,7 +215,7 @@ ListItem {
                 onActiveChanged: if (active) propertiesLoader.load()
                 onClosed: propertiesLoader.reset() // closed is called at end of animation, and active is set to false at the start, so we use closed() for tracking close and active for tracking open
 
-                property bool isMessageListViewItemMainContextMenu: true
+                readonly property bool isMessageListViewItemMainContextMenu: true
 
                 FancyMenuRow {
                     // NOTE: In places like this we should generally use `enabled` instead of `visible` so people can rely on spatial memory.
