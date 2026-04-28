@@ -666,11 +666,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mute for %1</source>
+        <source>Mute forever</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mute forever</source>
+        <source>Mute for %Ln hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -882,6 +886,56 @@
             <numerusform>neprečítané správy</numerusform>
             <numerusform>neprečítaných správ</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>CustomizeNotificationsPage</name>
+    <message>
+        <source>Notifications</source>
+        <comment>Page header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <comment>No notification sound</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>Default notification sound</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pinned Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mentions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Story notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Sender&apos;s Name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1523,6 +1577,31 @@
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>NotificationSoundSelectionPage</name>
+    <message>
+        <source>Sound</source>
+        <comment>Page header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upload Sound</source>
+        <comment>Upload a new sound</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
