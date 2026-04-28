@@ -34,7 +34,7 @@ Page {
             PageHeader { title: qsTr("Sound", "Page header") }
 
             Repeater {
-                model: [0, 1]
+                model: 2
                 BackgroundItem {
                     height: Math.min(defaultLabel.height + 2*Theme.paddingMedium, Theme.itemSizeSmall)
                     Label {
@@ -43,15 +43,15 @@ Page {
                         width: parent.width - 2*x
                         anchors.verticalCenter: parent.verticalCenter
                         wrapMode: Text.Wrap
-                        text: modelData == 0 ? qsTr("Default") : qsTr("Disabled")
-                        highlighted: parent.highlighted || (currentSoundUnavailable && (modelData == 0 ? (currentSoundId != '0') : (page.soundId == '0')))
+                        text: index == 0 ? qsTr("Default") : qsTr("Disabled")
+                        highlighted: parent.highlighted || (currentSoundUnavailable && (index == 0 ? (currentSoundId != '0') : (currentSoundId == '0')))
                     }
 
-                    onClicked:
-                        if (currentSoundId !== soundId) {
-                            selected(modelData == 0 ? '-1' : '0')
-                            //pageStack.pop()
-                        }
+                    onClicked: {
+                        var soundId = index == 0 ? '-1' : '0'
+                        if (currentSoundId !== soundId)
+                            selected(soundId)
+                    }
                 }
             }
         }
@@ -106,10 +106,8 @@ Page {
                         audioPlayer.autoPlay = true
                         file.load()
                     }
-                } else {
+                } else
                     selected(modelData.id)
-                    //pageStack.pop()
-                }
 
             TDLibFile {
                 id: file
