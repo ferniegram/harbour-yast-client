@@ -153,12 +153,18 @@ PhotoTextsListItem {
         Component {
             id: notificationsContextMenuComponent
             ContextMenu {
+                MenuItem {
+                    text: qsTr("Mute forever")
+                    onClicked: Functions.setChatIsMuted(chat_id, notification_settings, true)
+                }
+
                 Repeater {
                     model: [1, 8, 24]
                     MenuItem {
                         text: qsTr("Mute for %Ln hours", '', modelData)
                         onClicked: {
                             var newNotificationSettings = notification_settings
+                            newNotificationSettings.use_default_mute_for = false
                             newNotificationSettings.mute_for = modelData * 60
                             tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
                         }
@@ -166,17 +172,18 @@ PhotoTextsListItem {
                 }
 
                 MenuItem {
-                    text: qsTr("Mute forever")
+                    text: qsTr("Mute for...")
                     onClicked: {
-                        var newNotificationSettings = notification_settings
-                        if (tdLibWrapper.getChatScopeNotificationSettings(chat_id).mute_for > 31622400)
-                            newNotificationSettings.use_default_mute_for = true
-                        else {
+                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/DurationPickerDialog.qml"), {
+                                                        title: qsTr("Mute notifications"),
+                                                        maxDays: 365
+                                                    })
+                        dialog.accepted.connect(function() {
+                            var newNotificationSettings = notification_settings
                             newNotificationSettings.use_default_mute_for = false
-                            newNotificationSettings.mute_for = 31622401 // 366 days + 1 second
-                        }
-
-                        tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
+                            newNotificationSettings.mute_for = Math.min(dialog.allSeconds, 31622400) // Not more than 366 days
+                            tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
+                        })
                     }
                 }
 
