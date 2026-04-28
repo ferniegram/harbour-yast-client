@@ -32,11 +32,16 @@ Page {
     Connections {
         target: tdLibWrapper
         onNotificationSoundReceived: {
-            console.log(soundId, page.soundId, page.storySoundId, JSON.stringify(sound))
             if (soundId === page.soundId)
                 page.sound = sound
             if (soundId === page.storySoundId)
                 page.storySound = sound
+        }
+        onSavedNotificationSoundErrorReceived: {
+            if (soundId === page.soundId)
+                page.sound = null
+            if (soundId === page.storySoundId)
+                page.storySound = null
         }
         onScopeNotificationSettingsChanged:
             if (scope == page.scope)
