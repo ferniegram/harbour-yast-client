@@ -26,7 +26,7 @@
 int main(int argc, char *argv[]) {
     QLoggingCategory::setFilterRules(DEFAULT_LOG_FILTER);
 
-    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    QSharedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QSharedPointer<QQuickView> view(SailfishApp::createView());
 
     QQmlContext *context = view->rootContext();
@@ -37,10 +37,7 @@ int main(int argc, char *argv[]) {
     const QUrl appIconPath = SailfishApp::pathTo("images/ferniegram-notification.png");
     QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName));
 
-    FernieMain::registerDBusService(view, dbusPath, dbusServiceName);
-    // FIXME: there's a short period of time when the application closes (waiting for tdlib to close),
-    // but the dbus service isn't unregistered yet, in which clicking the application doesn't open it.
-    // Seems like SailfishOS uses X-Maemo-Method not only for opening URLs, but for opening the app itself too
+    FernieMain::registerDBusService(app, view, dbusPath, dbusServiceName);
 
     FernieMain::registerDebugLogJS(appContext.data());
 
