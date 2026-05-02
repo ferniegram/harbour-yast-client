@@ -156,7 +156,7 @@ AccordionItem {
 
                 Column {
                     id: contactSyncItem
-                    width: parent.width
+                    width: parent.columnWidth
                     height: syncInProgress ? ( syncContactsBusyIndicator.height + Theme.paddingMedium ) : ( syncContactsButton.height + Theme.paddingMedium )
                     visible: accordionContent.contactSyncEnabled
 

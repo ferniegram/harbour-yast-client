@@ -203,6 +203,7 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 checked: fernieSettings.unreadCountIncludeMuted
                 text: qsTr("Include muted chats in unread count")
                 automaticCheck: false
@@ -210,6 +211,7 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 checked: fernieSettings.showFolderUnreadCount
                 text: qsTr("Show unread chat count in folders")
                 automaticCheck: false
@@ -217,6 +219,7 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 enabled: fernieSettings.showFolderUnreadCount
                 checked: fernieSettings.foldersUnreadCountIncludeMuted
                 text: qsTr("Include muted chats in folders unread count")
