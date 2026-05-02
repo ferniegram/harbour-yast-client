@@ -895,7 +895,7 @@ Column {
             asynchronous: true
             width: parent.width
             height: active ? parent.height : 0
-            source: "../VoiceNoteOverlay.qml"
+            source: "VoiceNoteOverlay.qml"
             onActiveChanged: if (!active)
                 voiceNoteRecorder.stopRecordingVoiceNote()
         }
