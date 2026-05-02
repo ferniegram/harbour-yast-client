@@ -102,9 +102,9 @@ AccordionItem {
 
             Column {
                 width: parent.columnWidth
+
                 ComboBox {
                     id: feedbackComboBox
-                    width: parent.columnWidth
                     label: qsTr("Notification feedback")
                     description: qsTr("Use non-graphical feedback (sound, vibration) for notifications")
                     menu: ContextMenu {
