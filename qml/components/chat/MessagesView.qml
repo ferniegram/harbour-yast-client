@@ -851,7 +851,7 @@ Column {
             asynchronous: true
             width: parent.width
             height: active ? parent.height : 0
-            source: "../StickerPicker.qml"
+            source: "StickerPicker.qml"
             onStatusChanged: if (status == Loader.Ready)
                                  chatActionTimer.run("chatActionChoosingSticker")
                              else chatActionTimer.stop()
@@ -974,7 +974,7 @@ Column {
                     }
 
                     IconButton {
-                        icon.source: "../../images/icon-m-copy.svg"
+                        icon.source: "../../../images/icon-m-copy.svg"
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         onClicked: {
                             Clipboard.text = Functions.getMessagesArrayText(messagesView.selectedMessages)

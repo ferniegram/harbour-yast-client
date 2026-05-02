@@ -18,13 +18,13 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import QtMultimedia 5.6
 import App.Logic 1.0
+import QtMultimedia 5.6
 import QtGraphicalEffects 1.0
 import Nemo.Thumbnailer 1.0
-import "../"
-import "../../js/twemoji.js" as Emoji
-import "../../js/debug.js" as Debug
+import "../.."
+import "../../../js/twemoji.js" as Emoji
+import "../../../js/debug.js" as Debug
 
 InlineQueryResult {
     id: queryResultItem

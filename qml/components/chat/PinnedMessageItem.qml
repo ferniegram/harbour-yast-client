@@ -18,10 +18,9 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import "../components"
-import "../js/functions.js" as Functions
-import "../js/twemoji.js" as Emoji
-import "../js/debug.js" as Debug
+import "../../js/functions.js" as Functions
+import "../../js/twemoji.js" as Emoji
+import "../../js/debug.js" as Debug
 
 Item {
     id: pinnedMessageItem

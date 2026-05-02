@@ -18,12 +18,13 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import "./messageContent"
 import App.Logic 1.0
-import "../js/twemoji.js" as Emoji
-import "../js/functions.js" as Functions
-import "../js/debug.js" as Debug
-import "../modules/Opal/FancyMenus"
+import ".."
+import "../messageContent"
+import "../../js/twemoji.js" as Emoji
+import "../../js/functions.js" as Functions
+import "../../js/debug.js" as Debug
+import "../../modules/Opal/FancyMenus"
 
 ListItem {
     id: messageListItem
@@ -231,7 +232,7 @@ ListItem {
                     }
                     IconRowMenuItem {
                         visible: !!messageProperties.can_be_pinned // FIXME: should we use enabled or visible here? for spatial memory
-                        icon.source: "../../images/icon-m-" + (myMessage.is_pinned ? 'un' : '') + "pin.svg"
+                        icon.source: "../../../images/icon-m-" + (myMessage.is_pinned ? 'un' : '') + "pin.svg"
                         onClicked: togglePinned()
                     }
                     IconRowMenuItem {
@@ -426,7 +427,7 @@ ListItem {
                 var type = myMessage.content["@type"]
                 var albumComponentPart = (isAlbum && chatView.albumMessages.indexOf(type) !== -1) ? 'Album' : ''
                 extraContentLoader.setSource(
-                            "../components/messageContent/" + type.charAt(0).toUpperCase() + type.substring(1) + albumComponentPart + ".qml",
+                            "../messageContent/" + type.charAt(0).toUpperCase() + type.substring(1) + albumComponentPart + ".qml",
                             {messageListItem: messageListItem})
             } else
                 if (typeof myMessage.content.link_preview !== "undefined") // only in messageText

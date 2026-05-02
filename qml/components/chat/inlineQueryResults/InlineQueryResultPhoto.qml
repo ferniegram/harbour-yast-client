@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2021 Sebastian J. Wolf and other contributors
+    Copyright (C) 2020 Sebastian J. Wolf and other contributors
 
     This file is part of Fernschreiber.
 
@@ -17,24 +17,13 @@
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.6
-import QtGraphicalEffects 1.0
-import Sailfish.Silica 1.0
-import App.Logic 1.0
-import "../"
-import "../../js/functions.js" as Functions
+import "../../"
 
-Column {
-    id: sponsoredMessageColumn
+InlineQueryResult {
+    id: queryResultItem
 
-    property var message
-
-    Button {
-        id: sponsoredMessageButton
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        text: message ? message.button_text : ''
-        onClicked:
-            // don't use utilities.handleLink here because we can't get Ferniegram-specific links here
-            tdLibWrapper.getInternalLinkType(message.sponsor.url)
+    TDLibPhoto {
+        anchors.fill: parent
+        photo: model.photo
     }
 }

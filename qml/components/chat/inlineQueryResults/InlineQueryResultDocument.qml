@@ -19,8 +19,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import App.Logic 1.0
-import "../"
-import "../../js/twemoji.js" as Emoji
+import "../../../js/twemoji.js" as Emoji
 
 Loader {
     Component {
