@@ -41,9 +41,11 @@ int main(int argc, char *argv[]) {
 
     FernieMain::registerDebugLogJS(appContext.data());
 
+    const char *uri = "App.Logic";
+
     VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, view.data());
     context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
-    qmlRegisterUncreatableType<VoiceNoteRecorder>(appContext->uri, 1, 0, "VoiceNoteRecorder", QString());
+    qmlRegisterUncreatableType<VoiceNoteRecorder>(uri, 1, 0, "VoiceNoteRecorder", QString());
 
 #ifdef NO_HARBOUR_COMPLIANCE
     context->setContextProperty("NO_HARBOUR_COMPLIANCE", true);

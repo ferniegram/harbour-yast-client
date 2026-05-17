@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import App.Logic 1.0
+import io.libfernie 1.0
 
 QtObject {
     id: root
