@@ -855,7 +855,7 @@ Column {
             height: active ? parent.height : 0
             source: "StickerPicker.qml"
             onStatusChanged: if (status == Loader.Ready)
-                                 chatActionTimer.run(TDLibWrapper.ChoosingSticker)
+                                 chatActionTimer.run(TDLibAPI.ChoosingSticker)
                              else chatActionTimer.stop()
         }
 

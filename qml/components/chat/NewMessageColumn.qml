@@ -637,7 +637,7 @@ Column {
 
             onTextChanged: {
                 textReplacementTimer.restart()
-                tdLibWrapper.sendChatAction(chatInformation.id, text ? TDLibWrapper.Typing : TDLibWrapper.Cancel, topicId)
+                tdLibWrapper.sendChatAction(chatInformation.id, text ? TDLibAPI.Typing : TDLibAPI.Cancel, topicId)
             }
         }
 
