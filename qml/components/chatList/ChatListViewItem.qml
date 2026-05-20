@@ -30,7 +30,6 @@ PhotoTextsListItem {
         type: chat_main_action_type
         actionProgress: chat_actions_progress
     }
-    onPreviewTextChanged: if (chat_actions_text) console.log(chat_actions_text)
     // message date
     tertiaryText.text: showDraft ? Functions.getDateTimeElapsed(draft_message_date) : (last_message_date ? (last_message_date.length === 0 ? "" : Functions.getDateTimeElapsed(last_message_date) + Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)) : "")
     unreadCount: unread_count
