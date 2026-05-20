@@ -46,9 +46,9 @@ set_target_properties(TDLib PROPERTIES
 add_subdirectory(libfernie)
 
 add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
-# target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
-#     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
-# )
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+    $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
+)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE src)
 target_link_libraries(libfernie TDLib)
 target_link_libraries(${CMAKE_PROJECT_NAME}
