@@ -25,7 +25,7 @@ import "../../js/functions.js" as Functions
 import "../../js/debug.js" as Debug
 
 SilicaListView {
-    id: chatListView
+    id: view
     visible: !overviewPage.loading
     clip: true
     opacity: (overviewPage.chatListCreated || overviewPage.logoutLoading) ? 1 : 0
@@ -35,23 +35,14 @@ SilicaListView {
     property int chatListType: ChatFoldersModel.FolderMain
     property int folderId
 
-    function resetFocus() {
-        if (chatSearchField.text === "") {
-            chatSearchField.opacity = 0.0;
-            pageHeader.opacity = 1.0;
-        }
-        chatSearchField.focus = false;
-        overviewPage.focus = true;
-    }
-
     Connections {
         target: overviewPage
-        onScrollToTopRequired: chatListView.scrollToTop()
+        onScrollToTopRequired: view.scrollToTop()
     }
 
     delegate: ChatListViewItem {
-        chatListType: chatListView.chatListType
-        folderId: chatListView.folderId
+        chatListType: view.chatListType
+        folderId: view.folderId
         onClicked: {
             pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {
                 chatInformation : display,
@@ -60,8 +51,20 @@ SilicaListView {
         }
     }
 
+    Component.onCompleted:
+        if (view.count == 0)
+            model.load()
+
+    onContentYChanged: {
+        if (view.count == 0) return
+
+        var i = view.indexAt(view.contentX, view.contentY + view.height)
+        if (i === -1 || i > Math.max(0, view.count - 10))
+            model.load()
+    }
+
     ViewPlaceholder {
-        enabled: chatListView.count === 0
+        enabled: view.count === 0
         text: qsTr("You don't have any chats yet.")
         hintText: qsTr("Pull down to search public chats or create a new chat")
     }
