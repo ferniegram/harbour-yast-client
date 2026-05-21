@@ -180,10 +180,10 @@ Page {
                                  qsTr("Open", "in-app notification button: open downloaded file"))
 
         onCopyToDownloadsError:
-            appNotification.show(qsTr("Download failed.", "in-app notification text"))
+            appNotification.show(qsTr("Download failed", "in-app notification text"))
         onMessageLinkInfoReceived:
             if (chatId === 0)
-                appNotification.show(qsTr("Unable to open link.", "in-app notification text"))
+                appNotification.show(qsTr("Unable to open link", "in-app notification text"))
             else if (messageId != 0)
                 openChat(chatId, {messageIdToShow: messageId})
             else

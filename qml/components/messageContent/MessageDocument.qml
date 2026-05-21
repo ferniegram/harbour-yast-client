@@ -33,14 +33,10 @@ MessageContentFileInfoBase {
     leftButton {
         icon.source: Theme.iconForMimeType(rawMessage.content.document.mime_type)
         onClicked: {
-            if(file.isDownloadingCompleted) {
-                // in this case, the MouseArea should take over
-                tdLibWrapper.copyFileToDownloads(file.path, true);
-            } else if(!file.isDownloadingActive) {
-                file.load();
-            } else {
+            if (!file.isDownloadingActive)
+                file.load()
+            else
                 file.cancel()
-            }
         }
     }
 
@@ -48,7 +44,7 @@ MessageContentFileInfoBase {
 
     function download() {
         if (file.isDownloadingCompleted)
-            tdLibWrapper.copyFileToDownloads(file.path, true)
+            tdLibWrapper.copyFileToDownloads(file.fileId, file.path, true)
     }
 
     states: [
@@ -79,7 +75,7 @@ MessageContentFileInfoBase {
         enabled: file.isDownloadingCompleted
         visible: enabled
         anchors {
-            fill: primaryItem
+            fill: primaryItem // fill the whole
             rightMargin: copyButton.width
         }
         onClicked: download()

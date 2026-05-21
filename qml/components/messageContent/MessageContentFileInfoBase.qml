@@ -192,7 +192,7 @@ MessageContentBase {
                 }
             }
             onClicked: {
-                tdLibWrapper.copyFileToDownloads(file.path);
+                tdLibWrapper.copyFileToDownloads(file.fileId, file.path)
                 // not persistent:
                 opacity = 0;
                 width = 0;

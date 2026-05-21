@@ -323,7 +323,7 @@ Item {
             icon.color: buttons.iconColor
             onClicked: {
                 if(file.isDownloadingCompleted)
-                    tdLibWrapper.copyFileToDownloads(file.path, false)
+                    tdLibWrapper.copyFileToDownloads(file.fileId, file.path, false)
                 else if(!file.isDownloadingActive) file.load()
                 else file.cancel()
             }
