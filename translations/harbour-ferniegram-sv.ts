@@ -2253,6 +2253,14 @@
         <source>May improve performance on low-end devices</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Compact chat list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make chats in the list smaller</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsArchiveChatList</name>
