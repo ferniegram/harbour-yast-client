@@ -87,7 +87,7 @@ ListItem {
     }
 
     function translate() {
-        pageStack.push(Qt.resolvedUrl("../pages/TranslatePage.qml"), {
+        pageStack.push(Qt.resolvedUrl("../../pages/TranslatePage.qml"), {
                            messageId: messageId,
                            message: myMessage,
                        })
