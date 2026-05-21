@@ -52,7 +52,8 @@ SilicaListView {
     }
 
     Component.onCompleted:
-        model.load()
+        if (chatListType == ChatFoldersModel.FolderFolder)
+            model.load()
 
     onContentYChanged: {
         if (view.count == 0) return
