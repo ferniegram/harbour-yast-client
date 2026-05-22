@@ -56,7 +56,6 @@ ListItem {
     readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
-    readonly property bool showUserInfo: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isLastInSequence
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
@@ -446,7 +445,7 @@ ListItem {
 
         Loader {
             id: profileThumbnailLoader
-            active: showUserInfo
+            active: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isLastInSequence
             asynchronous: true
             width: precalculatedValues.profileThumbnailDimensions
             height: width
@@ -459,7 +458,7 @@ ListItem {
                     replacementStringHint: userText.text
                     width: Theme.itemSizeSmall
                     height: Theme.itemSizeSmall
-                    visible: showUserInfo
+                    visible: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isLastInSequence
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
@@ -517,7 +516,7 @@ ListItem {
                     truncationMode: TruncationMode.Fade
                     textFormat: Text.StyledText
                     horizontalAlignment: messageListItem.textAlign
-                    visible: showUserInfo || isSponsored
+                    visible: (precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isFirstInSequence) || isSponsored
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
