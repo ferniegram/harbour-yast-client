@@ -30,8 +30,17 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  curl
 BuildRequires:  gperf
 BuildRequires:  desktop-file-utils
+
+# Calls
+BuildRequires:  abseil-cpp-devel
+# Calls (incompatible with harbour)
+BuildRequires:  opus-devel
+BuildRequires:  libsrtp-devel
+BuildRequires:  libvpx-devel
+BuildRequires:  ffmpeg-devel
 
 %description
 Ferniegram is a Telegram client for Sailfish OS

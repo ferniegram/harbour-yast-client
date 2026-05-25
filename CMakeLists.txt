@@ -6,8 +6,6 @@ message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
 find_package(Qt5 COMPONENTS Core Network DBus Multimedia Positioning Qml Gui Quick LinguistTools REQUIRED)
 
 include(FindPkgConfig)
-pkg_search_module(NEMONOTIFICATIONS nemonotifications-qt5 REQUIRED)
-pkg_search_module(ZLIB zlib REQUIRED)
 
 if (CMAKE_SYSTEM_PROCESSOR STREQUAL aarch64)
     set(TARGET_ARCHITECTURE aarch64)
@@ -35,6 +33,18 @@ else()
 endif()
 
 add_subdirectory(libs/opal/sfpm)
+
+option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
+
+if(HARBOUR_COMPLIANCE)
+    message(STATUS "Harbour compliance enabled")
+    add_definitions(-DHARBOUR_COMPLIANCE)
+    set(USE_CALLS OFF)
+else()
+    message(STATUS "Harbour compliance disabled")
+    add_definitions(-DNO_HARBOUR_COMPLIANCE)
+endif()
+
 
 add_library(TDLib SHARED IMPORTED)
 file(GLOB LIBTDJSON_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/tdlib/${TARGET_ARCHITECTURE}/lib/libtdjson.so.*")
@@ -78,14 +88,32 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 )
 target_link_libraries(${CMAKE_PROJECT_NAME} ${SAILFISH_LDFLAGS})
 
-option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
 
-if(HARBOUR_COMPLIANCE)
-    message(STATUS "Harbour compliance enabled")
-    add_definitions(-DHARBOUR_COMPLIANCE)
-else()
-    message(STATUS "Harbour compliance disabled")
-    add_definitions(-DNO_HARBOUR_COMPLIANCE)
+if(NOT HARBOUR_COMPLIANCE)
+    # Calls (TODO: for harbour we could package libraries such as opus in-app and it would work)
+    include(libabsl.cmake)
+
+    add_library(libtg_owt STATIC IMPORTED GLOBAL)
+    set_target_properties(libtg_owt PROPERTIES
+        IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/tg_owt/${TARGET_ARCHITECTURE}/lib/libtg_owt.a"
+    )
+    set_target_properties(libtg_owt PROPERTIES POSITION_INDEPENDENT_CODE ON)
+    target_link_libraries(libtg_owt INTERFACE
+        ssl
+        crypto
+        opus
+        srtp2
+        libabsl
+        vpx
+        ${CMAKE_CURRENT_SOURCE_DIR}/tg_owt/${TARGET_ARCHITECTURE}/lib/libopenh264.a
+        avcodec
+        avutil
+    )
+    target_link_libraries(tgcalls PUBLIC
+        libtg_owt
+        libabsl
+    )
+    target_link_libraries(${CMAKE_PROJECT_NAME} libtg_owt)
 
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         src/gstaudiorecorder.cpp
