@@ -72,6 +72,20 @@ AccordionItem {
                 automaticCheck: false
                 onClicked: appSettings.forceAllowAISummary = !checked
             }
+
+            Column {
+                width: parent.columnWidth
+
+                SectionHeader { text: qsTr("Calls") }
+
+                TextSwitch {
+                    text: qsTr("Save call logs")
+                    description: qsTr("Save logs from tgcalls to Downloads")
+                    checked: fernieSettings.saveCallLogs
+                    automaticCheck: false
+                    onClicked: fernieSettings.saveCallLogs = !checked
+                }
+            }
         }
     }
 }
