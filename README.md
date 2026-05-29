@@ -122,7 +122,7 @@ If you push a tag containing the letter "v" (for example "v0.99.3"), a github re
 ## Debug
 Ferniegram does only output a few TDLib messages by default. To get its own debug log messages, you can either run a debug build to see all of them or use the environment variable `QT_LOGGING_RULES` to specify/filter which messages you'd like to see.
 
-Run `QT_LOGGING_RULES="ferniegram.*=true" harbour-ferniegram` to see all messages or replace the `*` with specific logging categories. You'll find the logging category inside the corresponding `.cpp` file for backend usage or you can use `JS` to only see frontend messages.
+Run `QT_LOGGING_RULES="libfernie.*=true;ferniegram.*=true" harbour-ferniegram` to see all messages or replace the `*` with specific logging categories. You'll find the logging category inside the corresponding `.cpp` file for backend usage or you can use `JS` to only see frontend messages.
 
 You can append ` &> ferniegram.log` to the command to create a text file containing the debug messages.
 
@@ -130,11 +130,11 @@ You can append ` &> ferniegram.log` to the command to create a text file contain
 
 ### GDB
 
-To debug complex issues you can use GDB. First, ensure that you installed not only the app, but also its debugsource and debuginfo packages. Then launch it with `gdb /usr/bin/harbour-ferniegram`, optionally prepending the command with `QT_LOGGING_RULES="ferniegram.*=true"` if you want to read the logs.
+To debug complex issues you can use GDB. First, ensure that you installed not only the app, but also its debugsource and debuginfo packages. Then launch it with `gdb /usr/bin/harbour-ferniegram`, optionally prepending the command with `QT_LOGGING_RULES="libfernie.*=true;ferniegram.*=true"` if you want to read the logs.
 
 Inside GDB, you will have to enter `handle SIGILL nostop noprint` command to ignore some false errors coming from OpenSSL. Otherwise app will fail
 
-You can then proceed with adding required breakpoints via `b ../harbour-fernschreiber/src/file_name.cpp:line_number` (`break`). A breakpoint can also be removed with `clear ../harbour-fernschreiber/src/file_name.cpp:line_number`.
+You can then proceed with adding required breakpoints via `b ../harbour-ferniegram/src/file_name.cpp:line_number` (`break`). A breakpoint can also be removed with `clear ../harbour-ferniegram/src/file_name.cpp:line_number`.
 
 After that you can run the program with `run`. It will pause at your specified breakpoints. In those cases you can use `step` to jump to the next part of the code, `next` to jump to next code line directly (without diving into functions) or `continue` to run the program normally (for example, if you only need to debug the second time the program reaches a specific code block). If the program crashes, it will also be possible to read the stack trace using `bt` (`backtrace`).
 
