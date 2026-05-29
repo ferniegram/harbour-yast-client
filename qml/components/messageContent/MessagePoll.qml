@@ -356,6 +356,37 @@ MessageContentBase {
             color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
         }
 
+        Row {
+            width: parent.width
+
+            TextField {
+                id: newOptionField
+                width: parent.width - addOptionButton.width
+                anchors.bottom: parent.bottom
+                visible: rawMessage.can_add_option
+                label: qsTr("Option text")
+                placeholderText: qsTr("Add an option")
+
+                function finishAddingOption() {
+                    tdLibWrapper.addPollOption(chatId, messageId, text)
+                    text = ''
+                    focus = false
+                }
+
+                EnterKey.enabled: !!text
+                EnterKey.iconSource: 'image://theme/icon-m-add'
+                EnterKey.onClicked: finishAddingOption()
+            }
+
+            IconButton {
+                id: addOptionButton
+                icon.source: 'image://theme/icon-m-add'
+                onClicked:
+                    if (newOptionField.text)
+                        newOptionField.finishAddingOption()
+            }
+        }
+
         SecondaryButton {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: !!pollData.allows_multiple_answers && !pollData.is_closed && !pollMessageComponent.hasAnswered

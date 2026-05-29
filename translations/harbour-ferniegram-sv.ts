@@ -1430,6 +1430,14 @@
         <source>Vote</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Add an option</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Option text</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageSticker</name>
@@ -3641,6 +3649,14 @@
             <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>added &quot;%1&quot; to the poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>removed &quot;%1&quot; from the poll</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
