@@ -358,12 +358,12 @@ MessageContentBase {
 
         Row {
             width: parent.width
+            visible: rawMessage.content.can_add_option
 
             TextField {
                 id: newOptionField
                 width: parent.width - addOptionButton.width
                 anchors.bottom: parent.bottom
-                visible: rawMessage.can_add_option
                 label: qsTr("Option text")
                 placeholderText: qsTr("Add an option")
 
