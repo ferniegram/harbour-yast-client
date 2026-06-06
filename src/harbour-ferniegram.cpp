@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     const QUrl appIconPath = SailfishApp::pathTo("images/ferniegram-notification.png");
     QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName));
 
-    FernieMain::registerDBusService(app, view, dbusPath, dbusServiceName);
+    FernieMain::registerDBusService(app, view, dbusServiceName, dbusPath);
 
     FernieMain::registerDebugLogJS(appContext.data());
 
