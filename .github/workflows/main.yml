@@ -105,7 +105,8 @@ jobs:
     - name: Upload the nightly release
       run: |
         set -x
-        gh release upload nightly --clobber RPMS/*.rpm
+        gh release view nightly --json assets --jq '.assets[].name' | xargs -I {} gh release delete-asset nightly {} -y || true
+        gh release upload nightly RPMS/*.rpm
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
