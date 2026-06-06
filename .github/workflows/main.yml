@@ -69,8 +69,8 @@ jobs:
     - name: Prepare build variant
       run: |
         if [ "${{ matrix.variant }}" = "harbour" ]; then
-          sed -i 's/^Release:.*$/Release: 1/' rpm/harbour-ferniegram.spec || true
-          sed -i 's/-DHARBOUR_COMPLIANCE=.*$/-DHARBOUR_COMPLIANCE=on/' rpm/harbour-ferniegram.spec || true
+          sed -i 's/^Release:.*$/Release: 1/' rpm/harbour-yast-client.spec || true
+          sed -i 's/-DHARBOUR_COMPLIANCE=.*$/-DHARBOUR_COMPLIANCE=on/' rpm/harbour-yast-client.spec || true
         fi
 
     - name: Set Secrets
@@ -109,7 +109,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         path: RPMS
-        pattern: harbour-ferniegram-*
+        pattern: harbour-yast-client-*
         merge-multiple: true
 
     - name: Upload the nightly release

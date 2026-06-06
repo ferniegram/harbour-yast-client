@@ -1,7 +1,7 @@
-# Ferniegram
-A Telegram client for Sailfish OS
+# YAST Client
+YAST Client is a yet another SailfishOS Telegram client
 
-**Ferniegram is still work-in-progress.** Public releases will not be made for now.
+**YAST is still work-in-progress.**
 
 ## Credits
 
@@ -14,7 +14,7 @@ Icon is based on Fernschreiber's icon.
 - Italian by @legacychimera247
 - Russian by @windes14
 
-## Fernschreiber PRs included in Ferniegram
+## Fernschreiber PRs included in YAST
 
 Thanks to the following people who created PRs for Fernschreiber which were not merged to it:
 - [#576](https://github.com/Wunderfitz/harbour-fernschreiber/pull/576) by @jgibbon: albums and C2 notch fixes
@@ -22,7 +22,7 @@ Thanks to the following people who created PRs for Fernschreiber which were not 
 
 ## Fernschreiber credits
 
-Ferniegram wouldn't be possible without everyone who contributed to Fernschreiber. You can see the full, up-to-date list of contributors on [Fernschreiber's README](https://github.com/Wunderfitz/harbour-fernschreiber/blob/master/README.md). Here is a brief list of the contributors:
+YAST wouldn't be possible without everyone who contributed to Fernschreiber. You can see the full, up-to-date list of contributors on [Fernschreiber's README](https://github.com/Wunderfitz/harbour-fernschreiber/blob/master/README.md). Here is a brief list of the contributors:
 
 Author: Sebastian J. Wolf [sebastian@ygriega.de](mailto:sebastian@ygriega.de) and several contributors
 Icon: Designed by [Matteo](https://github.com/iamnomeutente), adjustments by [Slava Monich](https://github.com/monich)
@@ -55,7 +55,7 @@ This project uses the following libraries:
 - Animated sticker parsing and animation by [rlottie](https://github.com/Samsung/rlottie), copyright 2020 Samsung Electronics Co., Ltd. and [other contributors](https://github.com/Samsung/rlottie/blob/master/AUTHORS), Code licensed under the [MIT License](https://github.com/Samsung/rlottie/blob/master/licenses/COPYING.MIT), some rlottie components [licensed under other licenses](https://github.com/Samsung/rlottie/blob/master/COPYING).
 - Reverse geocoding for location attachments by [OpenStreetMap Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
 - Calls work through [tgcalls](https://github.com/TelegramMessenger/tgcalls) - the Telegram Calls Library. Thanks for making it available under the [GNU LGPL V3 license](https://github.com/TelegramMessenger/tgcalls/tree/master/LICENSE)!
-- tgcalls relies internally on WebRTC, and Ferniegram packages WebRTC using [tg_owt](https://github.com/desktop-app/tg_owt). Thanks for making it available under the [BSD 3-Clause license](https://github.com/desktop-app/tg_owt/blob/master/LICENSE)!
+- tgcalls relies internally on WebRTC, and YAST packages WebRTC using [tg_owt](https://github.com/desktop-app/tg_owt). Thanks for making it available under the [BSD 3-Clause license](https://github.com/desktop-app/tg_owt/blob/master/LICENSE)!
 - WebRTC relies on [openh264](https://github.com/cisco/openh264) for working with the H264 codec. Thanks for making it available under the [BSD 2-Clause license](https://github.com/cisco/openh264/blob/master/LICENSE)!
 
 ## License
@@ -64,9 +64,9 @@ Licensed under GNU GPLv3
 ## Build
 ### Local build
 
-This contains information about building Ferniegram for SailfishOS. AsteroidOS version of Ferniegram is no longer supported; a separate client for AsteroidOS based on libfernie will soon be developed instead.
+This contains information about building YAST for SailfishOS. AsteroidOS version of YAST is no longer supported; a separate client for AsteroidOS based on libfernie will soon be developed instead.
 
-Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init --recursive`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-ferniegram/src/tdlibsecrets.h` and enter the required constants in the following format:
+Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init --recursive`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-yast-client/src/tdlibsecrets.h` and enter the required constants in the following format:
 
 ```
 #pragma once
@@ -80,7 +80,7 @@ Moreover, you need to have a compiled version of [TDLib 1.8.64](https://github.c
 
 You may just want to download the [tdlib.zip from our fork](https://github.com/roundedrectangle/td/releases) to just use the exact version of the latest official Fernschreiber release. To use it, you need to extract it into your local `tdlib/` folder as described above. If so, you're done and can compile Fernschreiber using the Sailfish SDK. If you want to build TDLib for yourself, please keep on reading.
 
-In case you want to use the same codebase which was used to compile the library that is shipped with Ferniegram, please [check out the fork](https://github.com/roundedrectangle/td):
+In case you want to use the same codebase which was used to compile the library that is shipped with YAST, please [check out the fork](https://github.com/roundedrectangle/td):
 
 - `alias sfdk=~/SailfishOS/bin/sfdk`
 - `sfdk config target=SailfishOS-5.0.0.62-aarch64` (this compiles the sources on SFOS 5.0 and ARM64 - the target needs to be adjusted according to the running SDK engine and the platform)
@@ -98,43 +98,39 @@ In case of errors try to remove `CMakeCache.txt` file from the build directory.
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
-Unless harbour compatibility is enabled, Ferniegram also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/ferniegram/tg_owt/releases/latest) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
-
-Ferniegram is now built with CMake. Here are issues related to it which are not yet solved:
-- If you're using an older version of the Sailfish SDK, it might be required to open projects panel in Qt Creator and replace `-GUnix Makefiles` with `-GNinja` in every build cofiguration and then select "Re-configure with initial parameters".
+Unless harbour compatibility is enabled, YAST also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/ferniegram/tg_owt/releases/latest) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
 
 ### Harbour compatibility
-Some Ferniegram features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
+Some YAST features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
 
 1. Audio recording backend based on the GStreamer C API
 2. Calls (see above)
 
 ### Github Action
-Warning: this section was not changed from the one in Fernschreiber. It may have outdated information which does not apply for Ferniegram.
 
 Please read the "Local build" section anyway to understand what's going on before continuing. If you want to automatically build your fork on Github, you'll still need to get a Telegram API ID and hash. These are then [added as project secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository) named `TDLIB_API_ID` and `TDLIB_API_HASH`.
 
-By default, only commits to the master branch will be built. You may [change that for your fork](https://docs.github.com/en/actions/quickstart), but please don't create a pull request to the official repository changing the github action without consulting the [Fernschreiber contributors](https://github.com/Wunderfitz/harbour-fernschreiber/issues/162) first.
+By default, only commits on the main branch will be built. You may [change that for your fork](https://docs.github.com/en/actions/quickstart).
 
-If you push a tag containing the letter "v" (for example "v0.99.3"), a github release will be created allowing easy download of the resulting rpms. If the tag is named for example "pre-0.99.3", the resulting release is marked as a pre-release for testing purposes.
+Nightly releases are available [here](https://github.com/ferniegram/harbour-yast-client/releases/nightly). If a pushed tag starts with 'v', a release for it will be automatically created.
 
 
 ## Debug
-Ferniegram does only output a few TDLib messages by default. To get its own debug log messages, you can either run a debug build to see all of them or use the environment variable `QT_LOGGING_RULES` to specify/filter which messages you'd like to see.
+YAST does only output a few TDLib messages by default. To get its own debug log messages, you can either run a debug build to see all of them or use the environment variable `QT_LOGGING_RULES` to specify/filter which messages you'd like to see.
 
-Run `QT_LOGGING_RULES="libfernie.*=true;ferniegram.*=true" harbour-ferniegram` to see all messages or replace the `*` with specific logging categories. You'll find the logging category inside the corresponding `.cpp` file for backend usage or you can use `JS` to only see frontend messages.
+Run `QT_LOGGING_RULES="libfernie.*=true;yast-client.*=true" harbour-yast-client` to see all messages or replace the `*` with specific logging categories. You'll find the logging category inside the corresponding `.cpp` file for backend usage or you can use `JS` to only see frontend messages.
 
-You can append ` &> ferniegram.log` to the command to create a text file containing the debug messages.
+You can append ` &> yast.log` to the command to create a text file containing the debug messages.
 
 **Please be aware that debug messages will most likely include personal information** including (but not limited to) chat content and user ids/names of yourself and all your chat partners. Do not share it publicly and, at your discretion, try to remove private info even from the parts you do share with a trusted person.
 
 ### GDB
 
-To debug complex issues you can use GDB. First, ensure that you installed not only the app, but also its debugsource and debuginfo packages. Then launch it with `gdb /usr/bin/harbour-ferniegram`, optionally prepending the command with `QT_LOGGING_RULES="libfernie.*=true;ferniegram.*=true"` if you want to read the logs.
+To debug complex issues you can use GDB. First, ensure that you installed not only the app, but also its debugsource and debuginfo packages. Then launch it with `gdb /usr/bin/harbour-yast-client`, optionally prepending the command with `QT_LOGGING_RULES="libfernie.*=true;yast-client.*=true"` if you want to read the logs.
 
 Inside GDB, you will have to enter `handle SIGILL nostop noprint` command to ignore some false errors coming from OpenSSL. Otherwise app will fail
 
-You can then proceed with adding required breakpoints via `b ../harbour-ferniegram/src/file_name.cpp:line_number` (`break`). A breakpoint can also be removed with `clear ../harbour-ferniegram/src/file_name.cpp:line_number`.
+You can then proceed with adding required breakpoints via `b ../harbour-yast-client/src/file_name.cpp:line_number` (`break`). A breakpoint can also be removed with `clear ../harbour-yast-client/src/file_name.cpp:line_number`.
 
 After that you can run the program with `run`. It will pause at your specified breakpoints. In those cases you can use `step` to jump to the next part of the code, `next` to jump to next code line directly (without diving into functions) or `continue` to run the program normally (for example, if you only need to debug the second time the program reaches a specific code block). If the program crashes, it will also be possible to read the stack trace using `bt` (`backtrace`).
 

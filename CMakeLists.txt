@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(harbour-ferniegram CXX ASM)
+project(harbour-yast-client CXX ASM)
 
 message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
 

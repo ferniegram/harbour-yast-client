@@ -1,18 +1,18 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=harbour-ferniegram
-Exec=harbour-ferniegram
-Name=Ferniegram
+Icon=harbour-yast-client
+Exec=harbour-yast-client
+Name=YAST
 
 X-DBusActivatable=true
 MimeType=x-url-handler/t.me;x-scheme-handler/tg
-X-Maemo-Service=io.ferniegram.ferniegram
-X-Maemo-Object-Path=/io/ferniegram/ferniegram
+X-Maemo-Service=io.roundedrectangle.yast-client
+X-Maemo-Object-Path=/io.roundedrectangle.yast-client
 X-Maemo-Method=io.libfernie.default.openUrl
 
 [X-Sailjail]
-OrganizationName=io.ferniegram
-ApplicationName=ferniegram
+OrganizationName=io.roundedrectangle
+ApplicationName=yast-client
 Permissions=Audio;Contacts;Internet;Location;MediaIndexing;Microphone;RemovableMedia;UserDirs
-ExecDBus=harbour-ferniegram -prestart
+ExecDBus=harbour-yast-client -prestart

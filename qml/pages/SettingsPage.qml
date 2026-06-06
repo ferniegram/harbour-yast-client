@@ -38,7 +38,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About Ferniegram")
+                text: qsTr("About YAST")
                 onClicked: pageStack.push(Qt.resolvedUrl("../pages/AboutPage.qml"))
             }
         }

@@ -85,7 +85,7 @@ ApplicationWindow {
 
     ConfigurationGroup {
         id: appConfig
-        path: '/apps/io.ferniegram/ferniegram'
+        path: '/apps/io.roundedrectangle.yast-client'
 
         property int remainingInteractionHints: 3
         property int remainingDoubleTapHints: 3

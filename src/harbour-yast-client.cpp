@@ -11,14 +11,14 @@
 #include <QStandardPaths>
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
-// QT_LOGGING_RULES="libfernie.*=true;ferniegram.*=true" harbour-ferniegram
+// QT_LOGGING_RULES="libfernie.*=true;yast-client.*=true" harbour-yast-client
 #if defined (QT_DEBUG) || defined(DEBUG)
-#  define DEFAULT_LOG_FILTER "libfernie.*=true\nferniegram.*=true"
+#  define DEFAULT_LOG_FILTER "libfernie.*=true\nyast-client.*=true"
 #else
-#  define DEFAULT_LOG_FILTER "libfernie.*=false\nferniegram.*=false"
+#  define DEFAULT_LOG_FILTER "libfernie.*=false\nyast-client.*=false"
 #endif
 
-#define JS_DEBUG_ROOT_MODULE "ferniegram.JS"
+#define JS_DEBUG_ROOT_MODULE "yast-client.JS"
 #include "ferniemain.h"
 
 #include "voicenoterecorder.h"
@@ -31,11 +31,11 @@ int main(int argc, char *argv[]) {
 
     QQmlContext *context = view->rootContext();
 
-    const QString dbusPath = "/io/ferniegram/ferniegram";
-    const QString dbusServiceName = "io.ferniegram.ferniegram";
+    const QString dbusPath = "/io.roundedrectangle.yast-client";
+    const QString dbusServiceName = "io.roundedrectangle.yast-client";
 
-    const QUrl appIconPath = SailfishApp::pathTo("images/ferniegram-notification.png");
-    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName, true));
+    const QUrl appIconPath = SailfishApp::pathTo("images/yast-client-notification.png");
+    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "YAST", appIconPath, dbusPath, dbusServiceName, true));
 
     QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [&appContext]() {
         LOG("Disabling signal actions");

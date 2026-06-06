@@ -71,7 +71,7 @@ AccordionItem {
                 width: parent.columnWidth
                 checked: appSettings.delayMessageRead
                 text: qsTr("Delay before marking messages as read")
-                description: qsTr("Ferniegram will wait a bit before messages are marked as read")
+                description: qsTr("There will be a slight delay before the messages will be read")
                 automaticCheck: false
                 onClicked: {
                     appSettings.delayMessageRead = !checked
@@ -178,7 +178,7 @@ AccordionItem {
                     TextSwitch {
                         checked: fernieSettings.notificationSoundsEnabled && enabled
                         text: qsTr("Enable notification sounds")
-                        description: qsTr("When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.")
+                        description: qsTr("When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.")
                         enabled: parent.enabled
                         automaticCheck: false
                         onClicked: {

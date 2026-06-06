@@ -1,17 +1,17 @@
-Name:       harbour-ferniegram
+Name:       harbour-yast-client
 
 %define __provides_exclude_from ^%{_datadir}/.*$
 %define __requires_exclude ^libtdjson|libgstreamer.*$
 %define _binary_payload w6.xzdio
 
-Summary:    Ferniegram is a modern Telegram client for Sailfish OS
+Summary:    YAST Client is a yet another SailfishOS Telegram client
 Version:    0.0.0.1
 Release:    custom
 Group:      Qt/Qt
 License:    LICENSE
 URL:        http://werkwolf.eu/
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  harbour-ferniegram.yaml
+Source100:  harbour-yast-client.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   qml(org.nemomobile.contacts)
 BuildRequires:  cmake
@@ -43,7 +43,7 @@ BuildRequires:  libvpx-devel
 BuildRequires:  ffmpeg-devel
 
 %description
-Ferniegram is a Telegram client for Sailfish OS
+YAST Client is a yet another SailfishOS Telegram client
 
 %prep
 %setup -q -n %{name}-%{version}

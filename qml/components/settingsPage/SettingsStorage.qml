@@ -31,7 +31,7 @@ AccordionItem {
                 width: parent.columnWidth
                 checked: fernieSettings.onlineOnlyMode
                 text: qsTr("Enable online-only mode")
-                description: qsTr("Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.")
+                description: qsTr("Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.")
                 automaticCheck: false
                 onClicked: {
                     fernieSettings.onlineOnlyMode = !checked

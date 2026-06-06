@@ -27,16 +27,16 @@ AboutPageBase {
     id: aboutPage
     allowedOrientations: Orientation.All
 
-    _pageHeaderItem.title: qsTr("About Ferniegram")
-    appName: "Ferniegram 0.1"
-    appIcon: Qt.resolvedUrl("../../images/ferniegram.svg")
+    _pageHeaderItem.title: qsTr("About YAST")
+    appName: "YAST Client"
+    appIcon: Qt.resolvedUrl("../../images/yast-client.svg")
     _iconItem.width: Math.min(2 * Theme.itemSizeHuge, Math.min(aboutPage.width, aboutPage.height) / 2)
     _iconItem.height: _iconItem.width
     _iconItem.asynchronous: true
     _iconItem.sourceSize.width: _iconItem.width
     _iconItem.sourceSize.height: _iconItem.height
     description: qsTr("A Telegram client for Sailfish OS")
-    sourcesUrl: "https://github.com/roundedrectangle/harbour-ferniegram"
+    sourcesUrl: "https://github.com/roundedrectangle/harbour-yast-client"
     autoAddOpalAttributions: true
     licenses: License{ spdxId: 'GPL-3.0-only' }
 

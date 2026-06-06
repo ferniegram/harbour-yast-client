@@ -2,7 +2,7 @@
 
 ## Code Styling
 
-In Fernschreiber, the code styling is very mixed. In Ferniegram, it can be mixed too. If it will not be abandoned by me, I will probably try to fix it later anyways.
+In Fernschreiber, the code styling is very mixed. In YAST, it can be mixed too. If it will not be abandoned by me, I will probably try to fix it later anyways.
 
 ## Some notes
 

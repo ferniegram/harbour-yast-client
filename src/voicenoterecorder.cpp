@@ -27,7 +27,7 @@
 #include <QDateTime>
 #include <QStandardPaths>
 
-#define DEBUG_ROOT_MODULE "ferniegram"
+#define DEBUG_ROOT_MODULE "yast-client"
 #define DEBUG_MODULE VoiceNoteRecorder
 #include "debuglog.h"
 
@@ -217,5 +217,5 @@ qlonglong VoiceNoteRecorder::getVoiceNoteDuration() const {
 }
 
 QString VoiceNoteRecorder::getTemporaryDirectoryPath() {
-    return QStandardPaths::writableLocation(QStandardPaths::TempLocation) +  + "/harbour-ferniegram";
+    return QStandardPaths::writableLocation(QStandardPaths::TempLocation) +  + "/harbour-yast-client";
 }

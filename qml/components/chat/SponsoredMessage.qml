@@ -28,7 +28,7 @@ Column {
 
         text: message ? message.button_text : ''
         onClicked:
-            // don't use utilities.handleLink here because we can't get Ferniegram-specific links here
+            // don't use utilities.handleLink here because we can't get libfernie-specific links here
             tdLibWrapper.getInternalLinkType(message.sponsor.url)
     }
 }

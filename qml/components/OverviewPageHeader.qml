@@ -6,7 +6,7 @@ PageHeader {
     id: pageHeader
 
     property alias statusItem: pageStatus
-    property string defaultTitle: qsTr("Ferniegram")
+    property string defaultTitle: qsTr("YAST Client")
 
     title: tdLibWrapper.connectionStateText || defaultTitle
     leftMargin: Theme.itemSizeMedium

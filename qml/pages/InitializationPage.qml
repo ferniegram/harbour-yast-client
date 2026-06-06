@@ -102,7 +102,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About Ferniegram")
+                text: qsTr("About YAST")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
@@ -123,11 +123,11 @@ Page {
 
             PageHeader {
                 id: pageHeader
-                title: qsTr("Welcome to Ferniegram!")
+                title: qsTr("Welcome to YAST Client!")
             }
 
             Image {
-                source: "../../images/ferniegram.svg"
+                source: "../../images/yast-client.svg"
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                 }
