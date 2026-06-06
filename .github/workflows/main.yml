@@ -68,11 +68,9 @@ jobs:
       with:
         path: ./src/tdlibsecrets.h
         contents: |
-          #ifndef TDLIBSECRETS_H
-          #define TDLIBSECRETS_H
+          #pragma once
           const char TDLIB_API_ID[] = "${{secrets.TDLIB_API_ID}}";
           const char TDLIB_API_HASH[] = "${{secrets.TDLIB_API_HASH}}";
-          #endif // TDLIBSECRETS_H
         write-mode: overwrite
 
     - name: Build ${{ matrix.arch }} on ${{ env.RELEASE }}
