@@ -35,7 +35,13 @@ int main(int argc, char *argv[]) {
     const QString dbusServiceName = "io.ferniegram.ferniegram";
 
     const QUrl appIconPath = SailfishApp::pathTo("images/ferniegram-notification.png");
-    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName));
+    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName, true));
+
+    QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [&appContext]() {
+        LOG("Disabling signal actions");
+        // FIXME: activating some actions with app closed is still broken because of a race condition
+        appContext->notificationManager.setUseSignalActions(false);
+    });
 
     FernieMain::registerDBusService(app, view, dbusServiceName, dbusPath);
 
