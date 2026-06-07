@@ -490,13 +490,6 @@
     </message>
 </context>
 <context>
-    <name>ChatInformationTabItemFiles</name>
-    <message>
-        <source>Jump to message</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ChatInformationTabItemGroupsInCommon</name>
     <message>
         <source>Loading groups in common</source>
@@ -510,6 +503,13 @@
 </context>
 <context>
     <name>ChatInformationTabItemMediaGrid</name>
+    <message>
+        <source>Jump to message</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChatInformationTabItemMediaList</name>
     <message>
         <source>Jump to message</source>
         <translation type="unfinished"></translation>
@@ -637,6 +637,21 @@
     <message>
         <source>Settings</source>
         <comment>Button: Chat Settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <comment>Button: Chat audio files</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice messages</source>
+        <comment>Button: Chat voice messages</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Links</source>
+        <comment>Button: Chat shared links</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
