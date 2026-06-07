@@ -4,7 +4,7 @@
 	ignore = all
 [submodule "libfernie"]
 	path = libfernie
-	url = https://github.com/ferniegram/libfernie
+	url = https://github.com/yast-client/libfernie
 [submodule "abseil-cpp"]
 	path = abseil-cpp
 	url = https://github.com/abseil/abseil-cpp/

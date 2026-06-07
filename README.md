@@ -98,7 +98,7 @@ In case of errors try to remove `CMakeCache.txt` file from the build directory.
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
-Unless harbour compatibility is enabled, YAST also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/ferniegram/tg_owt/releases/latest) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
+Unless harbour compatibility is enabled, YAST also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/yast-client/tg_owt/releases/latest) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
 
 ### Harbour compatibility
 Some YAST features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
@@ -112,7 +112,7 @@ Please read the "Local build" section anyway to understand what's going on befor
 
 By default, only commits on the main branch will be built. You may [change that for your fork](https://docs.github.com/en/actions/quickstart).
 
-Nightly releases are available [here](https://github.com/ferniegram/harbour-yast-client/releases/nightly). If a pushed tag starts with 'v', a release for it will be automatically created.
+Nightly releases are available [here](https://github.com/yast-client/harbour-yast-client/releases/nightly). If a pushed tag starts with 'v', a release for it will be automatically created.
 
 
 ## Debug

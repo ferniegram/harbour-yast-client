@@ -1,15 +1,15 @@
 # tg_owt
 
-YAST supports calls. They are implemented through tgcalls - the Telegram Calls Library. Telegram calls rely on WebRTC, specifically [tg_owt](https://github.com/desktop-app/tg_owt). You can skip building it by downloading a prebuilt version from [here](https://github.com/ferniegram/tg_owt/releases/latest) and extracting the archive to tg_owt/ (`include` directory can be omitted). If you'd like to compile it manually, keep reading.
+YAST supports calls. They are implemented through tgcalls - the Telegram Calls Library. Telegram calls rely on WebRTC, specifically [tg_owt](https://github.com/desktop-app/tg_owt). You can skip building it by downloading a prebuilt version from [here](https://github.com/yast-client/tg_owt/releases/latest) and extracting the archive to tg_owt/ (`include` directory can be omitted). If you'd like to compile it manually, keep reading.
 
 ## tg_owt
 
-Now we can build actual tg_owt. We will need to use a slightly [patched version](https://github.com/ferniegram/tg_owt) with support for packaged openh264 as well as some other libraries.
+Now we can build actual tg_owt. We will need to use a slightly [patched version](https://github.com/yast-client/tg_owt) with support for packaged openh264 as well as some other libraries.
 
 ```bash
 sfdk config target=SailfishOS-5.0.0.62-aarch64 # Adjust the target if needed
 
-git clone https://github.com/ferniegram/tg_owt --recursive
+git clone https://github.com/yast-client/tg_owt --recursive
 cd tg_owt
 ```
 
