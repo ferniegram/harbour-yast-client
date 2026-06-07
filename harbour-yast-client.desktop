@@ -8,7 +8,7 @@ Name=YAST
 X-DBusActivatable=true
 MimeType=x-url-handler/t.me;x-scheme-handler/tg
 X-Maemo-Service=io.roundedrectangle.yast-client
-X-Maemo-Object-Path=/io/roundedrectangle/yast-client
+X-Maemo-Object-Path=/io/roundedrectangle/yast
 X-Maemo-Method=io.libfernie.default.openUrl
 
 [X-Sailjail]

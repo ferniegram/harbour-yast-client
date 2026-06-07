@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
     QQmlContext *context = view->rootContext();
 
-    const QString dbusPath = "/io/roundedrectangle/yast-client";
+    const QString dbusPath = "/io/roundedrectangle/yast";
     const QString dbusServiceName = "io.roundedrectangle.yast-client";
 
     const QUrl appIconPath = SailfishApp::pathTo("images/yast-client-notification.png");
