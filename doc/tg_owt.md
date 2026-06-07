@@ -48,4 +48,4 @@ sfdk build-shell cmake .. -GNinja \
 sfdk build-shell cmake --build . --target install
 ```
 
-The file we need will be in `../out/libtg_owt.a`, and the includes (they're already present in libfernie/tg_owt/) will be in `../out/include/`.
+The file we need will be in `../out/libtg_owt.a`, and the includes (they're already present in yaqtlib/tg_owt/) will be in `../out/include/`.

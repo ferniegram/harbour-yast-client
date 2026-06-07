@@ -17,7 +17,7 @@
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
 import QtQuick 2.6
-import io.libfernie 1.0
+import io.yaqtlib 1.0
 import Sailfish.Silica 1.0
 
 import "../js/debug.js" as Debug

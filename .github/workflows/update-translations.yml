@@ -19,7 +19,7 @@ jobs:
         sudo apt install -y qttools5-dev-tools
 
     - name: Update translation files
-      run: lupdate -no-obsolete qml/ src/ libfernie/src/ -ts translations/*.ts
+      run: lupdate -no-obsolete qml/ src/ yaqtlib/src/ -ts translations/*.ts
 
     - name: Commit and push translation updates
       run: |

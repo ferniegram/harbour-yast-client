@@ -22,7 +22,7 @@ import Nemo.Configuration 1.0
 import "pages"
 import "components"
 import "./js/functions.js" as Functions
-import io.libfernie 1.0
+import io.yaqtlib 1.0
 
 ApplicationWindow {
     id: appWindow

@@ -18,7 +18,7 @@
 */
 
 .pragma library
-.import io.libfernie 1.0 as Logic
+.import io.yaqtlib 1.0 as Logic
 var enabled = Logic.DebugLog.enabled;
 var log = enabled ? console.log : function(){};
 var assert = enabled ? console.assert : function(){};

@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import QtQml 2.2
 import Sailfish.Silica 1.0
-import io.libfernie 1.0
+import io.yaqtlib 1.0
 import "../"
 import '../../js/debug.js' as Debug
 

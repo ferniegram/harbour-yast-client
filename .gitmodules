@@ -2,9 +2,9 @@
 	path = rlottie
 	url = https://github.com/Samsung/rlottie.git
 	ignore = all
-[submodule "libfernie"]
-	path = libfernie
-	url = https://github.com/yast-client/libfernie
+[submodule "yaqtlib"]
+	path = yaqtlib
+	url = https://github.com/yast-client/yaqtlib
 [submodule "abseil-cpp"]
 	path = abseil-cpp
 	url = https://github.com/abseil/abseil-cpp/

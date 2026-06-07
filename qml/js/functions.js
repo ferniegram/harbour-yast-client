@@ -21,7 +21,7 @@
 .import "debug.js" as Debug
 .import "twemoji.js" as Emoji
 .import Sailfish.Silica 1.0 as Silica
-.import io.libfernie 1.0 as Logic
+.import io.yaqtlib 1.0 as Logic
 
 var tdLibWrapper, appNotification, utilities
 function setGlobals(globals) {

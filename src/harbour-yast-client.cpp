@@ -11,11 +11,11 @@
 #include <QStandardPaths>
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
-// QT_LOGGING_RULES="libfernie.*=true;yast-client.*=true" harbour-yast-client
+// QT_LOGGING_RULES="yaqtlib.*=true;yast-client.*=true" harbour-yast-client
 #if defined (QT_DEBUG) || defined(DEBUG)
-#  define DEFAULT_LOG_FILTER "libfernie.*=true\nyast-client.*=true"
+#  define DEFAULT_LOG_FILTER "yaqtlib.*=true\nyast-client.*=true"
 #else
-#  define DEFAULT_LOG_FILTER "libfernie.*=false\nyast-client.*=false"
+#  define DEFAULT_LOG_FILTER "yaqtlib.*=false\nyast-client.*=false"
 #endif
 
 #define JS_DEBUG_ROOT_MODULE "yast-client.JS"

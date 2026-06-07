@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Window 2.2
-import io.libfernie 1.0
+import io.yaqtlib 1.0
 import "components"
 
 Window {

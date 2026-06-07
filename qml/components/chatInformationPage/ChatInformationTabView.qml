@@ -21,7 +21,7 @@ import Sailfish.Silica 1.0
 import "./"
 import "../"
 import "../../pages"
-import io.libfernie 1.0
+import io.yaqtlib 1.0
 import "../../modules/Opal/Tabs"
 
 TabView {

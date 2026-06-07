@@ -53,34 +53,34 @@ set_target_properties(TDLib PROPERTIES
     IMPORTED_LOCATION ${LIBTDJSON_PATH}
 )
 
-add_subdirectory(libfernie)
+add_subdirectory(yaqtlib)
 
 add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
 )
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE src)
-target_link_libraries(libfernie TDLib)
+target_link_libraries(yaqtlib TDLib)
 target_link_libraries(${CMAKE_PROJECT_NAME}
     Qt5::Quick
     SortFilterProxyModel
-    libfernie
+    yaqtlib
 )
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/${CMAKE_PROJECT_NAME}.cpp
     src/voicenoterecorder.cpp
 )
 
-target_sources(libfernie PRIVATE
+target_sources(yaqtlib PRIVATE
     src/platformapp.cpp
     src/tdlibsecrets.h
 )
-target_include_directories(libfernie PRIVATE src) # FIXME
-target_include_directories(libfernie PRIVATE
+target_include_directories(yaqtlib PRIVATE src) # FIXME
+target_include_directories(yaqtlib PRIVATE
     $<BUILD_INTERFACE:
     ${SAILFISH_INCLUDE_DIRS}>
 )
-target_link_libraries(libfernie ${SAILFISH_LDFLAGS})
+target_link_libraries(yaqtlib ${SAILFISH_LDFLAGS})
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     $<BUILD_INTERFACE:
@@ -135,7 +135,7 @@ set(Qt5_LUPDATE_EXECUTABLE Qt5::lupdate -no-obsolete)
 qt5_create_translation(TRANSLATION_QM_FILES
     "qml/"
     "src/"
-    "libfernie/src/"
+    "yaqtlib/src/"
     ${TsFiles})
 
 add_custom_target(translations ALL DEPENDS ${TRANSLATION_QM_FILES})
