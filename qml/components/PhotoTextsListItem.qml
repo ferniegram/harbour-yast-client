@@ -7,6 +7,7 @@ ListItem {
 
     property alias primaryText: primaryText //usually chat name
     property alias additionalPrimaryText: additionalPrimaryText
+    property alias additionalPrimaryTextIcon: additionalPrimaryTextIcon
     property alias prologSecondaryText: prologSecondaryText //usually last sender name
     property alias secondaryText: secondaryText //usually last message
     property alias tertiaryText: tertiaryText //usually last message date
@@ -104,6 +105,19 @@ ListItem {
                 color: Theme.secondaryColor
                 linkColor: Theme.highlightColor
                 truncationMode: TruncationMode.Fade
+
+                Icon {
+                    id: additionalPrimaryTextIcon
+                    width: Theme.iconSizeSmall
+                    height: Theme.iconSizeSmall
+                    sourceSize: {
+                        width: width
+                        height: height
+                    }
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: !!source
+                }
+                leftPadding: additionalPrimaryTextIcon.visible ? additionalPrimaryTextIcon.width + Theme.paddingSmall : 0
             }
         }
 

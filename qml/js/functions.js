@@ -294,3 +294,31 @@ function setChatIsMuted(chatId, notificationSettings, doMute) {
 function toggleChatIsMuted(chatId, notificationSettings) {
     setChatIsMuted(chatId, notificationSettings, !tdLibWrapper.chatIsMuted(chatId, notificationSettings))
 }
+
+function formatMessageSendingState(messageId, lastReadOutboxMessageId, sendingState, fontSize) {
+    var emoji
+    if (lastReadOutboxMessageId >= messageId)
+        emoji = "✅" // Read by other party
+    // Not yet read by other party
+    else if (sendingState) {
+        if (sendingState['@type'] === "messageSendingStatePending")
+            emoji = "🕙"
+        else
+            emoji = "❌" // Sending failed
+    } else
+        emoji = "☑️"
+
+    return "&nbsp;&nbsp;" + Emoji.emojify(emoji, fontSize)
+}
+
+function getMessageSendingStateIcon(messageId, lastReadOutboxMessageId, sendingState) {
+    if (lastReadOutboxMessageId >= messageId)
+        return Qt.resolvedUrl('../../images/icon-s-message-read.svg')
+    else if (sendingState) {
+        if (sendingState['@type'] === "messageSendingStatePending")
+            return 'image://theme/icon-s-time'
+        else // Sending failed
+            return 'image://theme/icon-s-filled-warning'
+    } else
+        return Qt.resolvedUrl('../../images/icon-s-message-sent.svg')
+}

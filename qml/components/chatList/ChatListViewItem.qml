@@ -6,65 +6,33 @@ import ".."
 import "../../js/twemoji.js" as Emoji
 import "../../js/functions.js" as Functions
 
-PhotoTextsListItem {
+MessageableListItem {
     id: listItem
     pictureThumbnail {
         photoData: photo_data.small || ({})
         minithumbnail: photo_data.minithumbnail
         highlighted: listItem.highlighted && !listItem.menuOpen
     }
-    property bool showDraft: !!draft_message_text && draft_message_date > last_message_date
-    property string previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
+
     property int chatListType: ChatFoldersModel.FolderMain
     property int folderId
 
-    // chat title
-    primaryText.text: title ? Emoji.emojify(utilities.fixReservedHtmlCharacters(title), Theme.fontSizeMedium) : qsTr("Unknown")
-    // last user
-    prologSecondaryText.text: chat_actions_text ? '' : showDraft ? "<i>"+qsTr("Draft")+"</i>" : (is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service) ? "" : ( last_message_sender_id ? ( last_message_sender_id !== tdLibWrapper.myUserId ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You") ) : "" ))
-    // last message
-    secondaryText.text: previewText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall) : "<i>" + qsTr("No message in this chat.") + "</i>"
+    titleText: title
+    previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
+    hideAuthor: is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service)
+    showSendingState: !is_channel && chat_id != tdLibWrapper.myUserId
+
     secondaryText.highlighted: listItem.highlighted || !!chat_actions_text
-    minithumbnail: showDraft || chat_actions_text ? null : last_message_minithumbnail
+    minithumbnail: (showDraft || chat_actions_text) ? null : last_message_minithumbnail
     chatActionIcon {
         type: chat_main_action_type
         actionProgress: chat_actions_progress
     }
-    // message date
-    Binding {
-        target: appSettings.compactChatList ? additionalPrimaryText : tertiaryText
-        property: 'text'
-        value: {
-            var dateFormatter = appSettings.compactChatList ? Functions.getDateTimeTimepointRelative : Functions.getDateTimeElapsed
 
-            if (showDraft)
-                return dateFormatter(draft_message_date)
-            if (!last_message_date)
-                return ''
-
-            var date = dateFormatter(last_message_date)
-            var status = Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)
-            return appSettings.compactChatList ? status + date : date + status
-        }
-    }
-    Binding {
-        target: appSettings.compactChatList ? tertiaryText : additionalPrimaryText
-        property: 'text'
-        value: ''
-    }
-
-    unreadCount: unread_count
-    unreadReactionCount: unread_reaction_count
-    unreadMentionCount: unread_mention_count
     isSecret: chat_type === TDLibAPI.ChatTypeSecret
     isMarkedAsUnread: is_marked_as_unread
-    isPinned: is_pinned
-    muted: tdLibWrapper.chatIsMuted(chat_id, notification_settings) //notification_settings.mute_for > 0
+    muted: tdLibWrapper.chatIsMuted(chat_id, notification_settings)
     verificationStatus: verification_status
-
-    showSeparator: !appSettings.compactChatList
-    contentHeight: appSettings.compactChatList ? Theme.itemSizeLarge : Theme.itemSizeExtraLarge
-    pictureThumbnailItem.height: appSettings.compactChatList ? Theme.itemSizeMedium : Theme.itemSizeLarge
 
     onPressAndHold:
         if (menu && menu.isMain)
