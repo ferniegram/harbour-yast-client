@@ -692,14 +692,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation>Desconocido</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>Usted</translation>
-    </message>
-    <message>
         <source>User Info</source>
         <translation>Usuario</translation>
     </message>
@@ -712,16 +704,8 @@
         <translation>Marcar todos como leídos</translation>
     </message>
     <message>
-        <source>No message in this chat.</source>
-        <translation>No hay mensaje.</translation>
-    </message>
-    <message>
         <source>Mark chat as unread</source>
         <translation>Marcar como no leído</translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation>Borrador</translation>
     </message>
     <message>
         <source>Mark chat as read</source>
@@ -1278,10 +1262,6 @@
         <translation>Editar</translation>
     </message>
     <message>
-        <source>You</source>
-        <translation>Usted</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation>Mensaje reenviado</translation>
     </message>
@@ -1356,6 +1336,18 @@
     <message>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Mensaje patrocinado</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">editado</translation>
     </message>
 </context>
 <context>
@@ -1484,19 +1476,26 @@
     </message>
 </context>
 <context>
-    <name>MessagesView</name>
+    <name>MessageableListItem</name>
     <message>
-        <source>Recommended Message</source>
+        <source>Draft</source>
+        <translation type="unfinished">Borrador</translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished">Mensaje patrocinado</translation>
+        <source>Unknown</source>
+        <translation type="unfinished">Desconocido</translation>
     </message>
     <message>
-        <source>edited</source>
-        <translation type="unfinished">editado</translation>
+        <source>You</source>
+        <translation type="unfinished">Usted</translation>
     </message>
+</context>
+<context>
+    <name>MessagesView</name>
     <message>
         <source>Select Messages</source>
         <translation type="unfinished">Seleccionar mensajes</translation>
@@ -2892,6 +2891,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished">Desconocido</translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2919,14 +2926,6 @@
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished">Borrador</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Usted</translation>
     </message>
     <message>
         <source>This topic was created</source>

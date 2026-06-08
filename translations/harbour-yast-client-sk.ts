@@ -695,14 +695,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation>Neznámy</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
         <source>User Info</source>
         <translation>Informácie o používateľovi</translation>
     </message>
@@ -715,16 +707,8 @@
         <translation>Označiť všetky správy ako prečítané</translation>
     </message>
     <message>
-        <source>No message in this chat.</source>
-        <translation>V tomto čete nie je žiadna správa.</translation>
-    </message>
-    <message>
         <source>Mark chat as unread</source>
         <translation>Označiť čet ako neprečítaný</translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation>Koncept</translation>
     </message>
     <message>
         <source>Mark chat as read</source>
@@ -1287,10 +1271,6 @@
         <translation>Upraviť správu</translation>
     </message>
     <message>
-        <source>You</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation>Postúpená správa</translation>
     </message>
@@ -1365,6 +1345,18 @@
     <message>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Sponzorovaná správa</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">upravená</translation>
     </message>
 </context>
 <context>
@@ -1497,19 +1489,26 @@
     </message>
 </context>
 <context>
-    <name>MessagesView</name>
+    <name>MessageableListItem</name>
     <message>
-        <source>Recommended Message</source>
+        <source>Draft</source>
+        <translation type="unfinished">Koncept</translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished">Sponzorovaná správa</translation>
+        <source>Unknown</source>
+        <translation type="unfinished">Neznámy</translation>
     </message>
     <message>
-        <source>edited</source>
-        <translation type="unfinished">upravená</translation>
+        <source>You</source>
+        <translation type="unfinished">Ja</translation>
     </message>
+</context>
+<context>
+    <name>MessagesView</name>
     <message>
         <source>Select Messages</source>
         <translation type="unfinished">Vybrať správy</translation>
@@ -2921,6 +2920,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished">Neznámy</translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2948,14 +2955,6 @@
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished">Koncept</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Ja</translation>
     </message>
     <message>
         <source>This topic was created</source>

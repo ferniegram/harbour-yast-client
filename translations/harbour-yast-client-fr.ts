@@ -689,22 +689,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No message in this chat.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mark all messages as read</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1341,11 +1325,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You</source>
+        <source>Forwarded Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Forwarded Message</source>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>edited</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1471,19 +1463,26 @@
     </message>
 </context>
 <context>
+    <name>MessageableListItem</name>
+    <message>
+        <source>Draft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MessagesView</name>
-    <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Select Messages</source>
         <translation type="unfinished"></translation>
@@ -2863,6 +2862,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2889,14 +2896,6 @@
     </message>
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

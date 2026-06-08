@@ -692,14 +692,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation>Okänd</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>Du</translation>
-    </message>
-    <message>
         <source>User Info</source>
         <translation>Användarinfo</translation>
     </message>
@@ -712,16 +704,8 @@
         <translation>Markera alla meddelanden som lästa</translation>
     </message>
     <message>
-        <source>No message in this chat.</source>
-        <translation>Inget meddelande i den här chatten.</translation>
-    </message>
-    <message>
         <source>Mark chat as unread</source>
         <translation>Markera chatten som oläst</translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation>Utkast</translation>
     </message>
     <message>
         <source>Mark chat as read</source>
@@ -1278,10 +1262,6 @@
         <translation>Redigera meddelandet</translation>
     </message>
     <message>
-        <source>You</source>
-        <translation>Du</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation>Vidarebefordrat meddelande</translation>
     </message>
@@ -1356,6 +1336,18 @@
     <message>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Reklammeddelande</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">redigerade</translation>
     </message>
 </context>
 <context>
@@ -1484,19 +1476,26 @@
     </message>
 </context>
 <context>
-    <name>MessagesView</name>
+    <name>MessageableListItem</name>
     <message>
-        <source>Recommended Message</source>
+        <source>Draft</source>
+        <translation type="unfinished">Utkast</translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished">Reklammeddelande</translation>
+        <source>Unknown</source>
+        <translation type="unfinished">Okänd</translation>
     </message>
     <message>
-        <source>edited</source>
-        <translation type="unfinished">redigerade</translation>
+        <source>You</source>
+        <translation type="unfinished">Du</translation>
     </message>
+</context>
+<context>
+    <name>MessagesView</name>
     <message>
         <source>Select Messages</source>
         <translation type="unfinished">Markera meddelanden</translation>
@@ -2892,6 +2891,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished">Okänd</translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2919,14 +2926,6 @@
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished">Utkast</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Du</translation>
     </message>
     <message>
         <source>This topic was created</source>

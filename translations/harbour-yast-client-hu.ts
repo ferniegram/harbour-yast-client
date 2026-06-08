@@ -689,14 +689,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation type="unfinished">Ismeretlen</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Te</translation>
-    </message>
-    <message>
         <source>User Info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -709,15 +701,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No message in this chat.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mark chat as unread</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1269,10 +1253,6 @@
         <translation type="unfinished">Üzenet szerkesztése</translation>
     </message>
     <message>
-        <source>You</source>
-        <translation type="unfinished">Te</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1347,6 +1327,18 @@
     <message>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">Szerkesztett</translation>
     </message>
 </context>
 <context>
@@ -1471,19 +1463,26 @@
     </message>
 </context>
 <context>
+    <name>MessageableListItem</name>
+    <message>
+        <source>Draft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Ismeretlen</translation>
+    </message>
+    <message>
+        <source>You</source>
+        <translation type="unfinished">Te</translation>
+    </message>
+</context>
+<context>
     <name>MessagesView</name>
-    <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished">Szerkesztett</translation>
-    </message>
     <message>
         <source>Select Messages</source>
         <translation type="unfinished"></translation>
@@ -2863,6 +2862,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished">Ismeretlen</translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2883,14 +2890,6 @@
 </context>
 <context>
     <name>TopicsListView</name>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Te</translation>
-    </message>
     <message>
         <source>No topics here yet</source>
         <translation type="unfinished"></translation>

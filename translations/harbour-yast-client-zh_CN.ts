@@ -689,14 +689,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation>未知</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>你</translation>
-    </message>
-    <message>
         <source>User Info</source>
         <translation>用户信息</translation>
     </message>
@@ -709,16 +701,8 @@
         <translation>标记全部消息为已读</translation>
     </message>
     <message>
-        <source>No message in this chat.</source>
-        <translation>该对话没有消息…</translation>
-    </message>
-    <message>
         <source>Mark chat as unread</source>
         <translation>标记此对话为未读</translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation>草稿</translation>
     </message>
     <message>
         <source>Mark chat as read</source>
@@ -1270,10 +1254,6 @@
         <translation>编辑消息</translation>
     </message>
     <message>
-        <source>You</source>
-        <translation>你</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation>转发消息</translation>
     </message>
@@ -1348,6 +1328,18 @@
     <message>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">已编辑</translation>
     </message>
 </context>
 <context>
@@ -1472,19 +1464,26 @@
     </message>
 </context>
 <context>
+    <name>MessageableListItem</name>
+    <message>
+        <source>Draft</source>
+        <translation type="unfinished">草稿</translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">未知</translation>
+    </message>
+    <message>
+        <source>You</source>
+        <translation type="unfinished">你</translation>
+    </message>
+</context>
+<context>
     <name>MessagesView</name>
-    <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished">已编辑</translation>
-    </message>
     <message>
         <source>Select Messages</source>
         <translation type="unfinished">选择消息</translation>
@@ -2864,6 +2863,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished">未知</translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2891,14 +2898,6 @@
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation type="unfinished">草稿</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">你</translation>
     </message>
     <message>
         <source>This topic was created</source>

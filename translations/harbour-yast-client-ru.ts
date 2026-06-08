@@ -695,14 +695,6 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <source>Unknown</source>
-        <translation>Неизвестно</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>Вы</translation>
-    </message>
-    <message>
         <source>User Info</source>
         <translation>Сведения о пользователе</translation>
     </message>
@@ -715,16 +707,8 @@
         <translation>Всё прочитано</translation>
     </message>
     <message>
-        <source>No message in this chat.</source>
-        <translation>В чате нет сообщений.</translation>
-    </message>
-    <message>
         <source>Mark chat as unread</source>
         <translation>Отметить чат как непрочитанный</translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation>Черновик</translation>
     </message>
     <message>
         <source>Mark chat as read</source>
@@ -1290,10 +1274,6 @@
         <translation>Редактировать</translation>
     </message>
     <message>
-        <source>You</source>
-        <translation>Вы</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation>Пересланное сообщение</translation>
     </message>
@@ -1368,6 +1348,18 @@
     <message>
         <source>Delete just for me</source>
         <translation>Удалить только у меня</translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished">Рекомендованное сообщение</translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Спонсировано</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">изменено</translation>
     </message>
 </context>
 <context>
@@ -1500,19 +1492,26 @@
     </message>
 </context>
 <context>
+    <name>MessageableListItem</name>
+    <message>
+        <source>Draft</source>
+        <translation type="unfinished">Черновик</translation>
+    </message>
+    <message>
+        <source>No message in this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You</source>
+        <translation type="unfinished">Вы</translation>
+    </message>
+</context>
+<context>
     <name>MessagesView</name>
-    <message>
-        <source>Recommended Message</source>
-        <translation>Рекомендованное сообщение</translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation>Спонсировано</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation>изменено</translation>
-    </message>
     <message>
         <source>Select Messages</source>
         <translation>Выбрать сообщения</translation>
@@ -2924,6 +2923,14 @@
     </message>
 </context>
 <context>
+    <name>TDLibMessageSender</name>
+    <message>
+        <source>Unknown</source>
+        <comment>An unknown chat or user</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network...</source>
@@ -2951,14 +2958,6 @@
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
         <translation>Потяните вниз для начала новой Темы или просмотра группы в виде сообщений</translation>
-    </message>
-    <message>
-        <source>Draft</source>
-        <translation>Черновик</translation>
-    </message>
-    <message>
-        <source>You</source>
-        <translation>Вы</translation>
     </message>
     <message>
         <source>This topic was created</source>
