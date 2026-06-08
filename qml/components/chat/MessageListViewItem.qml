@@ -65,7 +65,8 @@ ListItem {
     property var chatReactions
     property var messageReactions
 
-    highlighted: (down || isSelected || wasNavigatedTo) && !menuOpen
+    highlighted: wasNavigatedTo
+    _showPress: false // Highlighting is provided by the rounded rectangle :D
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
 
     signal replyToMessage()
@@ -479,11 +480,21 @@ ListItem {
                 }
                 height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
                 width: precalculatedValues.backgroundWidth
-                color: isUnread ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity) : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
+                readonly property color highlightColor: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
+                color: (down || isSelected) && !menuOpen ? highlightColor : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
                 radius: parent.width / 50
                 visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
-                Behavior on color { ColorAnimation { duration: 200 } }
                 Behavior on opacity { FadeAnimation {} }
+
+                // Only animate color for isUnread
+                states: State {
+                    name: 'highlighted'
+                    when: isUnread
+                    PropertyChanges { target: messageBackground; color: highlightColor }
+                }
+                transitions: Transition {
+                    ColorAnimation { duration: 200 }
+                }
             }
 
             Column {
