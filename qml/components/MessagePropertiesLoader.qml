@@ -13,7 +13,7 @@ QtObject {
     property bool _messagePropertiesLoading
     property var __c1: Connections {
         target: tdLibWrapper
-        onMessagePropertiesReceived: if (loader.messageId === messageId) {
+        onMessagePropertiesReceived: if (loader.chatId === chatId && loader.messageId === messageId) {
                                          loader.properties = messageProperties
                                          loader._messagePropertiesLoading = false
                                      }
