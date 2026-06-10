@@ -97,7 +97,7 @@ Column {
                         }
                         Icon {
                             property var sources: ({
-                                                   inlineKeyboardButtonTypeUrl: "../../images/icon-s-link.svg",
+                                                   inlineKeyboardButtonTypeUrl: "../../../images/icon-s-link.svg",
                                                    inlineKeyboardButtonTypeSwitchInline: !modelData.type.in_current_chat ? "image://theme/icon-s-repost" : "image://theme/icon-s-edit",
                                                    inlineKeyboardButtonTypeCallbackWithPassword: "image://theme/icon-s-asterisk"
                                                    })
