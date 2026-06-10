@@ -1341,6 +1341,21 @@
         <source>edited</source>
         <translation type="unfinished">已编辑</translation>
     </message>
+    <message>
+        <source>Read %1</source>
+        <comment>Message read date</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading</source>
+        <comment>Indicates that the message read date is being loaded</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edited %1</source>
+        <comment>Message edit date</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>

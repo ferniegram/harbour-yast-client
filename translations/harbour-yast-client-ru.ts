@@ -1331,7 +1331,7 @@
     <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
-        <translation>Редактировать</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Message deleted only for yourself</source>
@@ -1360,6 +1360,21 @@
     <message>
         <source>edited</source>
         <translation type="unfinished">изменено</translation>
+    </message>
+    <message>
+        <source>Read %1</source>
+        <comment>Message read date</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading</source>
+        <comment>Indicates that the message read date is being loaded</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edited %1</source>
+        <comment>Message edit date</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1638,7 +1653,7 @@
     </message>
     <message>
         <source>Edit Message</source>
-        <translation>Редактировать</translation>
+        <translation>Редактирование</translation>
     </message>
     <message>
         <source>Silent Broadcast</source>
