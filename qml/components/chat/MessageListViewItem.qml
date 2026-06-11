@@ -253,11 +253,13 @@ ListItem {
                     visible: messageReactions.top_reactions && messageReactions.top_reactions.length
 
                     Repeater {
-                        model: messageReactions.top_reactions.slice(0, reactionsRowSize - 1)
+                        model: messageReactions.top_reactions.slice(0, reactionsRowSize - moreReactionsMenuItem.visible)
                         delegate: reactionMenuItemComponent
                     }
 
                     IconRowMenuItem {
+                        id: moreReactionsMenuItem
+                        visible: reactionsRowSize < messageReactions.top_reactions.length
                         icon.source: "image://theme/icon-m-left"
                         icon.rotation: 270
                         onClicked:
