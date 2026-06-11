@@ -48,5 +48,26 @@ ContextMenu {
         }
     }
 
+    // TODO: animate _highlightBar.x/width
+    /*Behavior on _highlightBar.width {
+        enabled: _highlightBar.yBehavior.enabled
+        NumberAnimation { duration: 100; easing.type: Easing.InOutQuad }
+    }
+
+    Behavior on _highlightBar.x {
+        enabled: _highlightBar.yBehavior.enabled
+
+        SequentialAnimation {
+            SmoothedAnimation {
+                duration: 100
+                velocity: -1
+                reversingMode: SmoothedAnimation.Immediate
+            }
+            PauseAnimation {
+                duration: 20
+            }
+        }
+    }*/
+
     onPressed: listItem = null
 }
