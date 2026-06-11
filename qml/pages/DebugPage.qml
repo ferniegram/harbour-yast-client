@@ -150,12 +150,12 @@ Page {
                 inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                 EnterKey.enabled: text.length > 0
-                EnterKey.onClicked: executeCustom()
+                EnterKey.onClicked: column.executeCustom()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Execute"
-                onClicked: executeCustom()
+                onClicked: column.executeCustom()
             }
 
             Label {
@@ -195,12 +195,12 @@ Page {
                 inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                 EnterKey.enabled: text.length > 0
-                EnterKey.onClicked: executeCustomNoResponse()
+                EnterKey.onClicked: column.executeCustomNoResponse()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Execute"
-                onClicked: executeCustomNoResponse()
+                onClicked: column.executeCustomNoResponse()
             }
 
             SectionHeader { text: "Execute JS" }
