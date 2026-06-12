@@ -4,8 +4,8 @@ QtObject {
     id: root
 
     property var messageSender
-    property bool isChat: messageSender && messageSender['@type'] === 'messageSenderChat'
-    property bool isUser: messageSender && messageSender['@type'] === 'messageSenderUser'
+    property bool isChat: !!messageSender && messageSender['@type'] === 'messageSenderChat'
+    property bool isUser: !!messageSender && messageSender['@type'] === 'messageSenderUser'
     property var chatId: isChat ? messageSender.chat_id : undefined
     property var userId: isUser ? messageSender.user_id : undefined
 
