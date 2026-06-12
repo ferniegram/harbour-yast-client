@@ -10,6 +10,27 @@ Item {
     property bool loading: true
     property bool inCooldown
 
+    property int forumTopicIdToShow
+
+    function openAtTopicId(forumTopicId) {
+        forumTopicIdToShow = forumTopicId
+        tdLibWrapper.getForumTopic(chatId, forumTopicId)
+    }
+
+    Connections {
+        target: tdLibWrapper
+        onForumTopicReceived:
+            if (chatPage.chatId === chatId && forumTopicIdToShow == forumTopicId) {
+                pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: topic})
+                forumTopicIdToShow = 0
+            }
+        onForumTopicNotFound:
+            if (chatPage.chatId === chatId && forumTopicIdToShow == forumTopicId) {
+                appNotification.show(qsTr("Forum topic not found"))
+                forumTopicIdToShow = 0
+            }
+    }
+
     Timer {
         id: resetCooldownTimer
         interval: 2000
@@ -17,6 +38,10 @@ Item {
             Debug.log("[ChatPendingJoinRequestsPage] Cooldown completed")
             inCooldown = false
         }
+    }
+
+    Connections {
+        target: tdLibWrapper
     }
 
     Connections {
@@ -50,7 +75,7 @@ Item {
 
             muted: notification_settings.mute_for > 0 // TODO: use something like in ChatListViewItem
 
-            onClicked: pageStack.push(topicMessagesPage, {chatId: chatInformation.id, forumTopicData: display})
+            onClicked: pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: display})
         }
 
         onContentYChanged: {

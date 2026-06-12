@@ -35,6 +35,7 @@ Page {
     property bool isInitialized: false
     property alias chatManager: chatManagerLoader.chatManager
     property var chatInformation
+    readonly property var chatId: chatManager.chatId
     property var secretChatDetails
     property alias chatPicture: chatPictureThumbnail.photoData
     property bool isPrivateChat: chatManagerLoader.chatManager.chatType === TDLibAPI.ChatTypePrivate
@@ -50,6 +51,7 @@ Page {
     property var botInformation
     property var chatGroupInformation: chatManager.groupInfo
     property int chatOnlineMemberCount: 0
+    property var topicIdToShow
     property var messageIdToShow
     readonly property bool isSavedMessages: chatInformation.id === tdLibWrapper.myUserId
     readonly property bool userIsMember: ((isPrivateChat || isSecretChat) &&
@@ -219,7 +221,15 @@ Page {
             // The real issue might be that since it initializes early, UI also needs to be initialized earlier, so it could actually lag a bit
             // So, TODO: decide if it's best to move it up or keep it here
             // also to move this up we need to not depend on isInitialized, because otherwise the code here won't ever run at all
-            chatManager.initializeMainModels(chatInformation, messageIdToShow)
+            chatManager.initializeMainModels(messageIdToShow)
+
+            if (topicIdToShow)
+                switch (topicIdToShow['@type']) {
+                case 'messageTopicForum':
+                    if (topicsListView)
+                        topicsListView.openAtTopicId(topicIdToShow.forum_topic_id)
+                    break
+                }
 
             pageStack.pushAttached(Qt.resolvedUrl("ChatInformationPage.qml"), {
                                        chatManager: chatManager,

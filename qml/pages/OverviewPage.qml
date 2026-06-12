@@ -46,7 +46,7 @@ Page {
             Debug.log("[OverviewPage] Opening chat from external requested: ", chatId, messageId)
             // We open the chat only for now - as it's automatically positioned at the last read message
             // this also doesn't highlight the message which isn't really needed
-            openChat(chatId, {}, true)
+            openChat(chatId, {topicIdToShow: topicId}, true)
         }
     }
 
@@ -127,7 +127,7 @@ Page {
 
             options = options || {}
             options.chatInformation = tdLibWrapper.getChat(chatId)
-            pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatInformation: tdLibWrapper.getChat(chatId)}, doPop ? PageStackAction.Immediate : PageStackAction.Animated)
+            pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), options, doPop ? PageStackAction.Immediate : PageStackAction.Animated)
         }
     }
 
