@@ -373,6 +373,12 @@ ListItem {
             id: reactionsContextMenuComponent
 
             ContextMenu {
+                // HACK: disable animation when opening the menu
+                height: _contentHeight
+                on_DisplayHeightChanged:
+                    if (_contentHeight == _displayHeight)
+                        height = Qt.binding(function() { return _displayHeight })
+
                 Flickable {
                     id: reactionsFlickable
                     width: parent.width
