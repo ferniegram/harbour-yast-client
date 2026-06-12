@@ -97,6 +97,7 @@ Column {
             if(appSettings.focusTextAreaAfterSend)
                 lostFocusTimer.start()
         }
+        tdLibWrapper.setChatDraftMessage(chatInformation.id, 0, '', topicId)
         newMessageInReplyToRow.inReplyToMessage = null
         newMessageColumn.editMessageId = "0"
         newMessageColumn.editIsCaption = false
