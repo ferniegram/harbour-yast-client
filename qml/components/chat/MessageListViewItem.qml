@@ -379,7 +379,7 @@ ListItem {
                     if (_contentHeight == _displayHeight)
                         height = Qt.binding(function() { return _displayHeight })
 
-                Flickable {
+                SilicaFlickable {
                     id: reactionsFlickable
                     width: parent.width
                     height: Theme.itemSizeLarge*3
