@@ -856,10 +856,10 @@ ListItem {
                         if (myMessage.edit_date > 0)
                             messageStatusSuffix += ' - ' + qsTr("edited")
                         if (myMessage.author_signature && !messageListItem.precalculatedValues.showUserInfo)
-                            messageStatusSuffix += " - " + message.myMessage
+                            messageStatusSuffix += " - " + myMessage.author_signature
 
                         if (Debug.enabled)
-                            messageStatusSuffix += " (ID: " + message.id + ")"
+                            messageStatusSuffix += " (ID: " + messageId + ")"
 
                         return (messageViewCount ? (Emoji.emojify('👁️ ', Theme.fontSizeTiny) + Functions.getShortenedCount(messageViewCount) + ' ') : '')
                                 + (useElapsed ? Functions.getDateTimeElapsed : Functions.getDateTimeTranslated)(myMessage.date)
