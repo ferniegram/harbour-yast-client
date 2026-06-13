@@ -12,7 +12,7 @@ ChatInformationTabItemMediaList {
             tertiaryText: Functions.getDateTimeElapsed(rawMessage.date)
             openMouseArea.enabled: false
 
-            onClicked: messageDocument.download()
+            onClicked: download()
         }
     }
 }
