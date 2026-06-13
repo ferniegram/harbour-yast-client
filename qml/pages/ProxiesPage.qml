@@ -94,7 +94,7 @@ Page {
                         if (extra == "disableProxy") {
                             withoutProxySwitch.busy = false
                             withoutProxySwitch.checked = true
-                        } else if (extra.indexOf('enableProxy:') == 0)
+                        } else if (extra.indexOf('enableProxy:') === 0)
                             withoutProxySwitch.busy = withoutProxySwitch.checked = false
                     onPingErrorReceived:
                         withoutProxySwitch.ping = -2
