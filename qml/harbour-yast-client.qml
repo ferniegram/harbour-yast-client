@@ -106,7 +106,6 @@ ApplicationWindow {
             property bool videoStickers: true
             property bool downscaleAnimatedStickers
 
-            property bool goToQuotedMessage
             property bool delayMessageRead: true
             property bool highlightUnreadConversations
 

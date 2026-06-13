@@ -633,18 +633,11 @@ ListItem {
                             MouseArea {
                                 id: messageInReplyToMouseArea
                                 anchors.fill: parent
-                                onClicked: {
-                                    if (precalculatedValues.pageIsSelecting) {
+                                onClicked:
+                                    if (precalculatedValues.pageIsSelecting)
                                         view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
-                                    } else {
-                                        if (appSettings.goToQuotedMessage) {
-                                            messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
-                                        } else {
-                                            messageOverlayLoader.active = true
-                                            messageOverlayLoader.overlayMessage = messageInReplyToRow.inReplyToMessage
-                                        }
-                                    }
-                                }
+                                    else
+                                        messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
                                 onPressAndHold:
                                     if (openMenuOnPressAndHold) openContextMenu()
                             }
