@@ -55,7 +55,7 @@ ListItem {
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
     readonly property bool isOutgoing: myMessage.is_outgoing && !myMessage.is_channel_post
-    readonly property bool isOutgoingRead: isOutgoing && messageId > messagesModel.lastReadOutboxMessageId
+    readonly property bool isOutgoingRead: isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
