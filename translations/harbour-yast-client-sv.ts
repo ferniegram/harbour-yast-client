@@ -2522,14 +2522,6 @@
         <translation>Dölj innehåll i aviseringar</translation>
     </message>
     <message>
-        <source>Go to quoted message</source>
-        <translation>Gå till citerat meddelande</translation>
-    </message>
-    <message>
-        <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation>Vid tryck på ett citerat meddelande öppnas det i chatten istället för att visas i ett överlägg.</translation>
-    </message>
-    <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
     </message>

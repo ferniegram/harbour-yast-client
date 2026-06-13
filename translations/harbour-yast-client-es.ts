@@ -2522,14 +2522,6 @@
         <translation>Ocultar contenido de notificaciones</translation>
     </message>
     <message>
-        <source>Go to quoted message</source>
-        <translation>Ir a mensaje citado</translation>
-    </message>
-    <message>
-        <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation>Al Pulsar mensaje citado, abrirá en Charla en lugar de mostrarlo en una superposición.</translation>
-    </message>
-    <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
     </message>

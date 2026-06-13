@@ -2522,14 +2522,6 @@
         <translation>Nascondi contenuto delle notifiche</translation>
     </message>
     <message>
-        <source>Go to quoted message</source>
-        <translation>Vai al messaggio citato</translation>
-    </message>
-    <message>
-        <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation>Quando premi su un messaggio citato, aprilo nella chat invece di mostrarlo in sovraimpressione.</translation>
-    </message>
-    <message>
         <source>Send attachments by enter</source>
         <translation>Invia allegati con il tasto invio</translation>
     </message>

@@ -36,6 +36,7 @@ TabItem {
     property Item scrollableView
 
     // FIXME: ideally we should rely on something more stable than timers with guessed intervals
+    // also, this doesn't seem to really work generally
     Timer {
         id: loadingTimer
         interval: 150
@@ -55,8 +56,7 @@ TabItem {
         if (!_loading && !scrollableView.dragging && !scrollableView.quickScrollAnimating) {
             if (!scrollableView.atYBeginning)
                 pageContent.scrollDown()
-            else
-                pageContent.scrollUp(force)
+            //else pageContent.scrollUp(force)
         }
     }
 

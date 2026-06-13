@@ -2524,14 +2524,6 @@ messages</numerusform>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Go to quoted message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
     </message>

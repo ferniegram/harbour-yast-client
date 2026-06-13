@@ -2522,14 +2522,6 @@
         <translation>Inhalte in Hinweisen verbergen</translation>
     </message>
     <message>
-        <source>Go to quoted message</source>
-        <translation>Zu zitierter Nachricht springen</translation>
-    </message>
-    <message>
-        <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation>Beim Tippen auf eine zitierte Nachricht zu dieser springen anstatt es in einem Overlay anzuzeigen.</translation>
-    </message>
-    <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
     </message>
