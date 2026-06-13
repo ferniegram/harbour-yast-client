@@ -71,22 +71,36 @@ Column {
                     (chatInformation.id, newMessageColumn.editMessageId, newMessageTextField.text)
         else {
             if (attachmentPreviewRow.visible) {
-                function sendFile(messageType, fileType, filePath, additionalOptions) {
-                    filePath = typeof filePath === 'undefined' ? attachmentPreviewRow.fileProperties.filePath : filePath
+                function sendFile(contentType, content) {
+                    content['@type'] = contentType
+                    content.caption = utilities.newFormattedText(newMessageTextField.text)
 
-                    tdLibWrapper.sendFileMessage(chatInformation.id, messageType, fileType, filePath, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, additionalOptions)
+                    tdLibWrapper.sendMessage(chatInformation.id, newMessageColumn.replyToMessageId, topicId, content)
                 }
 
-                if (attachmentPreviewRow.isPicture)
-                    sendFile('inputMessagePhoto', 'photo')
-                else if (attachmentPreviewRow.isVideo)
-                    sendFile('inputMessageVideo', 'video')
-                else if (attachmentPreviewRow.isDocument)
-                    sendFile('inputMessageDocument', 'document')
-                else if (attachmentPreviewRow.isVoiceNote)
-                    sendFile('inputMessageVoiceNote', 'voice_note', voiceNoteRecorder.voiceNotePath)
-                else if (attachmentPreviewRow.isLocation)
+                if (attachmentPreviewRow.isLocation)
                     tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId, topicId)
+                else if (attachmentPreviewRow.isVoiceNote)
+                    sendFile('inputMessageVoiceNote', {
+                        voice_note: tdLibWrapper.getInputFileLocal(voiceNoteRecorder.voiceNotePath),
+                        duration: voiceNoteRecorder.voiceNoteDuration
+                    })
+                else {
+                    var inputFile = tdLibWrapper.getInputFileLocal(attachmentPreviewRow.fileProperties.filePath)
+
+                    if (attachmentPreviewRow.isPicture)
+                        sendFile('inputMessagePhoto', {
+                            photo: {'@type': 'inputPhoto', photo: inputFile}
+                        })
+                    else if (attachmentPreviewRow.isVideo)
+                        sendFile('inputMessageVideo', {
+                            video: {'@type': 'inputVideo', video: inputFile}
+                        })
+                    else if (attachmentPreviewRow.isDocument)
+                        sendFile('inputMessageDocument', {
+                            document: {'@type': 'inputDocument', document: inputFile}
+                        })
+                }
 
                 messagesView.clearAttachmentPreviewRow()
             } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdLibWrapper.isDiceEmoji(newMessageTextField.text))
