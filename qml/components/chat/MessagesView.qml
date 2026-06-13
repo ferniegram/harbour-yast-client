@@ -148,8 +148,9 @@ Column {
         if (isPrepared) return
         isPrepared = true
 
-        if (draftMessage && draftMessage.input_message_text) {
-            newMessageTextField.text = draftMessage.input_message_text.text.text
+        if (draftMessage) {
+            if (draftMessage.content && draftMessage.content['@type'] == 'draftMessageContentText')
+                newMessageTextField.text = draftMessage.content.text.text
             if(draftMessage.reply_to_message_id)
                 tdLibWrapper.getMessage(chatInformation.id, draftMessage.reply_to_message_id)
         }
