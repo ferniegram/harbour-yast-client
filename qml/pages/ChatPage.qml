@@ -183,7 +183,7 @@ Page {
         repeat: false
         onTriggered: {
             Debug.log("Searching for '" + searchInChatField.text + "'")
-            chatManager.model.setSearchQuery(searchInChatField.text)
+            chatManager.model.searchQuery = searchInChatField.text
         }
     }
 
