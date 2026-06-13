@@ -768,10 +768,6 @@
         </translation>
     </message>
     <message>
-        <source>You joined the chat %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation type="unfinished"></translation>
@@ -2078,6 +2074,40 @@
     <message>
         <source>Unable to open link</source>
         <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You joined this channel</source>
+        <comment>channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You joined this group</source>
+        <comment>group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request to join sent</source>
+        <comment>channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request to join sent</source>
+        <comment>group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your request to join the channel was declined</source>
+        <comment>channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your request to join the group was declined</source>
+        <comment>group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An approval from a guard bot is required to join the chat, but guard bots are not yet supported</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3795,16 +3825,6 @@
     </message>
     <message>
         <source>You are already a member of this chat.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request to join sent</source>
-        <comment>channel</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request to join sent</source>
-        <comment>group</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
