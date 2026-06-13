@@ -3415,7 +3415,7 @@
     </message>
     <message>
         <source>Poll: %1</source>
-        <translation>Опрос:%1</translation>
+        <translation>Опрос: %1</translation>
     </message>
     <message>
         <source>Game: %1</source>
