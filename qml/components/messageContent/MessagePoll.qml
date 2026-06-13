@@ -104,11 +104,13 @@ MessageContentBase {
                 bottomPadding: pollMessageComponent.canAnswer ? Theme.paddingSmall : 0
 
                 Label {
+                    id: questionLabel
                     width: parent.width
                     text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), Theme.fontSizeSmall)
                     visible: !!text
                     wrapMode: Text.Wrap
                     font.pixelSize: Theme.fontSizeSmall
+                    font.bold: true
                     color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
                     textFormat: Text.StyledText
                 }
@@ -120,6 +122,7 @@ MessageContentBase {
                         width: recentVotersList.visible
                                ? Math.min(implicitWidth, parent.width - (recentVotersList.visible ? recentVotersList.width + parent.spacing : 0))
                                : implicitWidth
+                        anchors.verticalCenter: parent.verticalCenter
                         visible: !!text
                         text: pollData.is_closed ? qsTr("Final results") : (isQuiz
                                                                             ? (pollData.is_anonymous ? qsTr("Anonymous Quiz") : qsTr("Quiz"))
@@ -132,6 +135,7 @@ MessageContentBase {
                     RecentActorsList {
                         id: recentVotersList
                         width: implicitWidth + (recentVotersButton.visible ? recentVotersButton.width : 0)
+                        anchors.verticalCenter: parent.verticalCenter
                         model: pollData.recent_voter_ids.reverse()
                         inverted: true
                         visible: count > 0 || recentVotersButton.visible
@@ -167,14 +171,6 @@ MessageContentBase {
                         }
                     }
                 }
-
-                Label {
-                    width: parent.width
-                    text: Emoji.emojify(Functions.enhanceMessageText(rawMessage.description), Theme.fontSizeSmall)
-                    visible: !!text
-                    font.pixelSize: Theme.fontSizeSmall
-                    wrapMode: Text.Wrap
-                }
             }
 
             Row {
@@ -207,6 +203,15 @@ MessageContentBase {
                     color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                 }
             }
+        }
+
+        Label {
+            width: parent.width
+            text: Emoji.emojify(Functions.enhanceMessageText(rawMessage.content.description), Theme.fontSizeSmall)
+            visible: !!text
+            font.pixelSize: Theme.fontSizeSmall
+            color: questionLabel.color
+            wrapMode: Text.Wrap
         }
 
         Component {
@@ -265,7 +270,7 @@ MessageContentBase {
                 }
 
                 Column {
-                    width: list.width - x
+                    width: list.width - x - Theme.paddingMedium
                     anchors.bottom: parent.bottom
 
                     Item {
